@@ -1,0 +1,14 @@
+import { NextResponse } from "next/server";
+import { getProduct } from "@/lib/data";
+import { priceWithCoupon } from "@/lib/pricing";
+import { isSupabaseConfigured } from "@/lib/env";
+
+export async function POST(req: Request) {
+  if (!isSupabaseConfigured) return NextResponse.json({ error: "Not configured" }, { status: 503 });
+  const { slug, coupon } = await req.json().catch(() => ({}));
+  const product = await getProduct(String(slug || ""));
+  if (!product) return NextResponse.json({ error: "Product nahi mila" }, { status: 404 });
+  const r = await priceWithCoupon(product, coupon);
+  if (!r.ok) return NextResponse.json({ error: r.error }, { status: 400 });
+  return NextResponse.json(r);
+}
