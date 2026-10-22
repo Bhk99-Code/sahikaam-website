@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabaseBrowser } from "@/lib/supabase-browser";
 
 export function LoginForm({ next }: { next: string }) {
   const router = useRouter();
@@ -15,22 +14,21 @@ export function LoginForm({ next }: { next: string }) {
     e.preventDefault();
     setBusy(true);
     setError("");
-    const { error } = await supabaseBrowser().auth.signInWithOtp({
-      email: email.trim(),
-      options: { shouldCreateUser: true, emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },
-    });
+    const res = await fetch("/api/auth/send-code", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email.trim() }) });
+    const data = await res.json().catch(() => ({}));
     setBusy(false);
-    if (error) setError(error.message);
-    else setStep("code");
+    if (!res.ok) return setError(data.error || "Code nahi bhej paye. Dobara try karein.");
+    if (data.devCode) setCode(data.devCode); // local preview only (no email set up)
+    setStep("code");
   }
 
   async function verify(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     setError("");
-    const { error } = await supabaseBrowser().auth.verifyOtp({ email: email.trim(), token: code.trim(), type: "email" });
+    const res = await fetch("/api/auth/verify-code", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email.trim(), code: code.trim() }) });
     setBusy(false);
-    if (error) return setError("Code galat hai ya expire ho gaya. Dobara try karein.");
+    if (!res.ok) return setError("Code galat hai ya expire ho gaya. Dobara try karein.");
     router.replace(next);
     router.refresh();
   }
@@ -49,7 +47,7 @@ export function LoginForm({ next }: { next: string }) {
     <form onSubmit={verify} className="mt-6">
       <p className="rounded-2xl bg-mist p-3 text-[14px] text-ink-3">Code bheja gaya: <b>{email}</b> (spam folder bhi dekhein)</p>
       <label htmlFor="code" className="mt-4 block text-[14px] font-semibold">6-digit code</label>
-      <input id="code" inputMode="numeric" autoComplete="one-time-code" required maxLength={8} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+      <input id="code" inputMode="numeric" autoComplete="one-time-code" required maxLength={6} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
         className={`${input} tracking-[0.5em]`} />
       {error && <p role="alert" className="mt-3 text-[14px] text-red-700">{error}</p>}
       <button disabled={busy} className={btn}>{busy ? "Check ho raha hai…" : "Login Karein"}</button>

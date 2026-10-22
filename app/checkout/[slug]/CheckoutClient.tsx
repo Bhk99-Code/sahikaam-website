@@ -78,7 +78,7 @@ export function CheckoutClient({ slug, title, price, email, ready, keyId }: Prop
           <div className="mt-2 flex gap-2">
             <input id="coupon" value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="LAUNCH20"
               className="h-12 min-w-0 flex-1 rounded-[12px] border border-line px-4 uppercase outline-none focus:border-brand-500" />
-            <button type="button" onClick={applyCoupon} disabled={!ready} className="h-12 rounded-[12px] border border-ink px-5 font-bold disabled:opacity-50">Apply</button>
+            <button type="button" onClick={applyCoupon} className="h-12 rounded-[12px] border border-ink px-5 font-bold disabled:opacity-50">Apply</button>
           </div>
           {couponMsg && <p className={`mt-2 text-[14px] ${applied ? "text-green-700" : "text-red-700"}`}>{couponMsg}</p>}
         </div>
@@ -91,9 +91,9 @@ export function CheckoutClient({ slug, title, price, email, ready, keyId }: Prop
       </div>
 
       {error && <p role="alert" className="mt-4 rounded-2xl bg-red-50 p-4 text-[14px] text-red-800">{error}</p>}
-      {!ready && <p className="mt-4 rounded-2xl bg-brand-50 p-4 text-[14px] text-brand-700">Preview mode: payment tab chalega jab Supabase + Razorpay keys set ho jayengi.</p>}
+      {!ready && <p className="mt-4 rounded-2xl bg-brand-50 p-4 text-[14px] text-brand-700">Online payment jald shuru ho raha hai. Abhi kharidne ke liye WhatsApp ya email par sampark karein.</p>}
 
-      <button onClick={pay} disabled={busy || !ready}
+      <button onClick={pay} disabled={busy || (!ready && amount > 0)}
         className="mt-5 flex h-[56px] w-full items-center justify-center gap-2 rounded-full bg-brand-600 text-[17px] font-bold text-white hover:bg-brand-700 disabled:opacity-60">
         <Icon name="lock" size={20} strokeWidth={2} />
         {busy ? "Processing…" : amount === 0 ? "Free mein Paayein" : `Pay ${rupees(amount)}`}

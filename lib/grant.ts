@@ -1,45 +1,37 @@
 import "server-only";
-import { supabaseAdmin } from "./supabase-server";
+import { one, run } from "./db";
+import { findProduct } from "./data";
 
 /**
  * Marks an order paid and gives the buyer access to the product
  * (plus every product listed in its bundle_items). Safe to call twice:
  * the verify route and the webhook may both run for one payment.
+ * `paidAmountPaise`, when given, must match the order amount.
  */
-export async function markPaidAndGrant(razorpayOrderId: string, razorpayPaymentId: string | null) {
-  const admin = supabaseAdmin();
-  const { data: order } = await admin
-    .from("orders")
-    .select("id, user_id, product_id, status, coupon_code")
-    .eq("razorpay_order_id", razorpayOrderId)
-    .maybeSingle();
+export async function markPaidAndGrant(razorpayOrderId: string, razorpayPaymentId: string | null, paidAmountPaise?: number) {
+  const order = await one<{ id: string; user_id: string; product_slug: string; amount: number; status: string }>(
+    "SELECT id, user_id, product_slug, amount, status FROM orders WHERE razorpay_order_id = ?", [razorpayOrderId]);
   if (!order) return { ok: false as const, reason: "order not found" };
-
-  if (order.status !== "paid") {
-    const { data: updated } = await admin
-      .from("orders")
-      .update({ status: "paid", razorpay_payment_id: razorpayPaymentId, paid_at: new Date().toISOString() })
-      .eq("id", order.id)
-      .neq("status", "paid")
-      .select("id");
-    // only the call that actually flipped the status counts the coupon use
-    if (updated && updated.length && order.coupon_code) {
-      await admin.rpc("increment_coupon", { p_code: order.coupon_code });
-    }
+  if (paidAmountPaise != null && paidAmountPaise !== Number(order.amount) * 100) {
+    console.error("amount mismatch", razorpayOrderId, paidAmountPaise, order.amount);
+    return { ok: false as const, reason: "amount mismatch" };
   }
 
-  await grantProduct(order.user_id, order.product_id, order.id);
+  if (order.status !== "paid") {
+    await run("UPDATE orders SET status = 'paid', razorpay_payment_id = ?, paid_at = ? WHERE id = ? AND status <> 'paid'",
+      [razorpayPaymentId, Date.now(), order.id]);
+  }
+  await grantProduct(order.user_id, order.product_slug, order.id);
   return { ok: true as const, orderId: order.id };
 }
 
-export async function grantProduct(userId: string, productId: string, orderId: string | null) {
-  const admin = supabaseAdmin();
-  const { data: product } = await admin.from("products").select("id, bundle_items").eq("id", productId).single();
-  const ids = [productId];
-  if (product?.bundle_items?.length) {
-    const { data: extras } = await admin.from("products").select("id").in("slug", product.bundle_items);
-    extras?.forEach((e) => ids.push(e.id));
+export async function grantProduct(userId: string, slug: string, orderId: string | null) {
+  const slugs = [slug, ...(findProduct(slug)?.bundle_items ?? [])];
+  for (const s of slugs) {
+    const exists = await one("SELECT 1 AS ok FROM purchases WHERE user_id = ? AND product_slug = ?", [userId, s]);
+    if (!exists) {
+      await run("INSERT INTO purchases (user_id, product_slug, order_id, progress, created_at) VALUES (?, ?, ?, 0, ?)",
+        [userId, s, orderId, Date.now()]).catch(() => { /* a parallel call inserted it first */ });
+    }
   }
-  const rows = ids.map((pid) => ({ user_id: userId, product_id: pid, order_id: orderId }));
-  await admin.from("purchases").upsert(rows, { onConflict: "user_id,product_id", ignoreDuplicates: true });
 }

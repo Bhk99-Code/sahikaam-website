@@ -4,16 +4,15 @@ import { getLibrary, getUser, getProducts } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
 import { TYPE_LABEL } from "@/lib/format";
-import { isSupabaseConfigured } from "@/lib/env";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "My Library", robots: { index: false } };
 
 export default async function Library({ searchParams }: { searchParams: { tab?: string; new?: string } }) {
   const user = await getUser();
-  const items = await getLibrary();
+  const items = user ? await getLibrary(user.id) : [];
   const tab = searchParams.tab === "courses" ? "courses" : "ebooks";
-  const shown = items.filter((i) => (tab === "courses" ? i.product.type === "course" : i.product.type !== "course"));
+  const shown = items.filter((i) => i.product.type !== "bundle" && (tab === "courses" ? i.product.type === "course" : i.product.type !== "course"));
   const fresh = searchParams.new ? items.find((i) => i.product.slug === searchParams.new) : null;
   const suggestions = items.length ? [] : (await getProducts()).slice(0, 2);
 
@@ -46,8 +45,7 @@ export default async function Library({ searchParams }: { searchParams: { tab?: 
       </div>
 
       <div className="mt-5 flex flex-col gap-3">
-        {!isSupabaseConfigured && <p className="rounded-card border border-line bg-white p-6 text-ink-4">Preview mode — login set hone ke baad yahan khareedi hui books dikhengi.</p>}
-        {isSupabaseConfigured && shown.length === 0 && (
+        {shown.length === 0 && (
           <div className="rounded-card border border-line bg-white p-8 text-center">
             <p className="text-[16px] font-bold">Abhi yahan kuch nahi hai</p>
             <p className="mt-1 text-[14px] text-ink-5">Koi book kharidein — wo turant yahan aa jayegi.</p>
@@ -73,7 +71,7 @@ export default async function Library({ searchParams }: { searchParams: { tab?: 
             </div>
           );
         })}
-        {suggestions.length > 0 && isSupabaseConfigured && (
+        {suggestions.length > 0 && (
           <p className="text-center text-[14px] text-ink-5">Suggested: {suggestions.map((s, i) => (
             <span key={s.id}>{i > 0 && " · "}<Link className="font-semibold text-brand-600" href={`/book/${s.slug}`}>{s.title}</Link></span>
           ))}</p>

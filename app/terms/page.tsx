@@ -27,7 +27,7 @@ export default function Terms() {
       <h2>6. Refunds</h2>
       <p>Refunds hamari <a className="text-brand-600" href="/refund-policy">Refund &amp; Cancellation Policy</a> ke anusaar hote hain.</p>
       <h2>7. Governing law</h2>
-      <p>Ye terms Bharat ke kanoon ke adheen hain. Koi bhi vivaad [CITY], Madhya Pradesh ki adalaton ke adhikaar kshetra mein hoga.</p>
+      <p>Ye terms Bharat ke kanoon ke adheen hain. Koi bhi vivaad Chhindwara, Madhya Pradesh ki adalaton ke adhikaar kshetra mein hoga.</p>
       <h2>8. Contact</h2>
       <p>{SUPPORT_EMAIL} · {BUSINESS.address}</p>
     </Policy>

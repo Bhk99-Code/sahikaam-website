@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Icon } from "@/components/Icon";
 
-type Props = { slug: string; title: string; startPage: number; watermark: string };
+type Props = { slug: string; title: string; parts: string[]; part: number; startPage: number; watermark: string };
 
-export function Reader({ slug, title, startPage, watermark }: Props) {
+export function Reader({ slug, title, parts, part, startPage, watermark }: Props) {
+  const router = useRouter();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const docRef = useRef<any>(null);
@@ -21,12 +23,12 @@ export function Reader({ slug, title, startPage, watermark }: Props) {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(`/api/read/${slug}`, { cache: "no-store" });
+        const res = await fetch(`/api/read/${slug}?part=${part}`, { cache: "no-store" });
         if (!res.ok) throw new Error("no access");
-        const { url } = await res.json();
+        const data = new Uint8Array(await res.arrayBuffer());
         const pdfjs = await import("pdfjs-dist");
         pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
-        const doc = await pdfjs.getDocument({ url, disableAutoFetch: true }).promise;
+        const doc = await pdfjs.getDocument({ data }).promise;
         if (cancelled) return;
         docRef.current = doc;
         setPages(doc.numPages);
@@ -37,7 +39,7 @@ export function Reader({ slug, title, startPage, watermark }: Props) {
       }
     })();
     return () => { cancelled = true; };
-  }, [slug]);
+  }, [slug, part]);
 
   const render = useCallback(async () => {
     const doc = docRef.current;
@@ -67,12 +69,12 @@ export function Reader({ slug, title, startPage, watermark }: Props) {
 
   // save progress (debounced)
   useEffect(() => {
-    if (status !== "ready") return;
+    if (status !== "ready" || parts.length) return;
     const t = setTimeout(() => {
       fetch("/api/progress", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ slug, progress: page }) });
     }, 1200);
     return () => clearTimeout(t);
-  }, [page, slug, status]);
+  }, [page, slug, status, parts.length]);
 
   // arrow keys
   useEffect(() => {
@@ -93,6 +95,12 @@ export function Reader({ slug, title, startPage, watermark }: Props) {
       <header className="flex items-center gap-2 px-3 py-3">
         <Link href="/library" aria-label="Back to library" className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-white/10"><Icon name="back" /></Link>
         <span className="flex-1 truncate text-[15px] font-semibold">{title}</span>
+        {parts.length > 0 && (
+          <select aria-label="Chapter" value={part} onChange={(e) => router.push(`/read/${slug}?part=${e.target.value}`)}
+            className="max-w-[45vw] rounded-lg bg-white/10 px-2 py-2 text-[14px] text-white outline-none">
+            {parts.map((t, i) => <option key={i} value={i} className="text-black">{t}</option>)}
+          </select>
+        )}
         <button aria-label="Zoom out" onClick={() => setZoom((z) => Math.max(0.6, +(z - 0.2).toFixed(1)))} className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-white/10"><Icon name="zoomout" /></button>
         <button aria-label="Zoom in" onClick={() => setZoom((z) => Math.min(2.4, +(z + 0.2).toFixed(1)))} className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-white/10"><Icon name="zoomin" /></button>
       </header>

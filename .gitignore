@@ -33,3 +33,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# SahiKaam: paid PDFs and local preview database never go to git
+/private/books/*
+!/private/books/.keep
+/local-data/
+/.claude/

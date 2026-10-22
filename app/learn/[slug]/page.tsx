@@ -21,7 +21,7 @@ export default async function LearnPage({ params, searchParams }: { params: { sl
   if (!product || product.type !== "course") notFound();
   const user = await getUser();
   if (!user) redirect(`/login?next=/learn/${product.slug}`);
-  if (!(await ownsProduct(user.id, product.id))) redirect(`/book/${product.slug}`);
+  if (!(await ownsProduct(user.id, product.slug))) redirect(`/book/${product.slug}`);
 
   const lessons = product.lessons;
   const i = Math.min(Math.max(0, Number(searchParams.l ?? 0) || 0), Math.max(0, lessons.length - 1));

@@ -23,7 +23,7 @@ export default function Privacy() {
         <li>Content ki chori rokne ke liye (watermark mein masked email).</li>
       </ul>
       <h2>Kiske saath share hoti hai</h2>
-      <p>Sirf service providers ke saath jo website chalane mein madad karte hain: Razorpay (payments), Supabase (database aur login), Vercel (hosting). Hum aapka data bechte nahi hain.</p>
+      <p>Sirf service providers ke saath jo website chalane mein madad karte hain: Razorpay (payments) aur Hostinger (website hosting, database aur email). Hum aapka data bechte nahi hain.</p>
       <h2>Aapke adhikaar</h2>
       <p>Apna data dekhne, sudharne ya account delete karwane ke liye {SUPPORT_EMAIL} par likhein.</p>
       <h2>Cookies</h2>

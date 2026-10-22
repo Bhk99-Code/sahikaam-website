@@ -9,8 +9,6 @@ export function Header({ signedIn }: { signedIn: boolean }) {
         <Logo />
         <nav aria-label="Main" className="ml-6 hidden items-center gap-1 md:flex">
           <NavLink href="/books">Ebooks</NavLink>
-          <NavLink href="/books?type=course">Courses</NavLink>
-          <NavLink href="/books?type=bundle">Bundles</NavLink>
           <NavLink href="/help">Help</NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">

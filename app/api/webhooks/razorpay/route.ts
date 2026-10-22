@@ -4,7 +4,7 @@ import { markPaidAndGrant } from "@/lib/grant";
 
 /**
  * Razorpay Dashboard > Webhooks > Add:
- *   URL:    https://YOUR-DOMAIN/api/webhooks/razorpay
+ *   URL:    https://sahikaam.com/api/webhooks/razorpay
  *   Secret: same as RAZORPAY_WEBHOOK_SECRET
  *   Events: payment.captured, order.paid
  * Backup path — gives access even if the buyer closed the tab before the
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   if (event.event === "payment.captured" || event.event === "order.paid") {
     const payment = event.payload?.payment?.entity;
     const orderId = payment?.order_id || event.payload?.order?.entity?.id;
-    if (orderId) await markPaidAndGrant(orderId, payment?.id ?? null);
+    if (orderId && payment?.currency === "INR") await markPaidAndGrant(orderId, payment.id ?? null, Number(payment.amount));
   }
   return NextResponse.json({ ok: true });
 }

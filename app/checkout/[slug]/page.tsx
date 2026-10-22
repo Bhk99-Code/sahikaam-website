@@ -4,7 +4,7 @@ import { getProduct, getUser, ownsProduct } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
 import { CheckoutClient } from "./CheckoutClient";
 import { rupees, TYPE_LABEL } from "@/lib/format";
-import { isRazorpayConfigured, isSupabaseConfigured } from "@/lib/env";
+import { isRazorpayConfigured } from "@/lib/env";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Checkout", robots: { index: false } };
@@ -13,8 +13,8 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
   const product = await getProduct(params.slug);
   if (!product) notFound();
   const user = await getUser();
-  if (isSupabaseConfigured && !user) redirect(`/login?next=/checkout/${product.slug}`);
-  if (user && (await ownsProduct(user.id, product.id))) redirect("/library");
+  if (!user) redirect(`/login?next=/checkout/${product.slug}`);
+  if (user && (await ownsProduct(user.id, product.slug))) redirect("/library");
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 md:py-12">
@@ -32,7 +32,7 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
         title={product.title}
         price={product.price}
         email={user?.email ?? ""}
-        ready={isSupabaseConfigured && isRazorpayConfigured}
+        ready={isRazorpayConfigured}
         keyId={process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? ""}
       />
     </div>

@@ -1,23 +1,26 @@
 import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
-import { getProduct, getUser, ownsProduct } from "@/lib/data";
-import { supabaseServer } from "@/lib/supabase-server";
+import { findProduct, getUser, ownsProduct, getProgress } from "@/lib/data";
 import { Reader } from "./Reader";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Reader", robots: { index: false } };
 
-export default async function ReadPage({ params }: { params: { slug: string } }) {
-  const product = await getProduct(params.slug);
+export default async function ReadPage({ params, searchParams }: { params: { slug: string }; searchParams: { part?: string } }) {
+  const product = findProduct(params.slug);
   if (!product) notFound();
   const user = await getUser();
   if (!user) redirect(`/login?next=/read/${product.slug}`);
-  if (!(await ownsProduct(user.id, product.id))) redirect(`/book/${product.slug}`);
+  if (!(await ownsProduct(user.id, product.slug))) redirect(`/book/${product.slug}`);
 
-  const { data } = await supabaseServer().from("purchases").select("progress").eq("user_id", user.id).eq("product_id", product.id).maybeSingle();
+  const progress = await getProgress(user.id, product.slug);
   const email = user.email ?? "";
   const masked = email.replace(/^(.{2}).*(@.*)$/, "$1•••$2");
   const watermark = `Licensed to ${masked} · ${user.id.slice(0, 8)}`;
 
-  return <Reader slug={product.slug} title={product.title} startPage={Math.max(1, data?.progress || 1)} watermark={watermark} />;
+  const parts = product.parts.map((p) => p.title);
+  const part = Math.min(Math.max(0, Number(searchParams.part ?? 0) || 0), Math.max(0, parts.length - 1));
+  // progress is saved per book; for chapter books we start each chapter at page 1
+  return <Reader key={part} slug={product.slug} title={product.title} parts={parts} part={part}
+    startPage={parts.length ? 1 : Math.max(1, progress || 1)} watermark={watermark} />;
 }

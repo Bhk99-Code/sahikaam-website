@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: { serverComponentsExternalPackages: ["mysql2", "nodemailer"] },
   webpack: (config) => {
     // pdf.js optionally requires 'canvas' in Node; not needed in the browser
     config.resolve.alias.canvas = false;

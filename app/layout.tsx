@@ -3,7 +3,6 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
-import { DemoBanner } from "@/components/DemoBanner";
 import { getUser } from "@/lib/data";
 import { SITE_URL } from "@/lib/env";
 
@@ -25,7 +24,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
       </head>
       <body className="font-sans antialiased">
-        <DemoBanner />
         <Header signedIn={Boolean(user)} />
         <main className="min-h-[60vh]">{children}</main>
         <Footer />

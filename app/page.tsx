@@ -16,9 +16,22 @@ const CHIPS = [
   { label: "Free", href: "/books?type=free", icon: "gift" },
 ];
 
+const TILES = [
+  { href: "/books?type=ebook", bg: "#C2410C", icon: "book", label: "Ebooks" },
+  { href: "/books?type=course", bg: "#1E3A5F", icon: "video", label: "Video Courses" },
+  { href: "/books?type=bundle", bg: "#5B2245", icon: "bundle", label: "Bundles" },
+];
+
+/** Hide a category chip when no product falls into it. */
+function hasType(products: { type: string; price: number }[], href: string) {
+  const t = new URL(href, "http://x").searchParams.get("type");
+  if (!t) return true;
+  return t === "free" ? products.some((p) => p.price === 0) : products.some((p) => p.type === t);
+}
+
 export default async function Home() {
   const [products, user] = await Promise.all([getProducts(), getUser()]);
-  const library = user ? await getLibrary() : [];
+  const library = user ? await getLibrary(user.id) : [];
   const hero = products[0];
   const reading = library.find((l) => l.product.type === "ebook");
 
@@ -27,7 +40,7 @@ export default async function Home() {
       {/* Category chips — Airtel style */}
       <div className="border-b border-line bg-white">
         <nav aria-label="Categories" className="no-scrollbar mx-auto flex max-w-6xl gap-3 overflow-x-auto px-4 pb-3 pt-4 sm:px-6">
-          {CHIPS.map((c, i) => (
+          {CHIPS.filter((c) => hasType(products, c.href)).map((c, i) => (
             <Link key={c.label} href={c.href} className="flex min-w-[72px] flex-col items-center gap-2">
               <span className={`flex h-[62px] w-[62px] items-center justify-center rounded-[18px] ${i === 0 ? "bg-brand-500 text-white" : "bg-[#F1F2F5] text-ink-2"}`}>
                 <Icon name={c.icon} size={26} />
@@ -44,7 +57,7 @@ export default async function Home() {
         {hero && (
           <section className="grid items-center gap-6 rounded-[24px] border border-line bg-white p-6 shadow-card md:grid-cols-[1fr_auto] md:p-10">
             <div className="flex flex-col gap-4">
-              {hero.badge && <span className="self-start rounded-lg bg-brand-600 px-2.5 py-1 text-[12px] font-bold text-white">{hero.badge} · Premium {hero.type === "ebook" ? "Ebook" : ""}</span>}
+              {hero.badge && <span className="self-start rounded-lg bg-brand-600 px-2.5 py-1 text-[12px] font-bold text-white">{hero.badge}</span>}
               <h1 className="text-[28px] font-extrabold leading-tight tracking-tight md:text-[42px]">{hero.title}</h1>
               {hero.subtitle && <p className="max-w-xl text-[16px] leading-relaxed text-ink-4 md:text-[18px]">{hero.subtitle}</p>}
               <div className="flex items-baseline gap-3">
@@ -84,10 +97,8 @@ export default async function Home() {
         {/* Explore tiles */}
         <section>
           <SectionTitle>Explore SahiKaam</SectionTitle>
-          <div className="grid grid-cols-3 gap-3 md:gap-5">
-            <Tile href="/books?type=ebook" bg="#C2410C" icon="book" label="Ebooks" />
-            <Tile href="/books?type=course" bg="#1E3A5F" icon="video" label="Video Courses" />
-            <Tile href="/books?type=bundle" bg="#5B2245" icon="bundle" label="Bundles" />
+          <div className="grid grid-cols-2 gap-3 md:gap-5">
+            {TILES.filter((t) => hasType(products, t.href)).map((t) => <Tile key={t.href} {...t} />)}
           </div>
         </section>
 

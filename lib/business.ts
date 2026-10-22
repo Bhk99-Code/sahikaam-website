@@ -1,8 +1,8 @@
-// ✏️ Fill these in before going live — Razorpay checks them during account activation.
+// Business details shown on Contact / Terms / policy pages. Razorpay checks these during activation.
 export const BUSINESS = {
-  legalName: "[BUSINESS LEGAL NAME]",          // e.g. proprietor name or registered company
-  address: "[FULL ADDRESS, Chhindwara, Madhya Pradesh, PIN]",
-  phone: "[CONTACT PHONE]",
+  legalName: "Sahikaam", // TODO: proprietor ka poora naam ya registered company naam (Razorpay KYC se match hona chahiye)
+  address: "Private Bus Stand, Chhindwara, Madhya Pradesh 480001",
+  phone: "+91 82691 64260",
   refundDays: 7,                                 // refund window for genuine issues
-  updated: "12 October 2026",
+  updated: "22 October 2026",
 };

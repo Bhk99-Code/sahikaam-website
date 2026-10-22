@@ -5,7 +5,6 @@ import { getProduct, getUser, ownsProduct } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
 import { rupees, TYPE_LABEL } from "@/lib/format";
-import { isSupabaseConfigured } from "@/lib/env";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +17,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
   const product = await getProduct(params.slug);
   if (!product) notFound();
   const user = await getUser();
-  const owned = user && isSupabaseConfigured ? await ownsProduct(user.id, product.id) : false;
+  const owned = user ? await ownsProduct(user.id, product.slug) : false;
   const openHref = product.type === "course" ? `/learn/${product.slug}` : `/read/${product.slug}`;
 
   return (
