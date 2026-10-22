@@ -33,11 +33,11 @@ export default async function BookPage({ params }: { params: { slug: string } })
       {/* Top: cover + buy box */}
       <section className="relative overflow-hidden border-b border-ink/[0.07]">
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 left-1/2 h-[480px] w-[760px] -translate-x-1/2 rounded-full opacity-25 blur-[120px]" style={{ background: product.accent }} />
-        <div className="container-x relative py-6 md:py-12">
+        <div className="container-x relative py-6 lg:py-12">
           <Link href="/books" className="inline-flex items-center gap-1 text-[14px] font-semibold text-fog hover:text-cream">
             <Icon name="back" size={18} /> All ebooks
           </Link>
-          <div className="mt-6 grid items-center gap-10 md:grid-cols-[minmax(0,420px)_1fr]">
+          <div className="mt-6 grid items-center gap-8 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-10">
             <div className="flex justify-center py-4">
               <BookCover product={product} covers={covers} size="lg" />
             </div>
@@ -183,8 +183,8 @@ export default async function BookPage({ params }: { params: { slug: string } })
       </div>
 
       {/* Mobile sticky buy bar */}
-      <div className="fixed inset-x-0 bottom-0 z-50 flex items-center gap-4 border-t border-ink/10 bg-night-2/95 px-5 pb-6 pt-3 backdrop-blur-xl md:hidden">
-        <div className="flex-1"><Price product={product} off={off} compact /></div>
+      <div className="fixed inset-x-0 bottom-0 z-50 flex items-center gap-3 border-t border-ink/10 bg-night-2/95 px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl md:hidden">
+        <div className="min-w-0 flex-1"><Price product={product} off={off} compact /></div>
         <BuyButton owned={owned} slug={product.slug} openHref={openHref} />
       </div>
     </div>
@@ -194,9 +194,9 @@ export default async function BookPage({ params }: { params: { slug: string } })
 function Price({ product, off, compact }: { product: Product; off: number; compact?: boolean }) {
   return (
     <div>
-      <div className="flex items-baseline gap-2">
-        <span className={`font-display font-extrabold text-cream ${compact ? "text-[24px]" : "text-[34px]"}`}>{rupees(product.price)}</span>
-        {off > 0 && <span className="text-[15px] text-fog-2 line-through">{rupees(product.mrp!)}</span>}
+      <div className="flex flex-wrap items-baseline gap-x-2">
+        <span className={`font-display font-extrabold text-cream ${compact ? "text-[22px] min-[360px]:text-[24px]" : "text-[34px]"}`}>{rupees(product.price)}</span>
+        {off > 0 && <span className={`text-fog-2 line-through ${compact ? "text-[13px]" : "text-[15px]"}`}>{rupees(product.mrp!)}</span>}
         {off > 0 && !compact && <span className="rounded-full bg-rosy px-2 py-0.5 text-[12px] font-extrabold text-white">{off}% off</span>}
       </div>
       {product.price > 0 && <span className="text-[12px] text-fog">{compact && off > 0 ? <b className="text-rosy">{off}% off · </b> : null}Inclusive of all taxes</span>}
@@ -205,6 +205,6 @@ function Price({ product, off, compact }: { product: Product; off: number; compa
 }
 
 function BuyButton({ owned, slug, openHref }: { owned: boolean; slug: string; openHref: string }) {
-  if (owned) return <Link href={openHref} className="btn h-14 shrink-0 whitespace-nowrap bg-cream px-7 text-[16px] text-night hover:bg-white">Start reading</Link>;
-  return <Link href={`/checkout/${slug}`} className="btn-primary h-14 shrink-0 whitespace-nowrap px-9 text-[16px] shadow-glow">Buy now</Link>;
+  if (owned) return <Link href={openHref} className="btn h-12 shrink-0 whitespace-nowrap bg-cream px-5 text-[15px] text-night hover:bg-fog sm:h-14 sm:px-7 sm:text-[16px]">Start reading</Link>;
+  return <Link href={`/checkout/${slug}`} className="btn-primary h-12 shrink-0 whitespace-nowrap px-6 text-[15px] shadow-glow sm:h-14 sm:px-9 sm:text-[16px]">Buy now</Link>;
 }

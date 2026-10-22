@@ -18,13 +18,13 @@ export default async function Library({ searchParams }: { searchParams: { new?: 
   return (
     <div className="container-x max-w-4xl py-10 md:py-14">
       <div className="flex items-center gap-4">
-        <div className="flex-1">
-          <h1 className="font-display text-[34px] font-extrabold tracking-tight text-cream">My library</h1>
-          <p className="text-[14px] text-fog">{user?.email ?? "Your ebooks"}</p>
+        <div className="min-w-0 flex-1">
+          <h1 className="font-display text-[28px] font-extrabold tracking-tight text-cream sm:text-[34px]">My library</h1>
+          <p className="truncate text-[14px] text-fog">{user?.email ?? "Your ebooks"}</p>
         </div>
         {user && (
           <form action="/auth/signout" method="post">
-            <button className="btn-ghost h-11 px-4 text-[14px]"><Icon name="logout" size={18} /> Sign out</button>
+            <button aria-label="Sign out" className="btn-ghost h-11 w-11 px-0 text-[14px] sm:w-auto sm:px-4"><Icon name="logout" size={18} /> <span className="hidden sm:inline">Sign out</span></button>
           </form>
         )}
       </div>
@@ -54,17 +54,17 @@ export default async function Library({ searchParams }: { searchParams: { new?: 
           const pct = total ? Math.min(100, Math.round((progress / total) * 100)) : 0;
           const ready = product.editions.filter((e) => !e.coming_soon);
           return (
-            <div key={product.id} className="card flex gap-5 p-5">
-              <div className="w-[76px] shrink-0"><BookCover product={product} /></div>
-              <div className="flex flex-1 flex-col gap-2">
+            <div key={product.id} className="card flex gap-4 p-4 sm:gap-5 sm:p-5">
+              <div className="w-[64px] shrink-0 sm:w-[84px]"><BookCover product={product} /></div>
+              <div className="flex min-w-0 flex-1 flex-col gap-2">
                 <span className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: product.accent }}>{CATEGORY[product.category]?.label}</span>
                 <span className="font-display text-[18px] font-bold leading-snug text-cream">{product.title}</span>
                 <span className="text-[13px] text-fog">{progress ? `Page ${progress}${total ? ` of ${total}` : ""}` : "Not started yet"}</span>
                 <span className="block h-1.5 rounded bg-ink/10"><span className="block h-1.5 rounded" style={{ width: `${pct}%`, background: product.accent }} /></span>
                 <div className="mt-1 flex flex-wrap gap-2">
                   {ready.map((e) => (
-                    <Link key={e.lang} href={`/read/${product.slug}?lang=${e.lang}`} className={e === ready[0] ? "btn-primary h-10 px-5 text-[14px]" : "btn-ghost h-10 px-5 text-[14px]"}>
-                      {progress && e === ready[0] ? "Continue" : "Read"} in {e.label}
+                    <Link key={e.lang} href={`/read/${product.slug}?lang=${e.lang}`} className={`${e === ready[0] ? "btn-primary" : "btn-ghost"} h-10 whitespace-nowrap px-4 text-[13px] sm:px-5 sm:text-[14px]`}>
+                      {e === ready[0] ? (progress ? "Continue" : "Read") : "Read"} · {e.label}
                     </Link>
                   ))}
                 </div>

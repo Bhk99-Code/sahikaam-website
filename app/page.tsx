@@ -44,10 +44,10 @@ export default async function Home() {
       {/* Hero */}
       <section className="relative">
         <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-saffron-500/20 blur-[120px]" />
-        <div className="container-x relative grid items-center gap-10 py-12 md:grid-cols-[1.1fr_1fr] md:py-20">
+        <div className="container-x relative grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[1.1fr_1fr] lg:py-20">
           <div className="flex flex-col items-start gap-6">
             <span className="chip"><Icon name="sparkle" size={14} className="text-sun" /> Now in Hindi + English</span>
-            <h1 className="font-display text-[42px] font-extrabold leading-[1.02] tracking-tight sm:text-[56px] lg:text-[66px]">
+            <h1 className="font-display text-[38px] font-extrabold leading-[1.02] tracking-tight min-[380px]:text-[42px] sm:text-[58px] lg:text-[62px] xl:text-[68px]">
               Start the <span className="text-gradient">right business.</span><br />With real numbers.
             </h1>
             <p className="max-w-xl text-[17px] leading-relaxed text-cream-2 md:text-[19px]">
@@ -83,7 +83,7 @@ export default async function Home() {
       {/* Pick your path */}
       <section className="container-x py-14">
         <SectionTitle eyebrow="Not sure where to start?" title="Pick the line that sounds like you" />
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:[&>*:last-child]:col-span-2 lg:[&>*:last-child]:col-span-1">
           {PATHS.map((p) => {
             const b = findProduct(p.slug);
             if (!b?.is_published) return null;
@@ -123,7 +123,7 @@ export default async function Home() {
       {/* How it works */}
       <section className="container-x py-14">
         <SectionTitle eyebrow="Simple" title="From payment to page one in 2 minutes" />
-        <ol className="grid gap-4 md:grid-cols-3">
+        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:[&>*:last-child]:col-span-2 lg:[&>*:last-child]:col-span-1">
           {[
             ["Choose your ebook", "Pick a single book or the All Access Pass."],
             ["Pay with UPI or card", "Secure checkout by Razorpay. Just your email — no long forms."],
@@ -190,7 +190,7 @@ function HeroStack({ books }: { books: Product[] }) {
   ];
   const lead = books[0];
   return (
-    <div className="relative mx-auto aspect-[5/4] w-full max-w-[520px]">
+    <div className="relative mx-auto aspect-[5/4] w-full max-w-[460px] sm:max-w-[540px]">
       {books.slice(0, 3).map((b, i) => (
         <Link key={b.slug} href={`/book/${b.slug}`} className={`absolute transition hover:-translate-y-2 ${pos[i]}`} aria-label={b.title}>
           <BookCover product={b} />
@@ -215,7 +215,7 @@ function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; chea
   return (
     <section className="container-x py-14">
       <SectionTitle eyebrow="Best value" title={<>Get everything with <span className="text-gradient">All Access</span></>} />
-      <div className="grid gap-4 md:grid-cols-[1fr_1.3fr]">
+      <div className="grid gap-4 lg:grid-cols-[1fr_1.3fr]">
         <div className="card flex flex-col p-7">
           <p className="eyebrow">Single ebook</p>
           <p className="mt-3 font-display text-[36px] font-extrabold text-cream">from {rupees(cheapest)}</p>

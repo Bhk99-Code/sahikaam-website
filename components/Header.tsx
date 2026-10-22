@@ -5,7 +5,7 @@ import { Icon } from "./Icon";
 export function Header({ signedIn }: { signedIn: boolean }) {
   return (
     <header className="sticky top-0 z-40 border-b border-ink/[0.07] bg-night/85 backdrop-blur-xl">
-      <div className="container-x flex h-[68px] items-center gap-3">
+      <div className="container-x flex h-16 items-center gap-2 sm:h-[68px] sm:gap-3">
         <Logo />
         <nav aria-label="Main" className="ml-6 hidden items-center gap-1 md:flex">
           <NavLink href="/books">All ebooks</NavLink>
@@ -24,11 +24,11 @@ export function Header({ signedIn }: { signedIn: boolean }) {
             <Icon name="search" />
           </Link>
           {signedIn ? (
-            <Link href="/library" className="btn h-11 bg-ink/[0.06] px-4 text-[14px] text-cream hover:bg-ink/10">
-              <Icon name="library" size={18} strokeWidth={2} /> My library
+            <Link href="/library" aria-label="My library" className="btn h-11 w-11 bg-ink/[0.06] px-0 text-[14px] text-cream hover:bg-ink/10 sm:w-auto sm:px-4">
+              <Icon name="library" size={18} strokeWidth={2} /> <span className="hidden sm:inline">My library</span>
             </Link>
           ) : (
-            <Link href="/login" className="btn h-11 bg-cream px-5 text-[14px] text-night hover:bg-white">Sign in</Link>
+            <Link href="/login" className="btn h-11 whitespace-nowrap bg-cream px-4 text-[14px] text-night hover:bg-fog sm:px-5">Sign in</Link>
           )}
         </div>
       </div>
