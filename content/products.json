@@ -12,7 +12,7 @@
       "price": 3999,
       "mrp": 4999,
       "badge": "Bestseller",
-      "cover_url": "/covers/manufacturing-50-v2.jpg",
+      "cover_url": "/covers/v3/manufacturing-50-v3.jpg",
       "level": "Beginner to advanced",
       "sort_order": 10,
       "highlights": [
@@ -61,6 +61,12 @@
           "pages": 335,
           "file_path": "manufacturing-50-en.pdf"
         }
+      ],
+      "gallery": [
+        "/covers/v3/manufacturing-50-3d-front-v3.png",
+        "/covers/v3/manufacturing-50-3d-back-v3.png",
+        "/covers/v3/manufacturing-50-v3.jpg",
+        "/covers/v3/manufacturing-50-back-v3.jpg"
       ]
     },
     {
@@ -74,7 +80,7 @@
       "price": 1999,
       "mrp": 2999,
       "badge": "Low investment",
-      "cover_url": "/covers/legal-business-andha-paisa-v2.jpg",
+      "cover_url": "/covers/v3/legal-business-andha-paisa-v3.jpg",
       "level": "Beginner",
       "sort_order": 20,
       "highlights": [
@@ -254,6 +260,12 @@
             }
           ]
         }
+      ],
+      "gallery": [
+        "/covers/v3/legal-business-andha-paisa-3d-front-v3.png",
+        "/covers/v3/legal-business-andha-paisa-3d-back-v3.png",
+        "/covers/v3/legal-business-andha-paisa-v3.jpg",
+        "/covers/v3/legal-business-andha-paisa-back-v3.jpg"
       ]
     },
     {
@@ -267,7 +279,7 @@
       "price": 2999,
       "mrp": 3999,
       "badge": "Construction",
-      "cover_url": "/covers/contractor-bano-v2.jpg",
+      "cover_url": "/covers/v3/contractor-bano-v3.jpg",
       "level": "Beginner",
       "sort_order": 30,
       "highlights": [
@@ -322,6 +334,12 @@
           "text": "The book's sample project SP-01: take-off, rate analysis, BOQ, RA bill and auto-checks",
           "file": "contractor-bano/SP01_Estimate_BOQ_RA_Bill_SahiKaam.xlsx"
         }
+      ],
+      "gallery": [
+        "/covers/v3/contractor-bano-3d-front-v3.png",
+        "/covers/v3/contractor-bano-3d-back-v3.png",
+        "/covers/v3/contractor-bano-v3.jpg",
+        "/covers/v3/contractor-bano-back-v3.jpg"
       ]
     },
     {
@@ -459,7 +477,7 @@
       "price": 1499,
       "mrp": 2499,
       "badge": "Project report",
-      "cover_url": "/covers/fly-ash-bricks-v2.jpg",
+      "cover_url": "/covers/v3/fly-ash-bricks-v3.jpg",
       "level": "Beginner",
       "sort_order": 60,
       "highlights": [
@@ -514,6 +532,12 @@
           "text": "Project cost, cost per brick, 5-year P&L, loan & DSCR, PMEGP subsidy, break-even",
           "file": "fly-ash-bricks/FlyAsh_Bricks_DPR_SahiKaam.xlsx"
         }
+      ],
+      "gallery": [
+        "/covers/v3/fly-ash-bricks-3d-front-v3.png",
+        "/covers/v3/fly-ash-bricks-3d-back-v3.png",
+        "/covers/v3/fly-ash-bricks-v3.jpg",
+        "/covers/v3/fly-ash-bricks-back-v3.jpg"
       ]
     },
     {
@@ -527,7 +551,7 @@
       "price": 1499,
       "mrp": 2499,
       "badge": "Project report",
-      "cover_url": "/covers/paver-blocks-v2.jpg",
+      "cover_url": "/covers/v3/paver-blocks-v3.jpg",
       "level": "Beginner",
       "sort_order": 61,
       "highlights": [
@@ -581,6 +605,12 @@
           "text": "Project cost, cost per sq ft, 5-year P&L, loan & DSCR, PMEGP subsidy, break-even",
           "file": "paver-blocks/Paver_Blocks_DPR_SahiKaam.xlsx"
         }
+      ],
+      "gallery": [
+        "/covers/v3/paver-blocks-3d-front-v3.png",
+        "/covers/v3/paver-blocks-3d-back-v3.png",
+        "/covers/v3/paver-blocks-v3.jpg",
+        "/covers/v3/paver-blocks-back-v3.jpg"
       ]
     },
     {
@@ -594,7 +624,7 @@
       "price": 999,
       "mrp": 1499,
       "badge": "40 ideas",
-      "cover_url": "/covers/food-processing-40-v2.jpg",
+      "cover_url": "/covers/v3/food-processing-40-v3.jpg",
       "level": "Beginner",
       "sort_order": 62,
       "highlights": [
@@ -649,6 +679,12 @@
           "text": "Compare 6 food businesses and build your pack cost and MRP — forward and reverse",
           "file": "food-processing-40/Food_Costing_Calculator_SahiKaam.xlsx"
         }
+      ],
+      "gallery": [
+        "/covers/v3/food-processing-40-3d-front-v3.png",
+        "/covers/v3/food-processing-40-3d-back-v3.png",
+        "/covers/v3/food-processing-40-v3.jpg",
+        "/covers/v3/food-processing-40-back-v3.jpg"
       ]
     },
     {
@@ -662,7 +698,7 @@
       "price": 999,
       "mrp": 1499,
       "badge": "30 ideas",
-      "cover_url": "/covers/krishi-kachra-se-kamaai-v2.jpg",
+      "cover_url": "/covers/v3/krishi-kachra-se-kamaai-v3.jpg",
       "level": "Beginner",
       "sort_order": 63,
       "highlights": [
@@ -716,6 +752,12 @@
           "text": "Compare 6 agri-waste businesses: cost, profit, payback, break-even + a crop-waste supply calendar",
           "file": "krishi-kachra-se-kamaai/Agri_Waste_Idea_Calculator_SahiKaam.xlsx"
         }
+      ],
+      "gallery": [
+        "/covers/v3/krishi-kachra-se-kamaai-3d-front-v3.png",
+        "/covers/v3/krishi-kachra-se-kamaai-3d-back-v3.png",
+        "/covers/v3/krishi-kachra-se-kamaai-v3.jpg",
+        "/covers/v3/krishi-kachra-se-kamaai-back-v3.jpg"
       ]
     },
     {
@@ -729,7 +771,7 @@
       "price": 999,
       "mrp": 1499,
       "badge": "Licence + compliance",
-      "cover_url": "/covers/labour-contractor-bano-v2.jpg",
+      "cover_url": "/covers/v3/labour-contractor-bano-v3.jpg",
       "level": "Beginner",
       "sort_order": 64,
       "highlights": [
@@ -784,6 +826,12 @@
           "text": "Per-worker billing rate with PF, ESIC, bonus, GST + a 3-year model and compliance calendar",
           "file": "labour-contractor-bano/Manpower_Rate_Calculator_SahiKaam.xlsx"
         }
+      ],
+      "gallery": [
+        "/covers/v3/labour-contractor-bano-3d-front-v3.png",
+        "/covers/v3/labour-contractor-bano-3d-back-v3.png",
+        "/covers/v3/labour-contractor-bano-v3.jpg",
+        "/covers/v3/labour-contractor-bano-back-v3.jpg"
       ]
     },
     {
@@ -797,7 +845,7 @@
       "price": 799,
       "mrp": 1299,
       "badge": "Loan + subsidy",
-      "cover_url": "/covers/pmegp-step-by-step-v2.jpg",
+      "cover_url": "/covers/v3/pmegp-step-by-step-v3.jpg",
       "level": "Beginner",
       "sort_order": 65,
       "highlights": [
@@ -852,6 +900,12 @@
           "text": "Your subsidy, own share, bank loan, month-wise EMI + document and application trackers",
           "file": "pmegp-step-by-step/PMEGP_Calculator_SahiKaam.xlsx"
         }
+      ],
+      "gallery": [
+        "/covers/v3/pmegp-step-by-step-3d-front-v3.png",
+        "/covers/v3/pmegp-step-by-step-3d-back-v3.png",
+        "/covers/v3/pmegp-step-by-step-v3.jpg",
+        "/covers/v3/pmegp-step-by-step-back-v3.jpg"
       ]
     },
     {
@@ -865,7 +919,7 @@
       "price": 799,
       "mrp": 1299,
       "badge": "Franchise guide",
-      "cover_url": "/covers/franchise-lo-sahi-lo-v2.jpg",
+      "cover_url": "/covers/v3/franchise-lo-sahi-lo-v3.jpg",
       "level": "Beginner",
       "sort_order": 66,
       "highlights": [
@@ -920,6 +974,12 @@
           "text": "Investment, monthly profit in 3 scenarios, payback, break-even + a brand scorecard",
           "file": "franchise-lo-sahi-lo/Franchise_ROI_Calculator_SahiKaam.xlsx"
         }
+      ],
+      "gallery": [
+        "/covers/v3/franchise-lo-sahi-lo-3d-front-v3.png",
+        "/covers/v3/franchise-lo-sahi-lo-3d-back-v3.png",
+        "/covers/v3/franchise-lo-sahi-lo-v3.jpg",
+        "/covers/v3/franchise-lo-sahi-lo-back-v3.jpg"
       ]
     },
     {
@@ -933,7 +993,7 @@
       "price": 499,
       "mrp": 799,
       "badge": "Start here",
-      "cover_url": "/covers/idea-test-karo-v2.jpg",
+      "cover_url": "/covers/v3/idea-test-karo-v3.jpg",
       "level": "Beginner",
       "sort_order": 67,
       "highlights": [
@@ -988,6 +1048,12 @@
           "text": "Idea scorecard, demand proof, competitor map, market size, interview notes, Go/No-Go",
           "file": "idea-test-karo/Idea_Test_Toolkit_SahiKaam.xlsx"
         }
+      ],
+      "gallery": [
+        "/covers/v3/idea-test-karo-3d-front-v3.png",
+        "/covers/v3/idea-test-karo-3d-back-v3.png",
+        "/covers/v3/idea-test-karo-v3.jpg",
+        "/covers/v3/idea-test-karo-back-v3.jpg"
       ]
     }
   ]

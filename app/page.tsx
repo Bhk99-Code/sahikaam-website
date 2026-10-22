@@ -187,16 +187,21 @@ export default async function Home() {
 
 function HeroStack({ books }: { books: Product[] }) {
   const pos = [
-    "left-[2%] top-[14%] -rotate-[9deg] w-[38%]",
-    "left-[31%] top-[2%] z-10 w-[40%]",
-    "right-[2%] top-[16%] rotate-[9deg] w-[37%]",
+    "-left-[4%] top-[10%] w-[46%]",
+    "left-[26%] -top-[2%] z-10 w-[52%]",
+    "-right-[4%] top-[12%] w-[46%]",
   ];
   const lead = books[0];
   return (
     <div className="relative mx-auto aspect-[5/4] w-full max-w-[460px] sm:max-w-[540px]">
       {books.slice(0, 3).map((b, i) => (
         <Link key={b.slug} href={`/book/${b.slug}`} className={`absolute transition hover:-translate-y-2 ${pos[i]}`} aria-label={b.title}>
-          <BookCover product={b} />
+          {b.gallery[0] ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={b.gallery[0]} alt={`${b.title} — 3D book`} className="w-full drop-shadow-2xl" />
+          ) : (
+            <BookCover product={b} />
+          )}
         </Link>
       ))}
       <div className="absolute bottom-[2%] left-[4%] z-20 flex items-center gap-3 rounded-2xl border border-ink/10 bg-night-3/90 px-4 py-3 shadow-lift backdrop-blur">

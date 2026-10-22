@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProduct, getUser, ownsProduct, bundleCovers, findProduct, getPlans } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
+import { BookGallery } from "@/components/BookGallery";
 import { Icon } from "@/components/Icon";
 import { accessLabel, CATEGORY, percentOff, rupees, TYPE_LABEL } from "@/lib/format";
 import type { Product } from "@/lib/types";
@@ -41,7 +42,11 @@ export default async function BookPage({ params }: { params: { slug: string } })
           </Link>
           <div className="mt-6 grid items-center gap-8 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-10">
             <div className="flex justify-center py-4">
-              <BookCover product={product} covers={covers} size="lg" />
+              {product.gallery.length ? (
+                <BookGallery images={product.gallery} title={product.title} accent={product.accent} />
+              ) : (
+                <BookCover product={product} covers={covers} size="lg" />
+              )}
             </div>
             <div className="flex flex-col gap-5">
               <div className="flex flex-wrap items-center gap-2">

@@ -31,6 +31,7 @@ export type Product = {
   badge: string | null;
   cover_color: string | null;
   cover_url: string | null;
+  gallery: string[];
   pages: number | null;
   level: string | null;
   highlights: Highlight[];

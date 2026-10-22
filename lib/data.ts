@@ -19,6 +19,7 @@ const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => {
     id: p.slug,
     pages: p.pages ?? (ready.length ? Math.max(...ready.map((e) => e.pages ?? 0)) || null : null),
     highlights: p.highlights ?? [],
+    gallery: p.gallery ?? [],
     learn: p.learn ?? [],
     chapters: p.chapters ?? [],
     lessons: p.lessons ?? [],
