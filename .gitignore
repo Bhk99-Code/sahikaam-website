@@ -39,3 +39,5 @@ yarn-error.log*
 !/private/books/.keep
 /local-data/
 /.claude/
+/private/bonus/*
+!/private/bonus/.keep

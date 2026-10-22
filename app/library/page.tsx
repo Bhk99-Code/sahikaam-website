@@ -70,6 +70,11 @@ export default async function Library({ searchParams }: { searchParams: { new?: 
                       {e === ready[0] ? (progress ? "Continue" : "Read") : "Read"} · {e.label}
                     </Link>
                   ))}
+                  {product.bonus.map((b, i) => (
+                    <a key={b.file} href={`/api/bonus/${product.slug}?i=${i}`} download className="btn-ghost h-10 whitespace-nowrap px-4 text-[13px] sm:px-5 sm:text-[14px]">
+                      <Icon name="download" size={16} /> Bonus Excel
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>

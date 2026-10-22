@@ -25,6 +25,7 @@ const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => {
     bundle_items: p.bundle_items ?? [],
     access_days: p.access_days ?? null,
     editions,
+    bonus: p.bonus ?? [],
   };
 });
 

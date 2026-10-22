@@ -3,6 +3,8 @@ export type Category = "manufacturing" | "legal" | "construction" | "food-agro" 
 
 export type Lesson = { title: string; video_url: string; minutes?: number };
 export type Part = { title: string; file: string };
+/** A buyer-only download (e.g. an Excel calculator); file is inside private/bonus/. */
+export type Bonus = { title: string; text?: string; file: string };
 export type Highlight = { title: string; text: string };
 
 /** One language version of a book. A book is either one PDF (file_path) or chapter files (parts). */
@@ -39,6 +41,7 @@ export type Product = {
   access_days: number | null; // null = lifetime access
   variant_of?: string; // another plan of that product (e.g. 6-month pass); kept out of book lists
   editions: Edition[];
+  bonus: Bonus[];
   sort_order: number;
   is_published: boolean;
 };

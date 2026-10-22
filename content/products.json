@@ -1,5 +1,5 @@
 {
-  "_help": "Book list. price in rupees. editions: one per language (file_path in private/books, or parts for chapter files). coming_soon: true = language shown as coming soon. is_published false = hidden.",
+  "_help": "Book list. price in rupees. editions: one per language (file_path in private/books, or parts for chapter files). coming_soon: true = language shown as coming soon. is_published false = hidden. bonus: buyer-only downloads (file inside private/bonus).",
   "products": [
     {
       "slug": "manufacturing-50",
@@ -253,6 +253,13 @@
           "pages": 56,
           "file_path": "contractor-bano-en.pdf"
         }
+      ],
+      "bonus": [
+        {
+          "title": "Estimate, BOQ & RA Bill Workbook",
+          "text": "The book's sample project SP-01: take-off, rate analysis, BOQ, RA bill and auto-checks",
+          "file": "contractor-bano/SP01_Estimate_BOQ_RA_Bill_SahiKaam.xlsx"
+        }
       ]
     },
     {
@@ -315,6 +322,7 @@
       ],
       "learn": [
         "All 11 ebooks, including 2 complete project reports",
+        "9 bonus Excel tools — DPRs, calculators and trackers",
         "Every new ebook we publish during your year",
         "Hindi and English editions",
         "Read on phone, tablet or computer for 365 days"
@@ -368,6 +376,7 @@
       ],
       "learn": [
         "All 11 ebooks, including 2 complete project reports",
+        "9 bonus Excel tools — DPRs, calculators and trackers",
         "Every new ebook we publish during your 6 months",
         "Hindi and English editions",
         "Read on phone, tablet or computer for 6 months"
@@ -435,6 +444,13 @@
           "label": "English",
           "coming_soon": true
         }
+      ],
+      "bonus": [
+        {
+          "title": "Fly Ash Bricks DPR — bank-ready Excel",
+          "text": "Project cost, cost per brick, 5-year P&L, loan & DSCR, PMEGP subsidy, break-even",
+          "file": "fly-ash-bricks/FlyAsh_Bricks_DPR_SahiKaam.xlsx"
+        }
       ]
     },
     {
@@ -493,6 +509,13 @@
           "lang": "en",
           "label": "English",
           "coming_soon": true
+        }
+      ],
+      "bonus": [
+        {
+          "title": "Paver Blocks DPR — bank-ready Excel",
+          "text": "Project cost, cost per sq ft, 5-year P&L, loan & DSCR, PMEGP subsidy, break-even",
+          "file": "paver-blocks/Paver_Blocks_DPR_SahiKaam.xlsx"
         }
       ]
     },
@@ -554,6 +577,13 @@
           "label": "English",
           "coming_soon": true
         }
+      ],
+      "bonus": [
+        {
+          "title": "Food Costing & MRP Calculator",
+          "text": "Compare 6 food businesses and build your pack cost and MRP — forward and reverse",
+          "file": "food-processing-40/Food_Costing_Calculator_SahiKaam.xlsx"
+        }
       ]
     },
     {
@@ -612,6 +642,13 @@
           "lang": "en",
           "label": "English",
           "coming_soon": true
+        }
+      ],
+      "bonus": [
+        {
+          "title": "Agri Waste Idea Calculator",
+          "text": "Compare 6 agri-waste businesses: cost, profit, payback, break-even + a crop-waste supply calendar",
+          "file": "krishi-kachra-se-kamaai/Agri_Waste_Idea_Calculator_SahiKaam.xlsx"
         }
       ]
     },
@@ -673,6 +710,13 @@
           "label": "English",
           "coming_soon": true
         }
+      ],
+      "bonus": [
+        {
+          "title": "Manpower Rate Calculator",
+          "text": "Per-worker billing rate with PF, ESIC, bonus, GST + a 3-year model and compliance calendar",
+          "file": "labour-contractor-bano/Manpower_Rate_Calculator_SahiKaam.xlsx"
+        }
       ]
     },
     {
@@ -732,6 +776,13 @@
           "lang": "en",
           "label": "English",
           "coming_soon": true
+        }
+      ],
+      "bonus": [
+        {
+          "title": "PMEGP Subsidy & EMI Calculator",
+          "text": "Your subsidy, own share, bank loan, month-wise EMI + document and application trackers",
+          "file": "pmegp-step-by-step/PMEGP_Calculator_SahiKaam.xlsx"
         }
       ]
     },
@@ -793,6 +844,13 @@
           "label": "English",
           "coming_soon": true
         }
+      ],
+      "bonus": [
+        {
+          "title": "Franchise ROI Calculator",
+          "text": "Investment, monthly profit in 3 scenarios, payback, break-even + a brand scorecard",
+          "file": "franchise-lo-sahi-lo/Franchise_ROI_Calculator_SahiKaam.xlsx"
+        }
       ]
     },
     {
@@ -852,6 +910,13 @@
           "lang": "en",
           "label": "English",
           "coming_soon": true
+        }
+      ],
+      "bonus": [
+        {
+          "title": "Idea Test Toolkit",
+          "text": "Idea scorecard, demand proof, competitor map, market size, interview notes, Go/No-Go",
+          "file": "idea-test-karo/Idea_Test_Toolkit_SahiKaam.xlsx"
         }
       ]
     }

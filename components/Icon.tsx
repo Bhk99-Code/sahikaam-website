@@ -3,6 +3,7 @@ const PATHS: Record<string, string> = {
   book: "M4 19V5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zM8 7h7",
   video: "M3 5h18v13H3zM10 9l5 2.5-5 2.5z",
   bundle: "M3 8h18v12H3zM3 8l3-4h12l3 4M12 8v12",
+  download: "M12 3v12M7 10l5 5 5-5M4 19h16",
   gift: "M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H8a2.5 2.5 0 110-5c3 0 4 5 4 5zM12 7h4a2.5 2.5 0 100-5c-3 0-4 5-4 5z",
   library: "M4 5h5v14H4zM10 5h5v14h-5zM16 6l4 1-3 13-4-1",
   help: "M4 14v-2a8 8 0 0116 0v2M4 14h3v5H5a1 1 0 01-1-1zM20 14h-3v5h2a1 1 0 001-1z",
