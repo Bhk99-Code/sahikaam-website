@@ -190,7 +190,69 @@
         {
           "lang": "en",
           "label": "English",
-          "coming_soon": true
+          "pages": 933,
+          "parts": [
+            {
+              "title": "Chapter 1: Brokerage, Rental & Leasing",
+              "file": "legal-business-andha-paisa/en/01-brokerage-rental-leasing-en.pdf"
+            },
+            {
+              "title": "Chapter 2: Hiring & Workforce Services",
+              "file": "legal-business-andha-paisa/en/02-hiring-workforce-services-en.pdf"
+            },
+            {
+              "title": "Chapter 3: Construction & Property Support",
+              "file": "legal-business-andha-paisa/en/03-construction-property-support-en.pdf"
+            },
+            {
+              "title": "Chapter 4: B2B Trading & Sourcing",
+              "file": "legal-business-andha-paisa/en/04-b2b-trading-sourcing-en.pdf"
+            },
+            {
+              "title": "Chapter 5: Government & Corporate Support",
+              "file": "legal-business-andha-paisa/en/05-government-corporate-support-en.pdf"
+            },
+            {
+              "title": "Chapter 6: Digital & Creative Services",
+              "file": "legal-business-andha-paisa/en/06-digital-creative-services-en.pdf"
+            },
+            {
+              "title": "Chapter 7: Agriculture & Rural Services",
+              "file": "legal-business-andha-paisa/en/07-agriculture-rural-services-en.pdf"
+            },
+            {
+              "title": "Chapter 8: Education & Training",
+              "file": "legal-business-andha-paisa/en/08-education-training-en.pdf"
+            },
+            {
+              "title": "Chapter 9: Events, Weddings & Hospitality",
+              "file": "legal-business-andha-paisa/en/09-events-weddings-hospitality-en.pdf"
+            },
+            {
+              "title": "Chapter 10: Logistics & Transport Support",
+              "file": "legal-business-andha-paisa/en/10-logistics-transport-support-en.pdf"
+            },
+            {
+              "title": "Chapter 11: Local Services & Maintenance",
+              "file": "legal-business-andha-paisa/en/11-local-services-maintenance-en.pdf"
+            },
+            {
+              "title": "Chapter 12: Export & International Services",
+              "file": "legal-business-andha-paisa/en/12-export-international-services-en.pdf"
+            },
+            {
+              "title": "Chapter 13: Industry, Energy & Technical Services",
+              "file": "legal-business-andha-paisa/en/13-industry-energy-technical-services-en.pdf"
+            },
+            {
+              "title": "Chapter 14: Healthcare & Senior Support",
+              "file": "legal-business-andha-paisa/en/14-healthcare-senior-support-en.pdf"
+            },
+            {
+              "title": "Chapter 15: MSME Operations & Business Support",
+              "file": "legal-business-andha-paisa/en/15-msme-operations-business-support-en.pdf"
+            }
+          ]
         }
       ]
     },
@@ -442,7 +504,8 @@
         {
           "lang": "en",
           "label": "English",
-          "coming_soon": true
+          "pages": 49,
+          "file_path": "fly-ash-bricks-en.pdf"
         }
       ],
       "bonus": [
@@ -508,7 +571,8 @@
         {
           "lang": "en",
           "label": "English",
-          "coming_soon": true
+          "pages": 45,
+          "file_path": "paver-blocks-en.pdf"
         }
       ],
       "bonus": [
@@ -575,7 +639,8 @@
         {
           "lang": "en",
           "label": "English",
-          "coming_soon": true
+          "pages": 32,
+          "file_path": "food-processing-40-en.pdf"
         }
       ],
       "bonus": [
@@ -641,7 +706,8 @@
         {
           "lang": "en",
           "label": "English",
-          "coming_soon": true
+          "pages": 33,
+          "file_path": "krishi-kachra-se-kamaai-en.pdf"
         }
       ],
       "bonus": [
@@ -708,7 +774,8 @@
         {
           "lang": "en",
           "label": "English",
-          "coming_soon": true
+          "pages": 36,
+          "file_path": "labour-contractor-bano-en.pdf"
         }
       ],
       "bonus": [
@@ -775,7 +842,8 @@
         {
           "lang": "en",
           "label": "English",
-          "coming_soon": true
+          "pages": 36,
+          "file_path": "pmegp-step-by-step-en.pdf"
         }
       ],
       "bonus": [
@@ -842,7 +910,8 @@
         {
           "lang": "en",
           "label": "English",
-          "coming_soon": true
+          "pages": 31,
+          "file_path": "franchise-lo-sahi-lo-en.pdf"
         }
       ],
       "bonus": [
@@ -909,7 +978,8 @@
         {
           "lang": "en",
           "label": "English",
-          "coming_soon": true
+          "pages": 32,
+          "file_path": "idea-test-karo-en.pdf"
         }
       ],
       "bonus": [
