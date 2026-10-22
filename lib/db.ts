@@ -35,6 +35,9 @@ const MYSQL_SCHEMA = [
   ) CHARACTER SET utf8mb4`,
 ];
 
+// Columns added after the first release. Each runs once; "duplicate column" errors are ignored.
+const MIGRATIONS = ["ALTER TABLE purchases ADD COLUMN expires_at BIGINT NULL"];
+
 // SQLite accepts the same statements once the MySQL-only table option is removed.
 const SQLITE_SCHEMA = MYSQL_SCHEMA.map((s) => s.replace(/\s*CHARACTER SET utf8mb4$/, ""));
 
@@ -42,6 +45,7 @@ async function mysqlDriver(url: string): Promise<Driver> {
   const mysql = await import("mysql2/promise");
   const pool = mysql.createPool({ uri: url, connectionLimit: 5, charset: "utf8mb4" });
   for (const s of MYSQL_SCHEMA) await pool.query(s);
+  for (const m of MIGRATIONS) await pool.query(m).catch(() => {});
   return {
     async all(sql, params = []) {
       const [rows] = await pool.query(sql, params);
@@ -63,6 +67,7 @@ async function sqliteDriver(): Promise<Driver> {
   fs.mkdirSync(dir, { recursive: true });
   const db = new DatabaseSync(path.join(dir, "preview.sqlite"));
   for (const s of SQLITE_SCHEMA) db.exec(s);
+  for (const m of MIGRATIONS) { try { db.exec(m.replace(" NULL", "")); } catch { /* already added */ } }
   return {
     async all(sql, params = []) {
       return db.prepare(sql).all(...params) as Row[];

@@ -276,48 +276,530 @@
       "category": "bundle",
       "accent": "#FF6A00",
       "title": "All Access Pass",
-      "subtitle": "Every SahiKaam ebook in Hindi and English — one payment",
-      "description": "Get all three SahiKaam ebooks — 50 Most Profitable Manufacturing Businesses, Legal Business – Andha Paisa and Contractor Bano — in every language we publish, with lifetime access.",
-      "price": 5999,
-      "mrp": 8997,
+      "subtitle": "Every SahiKaam ebook in Hindi and English — one year, one payment",
+      "description": "Read every SahiKaam ebook — manufacturing, project reports, food and agro, contracting, funding and startup guides — plus every new book we publish during your year. Hindi and English editions included.",
+      "price": 14999,
       "badge": "Best value",
       "level": "All levels",
       "sort_order": 5,
       "bundle_items": [
         "manufacturing-50",
         "legal-business-andha-paisa",
-        "contractor-bano"
+        "contractor-bano",
+        "fly-ash-bricks",
+        "paver-blocks",
+        "food-processing-40",
+        "krishi-kachra-se-kamaai",
+        "labour-contractor-bano",
+        "pmegp-step-by-step",
+        "franchise-lo-sahi-lo",
+        "idea-test-karo"
       ],
       "highlights": [
         {
-          "title": "3",
-          "text": "Ebooks"
+          "title": "11",
+          "text": "Ebooks today"
         },
         {
-          "title": "1,400+",
-          "text": "Pages"
+          "title": "New",
+          "text": "Books added free"
         },
         {
-          "title": "₹2,998",
-          "text": "You save"
+          "title": "1 year",
+          "text": "Full access"
         },
         {
-          "title": "Lifetime",
-          "text": "Access"
+          "title": "2 languages",
+          "text": "Hindi + English"
         }
       ],
       "learn": [
-        "Manufacturing: 50 businesses from ₹10 lakh to ₹5 crore+",
-        "Legal businesses: 128 low-investment ideas",
-        "Contracting: become a contractor step by step",
-        "Hindi and English editions included"
+        "All 11 ebooks, including 2 complete project reports",
+        "Every new ebook we publish during your year",
+        "Hindi and English editions",
+        "Read on phone, tablet or computer for 365 days"
+      ],
+      "chapters": [],
+      "editions": [],
+      "access_days": 365
+    },
+    {
+      "slug": "fly-ash-bricks",
+      "type": "ebook",
+      "category": "manufacturing",
+      "accent": "#FF6A00",
+      "title": "Fly Ash Bricks — Complete Project Report",
+      "subtitle": "Start an 8,000 bricks-a-day factory: a ₹33 lakh project, end to end",
+      "description": "A complete project report for a fly ash brick factory — market, raw material and mix design, machinery, land and layout, licences, project cost, PMEGP/MUDRA/bank funding, cost per brick, a 5-year P&L with DSCR and break-even, and how to sell your first 50 lakh bricks.",
+      "price": 1499,
+      "mrp": 2499,
+      "badge": "Project report",
+      "cover_url": "/covers/fly-ash-bricks.jpg",
+      "level": "Beginner",
+      "sort_order": 60,
+      "highlights": [
+        {
+          "title": "₹33 L",
+          "text": "Project size"
+        },
+        {
+          "title": "8,000",
+          "text": "Bricks a day"
+        },
+        {
+          "title": "17",
+          "text": "Chapters"
+        },
+        {
+          "title": "DPR",
+          "text": "Bank-ready plan"
+        }
+      ],
+      "learn": [
+        "Understand the fly ash brick market and who buys",
+        "Choose the right machinery, mix and plant layout",
+        "Get every licence and registration in order",
+        "Cost the project rupee by rupee and fund it with PMEGP, MUDRA or a bank loan",
+        "Price each brick correctly and read a 5-year P&L, DSCR and break-even",
+        "Find buyers for your first 50 lakh bricks"
       ],
       "chapters": [
-        "50 Most Profitable Manufacturing Businesses",
-        "Legal Business – Andha Paisa",
-        "Contractor Bano"
+        "Understand: product, market and quality",
+        "Build: raw material, process, machinery and layout",
+        "Papers and money: licences, project cost, funding, P&L",
+        "Sell and grow: customers, team, quality and risks"
       ],
-      "editions": []
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 54,
+          "file_path": "fly-ash-bricks.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "coming_soon": true
+        }
+      ]
+    },
+    {
+      "slug": "paver-blocks",
+      "type": "ebook",
+      "category": "manufacturing",
+      "accent": "#FF6A00",
+      "title": "Paver Blocks — Complete Project Report",
+      "subtitle": "Interlocking paver factory plus a laying business: a ₹48 lakh project",
+      "description": "A complete project report for an interlocking paver block factory — shapes, thickness, colours and IS 15658, mix design, machinery, layout, licences, project cost, funding through PMEGP, MUDRA or banks, cost per square foot, a 5-year P&L — plus the extra income from laying the pavers yourself.",
+      "price": 1499,
+      "mrp": 2499,
+      "badge": "Project report",
+      "cover_url": "/covers/paver-blocks.jpg",
+      "level": "Beginner",
+      "sort_order": 61,
+      "highlights": [
+        {
+          "title": "₹48 L",
+          "text": "Project size"
+        },
+        {
+          "title": "IS 15658",
+          "text": "Quality standard"
+        },
+        {
+          "title": "+ Laying",
+          "text": "Extra business"
+        },
+        {
+          "title": "DPR",
+          "text": "Bank-ready plan"
+        }
+      ],
+      "learn": [
+        "Know the paver market and the IS 15658 quality rules",
+        "Set up mix, machinery, colours and plant layout",
+        "Cost the project and fund it with PMEGP, MUDRA or a bank loan",
+        "Price per square foot and read a 5-year P&L and break-even",
+        "Earn more by supplying and laying pavers for every new parking lot"
+      ],
+      "chapters": [
+        "Understand: product, market and standards",
+        "Build: raw material, process, machinery and layout",
+        "Papers and money: licences, project cost, funding, P&L",
+        "Sell, lay and grow: orders, team and maintenance"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 46,
+          "file_path": "paver-blocks.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "coming_soon": true
+        }
+      ]
+    },
+    {
+      "slug": "food-processing-40",
+      "type": "ebook",
+      "category": "food-agro",
+      "accent": "#FF8A3D",
+      "title": "Food Processing — 40 Business Ideas",
+      "subtitle": "Spices, pickles, paneer, namkeen, makhana, millets — from ₹2 lakh",
+      "description": "Forty food processing businesses you can start from a small unit — grains and spices, pickles and sauces, dairy, bakery and snacks, millets and makhana. Includes full costing for six ideas, FSSAI 2026 and labelling rules, packaging and MRP, selling from kirana to quick commerce, and government help such as PMFME and PMEGP.",
+      "price": 999,
+      "mrp": 1499,
+      "badge": "40 ideas",
+      "cover_url": "/covers/food-processing-40.jpg",
+      "level": "Beginner",
+      "sort_order": 62,
+      "highlights": [
+        {
+          "title": "40",
+          "text": "Business ideas"
+        },
+        {
+          "title": "₹2 L+",
+          "text": "Start from"
+        },
+        {
+          "title": "FSSAI",
+          "text": "2026 rules"
+        },
+        {
+          "title": "6",
+          "text": "Full costings"
+        }
+      ],
+      "learn": [
+        "Pick the right food product for your area and budget",
+        "See full costing for six real food businesses",
+        "Follow FSSAI 2026, labelling and Legal Metrology rules",
+        "Set packaging, shelf life and MRP correctly",
+        "Sell through kirana, modern trade and quick commerce",
+        "Use PMFME, PMEGP and AIF support"
+      ],
+      "chapters": [
+        "Why food processing, and how to choose",
+        "40 product ideas across grains, fruit, dairy, bakery and new-age foods",
+        "Costing, FSSAI, packaging and MRP",
+        "Selling, government support and a 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 35,
+          "file_path": "food-processing-40.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "coming_soon": true
+        }
+      ]
+    },
+    {
+      "slug": "krishi-kachra-se-kamaai",
+      "type": "ebook",
+      "category": "food-agro",
+      "accent": "#FF8A3D",
+      "title": "Krishi Kachra se Kamaai",
+      "subtitle": "30 businesses from crop waste — parali, husk, bagasse, dung and peels",
+      "description": "Thirty businesses that turn farm waste into money — briquettes and pellets, biochar and Bio-CNG, compost and bio-fertiliser, cattle feed and mushrooms, plates, boards and packaging, and service businesses like baling and aggregation. With machines, costs, buyers, raw-material planning and government schemes.",
+      "price": 999,
+      "mrp": 1499,
+      "badge": "30 ideas",
+      "cover_url": "/covers/krishi-kachra-se-kamaai.jpg",
+      "level": "Beginner",
+      "sort_order": 63,
+      "highlights": [
+        {
+          "title": "30",
+          "text": "Business ideas"
+        },
+        {
+          "title": "6",
+          "text": "Full costings"
+        },
+        {
+          "title": "Buyers",
+          "text": "Who pays you"
+        },
+        {
+          "title": "Schemes",
+          "text": "CRM, SATAT, AIF"
+        }
+      ],
+      "learn": [
+        "Map which crop waste is available in your area and when",
+        "Choose from energy, compost, feed, material and service ideas",
+        "See full costing for six agro-waste businesses",
+        "Secure raw material through the season and store it safely",
+        "Find buyers and use schemes like CRM, SATAT, AIF and PMEGP"
+      ],
+      "chapters": [
+        "Where the waste is, and how to choose",
+        "30 ideas: energy, soil, feed, materials, fruit waste, services",
+        "Costing, raw material and buyers",
+        "Government support, licences and risks"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 39,
+          "file_path": "krishi-kachra-se-kamaai.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "coming_soon": true
+        }
+      ]
+    },
+    {
+      "slug": "labour-contractor-bano",
+      "type": "ebook",
+      "category": "construction",
+      "accent": "#FFA866",
+      "title": "Labour Contractor Bano",
+      "subtitle": "Supply manpower to factories and sites — licence, rates and your first client",
+      "description": "How to start a manpower and labour contracting business under the new Labour Codes — registrations and the OSH Code licence, wages, PF, ESIC and bonus, building your billing rate, finding your first client, managing workers and supervisors, registers and challans, working capital and a 3-year plan.",
+      "price": 999,
+      "mrp": 1499,
+      "badge": "Licence + compliance",
+      "cover_url": "/covers/labour-contractor-bano.jpg",
+      "level": "Beginner",
+      "sort_order": 64,
+      "highlights": [
+        {
+          "title": "OSH Code",
+          "text": "Licence step by step"
+        },
+        {
+          "title": "Rates",
+          "text": "Billing calculator"
+        },
+        {
+          "title": "PF/ESIC",
+          "text": "Compliance"
+        },
+        {
+          "title": "90 days",
+          "text": "Launch plan"
+        }
+      ],
+      "learn": [
+        "Understand the new 2025 Labour Codes and what changed",
+        "Get every registration and the OSH Code licence",
+        "Pay wages, PF, ESIC and bonus correctly",
+        "Build a billing rate that leaves a margin on every worker",
+        "Win your first client and run attendance, wages and registers",
+        "Plan working capital, safety and insurance"
+      ],
+      "chapters": [
+        "Understand the business and the new Labour Codes",
+        "Papers and law: registrations, licence, wages and benefits",
+        "Rates, clients and team",
+        "Daily work, money, safety and a 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 36,
+          "file_path": "labour-contractor-bano.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "coming_soon": true
+        }
+      ]
+    },
+    {
+      "slug": "pmegp-step-by-step",
+      "type": "ebook",
+      "category": "funding",
+      "accent": "#FFB27A",
+      "title": "PMEGP Step by Step",
+      "subtitle": "Get a loan with up to 35% subsidy — eligibility to subsidy claim",
+      "description": "Your complete guide to the PMEGP loan and subsidy scheme — eligibility, choosing a project, project cost structure, subsidy examples, documents, the online application, a DPR the bank accepts, the interview, sanction and EDP training, disbursement, the 3-year lock-in and how to avoid rejection and fraud.",
+      "price": 799,
+      "mrp": 1299,
+      "badge": "Loan + subsidy",
+      "cover_url": "/covers/pmegp-step-by-step.jpg",
+      "level": "Beginner",
+      "sort_order": 65,
+      "highlights": [
+        {
+          "title": "35%",
+          "text": "Subsidy up to"
+        },
+        {
+          "title": "12",
+          "text": "Subsidy examples"
+        },
+        {
+          "title": "25",
+          "text": "Interview questions"
+        },
+        {
+          "title": "60 days",
+          "text": "Action plan"
+        }
+      ],
+      "learn": [
+        "Check if you are eligible and pick a project that gets approved",
+        "Work out project cost and your subsidy with 12 examples",
+        "Prepare every document and fill the online form step by step",
+        "Write a DPR the bank accepts and clear the interview",
+        "Get sanction, finish EDP training and receive the money",
+        "Avoid the common reasons for rejection — and agents who cheat"
+      ],
+      "chapters": [
+        "Understand the scheme and eligibility",
+        "Costing, subsidy and documents",
+        "From application to loan",
+        "After the loan: lock-in, rejections and fraud"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 38,
+          "file_path": "pmegp-step-by-step.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "coming_soon": true
+        }
+      ]
+    },
+    {
+      "slug": "franchise-lo-sahi-lo",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "title": "Franchise Lo, Sahi Lo",
+      "subtitle": "Which franchise, how much money, how much profit — without getting cheated",
+      "description": "A practical guide to buying a franchise in India — whether franchising suits you, categories from ₹3 lakh to ₹1 crore+, outlet unit economics, 40 questions to check a brand, choosing a location, the 15 agreement clauses that matter, red flags and scams, funding, your first 90 days, taxes — and how to franchise your own business later.",
+      "price": 799,
+      "mrp": 1299,
+      "badge": "Franchise guide",
+      "cover_url": "/covers/franchise-lo-sahi-lo.jpg",
+      "level": "Beginner",
+      "sort_order": 66,
+      "highlights": [
+        {
+          "title": "₹3 L–1 Cr",
+          "text": "Investment range"
+        },
+        {
+          "title": "40",
+          "text": "Brand-check questions"
+        },
+        {
+          "title": "15",
+          "text": "Agreement clauses"
+        },
+        {
+          "title": "ROI",
+          "text": "Calculator"
+        }
+      ],
+      "learn": [
+        "Decide whether a franchise is right for you",
+        "Compare categories by investment, royalty and payback",
+        "Work out the unit economics of one outlet",
+        "Check any brand with 40 due-diligence questions",
+        "Read the agreement and spot red flags and scams",
+        "Launch and run your outlet in the first 90 days"
+      ],
+      "chapters": [
+        "Understand the franchise model",
+        "Money and due diligence",
+        "Agreement and protection",
+        "Run and grow"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 33,
+          "file_path": "franchise-lo-sahi-lo.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "coming_soon": true
+        }
+      ]
+    },
+    {
+      "slug": "idea-test-karo",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "title": "Idea Test Karo",
+      "subtitle": "Find out in 7 days, for ₹0, if people will really buy",
+      "description": "Before you spend money on a shop, machine or website, test your idea in 7 days. Write the real problem, score your ideas, find free proof of demand, map competitors, size the market, talk to 10 real people without selling, decide Go or No-Go and run a pre-order test.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "Start here",
+      "cover_url": "/covers/idea-test-karo.jpg",
+      "level": "Beginner",
+      "sort_order": 67,
+      "highlights": [
+        {
+          "title": "7 days",
+          "text": "To a decision"
+        },
+        {
+          "title": "₹0",
+          "text": "Mostly free"
+        },
+        {
+          "title": "10",
+          "text": "Real conversations"
+        },
+        {
+          "title": "Go/No-Go",
+          "text": "Clear answer"
+        }
+      ],
+      "learn": [
+        "Turn an idea into a clear problem statement",
+        "Score your ideas and pick the strongest one",
+        "Find proof of demand in 5 free places",
+        "Talk to 10 real people without selling",
+        "Decide Go or No-Go with a simple score",
+        "Run a pre-order test before spending money"
+      ],
+      "chapters": [
+        "Problem and idea",
+        "Proof of demand",
+        "Talking to people",
+        "Decision and test"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 34,
+          "file_path": "idea-test-karo.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "coming_soon": true
+        }
+      ]
     }
   ]
 }

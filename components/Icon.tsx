@@ -35,6 +35,9 @@ const PATHS: Record<string, string> = {
   sparkle: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 3v4M17 5h4",
   arrow: "M5 12h14M13 6l6 6-6 6",
   x: "M6 6l12 12M18 6L6 18",
+  leaf: "M5 19c8 0 14-6 14-14C11 5 5 11 5 19zM5 19l7-7",
+  bank: "M3 10l9-6 9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18",
+  bulb: "M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z",
 };
 
 export function Icon({ name, size = 22, className = "", strokeWidth = 1.8 }: { name: keyof typeof PATHS | string; size?: number; className?: string; strokeWidth?: number }) {

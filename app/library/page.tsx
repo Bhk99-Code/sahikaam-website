@@ -49,7 +49,7 @@ export default async function Library({ searchParams }: { searchParams: { new?: 
             )}
           </div>
         )}
-        {books.map(({ product, progress }) => {
+        {books.map(({ product, progress, expiresAt }) => {
           const total = product.editions.find((e) => !e.coming_soon && !e.parts)?.pages ?? 0;
           const pct = total ? Math.min(100, Math.round((progress / total) * 100)) : 0;
           const ready = product.editions.filter((e) => !e.coming_soon);
@@ -59,7 +59,10 @@ export default async function Library({ searchParams }: { searchParams: { new?: 
               <div className="flex min-w-0 flex-1 flex-col gap-2">
                 <span className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: product.accent }}>{CATEGORY[product.category]?.label}</span>
                 <span className="font-display text-[18px] font-bold leading-snug text-cream">{product.title}</span>
-                <span className="text-[13px] text-fog">{progress ? `Page ${progress}${total ? ` of ${total}` : ""}` : "Not started yet"}</span>
+                <span className="text-[13px] text-fog">
+                  {progress ? `Page ${progress}${total ? ` of ${total}` : ""}` : "Not started yet"}
+                  {expiresAt && <> · Access until {new Date(expiresAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}</>}
+                </span>
                 <span className="block h-1.5 rounded bg-ink/10"><span className="block h-1.5 rounded" style={{ width: `${pct}%`, background: product.accent }} /></span>
                 <div className="mt-1 flex flex-wrap gap-2">
                   {ready.map((e) => (

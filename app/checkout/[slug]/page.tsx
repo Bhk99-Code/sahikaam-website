@@ -5,7 +5,7 @@ import { getProduct, getUser, ownsProduct, bundleCovers } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
 import { CheckoutClient } from "./CheckoutClient";
-import { rupees, TYPE_LABEL } from "@/lib/format";
+import { accessLabel, rupees, TYPE_LABEL } from "@/lib/format";
 import { isRazorpayConfigured, SUPPORT_WHATSAPP } from "@/lib/env";
 
 export const dynamic = "force-dynamic";
@@ -29,7 +29,7 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
         <div className="flex flex-1 flex-col gap-1">
           <span className="text-[12px] font-bold uppercase tracking-wider" style={{ color: product.accent }}>{TYPE_LABEL[product.type]}</span>
           <span className="font-bold leading-snug text-cream">{product.title}</span>
-          <span className="text-[13px] text-fog">Hindi + English · Lifetime access</span>
+          <span className="text-[13px] text-fog">Hindi + English · {accessLabel(product.access_days)}</span>
         </div>
         <span className="font-display text-[20px] font-extrabold text-cream">{rupees(product.price)}</span>
       </div>

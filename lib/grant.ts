@@ -26,12 +26,19 @@ export async function markPaidAndGrant(razorpayOrderId: string, razorpayPaymentI
 }
 
 export async function grantProduct(userId: string, slug: string, orderId: string | null) {
-  const slugs = [slug, ...(findProduct(slug)?.bundle_items ?? [])];
+  const product = findProduct(slug);
+  // A timed pass (e.g. All Access for 365 days) gives its books the same end date; single books are lifetime.
+  const expires = product?.access_days ? Date.now() + product.access_days * 86400_000 : null;
+  const slugs = [slug, ...(product?.bundle_items ?? [])];
   for (const s of slugs) {
-    const exists = await one("SELECT 1 AS ok FROM purchases WHERE user_id = ? AND product_slug = ?", [userId, s]);
-    if (!exists) {
-      await run("INSERT INTO purchases (user_id, product_slug, order_id, progress, created_at) VALUES (?, ?, ?, 0, ?)",
-        [userId, s, orderId, Date.now()]).catch(() => { /* a parallel call inserted it first */ });
+    const row = await one<{ expires_at: number | null }>("SELECT expires_at FROM purchases WHERE user_id = ? AND product_slug = ?", [userId, s]);
+    if (!row) {
+      await run("INSERT INTO purchases (user_id, product_slug, order_id, progress, created_at, expires_at) VALUES (?, ?, ?, 0, ?, ?)",
+        [userId, s, orderId, Date.now(), expires]).catch(() => { /* a parallel call inserted it first */ });
+    } else if (row.expires_at != null) {
+      // Renewing or upgrading: lifetime wins, otherwise keep the later end date.
+      const next = expires == null ? null : Math.max(Number(row.expires_at), expires);
+      await run("UPDATE purchases SET expires_at = ? WHERE user_id = ? AND product_slug = ?", [next, userId, s]);
     }
   }
 }

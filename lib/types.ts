@@ -1,5 +1,5 @@
 export type ProductType = "ebook" | "course" | "bundle";
-export type Category = "manufacturing" | "legal" | "construction" | "bundle";
+export type Category = "manufacturing" | "legal" | "construction" | "food-agro" | "funding" | "startup" | "bundle";
 
 export type Lesson = { title: string; video_url: string; minutes?: number };
 export type Part = { title: string; file: string };
@@ -36,6 +36,7 @@ export type Product = {
   chapters: string[];
   lessons: Lesson[];
   bundle_items: string[];
+  access_days: number | null; // null = lifetime access
   editions: Edition[];
   sort_order: number;
   is_published: boolean;

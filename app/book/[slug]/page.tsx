@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getProduct, getUser, ownsProduct, bundleCovers, findProduct } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
-import { CATEGORY, percentOff, rupees, TYPE_LABEL } from "@/lib/format";
+import { accessLabel, CATEGORY, percentOff, rupees, TYPE_LABEL } from "@/lib/format";
 import type { Product } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -53,7 +53,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
                 {product.pages && <li className="chip"><Icon name="layers" size={14} /> {product.pages}{isBundle ? "+" : ""} pages</li>}
                 {product.level && <li className="chip"><Icon name="star" size={14} /> {product.level}</li>}
                 <li className="chip"><Icon name="globe" size={14} /> {isBundle ? "Hindi + English" : product.editions.map((e) => e.label + (e.coming_soon ? " (soon)" : "")).join(" · ")}</li>
-                <li className="chip"><Icon name="check" size={14} /> Lifetime access</li>
+                <li className="chip"><Icon name="check" size={14} /> {accessLabel(product.access_days)}</li>
               </ul>
 
               <div className="card mt-2 flex flex-col gap-4 p-5 sm:flex-row sm:items-center">

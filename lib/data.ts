@@ -23,9 +23,13 @@ const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => {
     chapters: p.chapters ?? [],
     lessons: p.lessons ?? [],
     bundle_items: p.bundle_items ?? [],
+    access_days: p.access_days ?? null,
     editions,
   };
 });
+
+// Bundles without an explicit MRP show the total of their books as the MRP.
+for (const p of PRODUCTS) if (p.type === "bundle" && p.mrp == null) p.mrp = p.bundle_items.reduce((n, s) => n + (PRODUCTS.find((x) => x.slug === s)?.price ?? 0), 0) || null;
 
 /** The edition to open: the requested language if available, else the first available one. */
 export function pickEdition(product: Product, lang?: string | null): Edition | null {
@@ -46,23 +50,31 @@ export function findProduct(slug: string): Product | null {
   return PRODUCTS.find((p) => p.slug === slug) ?? null;
 }
 
-export type LibraryItem = { product: Product; progress: number; purchasedAt: number };
+export type LibraryItem = { product: Product; progress: number; purchasedAt: number; expiresAt: number | null };
+
+// A purchase counts while it has no expiry (lifetime) or the expiry is in the future.
+const ACTIVE = "(expires_at IS NULL OR expires_at > ?)";
 
 export async function getLibrary(userId: string): Promise<LibraryItem[]> {
-  const rows = await all<{ product_slug: string; progress: number; created_at: number }>(
-    "SELECT product_slug, progress, created_at FROM purchases WHERE user_id = ? ORDER BY created_at DESC", [userId]);
+  const rows = await all<{ product_slug: string; progress: number; created_at: number; expires_at: number | null }>(
+    `SELECT product_slug, progress, created_at, expires_at FROM purchases WHERE user_id = ? AND ${ACTIVE} ORDER BY created_at DESC`, [userId, Date.now()]);
   return rows
-    .map((r) => ({ product: findProduct(r.product_slug)!, progress: Number(r.progress), purchasedAt: Number(r.created_at) }))
+    .map((r) => ({ product: findProduct(r.product_slug)!, progress: Number(r.progress), purchasedAt: Number(r.created_at), expiresAt: r.expires_at == null ? null : Number(r.expires_at) }))
     .filter((r) => r.product);
 }
 
 export async function ownsProduct(userId: string, slug: string) {
-  return Boolean(await one("SELECT 1 AS ok FROM purchases WHERE user_id = ? AND product_slug = ?", [userId, slug]));
+  return Boolean(await one(`SELECT 1 AS ok FROM purchases WHERE user_id = ? AND product_slug = ? AND ${ACTIVE}`, [userId, slug, Date.now()]));
 }
 
 export async function getProgress(userId: string, slug: string) {
   const r = await one<{ progress: number }>("SELECT progress FROM purchases WHERE user_id = ? AND product_slug = ?", [userId, slug]);
   return Number(r?.progress ?? 0);
+}
+
+/** Total price of a bundle's books if bought one by one (shown as the bundle's MRP). */
+export function bundleValue(product: Product) {
+  return product.bundle_items.reduce((n, s) => n + (findProduct(s)?.price ?? 0), 0);
 }
 
 /** Cover images of the books inside a bundle (for the fanned-out bundle cover). */

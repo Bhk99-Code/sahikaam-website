@@ -4,7 +4,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { SectionTitle } from "@/components/SectionTitle";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
-import { CATEGORY, percentOff, rupees } from "@/lib/format";
+import { accessLabel, CATEGORY, percentOff, rupees } from "@/lib/format";
 import type { Product } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -13,6 +13,9 @@ const PATHS = [
   { slug: "manufacturing-50", icon: "factory", q: "I have ₹10 lakh+ and want to build a factory" },
   { slug: "legal-business-andha-paisa", icon: "coins", q: "I want to start small, with little money" },
   { slug: "contractor-bano", icon: "hammer", q: "I'm an engineer and want my own contracting firm" },
+  { slug: "krishi-kachra-se-kamaai", icon: "leaf", q: "I live near farms and want to earn from agriculture" },
+  { slug: "pmegp-step-by-step", icon: "bank", q: "I need a business loan with a government subsidy" },
+  { slug: "idea-test-karo", icon: "bulb", q: "I have an idea, but I'm not sure people will buy" },
 ];
 
 const WHY = [
@@ -25,7 +28,7 @@ const WHY = [
 const FAQS = [
   { q: "How do I get the ebook after paying?", a: "It appears in your library the moment the payment succeeds. Sign in on any phone or computer and start reading — no app needed." },
   { q: "Do I get both Hindi and English?", a: "Yes. Every purchase includes every language edition of that book that we publish, now and later." },
-  { q: "Can I download the PDF?", a: "Books open in the SahiKaam reader in your browser. You keep lifetime access, and your reading position is saved." },
+  { q: "Can I download the PDF?", a: "Books open in the SahiKaam reader in your browser. Single ebooks are yours for life; the All Access Pass runs for its plan period. Your reading position is always saved." },
   { q: "Which payment methods work?", a: "UPI, debit and credit cards, net banking and wallets — handled securely by Razorpay." },
   { q: "What if something goes wrong?", a: "Write to us on WhatsApp or email. If you were charged twice or the book does not open, we refund you — see the refund policy." },
 ];
@@ -59,7 +62,7 @@ export default async function Home() {
             </div>
             <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-fog">
               <li className="flex items-center gap-2"><Icon name="check" size={16} className="text-mint" strokeWidth={2.4} /> {books.length} ebooks · {totalPages.toLocaleString("en-IN")}+ pages</li>
-              <li className="flex items-center gap-2"><Icon name="check" size={16} className="text-mint" strokeWidth={2.4} /> Lifetime access</li>
+              <li className="flex items-center gap-2"><Icon name="check" size={16} className="text-mint" strokeWidth={2.4} /> Lifetime access on every ebook</li>
               <li className="flex items-center gap-2"><Icon name="check" size={16} className="text-mint" strokeWidth={2.4} /> UPI · cards · net banking</li>
             </ul>
           </div>
@@ -83,7 +86,7 @@ export default async function Home() {
       {/* Pick your path */}
       <section className="container-x py-14">
         <SectionTitle eyebrow="Not sure where to start?" title="Pick the line that sounds like you" />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:[&>*:last-child]:col-span-2 lg:[&>*:last-child]:col-span-1">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {PATHS.map((p) => {
             const b = findProduct(p.slug);
             if (!b?.is_published) return null;
@@ -111,7 +114,7 @@ export default async function Home() {
       <section className="container-x py-6">
         <SectionTitle eyebrow="Readers' favourites" title="Bestselling ebooks" href="/books" />
         <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-4">
-          {products.map((p, i) => (
+          {products.slice(0, 8).map((p, i) => (
             <ProductCard key={p.id} product={p} covers={p.type === "bundle" ? bundleCovers(p) : []} rank={p.type === "ebook" ? i : undefined} />
           ))}
         </div>
@@ -174,7 +177,7 @@ export default async function Home() {
       <section className="container-x">
         <div className="relative overflow-hidden rounded-[28px] bg-brand-gradient p-8 text-night md:p-14">
           <h2 className="max-w-2xl font-display text-[32px] font-extrabold leading-tight md:text-[46px]">Your business plan starts with one good book.</h2>
-          <p className="mt-3 max-w-xl text-[16px] font-medium opacity-80">Lifetime access. Hindi and English. Read on any device.</p>
+          <p className="mt-3 max-w-xl text-[16px] font-medium opacity-80">Hindi and English. Read on any device. Yours for life.</p>
           <Link href="/books" className="btn mt-7 h-14 bg-night px-8 text-[16px] text-cream hover:bg-black">See all ebooks <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
         </div>
       </section>
@@ -220,7 +223,7 @@ function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; chea
           <p className="eyebrow">Single ebook</p>
           <p className="mt-3 font-display text-[36px] font-extrabold text-cream">from {rupees(cheapest)}</p>
           <ul className="mt-5 flex-1 space-y-3 text-[15px] text-cream-2">
-            {["One ebook of your choice", "Every language edition we publish", "Lifetime access"].map((t) => (
+            {["One ebook of your choice", "Every language edition we publish", "Lifetime access to that book"].map((t) => (
               <li key={t} className="flex gap-3"><Icon name="check" size={18} className="mt-0.5 shrink-0 text-mint" strokeWidth={2.4} />{t}</li>
             ))}
           </ul>
@@ -234,7 +237,7 @@ function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; chea
               {rupees(allAccess.price)}
               {allAccess.mrp && <span className="text-[18px] font-semibold text-fog-2 line-through">{rupees(allAccess.mrp)}</span>}
             </p>
-            {save > 0 && <p className="text-[14px] font-bold text-mint">You save {rupees(save)}</p>}
+            <p className="text-[14px] font-semibold text-cream-2">{accessLabel(allAccess.access_days)} · every book, every language{save > 0 && <span className="font-bold text-mint"> · save {rupees(save)}</span>}</p>
             <div className="mt-5 grid flex-1 items-center gap-6 sm:grid-cols-[1fr_auto]">
               <ul className="space-y-3 text-[15px] text-cream-2">
                 {allAccess.learn.map((t) => (
