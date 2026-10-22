@@ -1,22 +1,22 @@
 import type { Config } from "tailwindcss";
 
-// SahiKaam design tokens ("emerald and mango" theme).
+// SahiKaam design tokens ("orange, black and white" theme).
 // Token names are roles: night = surfaces (page, card, field), cream = primary text, fog = muted text, ink = hairlines/washes.
 const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        night: { DEFAULT: "#06140F", 2: "#0D2219", 3: "#132C21", 4: "#1A382A", 5: "#244634" },
-        cream: { DEFAULT: "#F3F5EE", 2: "#CAD6CE" },
-        ink: "#F3F5EE",
-        fog: { DEFAULT: "#98AFA4", 2: "#6F877C" },
-        saffron: { 300: "#FFD58A", 400: "#FFC24F", 500: "#FFB02E", 600: "#F29A12", 700: "#D9830A" },
-        rosy: "#FF6B4A",
-        mint: "#3DDC97",
-        sky: "#4FB3FF",
-        sun: "#FFD43B",
-        grape: "#C08BFF",
+        night: { DEFAULT: "#0A0A0A", 2: "#141414", 3: "#1C1C1C", 4: "#262626", 5: "#333333" },
+        cream: { DEFAULT: "#FFFFFF", 2: "#D4D4D4" },
+        ink: "#FFFFFF",
+        fog: { DEFAULT: "#A3A3A3", 2: "#737373" },
+        saffron: { 300: "#FFB27A", 400: "#FF8A3D", 500: "#FF6A00", 600: "#E65F00", 700: "#C24F00" },
+        rosy: "#FF6A00",
+        mint: "#FF8A3D",
+        sky: "#FFA866",
+        sun: "#FFFFFF",
+        grape: "#FFC59A",
       },
       fontFamily: {
         sans: ["'Plus Jakarta Sans'", "system-ui", "sans-serif"],
@@ -24,11 +24,11 @@ const config: Config = {
       },
       borderRadius: { card: "22px" },
       boxShadow: {
-        glow: "0 14px 40px -12px rgba(255,176,46,0.55)",
+        glow: "0 14px 40px -12px rgba(255,106,0,0.6)",
         lift: "0 18px 40px -18px rgba(0,0,0,0.75)",
       },
       backgroundImage: {
-        "brand-gradient": "linear-gradient(120deg, #FFB02E 0%, #FFD27A 45%, #3DDC97 100%)",
+        "brand-gradient": "linear-gradient(120deg, #FF6A00 0%, #FF8A3D 55%, #FFB27A 100%)",
       },
     },
   },

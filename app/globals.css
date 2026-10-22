@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 html { -webkit-tap-highlight-color: transparent; color-scheme: dark; }
-body { background: #06140F; color: #F3F5EE; }
+body { background: #0A0A0A; color: #FFFFFF; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
-:focus-visible { outline: 3px solid #FFB02E; outline-offset: 2px; }
+:focus-visible { outline: 3px solid #FF6A00; outline-offset: 2px; }
 
 @layer components {
   .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
   .card { @apply rounded-card border border-ink/[0.08] bg-night-2; }
   .eyebrow { @apply text-[12px] font-bold uppercase tracking-[0.2em] text-fog; }
   .btn { @apply inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-bold transition; }
-  .btn-primary { @apply btn bg-saffron-500 text-night hover:bg-saffron-400; }
+  .btn-primary { @apply btn bg-saffron-500 text-white hover:bg-saffron-600; }
   .btn-ghost { @apply btn border border-ink/15 bg-night-2 text-cream hover:bg-ink/5; }
   .chip { @apply inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-ink/[0.04] px-3 py-1 text-[12px] font-semibold text-cream-2; }
   .text-gradient { @apply bg-brand-gradient bg-clip-text text-transparent; }

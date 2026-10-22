@@ -7,8 +7,8 @@ export function percentOff(price: number, mrp: number | null) {
 }
 export const TYPE_LABEL = { ebook: "Ebook", course: "Video course", bundle: "Bundle" } as const;
 export const CATEGORY = {
-  manufacturing: { label: "Manufacturing", color: "#FF8C42", blurb: "Factories and production units, ₹10 L to ₹5 Cr+" },
-  legal: { label: "Low-investment business", color: "#3DDC97", blurb: "Legal businesses you can start small" },
-  construction: { label: "Construction & contracting", color: "#4FB3FF", blurb: "Become a contractor, win projects" },
-  bundle: { label: "Bundles", color: "#C08BFF", blurb: "Everything together, best price" },
+  manufacturing: { label: "Manufacturing", color: "#FF6A00", blurb: "Factories and production units, ₹10 L to ₹5 Cr+" },
+  legal: { label: "Low-investment business", color: "#FF8A3D", blurb: "Legal businesses you can start small" },
+  construction: { label: "Construction & contracting", color: "#FFA866", blurb: "Become a contractor, win projects" },
+  bundle: { label: "Bundles", color: "#FFFFFF", blurb: "Everything together, best price" },
 } as const;

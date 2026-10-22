@@ -1,31 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0F3B36"/>
-      <stop offset="1" stop-color="#062320"/>
+      <stop offset="0" stop-color="#1F1F1F"/>
+      <stop offset="1" stop-color="#0A0A0A"/>
     </linearGradient>
     <linearGradient id="hl" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#18C7A6"/>
-      <stop offset="1" stop-color="#FFC233"/>
+      <stop offset="0" stop-color="#FF6A00"/>
+      <stop offset="1" stop-color="#FFB27A"/>
     </linearGradient>
   </defs>
   <rect width="600" height="800" fill="url(#bg)"/>
-  <circle cx="520" cy="120" r="210" fill="#18C7A6" opacity="0.12"/>
-  <circle cx="80" cy="720" r="180" fill="#FFC233" opacity="0.08"/>
+  <circle cx="520" cy="120" r="210" fill="#FF6A00" opacity="0.12"/>
+  <circle cx="80" cy="720" r="180" fill="#FFB27A" opacity="0.08"/>
   <rect x="0" y="0" width="600" height="14" fill="url(#hl)"/>
-  <text x="56" y="96" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#18C7A6">SAHIKAAM</text>
-  <text x="56" y="250" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="74" font-weight="900" fill="#F7F2EA">LEGAL</text>
-  <text x="56" y="334" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="74" font-weight="900" fill="#F7F2EA">BUSINESS</text>
+  <text x="56" y="96" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#FF6A00">SAHIKAAM</text>
+  <text x="56" y="250" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="74" font-weight="900" fill="#FFFFFF">LEGAL</text>
+  <text x="56" y="334" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="74" font-weight="900" fill="#FFFFFF">BUSINESS</text>
   <text x="56" y="430" font-family="Georgia, serif" font-size="68" font-style="italic" font-weight="700" fill="url(#hl)">Andha Paisa</text>
-  <rect x="56" y="470" width="120" height="6" rx="3" fill="#FFC233"/>
-  <text x="56" y="530" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#D9D3CA">Legal businesses you can start</text>
-  <text x="56" y="566" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#D9D3CA">with little or no investment</text>
+  <rect x="56" y="470" width="120" height="6" rx="3" fill="#FFB27A"/>
+  <text x="56" y="530" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#D4D4D4">Legal businesses you can start</text>
+  <text x="56" y="566" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#D4D4D4">with little or no investment</text>
   <g font-family="Arial, Helvetica, sans-serif" font-weight="700">
-    <rect x="56" y="630" width="200" height="96" rx="18" fill="#FFFFFF" fill-opacity="0.07" stroke="#18C7A6" stroke-opacity="0.5"/>
-    <text x="80" y="682" font-size="44" fill="#18C7A6">128</text>
-    <text x="80" y="710" font-size="18" fill="#D9D3CA">business ideas</text>
-    <rect x="276" y="630" width="200" height="96" rx="18" fill="#FFFFFF" fill-opacity="0.07" stroke="#FFC233" stroke-opacity="0.5"/>
-    <text x="300" y="682" font-size="44" fill="#FFC233">15</text>
-    <text x="300" y="710" font-size="18" fill="#D9D3CA">chapters</text>
+    <rect x="56" y="630" width="200" height="96" rx="18" fill="#FFFFFF" fill-opacity="0.07" stroke="#FF6A00" stroke-opacity="0.5"/>
+    <text x="80" y="682" font-size="44" fill="#FF6A00">128</text>
+    <text x="80" y="710" font-size="18" fill="#D4D4D4">business ideas</text>
+    <rect x="276" y="630" width="200" height="96" rx="18" fill="#FFFFFF" fill-opacity="0.07" stroke="#FFB27A" stroke-opacity="0.5"/>
+    <text x="300" y="682" font-size="44" fill="#FFB27A">15</text>
+    <text x="300" y="710" font-size="18" fill="#D4D4D4">chapters</text>
   </g>
 </svg>
