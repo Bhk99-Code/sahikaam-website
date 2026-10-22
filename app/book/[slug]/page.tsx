@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getProduct, getUser, ownsProduct, bundleCovers, findProduct } from "@/lib/data";
+import { getProduct, getUser, ownsProduct, bundleCovers, findProduct, getPlans } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
 import { accessLabel, CATEGORY, percentOff, rupees, TYPE_LABEL } from "@/lib/format";
@@ -18,7 +18,9 @@ export default async function BookPage({ params }: { params: { slug: string } })
   const product = await getProduct(params.slug);
   if (!product) notFound();
   const user = await getUser();
-  const owned = user ? await ownsProduct(user.id, product.slug) : false;
+  const plans = getPlans(product);
+  // Owning any plan of a pass (6 months or 1 year) counts as owning it.
+  const owned = user ? (await Promise.all(plans.map((p) => ownsProduct(user.id, p.slug)))).some(Boolean) : false;
   const isBundle = product.type === "bundle";
   const openHref = isBundle ? "/library" : `/read/${product.slug}`;
   const covers = isBundle ? bundleCovers(product) : [];
@@ -56,11 +58,15 @@ export default async function BookPage({ params }: { params: { slug: string } })
                 <li className="chip"><Icon name="check" size={14} /> {accessLabel(product.access_days)}</li>
               </ul>
 
-              <div className="card mt-2 flex flex-col gap-4 p-5 sm:flex-row sm:items-center">
-                <Price product={product} off={off} />
-                <div className="hidden flex-1 sm:block" />
-                <BuyButton owned={owned} slug={product.slug} openHref={openHref} />
-              </div>
+              {plans.length > 1 && !owned ? (
+                <PlanPicker plans={plans} current={product.slug} />
+              ) : (
+                <div className="card mt-2 flex flex-col gap-4 p-5 sm:flex-row sm:items-center">
+                  <Price product={product} off={off} />
+                  <div className="hidden flex-1 sm:block" />
+                  <BuyButton owned={owned} slug={product.slug} openHref={openHref} />
+                </div>
+              )}
               <p className="flex items-center gap-2 text-[13px] text-fog">
                 <Icon name="lock" size={16} className="text-mint" strokeWidth={2} /> Secure checkout by Razorpay · UPI, cards, net banking · instant access
               </p>
@@ -164,7 +170,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
             <Link href="/book/all-access" className="relative block rounded-card bg-brand-gradient p-[1.5px]">
               <div className="rounded-[21px] bg-night-2 p-5">
                 <p className="eyebrow text-sun">Save more</p>
-                <p className="mt-2 font-display text-[20px] font-bold text-cream">Get this + every other ebook for {rupees(inBundle.price)}</p>
+                <p className="mt-2 font-display text-[20px] font-bold text-cream">Get this + every other ebook from {rupees(getPlans(inBundle)[0].price)}</p>
                 <p className="mt-2 text-[14px] font-bold text-saffron-400">See All Access →</p>
               </div>
             </Link>
@@ -184,8 +190,20 @@ export default async function BookPage({ params }: { params: { slug: string } })
 
       {/* Mobile sticky buy bar */}
       <div className="fixed inset-x-0 bottom-0 z-50 flex items-center gap-3 border-t border-ink/10 bg-night-2/95 px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl md:hidden">
-        <div className="min-w-0 flex-1"><Price product={product} off={off} compact /></div>
-        <BuyButton owned={owned} slug={product.slug} openHref={openHref} />
+        {plans.length > 1 && !owned ? (
+          <>
+            <div className="min-w-0 flex-1">
+              <span className="block text-[12px] text-fog">{plans.length} plans</span>
+              <span className="font-display text-[22px] font-extrabold text-cream min-[360px]:text-[24px]">from {rupees(plans[0].price)}</span>
+            </div>
+            <a href="#plans" className="btn-primary h-12 shrink-0 whitespace-nowrap px-6 text-[15px] shadow-glow">Choose plan</a>
+          </>
+        ) : (
+          <>
+            <div className="min-w-0 flex-1"><Price product={product} off={off} compact /></div>
+            <BuyButton owned={owned} slug={product.slug} openHref={openHref} />
+          </>
+        )}
       </div>
     </div>
   );
@@ -200,6 +218,33 @@ function Price({ product, off, compact }: { product: Product; off: number; compa
         {off > 0 && !compact && <span className="rounded-full bg-rosy px-2 py-0.5 text-[12px] font-extrabold text-white">{off}% off</span>}
       </div>
       {product.price > 0 && <span className="text-[12px] text-fog">{compact && off > 0 ? <b className="text-rosy">{off}% off · </b> : null}Inclusive of all taxes</span>}
+    </div>
+  );
+}
+
+/** Side-by-side plan cards (e.g. All Access 6 months / 1 year), each with its own buy button. */
+function PlanPicker({ plans, current }: { plans: Product[]; current: string }) {
+  const perMonth = (p: Product) => (p.access_days ? Math.round(p.price / Math.max(1, Math.round(p.access_days / 30.4))) : 0);
+  const best = plans.reduce((a, b) => (perMonth(b) && perMonth(b) < perMonth(a) ? b : a));
+  return (
+    <div id="plans" className="mt-2 grid scroll-mt-24 gap-3 sm:grid-cols-2">
+      {plans.map((p) => {
+        const isBest = p === best && plans.length > 1;
+        return (
+          <div key={p.slug} className={isBest ? "relative rounded-card bg-brand-gradient p-[1.5px]" : "relative"}>
+            <div className={`flex h-full flex-col gap-3 p-5 ${isBest ? "rounded-[21px] bg-night-2" : "card"} ${p.slug === current && !isBest ? "border-ink/25" : ""}`}>
+              {isBest && <span className="absolute right-4 top-4 rounded-full bg-sun px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wider text-night">Best value</span>}
+              <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-saffron-400">{accessLabel(p.access_days).replace(" access", "")}</span>
+              <div className="flex flex-wrap items-baseline gap-x-2">
+                <span className="font-display text-[32px] font-extrabold text-cream">{rupees(p.price)}</span>
+                {p.mrp && p.mrp > p.price && <span className="text-[14px] text-fog-2 line-through">{rupees(p.mrp)}</span>}
+              </div>
+              {perMonth(p) > 0 && <span className="text-[13px] text-fog">≈ {rupees(perMonth(p))} / month · inclusive of all taxes</span>}
+              <Link href={`/checkout/${p.slug}`} className={`${isBest ? "btn-primary shadow-glow" : "btn-ghost"} mt-auto h-12 w-full text-[15px]`}>Buy {accessLabel(p.access_days).replace(" access", "")}</Link>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

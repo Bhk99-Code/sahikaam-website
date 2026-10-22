@@ -38,7 +38,7 @@ export function pickEdition(product: Product, lang?: string | null): Edition | n
 }
 
 export async function getProducts(): Promise<Product[]> {
-  return PRODUCTS.filter((p) => p.is_published).sort((a, b) => a.sort_order - b.sort_order);
+  return PRODUCTS.filter((p) => p.is_published && !p.variant_of).sort((a, b) => a.sort_order - b.sort_order);
 }
 
 export async function getProduct(slug: string): Promise<Product | null> {
@@ -48,6 +48,12 @@ export async function getProduct(slug: string): Promise<Product | null> {
 /** Any product by slug, published or not (used for items a buyer already owns). */
 export function findProduct(slug: string): Product | null {
   return PRODUCTS.find((p) => p.slug === slug) ?? null;
+}
+
+/** All published plans of a product (the product and its variants), cheapest first. */
+export function getPlans(product: Product): Product[] {
+  const main = product.variant_of ?? product.slug;
+  return PRODUCTS.filter((p) => p.is_published && (p.slug === main || p.variant_of === main)).sort((a, b) => a.price - b.price);
 }
 
 export type LibraryItem = { product: Product; progress: number; purchasedAt: number; expiresAt: number | null };

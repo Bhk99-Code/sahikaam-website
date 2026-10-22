@@ -37,6 +37,7 @@ export type Product = {
   lessons: Lesson[];
   bundle_items: string[];
   access_days: number | null; // null = lifetime access
+  variant_of?: string; // another plan of that product (e.g. 6-month pass); kept out of book lists
   editions: Edition[];
   sort_order: number;
   is_published: boolean;

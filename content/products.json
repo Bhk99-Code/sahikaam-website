@@ -324,6 +324,60 @@
       "access_days": 365
     },
     {
+      "slug": "all-access-6m",
+      "type": "bundle",
+      "category": "bundle",
+      "accent": "#FF6A00",
+      "title": "All Access Pass — 6 months",
+      "subtitle": "Every SahiKaam ebook in Hindi and English — six months, one payment",
+      "description": "Read every SahiKaam ebook — manufacturing, project reports, food and agro, contracting, funding and startup guides — plus every new book we publish during your 6 months. Hindi and English editions included.",
+      "price": 9999,
+      "badge": "Try it",
+      "level": "All levels",
+      "sort_order": 6,
+      "bundle_items": [
+        "manufacturing-50",
+        "legal-business-andha-paisa",
+        "contractor-bano",
+        "fly-ash-bricks",
+        "paver-blocks",
+        "food-processing-40",
+        "krishi-kachra-se-kamaai",
+        "labour-contractor-bano",
+        "pmegp-step-by-step",
+        "franchise-lo-sahi-lo",
+        "idea-test-karo"
+      ],
+      "highlights": [
+        {
+          "title": "11",
+          "text": "Ebooks today"
+        },
+        {
+          "title": "New",
+          "text": "Books added free"
+        },
+        {
+          "title": "6 months",
+          "text": "Full access"
+        },
+        {
+          "title": "2 languages",
+          "text": "Hindi + English"
+        }
+      ],
+      "learn": [
+        "All 11 ebooks, including 2 complete project reports",
+        "Every new ebook we publish during your 6 months",
+        "Hindi and English editions",
+        "Read on phone, tablet or computer for 6 months"
+      ],
+      "chapters": [],
+      "editions": [],
+      "access_days": 183,
+      "variant_of": "all-access"
+    },
+    {
       "slug": "fly-ash-bricks",
       "type": "ebook",
       "category": "manufacturing",

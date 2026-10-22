@@ -9,7 +9,8 @@ export function percentOff(price: number, mrp: number | null) {
 export function accessLabel(days: number | null | undefined) {
   if (!days) return "Lifetime access";
   if (days % 365 === 0) return days === 365 ? "1 year access" : `${days / 365} years access`;
-  if (days % 30 === 0 || days % 30 < 3) { const m = Math.round(days / 30); return m === 1 ? "1 month access" : `${m} months access`; }
+  const m = Math.round(days / 30.4); // 183 days = 6 months
+  if (m > 0 && Math.abs(days - m * 30.4) <= 3) return m === 1 ? "1 month access" : `${m} months access`;
   return `${days} days access`;
 }
 export const TYPE_LABEL = { ebook: "Ebook", course: "Video course", bundle: "Bundle" } as const;

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getProducts, getLibrary, getUser, bundleCovers, findProduct } from "@/lib/data";
+import { getProducts, getLibrary, getUser, bundleCovers, findProduct, getPlans } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
 import { SectionTitle } from "@/components/SectionTitle";
 import { BookCover } from "@/components/BookCover";
@@ -58,7 +58,7 @@ export default async function Home() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/books" className="btn-primary h-14 px-8 text-[16px]">Browse ebooks <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
-              {allAccess && <Link href="/book/all-access" className="btn-ghost h-14 px-7 text-[16px]">All Access · {rupees(allAccess.price)}</Link>}
+              {allAccess && <Link href="/book/all-access" className="btn-ghost h-14 px-7 text-[16px]">All Access · from {rupees(getPlans(allAccess)[0].price)}</Link>}
             </div>
             <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-fog">
               <li className="flex items-center gap-2"><Icon name="check" size={16} className="text-mint" strokeWidth={2.4} /> {books.length} ebooks · {totalPages.toLocaleString("en-IN")}+ pages</li>
@@ -238,6 +238,9 @@ function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; chea
               {allAccess.mrp && <span className="text-[18px] font-semibold text-fog-2 line-through">{rupees(allAccess.mrp)}</span>}
             </p>
             <p className="text-[14px] font-semibold text-cream-2">{accessLabel(allAccess.access_days)} · every book, every language{save > 0 && <span className="font-bold text-mint"> · save {rupees(save)}</span>}</p>
+            {getPlans(allAccess).filter((p) => p.slug !== allAccess.slug).map((p) => (
+              <p key={p.slug} className="mt-1 text-[14px] text-fog">or {accessLabel(p.access_days).replace(" access", "")} for <b className="text-cream">{rupees(p.price)}</b></p>
+            ))}
             <div className="mt-5 grid flex-1 items-center gap-6 sm:grid-cols-[1fr_auto]">
               <ul className="space-y-3 text-[15px] text-cream-2">
                 {allAccess.learn.map((t) => (
@@ -246,7 +249,7 @@ function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; chea
               </ul>
               <div className="hidden sm:block"><BookCover product={allAccess} covers={covers} size="lg" /></div>
             </div>
-            <Link href="/book/all-access" className="btn-primary mt-7 h-14 w-full text-[16px]">Get All Access</Link>
+            <Link href="/book/all-access" className="btn-primary mt-7 h-14 w-full text-[16px]">Choose your plan</Link>
           </div>
         </div>
       </div>
