@@ -228,7 +228,7 @@ function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; chea
         </div>
         <div className="relative rounded-card bg-brand-gradient p-[1.5px]">
           <div className="relative flex h-full flex-col overflow-hidden rounded-[21px] bg-night-2 p-7">
-            <span className="absolute right-5 top-5 rounded-full bg-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-cream">Most popular</span>
+            <span className="absolute right-5 top-5 rounded-full bg-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-night">Most popular</span>
             <p className="eyebrow">All Access Pass</p>
             <p className="mt-3 flex items-baseline gap-3 font-display text-[44px] font-extrabold text-cream">
               {rupees(allAccess.price)}

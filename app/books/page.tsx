@@ -31,7 +31,7 @@ export default async function Books({ searchParams }: { searchParams: { cat?: st
         <button className="btn-primary h-[52px]">Search</button>
       </form>
       <div className="no-scrollbar mt-5 flex gap-2 overflow-x-auto" role="tablist" aria-label="Categories">
-        <Tab href="/books" active={!cat} color="#1C1424">All</Tab>
+        <Tab href="/books" active={!cat} color="#F5F1E6">All</Tab>
         {cats.map(([key, c]) => (
           <Tab key={key} href={`/books?cat=${key}`} active={cat === key} color={c.color}>{c.label}</Tab>
         ))}

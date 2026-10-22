@@ -51,7 +51,7 @@ export function CheckoutClient({ slug, title, price, email, ready, keyId, whatsa
         name: "SahiKaam",
         description: title,
         prefill: { email },
-        theme: { color: "#E8590C" },
+        theme: { color: "#F5B83D" },
         handler: async (resp: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
           const v = await fetch("/api/checkout/verify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(resp) });
           if (v.ok) { router.replace(`/library?new=${slug}`); router.refresh(); }
