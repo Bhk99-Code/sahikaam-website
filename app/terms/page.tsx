@@ -8,26 +8,26 @@ export const metadata: Metadata = { title: "Terms & Conditions" };
 export default function Terms() {
   return (
     <Policy title="Terms & Conditions">
-      <p className="text-[13px] text-ink-5">Last updated: {BUSINESS.updated}</p>
-      <p>Ye website SahiKaam brand ke naam se {BUSINESS.legalName} (&ldquo;we&rdquo;, &ldquo;us&rdquo;) dwara chalayi jaati hai. Website use karke ya koi product khareed kar aap in terms se sehmat hote hain.</p>
+      <p className="text-[13px] text-fog">Last updated: {BUSINESS.updated}</p>
+      <p>This website is operated under the SahiKaam brand by {BUSINESS.legalName} (&ldquo;we&rdquo;, &ldquo;us&rdquo;). By using the website or buying a product you agree to these terms.</p>
       <h2>1. Products</h2>
-      <p>Hum digital ebooks, video courses aur bundles bechte hain. Koi physical product ship nahi hota. Khareedne ke baad product aapke account ki &ldquo;My Library&rdquo; mein online padhne/dekhne ke liye milta hai.</p>
-      <h2>2. Account</h2>
-      <p>Aap apne login (email) ki suraksha ke zimmedaar hain. Ek account sirf ek vyakti ke istemal ke liye hai; account share karna mana hai aur aisa paaye jaane par access band kiya ja sakta hai.</p>
-      <h2>3. Licence &amp; copyright</h2>
+      <p>We sell digital ebooks and bundles. Nothing is shipped. After purchase, the product is available to read online in &ldquo;My library&rdquo; in your account.</p>
+      <h2>2. Your account</h2>
+      <p>You are responsible for keeping access to your email secure. An account is for one person only; sharing an account is not allowed and may lead to access being removed.</p>
+      <h2>3. Licence and copyright</h2>
       <ul>
-        <li>Saara content SahiKaam ki copyright property hai. Aapko sirf personal, non-commercial use ka licence milta hai.</li>
-        <li>Content copy karna, screenshot/recording baantna, dobara bechna ya public post karna mana hai.</li>
-        <li>Har page par aapki pehchaan ka watermark hota hai taaki leak hone par source pata chal sake.</li>
+        <li>All content is the copyright of SahiKaam. You receive a licence for personal, non-commercial use only.</li>
+        <li>Copying the content, sharing screenshots or recordings, reselling or publishing it is not allowed.</li>
+        <li>Every page carries a watermark linked to your account so that the source of any leak can be traced.</li>
       </ul>
-      <h2>4. Pricing &amp; payment</h2>
-      <p>Sabhi keemtein Indian Rupees (INR) mein hain aur applicable taxes shaamil hain. Payments Razorpay ke through process hote hain; hum aapke card ya bank details store nahi karte.</p>
+      <h2>4. Prices and payment</h2>
+      <p>All prices are in Indian Rupees (INR) and include applicable taxes. Payments are processed by Razorpay; we never store your card or bank details.</p>
       <h2>5. Information disclaimer</h2>
-      <p>Hamare products educational jaankari dete hain. Ye legal, financial ya investment salah nahi hai. Koi bhi business shuru karne se pehle apni research karein aur zaroorat ho to professional se salah lein. Kisi bhi nuksaan ki zimmedari hamari nahi hogi.</p>
+      <p>Our products provide educational information. They are not legal, financial or investment advice. Do your own research and consult a professional before starting any business. We are not responsible for any loss.</p>
       <h2>6. Refunds</h2>
-      <p>Refunds hamari <a className="text-brand-600" href="/refund-policy">Refund &amp; Cancellation Policy</a> ke anusaar hote hain.</p>
+      <p>Refunds follow our <a href="/refund-policy">Refund &amp; Cancellation Policy</a>.</p>
       <h2>7. Governing law</h2>
-      <p>Ye terms Bharat ke kanoon ke adheen hain. Koi bhi vivaad Chhindwara, Madhya Pradesh ki adalaton ke adhikaar kshetra mein hoga.</p>
+      <p>These terms are governed by the laws of India. Any dispute falls under the jurisdiction of the courts of Chhindwara, Madhya Pradesh.</p>
       <h2>8. Contact</h2>
       <p>{SUPPORT_EMAIL} · {BUSINESS.address}</p>
     </Policy>

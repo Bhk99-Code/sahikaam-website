@@ -29,10 +29,10 @@ export default async function LearnPage({ params, searchParams }: { params: { sl
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 md:py-10">
-      <Link href="/library?tab=courses" className="mb-4 inline-flex items-center gap-1 text-[14px] font-semibold text-ink-3"><Icon name="back" size={18} /> My Library</Link>
+      <Link href="/library" className="mb-4 inline-flex items-center gap-1 text-[14px] font-semibold text-fog"><Icon name="back" size={18} /> My Library</Link>
       <h1 className="text-[24px] font-extrabold tracking-tight md:text-[30px]">{product.title}</h1>
       {!lesson ? (
-        <p className="mt-6 rounded-card border border-line bg-white p-6 text-ink-4">Lessons jald hi upload honge.</p>
+        <p className="mt-6 rounded-card border border-white/10 bg-night-2 p-6 text-fog">Lessons jald hi upload honge.</p>
       ) : (
         <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_340px]">
           <div>
@@ -41,17 +41,17 @@ export default async function LearnPage({ params, searchParams }: { params: { sl
             </div>
             <h2 className="mt-4 text-[20px] font-bold">{i + 1}. {lesson.title}</h2>
             <div className="mt-4 flex gap-3">
-              {i > 0 && <Link href={`?l=${i - 1}`} className="flex h-11 items-center rounded-full border border-line bg-white px-5 font-semibold">← Pichla</Link>}
-              {i < lessons.length - 1 && <Link href={`?l=${i + 1}`} className="flex h-11 items-center rounded-full bg-ink px-5 font-bold text-white">Agla lesson →</Link>}
+              {i > 0 && <Link href={`?l=${i - 1}`} className="flex h-11 items-center rounded-full border border-white/10 bg-night-2 px-5 font-semibold">← Pichla</Link>}
+              {i < lessons.length - 1 && <Link href={`?l=${i + 1}`} className="flex h-11 items-center rounded-full bg-saffron-500 px-5 font-bold text-night">Agla lesson →</Link>}
             </div>
           </div>
-          <ol className="h-max overflow-hidden rounded-card border border-line bg-white">
+          <ol className="h-max overflow-hidden rounded-card border border-white/10 bg-night-2">
             {lessons.map((l, n) => (
               <li key={n}>
-                <Link href={`?l=${n}`} className={`flex items-center gap-3 border-b border-[#EFEFF2] p-4 ${n === i ? "bg-brand-50" : "hover:bg-mist"}`}>
-                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[13px] font-extrabold ${n === i ? "bg-brand-600 text-white" : "bg-mist text-ink-3"}`}>{n + 1}</span>
+                <Link href={`?l=${n}`} className={`flex items-center gap-3 border-b border-white/10 p-4 ${n === i ? "bg-saffron-500/10" : "hover:bg-white/5"}`}>
+                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[13px] font-extrabold ${n === i ? "bg-saffron-500 text-night" : "bg-white/5 text-fog"}`}>{n + 1}</span>
                   <span className="flex-1 text-[14px] font-semibold">{l.title}</span>
-                  {l.minutes ? <span className="text-[12px] text-ink-5">{l.minutes} min</span> : null}
+                  {l.minutes ? <span className="text-[12px] text-fog">{l.minutes} min</span> : null}
                 </Link>
               </li>
             ))}

@@ -4,9 +4,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/Icon";
 
-type Props = { slug: string; title: string; parts: string[]; part: number; startPage: number; watermark: string };
+type Props = {
+  slug: string; title: string; lang: string; languages: { lang: string; label: string }[];
+  parts: string[]; part: number; startPage: number; watermark: string;
+};
 
-export function Reader({ slug, title, parts, part, startPage, watermark }: Props) {
+export function Reader({ slug, title, lang, languages, parts, part, startPage, watermark }: Props) {
   const router = useRouter();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -23,7 +26,7 @@ export function Reader({ slug, title, parts, part, startPage, watermark }: Props
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(`/api/read/${slug}?part=${part}`, { cache: "no-store" });
+        const res = await fetch(`/api/read/${slug}?lang=${lang}&part=${part}`, { cache: "no-store" });
         if (!res.ok) throw new Error("no access");
         const data = new Uint8Array(await res.arrayBuffer());
         const pdfjs = await import("pdfjs-dist");
@@ -39,7 +42,7 @@ export function Reader({ slug, title, parts, part, startPage, watermark }: Props
       }
     })();
     return () => { cancelled = true; };
-  }, [slug, part]);
+  }, [slug, lang, part]);
 
   const render = useCallback(async () => {
     const doc = docRef.current;
@@ -95,8 +98,16 @@ export function Reader({ slug, title, parts, part, startPage, watermark }: Props
       <header className="flex items-center gap-2 px-3 py-3">
         <Link href="/library" aria-label="Back to library" className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-white/10"><Icon name="back" /></Link>
         <span className="flex-1 truncate text-[15px] font-semibold">{title}</span>
+        {languages.length > 1 && (
+          <div role="group" aria-label="Language" className="flex rounded-full bg-white/10 p-1 text-[13px] font-bold">
+            {languages.map((l) => (
+              <button key={l.lang} onClick={() => router.push(`/read/${slug}?lang=${l.lang}`)} aria-pressed={l.lang === lang}
+                className={`rounded-full px-3 py-1.5 ${l.lang === lang ? "bg-white text-black" : "text-white/70"}`}>{l.label}</button>
+            ))}
+          </div>
+        )}
         {parts.length > 0 && (
-          <select aria-label="Chapter" value={part} onChange={(e) => router.push(`/read/${slug}?part=${e.target.value}`)}
+          <select aria-label="Chapter" value={part} onChange={(e) => router.push(`/read/${slug}?lang=${lang}&part=${e.target.value}`)}
             className="max-w-[45vw] rounded-lg bg-white/10 px-2 py-2 text-[14px] text-white outline-none">
             {parts.map((t, i) => <option key={i} value={i} className="text-black">{t}</option>)}
           </select>
@@ -107,11 +118,11 @@ export function Reader({ slug, title, parts, part, startPage, watermark }: Props
 
       <div ref={boxRef} className="relative flex-1 overflow-auto">
         <div className="mx-auto flex min-h-full w-max min-w-full justify-center p-3">
-          {status === "loading" && <p className="self-center text-white/70">Book khul rahi hai…</p>}
+          {status === "loading" && <p className="self-center text-white/70">Opening your book…</p>}
           {status === "error" && (
             <div className="self-center text-center">
-              <p className="font-semibold">Book load nahi ho payi.</p>
-              <p className="mt-1 text-[14px] text-white/60">Internet check karein, ya Help se contact karein.</p>
+              <p className="font-semibold">Could not open the book.</p>
+              <p className="mt-1 text-[14px] text-white/60">Check your internet connection, or contact Help.</p>
             </div>
           )}
           <div className={`relative ${status === "ready" ? "" : "hidden"}`}>

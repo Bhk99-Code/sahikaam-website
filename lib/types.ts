@@ -1,13 +1,26 @@
 export type ProductType = "ebook" | "course" | "bundle";
+export type Category = "manufacturing" | "legal" | "construction" | "bundle";
 
 export type Lesson = { title: string; video_url: string; minutes?: number };
 export type Part = { title: string; file: string };
 export type Highlight = { title: string; text: string };
 
+/** One language version of a book. A book is either one PDF (file_path) or chapter files (parts). */
+export type Edition = {
+  lang: "hi" | "en";
+  label: string;
+  pages?: number;
+  file_path?: string; // PDF file name inside private/books/
+  parts?: Part[];
+  coming_soon?: boolean;
+};
+
 export type Product = {
   id: string;
   slug: string;
   type: ProductType;
+  category: Category;
+  accent: string;
   title: string;
   subtitle: string | null;
   description: string | null;
@@ -16,14 +29,14 @@ export type Product = {
   badge: string | null;
   cover_color: string | null;
   cover_url: string | null;
-  file_path: string | null; // PDF file name inside private/books/
   pages: number | null;
-  language: string | null;
+  level: string | null;
   highlights: Highlight[];
+  learn: string[];
   chapters: string[];
   lessons: Lesson[];
   bundle_items: string[];
-  parts: Part[]; // book split into chapter files (reader shows a chapter picker)
+  editions: Edition[];
   sort_order: number;
   is_published: boolean;
 };

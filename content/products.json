@@ -1,105 +1,106 @@
 {
-  "_help": "Yahi website ki books ki list hai. price rupees mein. file_path = private/books/ mein PDF ka naam. is_published false = chhupa hua.",
+  "_help": "Book list. price in rupees. editions: one per language (file_path in private/books, or parts for chapter files). coming_soon: true = language shown as coming soon. is_published false = hidden.",
   "products": [
     {
       "slug": "manufacturing-50",
       "type": "ebook",
+      "category": "manufacturing",
+      "accent": "#FF8A1F",
       "title": "50 Most Profitable Manufacturing Businesses",
-      "subtitle": "₹10 Lakh se ₹1000 Crore tak ka roadmap",
-      "description": "Har investment level ke liye manufacturing businesses — machinery, permissions, funding, loan aur subsidy details ke saath, aur ek company ko ₹1000 crore tak le jaane ka roadmap.",
+      "subtitle": "Your roadmap from ₹10 lakh to a ₹1,000 crore company",
+      "description": "Fifty manufacturing businesses that actually work in India — sorted by investment level, with the machinery, permissions, loans, subsidies and a 5-year profit picture for each. Ends with a step-by-step plan to grow a small unit into a ₹1,000 crore company.",
       "price": 3999,
       "mrp": 4999,
-      "badge": "COMPLETE EDITION",
-      "cover_color": "#C2410C",
-      "file_path": "manufacturing-50.pdf",
+      "badge": "Bestseller",
+      "cover_url": "/covers/manufacturing-50.jpg",
+      "level": "Beginner to advanced",
+      "sort_order": 10,
       "highlights": [
         {
           "title": "50",
           "text": "Business ideas"
         },
         {
-          "title": "Funding",
-          "text": "Loan & subsidy details"
+          "title": "5 tiers",
+          "text": "₹10 L to ₹5 Cr+"
+        },
+        {
+          "title": "Loans",
+          "text": "Subsidy & funding"
         },
         {
           "title": "Lifetime",
-          "text": "Access in library"
-        },
-        {
-          "title": "Hindi",
-          "text": "Aasaan bhasha"
+          "text": "Access"
         }
+      ],
+      "learn": [
+        "Pick a manufacturing business that fits your budget, from ₹10 lakh to ₹5 crore+",
+        "Know the exact machinery, space and staff each unit needs",
+        "Get the licences and permissions right the first time",
+        "Use bank loans and government subsidies to fund it",
+        "Read a 5-year profit and loss picture before you invest",
+        "Follow a roadmap to scale a small unit into a ₹1,000 crore company"
       ],
       "chapters": [
-        "₹10–50 Lakh: shuruaati businesses",
-        "₹50 Lakh–5 Crore: scale-up units",
-        "₹5 Crore+: bade plants",
-        "Funding, loan aur subsidy",
-        "₹1000 Crore company roadmap"
+        "₹10–50 lakh: starter units",
+        "₹50 lakh–5 crore: scale-up units",
+        "₹5 crore+: large plants",
+        "Funding, loans and subsidies",
+        "The ₹1,000 crore company roadmap"
       ],
-      "sort_order": 10,
-      "pages": 453,
-      "cover_url": "/covers/manufacturing-50.jpg"
-    },
-    {
-      "slug": "manufacturing-50-starter",
-      "type": "ebook",
-      "title": "50 Manufacturing Business Ideas — Starter Edition",
-      "subtitle": "Saare 50 ideas short mein — pehla kadam",
-      "description": "Saare 50 manufacturing ideas ek nazar mein. Gehrai mein jaane se pehle ek tez shuruaat.",
-      "price": 499,
-      "badge": "STARTER",
-      "cover_color": "#9A3412",
-      "file_path": "manufacturing-50-starter.pdf",
-      "highlights": [
+      "editions": [
         {
-          "title": "50",
-          "text": "Business ideas"
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 453,
+          "file_path": "manufacturing-50.pdf"
         },
         {
-          "title": "₹499",
-          "text": "Sabse sasta start"
-        },
-        {
-          "title": "Lifetime",
-          "text": "Access in library"
-        },
-        {
-          "title": "Hindi",
-          "text": "Aasaan bhasha"
+          "lang": "en",
+          "label": "English",
+          "pages": 335,
+          "file_path": "manufacturing-50-en.pdf"
         }
-      ],
-      "sort_order": 20,
-      "is_published": false,
-      "_note": "Starter PDF abhi nahi bana. PDF aate hi is_published true karein."
+      ]
     },
     {
       "slug": "legal-business-andha-paisa",
       "type": "ebook",
+      "category": "legal",
+      "accent": "#18C7A6",
       "title": "Legal Business – Andha Paisa",
-      "subtitle": "128 legal business ideas, 15 chapters · bina bade investment ke",
-      "description": "Brokerage, leasing, labour supply, trading jaise 100+ legal business ideas — execution steps, permissions aur kaam kahan se milega, sab ke saath.",
+      "subtitle": "128 legal businesses you can start with little or no investment",
+      "description": "Brokerage, rentals, labour supply, trading, government work, events, logistics and more — 128 fully legal business ideas across 15 chapters. Each idea shows how it earns, the permissions you need, where to find your first customers and how to run it properly.",
       "price": 1999,
-      "badge": "BESTSELLER",
-      "cover_color": "#1E3A5F",
-      "file_path": null,
+      "mrp": 2999,
+      "badge": "Low investment",
+      "cover_url": "/covers/andha-paisa.svg",
+      "level": "Beginner",
+      "sort_order": 20,
       "highlights": [
-        {
-          "title": "15",
-          "text": "Chapters"
-        },
         {
           "title": "128",
           "text": "Business ideas"
         },
         {
-          "title": "Permissions",
-          "text": "Har idea ke saath"
+          "title": "15",
+          "text": "Chapters"
+        },
+        {
+          "title": "₹0+",
+          "text": "Start small"
         },
         {
           "title": "Lifetime",
-          "text": "Access in library"
+          "text": "Access"
         }
+      ],
+      "learn": [
+        "Find a legal business you can start this month with little money",
+        "Understand how each business earns — commission, rent, margin or fees",
+        "Know which registrations and permissions each idea needs",
+        "Learn where your first customers and work orders come from",
+        "Avoid the common mistakes that shut small businesses down"
       ],
       "chapters": [
         "Brokerage, Rental & Leasing",
@@ -118,114 +119,170 @@
         "Healthcare & Senior Support",
         "MSME Operations & Business Support"
       ],
-      "sort_order": 30,
-      "parts": [
+      "editions": [
         {
-          "title": "Chapter 1: Brokerage, Rental & Leasing",
-          "file": "legal-business-andha-paisa/01-brokerage-rental-leasing.pdf"
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 933,
+          "parts": [
+            {
+              "title": "Chapter 1: Brokerage, Rental & Leasing",
+              "file": "legal-business-andha-paisa/01-brokerage-rental-leasing.pdf"
+            },
+            {
+              "title": "Chapter 2: Hiring & Workforce Services",
+              "file": "legal-business-andha-paisa/02-hiring-workforce-services.pdf"
+            },
+            {
+              "title": "Chapter 3: Construction & Property Support",
+              "file": "legal-business-andha-paisa/03-construction-property-support.pdf"
+            },
+            {
+              "title": "Chapter 4: B2B Trading & Sourcing",
+              "file": "legal-business-andha-paisa/04-b2b-trading-sourcing.pdf"
+            },
+            {
+              "title": "Chapter 5: Government & Corporate Support",
+              "file": "legal-business-andha-paisa/05-government-corporate-support.pdf"
+            },
+            {
+              "title": "Chapter 6: Digital & Creative Services",
+              "file": "legal-business-andha-paisa/06-digital-creative-services.pdf"
+            },
+            {
+              "title": "Chapter 7: Agriculture & Rural Services",
+              "file": "legal-business-andha-paisa/07-agriculture-rural-services.pdf"
+            },
+            {
+              "title": "Chapter 8: Education & Training",
+              "file": "legal-business-andha-paisa/08-education-training.pdf"
+            },
+            {
+              "title": "Chapter 9: Events, Weddings & Hospitality",
+              "file": "legal-business-andha-paisa/09-events-weddings-hospitality.pdf"
+            },
+            {
+              "title": "Chapter 10: Logistics & Transport Support",
+              "file": "legal-business-andha-paisa/10-logistics-transport-support.pdf"
+            },
+            {
+              "title": "Chapter 11: Local Services & Maintenance",
+              "file": "legal-business-andha-paisa/11-local-services-maintenance.pdf"
+            },
+            {
+              "title": "Chapter 12: Export & International Services",
+              "file": "legal-business-andha-paisa/12-export-international-services.pdf"
+            },
+            {
+              "title": "Chapter 13: Industry, Energy & Technical Services",
+              "file": "legal-business-andha-paisa/13-industry-energy-technical-services.pdf"
+            },
+            {
+              "title": "Chapter 14: Healthcare & Senior Support",
+              "file": "legal-business-andha-paisa/14-healthcare-senior-support.pdf"
+            },
+            {
+              "title": "Chapter 15: MSME Operations & Business Support",
+              "file": "legal-business-andha-paisa/15-msme-operations-business-support.pdf"
+            }
+          ]
         },
         {
-          "title": "Chapter 2: Hiring & Workforce Services",
-          "file": "legal-business-andha-paisa/02-hiring-workforce-services.pdf"
-        },
-        {
-          "title": "Chapter 3: Construction & Property Support",
-          "file": "legal-business-andha-paisa/03-construction-property-support.pdf"
-        },
-        {
-          "title": "Chapter 4: B2B Trading & Sourcing",
-          "file": "legal-business-andha-paisa/04-b2b-trading-sourcing.pdf"
-        },
-        {
-          "title": "Chapter 5: Government & Corporate Support",
-          "file": "legal-business-andha-paisa/05-government-corporate-support.pdf"
-        },
-        {
-          "title": "Chapter 6: Digital & Creative Services",
-          "file": "legal-business-andha-paisa/06-digital-creative-services.pdf"
-        },
-        {
-          "title": "Chapter 7: Agriculture & Rural Services",
-          "file": "legal-business-andha-paisa/07-agriculture-rural-services.pdf"
-        },
-        {
-          "title": "Chapter 8: Education & Training",
-          "file": "legal-business-andha-paisa/08-education-training.pdf"
-        },
-        {
-          "title": "Chapter 9: Events, Weddings & Hospitality",
-          "file": "legal-business-andha-paisa/09-events-weddings-hospitality.pdf"
-        },
-        {
-          "title": "Chapter 10: Logistics & Transport Support",
-          "file": "legal-business-andha-paisa/10-logistics-transport-support.pdf"
-        },
-        {
-          "title": "Chapter 11: Local Services & Maintenance",
-          "file": "legal-business-andha-paisa/11-local-services-maintenance.pdf"
-        },
-        {
-          "title": "Chapter 12: Export & International Services",
-          "file": "legal-business-andha-paisa/12-export-international-services.pdf"
-        },
-        {
-          "title": "Chapter 13: Industry, Energy & Technical Services",
-          "file": "legal-business-andha-paisa/13-industry-energy-technical-services.pdf"
-        },
-        {
-          "title": "Chapter 14: Healthcare & Senior Support",
-          "file": "legal-business-andha-paisa/14-healthcare-senior-support.pdf"
-        },
-        {
-          "title": "Chapter 15: MSME Operations & Business Support",
-          "file": "legal-business-andha-paisa/15-msme-operations-business-support.pdf"
+          "lang": "en",
+          "label": "English",
+          "coming_soon": true
         }
-      ],
-      "pages": 933,
-      "cover_url": "/covers/andha-paisa-15-books.jpg"
+      ]
     },
     {
       "slug": "contractor-bano",
       "type": "ebook",
+      "category": "construction",
+      "accent": "#3D9BFF",
       "title": "Contractor Bano",
-      "subtitle": "Engineer se contractor tak — apna contracting business",
-      "description": "Engineer se contractor banne ke steps — registration, tender, estimate, team aur pehla project.",
+      "subtitle": "From engineer to contractor — start your own contracting business",
+      "description": "A practical playbook for engineers and site staff who want to become contractors: registration, getting on tender lists, estimating and quoting, building a team, managing cash flow and delivering your first project without losses.",
       "price": 2999,
-      "badge": "CONSTRUCTION",
-      "cover_color": "#14532D",
-      "file_path": "contractor-bano.pdf",
+      "mrp": 3999,
+      "badge": "Construction",
+      "cover_url": "/covers/contractor-bano.jpg",
+      "level": "Beginner",
+      "sort_order": 30,
       "highlights": [
         {
-          "title": "Step-by-step",
-          "text": "Contractor banne ka raasta"
+          "title": "Step by step",
+          "text": "Engineer to contractor"
         },
         {
-          "title": "Tender",
-          "text": "Kaam kaise milega"
+          "title": "Tenders",
+          "text": "How to win work"
+        },
+        {
+          "title": "Cash flow",
+          "text": "Avoid losses"
         },
         {
           "title": "Lifetime",
-          "text": "Access in library"
-        },
-        {
-          "title": "Hindi",
-          "text": "Aasaan bhasha"
+          "text": "Access"
         }
       ],
+      "learn": [
+        "Register your contracting firm and get on tender lists",
+        "Estimate, quote and bid without underpricing",
+        "Build a reliable team of supervisors and labour",
+        "Manage materials, billing and cash flow on site",
+        "Deliver your first project on time and get repeat work"
+      ],
+      "chapters": [
+        "Becoming a contractor",
+        "Registration and tender lists",
+        "Estimating, BOQ and bidding",
+        "Team, materials and site control",
+        "Billing, cash flow and growth"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 56,
+          "file_path": "contractor-bano.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 56,
+          "file_path": "contractor-bano-en.pdf"
+        }
+      ]
+    },
+    {
+      "slug": "manufacturing-50-starter",
+      "type": "ebook",
+      "category": "manufacturing",
+      "accent": "#FFC233",
+      "is_published": false,
+      "_note": "Starter PDF not made yet. Add editions + set is_published true when ready.",
+      "title": "50 Manufacturing Business Ideas — Starter Edition",
+      "subtitle": "All 50 ideas in short — a quick first step",
+      "description": "All 50 manufacturing ideas at a glance.",
+      "price": 499,
+      "badge": "Starter",
       "sort_order": 40,
-      "pages": 56,
-      "cover_url": "/covers/contractor-bano.jpg"
+      "editions": []
     },
     {
       "slug": "all-access",
       "type": "bundle",
-      "title": "All Access — Saari Ebooks Ek Saath",
-      "subtitle": "Har SahiKaam ebook, ek hi payment mein",
-      "description": "Manufacturing Complete Edition, Legal Business – Andha Paisa aur Contractor Bano — teeno ek saath, sabse kam daam mein. Lifetime access.",
+      "category": "bundle",
+      "accent": "#A970FF",
+      "title": "All Access Pass",
+      "subtitle": "Every SahiKaam ebook in Hindi and English — one payment",
+      "description": "Get all three SahiKaam ebooks — 50 Most Profitable Manufacturing Businesses, Legal Business – Andha Paisa and Contractor Bano — in every language we publish, with lifetime access.",
       "price": 5999,
       "mrp": 8997,
-      "badge": "BEST VALUE",
-      "cover_color": "#7C2D12",
+      "badge": "Best value",
+      "level": "All levels",
+      "sort_order": 5,
       "bundle_items": [
         "manufacturing-50",
         "legal-business-andha-paisa",
@@ -234,7 +291,7 @@
       "highlights": [
         {
           "title": "3",
-          "text": "Premium ebooks"
+          "text": "Ebooks"
         },
         {
           "title": "1,400+",
@@ -242,19 +299,25 @@
         },
         {
           "title": "₹2,998",
-          "text": "Bachat"
+          "text": "You save"
         },
         {
           "title": "Lifetime",
-          "text": "Access in library"
+          "text": "Access"
         }
+      ],
+      "learn": [
+        "Manufacturing: 50 businesses from ₹10 lakh to ₹5 crore+",
+        "Legal businesses: 128 low-investment ideas",
+        "Contracting: become a contractor step by step",
+        "Hindi and English editions included"
       ],
       "chapters": [
         "50 Most Profitable Manufacturing Businesses",
         "Legal Business – Andha Paisa",
         "Contractor Bano"
       ],
-      "sort_order": 5
+      "editions": []
     }
   ]
 }

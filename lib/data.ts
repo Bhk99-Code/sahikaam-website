@@ -1,7 +1,7 @@
 import "server-only";
 import catalog from "@/content/products.json";
 import { all, one } from "./db";
-import type { Product } from "./types";
+import type { Edition, Product } from "./types";
 
 export { getUser } from "./auth";
 
@@ -9,17 +9,29 @@ export { getUser } from "./auth";
  * Products live in content/products.json (edit that file to add a book or change a price).
  * Each product's id is its slug.
  */
-const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => ({
-  subtitle: null, description: null, mrp: null, badge: null, cover_color: "#C2410C", cover_url: null,
-  file_path: null, pages: null, language: "Hindi + English", is_published: true, sort_order: 100,
-  ...p,
-  id: p.slug,
-  highlights: p.highlights ?? [],
-  chapters: p.chapters ?? [],
-  lessons: p.lessons ?? [],
-  bundle_items: p.bundle_items ?? [],
-  parts: p.parts ?? [],
-}));
+const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => {
+  const editions: Edition[] = p.editions ?? [];
+  const ready = editions.filter((e) => !e.coming_soon);
+  return {
+    subtitle: null, description: null, mrp: null, badge: null, cover_color: p.accent ?? "#FF7A1A", cover_url: null,
+    level: null, is_published: true, sort_order: 100, category: "manufacturing", accent: "#FF7A1A",
+    ...p,
+    id: p.slug,
+    pages: p.pages ?? (ready.length ? Math.max(...ready.map((e) => e.pages ?? 0)) || null : null),
+    highlights: p.highlights ?? [],
+    learn: p.learn ?? [],
+    chapters: p.chapters ?? [],
+    lessons: p.lessons ?? [],
+    bundle_items: p.bundle_items ?? [],
+    editions,
+  };
+});
+
+/** The edition to open: the requested language if available, else the first available one. */
+export function pickEdition(product: Product, lang?: string | null): Edition | null {
+  const ready = product.editions.filter((e) => !e.coming_soon);
+  return ready.find((e) => e.lang === lang) ?? ready[0] ?? null;
+}
 
 export async function getProducts(): Promise<Product[]> {
   return PRODUCTS.filter((p) => p.is_published).sort((a, b) => a.sort_order - b.sort_order);
@@ -51,4 +63,9 @@ export async function ownsProduct(userId: string, slug: string) {
 export async function getProgress(userId: string, slug: string) {
   const r = await one<{ progress: number }>("SELECT progress FROM purchases WHERE user_id = ? AND product_slug = ?", [userId, slug]);
   return Number(r?.progress ?? 0);
+}
+
+/** Cover images of the books inside a bundle (for the fanned-out bundle cover). */
+export function bundleCovers(product: Product): string[] {
+  return product.bundle_items.map((s) => findProduct(s)?.cover_url).filter((c): c is string => Boolean(c));
 }

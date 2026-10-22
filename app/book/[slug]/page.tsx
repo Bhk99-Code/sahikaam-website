@@ -1,16 +1,17 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getProduct, getUser, ownsProduct } from "@/lib/data";
+import { getProduct, getUser, ownsProduct, bundleCovers, findProduct } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
-import { rupees, TYPE_LABEL } from "@/lib/format";
+import { CATEGORY, percentOff, rupees, TYPE_LABEL } from "@/lib/format";
+import type { Product } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const p = await getProduct(params.slug);
-  return p ? { title: p.title, description: p.subtitle ?? p.description ?? undefined } : {};
+  return p ? { title: p.title, description: p.subtitle ?? p.description ?? undefined, openGraph: p.cover_url ? { images: [p.cover_url] } : undefined } : {};
 }
 
 export default async function BookPage({ params }: { params: { slug: string } }) {
@@ -18,110 +19,192 @@ export default async function BookPage({ params }: { params: { slug: string } })
   if (!product) notFound();
   const user = await getUser();
   const owned = user ? await ownsProduct(user.id, product.slug) : false;
-  const openHref = product.type === "course" ? `/learn/${product.slug}` : `/read/${product.slug}`;
+  const isBundle = product.type === "bundle";
+  const openHref = isBundle ? "/library" : `/read/${product.slug}`;
+  const covers = isBundle ? bundleCovers(product) : [];
+  const off = percentOff(product.price, product.mrp);
+  const cat = CATEGORY[product.category];
+  const allAccess = findProduct("all-access");
+  const inBundle = !isBundle && allAccess?.is_published && allAccess.bundle_items.includes(product.slug) ? allAccess : null;
+  const included = isBundle ? product.bundle_items.map((s) => findProduct(s)).filter((p): p is Product => Boolean(p)) : [];
 
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-32 pt-6 sm:px-6 md:pb-16 md:pt-10">
-      <Link href="/books" className="mb-5 inline-flex items-center gap-1 text-[14px] font-semibold text-ink-3 hover:text-ink">
-        <Icon name="back" size={18} /> Sab books
-      </Link>
-      <div className="grid gap-8 md:grid-cols-[380px_1fr]">
-        <div className="md:sticky md:top-24 md:self-start">
-          <div className="flex justify-center rounded-[24px] bg-brand-50 p-8">
-            <BookCover product={product} size="lg" />
-          </div>
-          {/* Desktop buy box */}
-          <div className="mt-4 hidden rounded-card border border-line bg-white p-5 md:block">
-            <Price product={product} />
-            <BuyButton owned={owned} slug={product.slug} openHref={openHref} free={product.price === 0} full />
-            <SecureNote />
+    <div className="pb-32 md:pb-10">
+      {/* Top: cover + buy box */}
+      <section className="relative overflow-hidden border-b border-white/[0.07]">
+        <div aria-hidden="true" className="pointer-events-none absolute -top-32 left-1/2 h-[480px] w-[760px] -translate-x-1/2 rounded-full opacity-25 blur-[120px]" style={{ background: product.accent }} />
+        <div className="container-x relative py-6 md:py-12">
+          <Link href="/books" className="inline-flex items-center gap-1 text-[14px] font-semibold text-fog hover:text-cream">
+            <Icon name="back" size={18} /> All ebooks
+          </Link>
+          <div className="mt-6 grid items-center gap-10 md:grid-cols-[minmax(0,420px)_1fr]">
+            <div className="flex justify-center py-4">
+              <BookCover product={product} covers={covers} size="lg" />
+            </div>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full px-3 py-1 text-[12px] font-extrabold uppercase tracking-wider text-night" style={{ background: product.accent }}>{cat.label}</span>
+                {product.badge && <span className="chip">{product.badge}</span>}
+              </div>
+              <h1 className="font-display text-[34px] font-extrabold leading-[1.05] tracking-tight text-cream md:text-[48px]">{product.title}</h1>
+              {product.subtitle && <p className="max-w-2xl text-[17px] leading-relaxed text-cream-2 md:text-[19px]">{product.subtitle}</p>}
+              <ul className="flex flex-wrap gap-2">
+                <li className="chip"><Icon name="book" size={14} /> {TYPE_LABEL[product.type]}</li>
+                {product.pages && <li className="chip"><Icon name="layers" size={14} /> {product.pages}{isBundle ? "+" : ""} pages</li>}
+                {product.level && <li className="chip"><Icon name="star" size={14} /> {product.level}</li>}
+                <li className="chip"><Icon name="globe" size={14} /> {isBundle ? "Hindi + English" : product.editions.map((e) => e.label + (e.coming_soon ? " (soon)" : "")).join(" · ")}</li>
+                <li className="chip"><Icon name="check" size={14} /> Lifetime access</li>
+              </ul>
+
+              <div className="card mt-2 flex flex-col gap-4 p-5 sm:flex-row sm:items-center">
+                <Price product={product} off={off} />
+                <div className="hidden flex-1 sm:block" />
+                <BuyButton owned={owned} slug={product.slug} openHref={openHref} />
+              </div>
+              <p className="flex items-center gap-2 text-[13px] text-fog">
+                <Icon name="lock" size={16} className="text-mint" strokeWidth={2} /> Secure checkout by Razorpay · UPI, cards, net banking · instant access
+              </p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="flex flex-col gap-7">
-          <div className="flex flex-col gap-3">
-            {product.badge && <span className="self-start rounded-lg bg-brand-600 px-2.5 py-1 text-[12px] font-bold text-white">{product.badge}</span>}
-            <h1 className="text-[26px] font-extrabold leading-tight tracking-tight md:text-[36px]">{product.title}</h1>
-            {product.subtitle && <p className="text-[17px] text-ink-4">{product.subtitle}</p>}
-            <p className="text-[14px] text-ink-5">
-              by SahiKaam · {TYPE_LABEL[product.type]}{product.pages ? ` · ${product.pages} pages` : ""}{product.language ? ` · ${product.language}` : ""}
-            </p>
-          </div>
-
+      <div className="container-x grid gap-10 py-12 lg:grid-cols-[1fr_340px]">
+        <div className="flex flex-col gap-12">
           {product.highlights.length > 0 && (
-            <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
               {product.highlights.map((h) => (
-                <div key={h.title + h.text} className="flex flex-col gap-1 rounded-2xl bg-white p-4 ring-1 ring-line">
-                  <span className="text-[19px] font-extrabold">{h.title}</span>
-                  <span className="text-[13px] text-ink-4">{h.text}</span>
+                <div key={h.title + h.text} className="card p-5">
+                  <span className="block font-display text-[26px] font-extrabold" style={{ color: product.accent }}>{h.title}</span>
+                  <span className="text-[13px] text-fog">{h.text}</span>
                 </div>
               ))}
             </div>
           )}
 
-          {product.description && (
+          {product.learn.length > 0 && (
             <section>
-              <h2 className="mb-3 text-[13px] font-bold uppercase tracking-[0.18em] text-ink-3">About this {TYPE_LABEL[product.type].toLowerCase()}</h2>
-              <p className="whitespace-pre-line text-[16px] leading-relaxed text-ink-2">{product.description}</p>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">{isBundle ? "What's included" : "What you'll learn"}</h2>
+              <ul className="mt-5 grid gap-3 md:grid-cols-2">
+                {product.learn.map((t) => (
+                  <li key={t} className="card flex gap-3 p-4 text-[15px] leading-relaxed text-cream-2">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full" style={{ background: `${product.accent}26`, color: product.accent }}>
+                      <Icon name="check" size={14} strokeWidth={3} />
+                    </span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </section>
           )}
 
-          {(product.chapters.length > 0 || product.lessons.length > 0) && (
+          {product.description && (
+            <section>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">About this {TYPE_LABEL[product.type].toLowerCase()}</h2>
+              <p className="mt-4 whitespace-pre-line text-[16px] leading-relaxed text-cream-2">{product.description}</p>
+            </section>
+          )}
+
+          {included.length > 0 && (
+            <section>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">Books in this pass</h2>
+              <div className="mt-5 flex flex-col gap-3">
+                {included.map((b) => (
+                  <Link key={b.slug} href={`/book/${b.slug}`} className="card flex items-center gap-4 p-4 hover:border-white/20">
+                    <BookCover product={b} size="sm" />
+                    <div className="flex-1">
+                      <p className="font-bold text-cream">{b.title}</p>
+                      <p className="text-[13px] text-fog">{b.pages} pages · {b.editions.map((e) => e.label).join(" · ")}</p>
+                    </div>
+                    <span className="text-[14px] text-fog-2 line-through">{rupees(b.price)}</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {!isBundle && product.chapters.length > 0 && (
             <section id="inside" className="scroll-mt-24">
-              <h2 className="mb-3 text-[13px] font-bold uppercase tracking-[0.18em] text-ink-3">What&apos;s inside</h2>
-              <ol className="overflow-hidden rounded-card border border-line bg-white">
-                {(product.type === "course" ? product.lessons.map((l) => l.title) : product.chapters).map((t, i) => (
-                  <li key={i} className="flex items-center gap-4 border-b border-[#EFEFF2] p-4 last:border-0">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-50 text-[13px] font-extrabold text-brand-600">
+              <h2 className="font-display text-[26px] font-extrabold text-cream">Inside the book</h2>
+              <ol className="card mt-5 divide-y divide-white/[0.07] overflow-hidden">
+                {product.chapters.map((t, i) => (
+                  <li key={i} className="flex items-center gap-4 p-4">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl font-display text-[14px] font-extrabold" style={{ background: `${product.accent}1f`, color: product.accent }}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-[15px] font-semibold">{t}</span>
+                    <span className="text-[15px] font-semibold text-cream">{t}</span>
                   </li>
                 ))}
               </ol>
             </section>
           )}
 
-          <div className="md:hidden"><SecureNote /></div>
+          {!isBundle && product.editions.length > 0 && (
+            <section>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">Read it your way</h2>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {product.editions.map((e) => (
+                  <div key={e.lang} className="card flex items-center gap-4 p-5">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/[0.06] font-display text-[18px] font-extrabold text-cream">{e.lang === "hi" ? "हि" : "En"}</span>
+                    <div className="flex-1">
+                      <p className="font-bold text-cream">{e.label} edition</p>
+                      <p className="text-[13px] text-fog">{e.coming_soon ? "Coming soon — free for buyers" : `${e.pages ?? ""} pages · included`}</p>
+                    </div>
+                    {e.coming_soon ? <span className="chip">Soon</span> : <Icon name="check" className="text-mint" strokeWidth={2.4} />}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
+
+        {/* Side: upsell + trust */}
+        <aside className="flex flex-col gap-4 lg:sticky lg:top-24 lg:self-start">
+          {inBundle && !owned && (
+            <Link href="/book/all-access" className="relative block rounded-card bg-brand-gradient p-[1.5px]">
+              <div className="rounded-[21px] bg-night-2 p-5">
+                <p className="eyebrow text-sun">Save more</p>
+                <p className="mt-2 font-display text-[20px] font-bold text-cream">Get this + every other ebook for {rupees(inBundle.price)}</p>
+                <p className="mt-2 text-[14px] font-bold text-saffron-400">See All Access →</p>
+              </div>
+            </Link>
+          )}
+          <div className="card flex flex-col gap-4 p-5 text-[14px] text-cream-2">
+            {[
+              ["bolt", "Instant access after payment"],
+              ["globe", "Hindi and English editions"],
+              ["library", "Read on phone, tablet or computer"],
+              ["refund", "Refund if charged twice or the book won't open"],
+            ].map(([icon, t]) => (
+              <p key={t} className="flex items-center gap-3"><Icon name={icon} size={18} className="text-saffron-400" strokeWidth={2} />{t}</p>
+            ))}
+          </div>
+        </aside>
       </div>
 
       {/* Mobile sticky buy bar */}
-      <div className="fixed inset-x-0 bottom-0 z-50 flex items-center gap-4 border-t border-line bg-white px-5 pb-6 pt-3 md:hidden">
-        <div className="flex-1"><Price product={product} compact /></div>
-        <BuyButton owned={owned} slug={product.slug} openHref={openHref} free={product.price === 0} />
+      <div className="fixed inset-x-0 bottom-0 z-50 flex items-center gap-4 border-t border-white/10 bg-night-2/95 px-5 pb-6 pt-3 backdrop-blur-xl md:hidden">
+        <div className="flex-1"><Price product={product} off={off} compact /></div>
+        <BuyButton owned={owned} slug={product.slug} openHref={openHref} />
       </div>
     </div>
   );
 }
 
-function Price({ product, compact }: { product: { price: number; mrp: number | null }; compact?: boolean }) {
+function Price({ product, off, compact }: { product: Product; off: number; compact?: boolean }) {
   return (
-    <div className={compact ? "" : "mb-4"}>
+    <div>
       <div className="flex items-baseline gap-2">
-        <span className="text-[24px] font-extrabold">{rupees(product.price)}</span>
-        {product.mrp && product.mrp > product.price && <span className="text-[14px] text-ink-5 line-through">{rupees(product.mrp)}</span>}
+        <span className={`font-display font-extrabold text-cream ${compact ? "text-[24px]" : "text-[34px]"}`}>{rupees(product.price)}</span>
+        {off > 0 && <span className="text-[15px] text-fog-2 line-through">{rupees(product.mrp!)}</span>}
+        {off > 0 && !compact && <span className="rounded-full bg-rosy px-2 py-0.5 text-[12px] font-extrabold text-white">{off}% off</span>}
       </div>
-      {product.price > 0 && <span className="text-[12px] text-ink-5">incl. all taxes</span>}
+      {product.price > 0 && <span className="text-[12px] text-fog">{compact && off > 0 ? <b className="text-rosy">{off}% off · </b> : null}Inclusive of all taxes</span>}
     </div>
   );
 }
 
-function BuyButton({ owned, slug, openHref, free, full }: { owned: boolean; slug: string; openHref: string; free: boolean; full?: boolean }) {
-  const cls = `flex h-[54px] items-center justify-center rounded-full px-9 text-[17px] font-bold text-white ${full ? "w-full" : ""}`;
-  if (owned) return <Link href={openHref} className={`${cls} bg-ink hover:bg-black`}>Padhna Shuru Karein</Link>;
-  return (
-    <Link href={`/checkout/${slug}`} className={`${cls} bg-brand-600 hover:bg-brand-700`}>
-      {free ? "Free mein Paayein" : "Buy Now"}
-    </Link>
-  );
-}
-
-function SecureNote() {
-  return (
-    <p className="mt-4 flex items-start gap-3 rounded-2xl bg-mist p-4 text-[13px] leading-relaxed text-ink-3">
-      <Icon name="shield" className="shrink-0 text-green-700" />
-      Secure payment — UPI, card, net banking. Kharidte hi book aapki Library mein aa jayegi.
-    </p>
-  );
+function BuyButton({ owned, slug, openHref }: { owned: boolean; slug: string; openHref: string }) {
+  if (owned) return <Link href={openHref} className="btn h-14 shrink-0 whitespace-nowrap bg-cream px-7 text-[16px] text-night hover:bg-white">Start reading</Link>;
+  return <Link href={`/checkout/${slug}`} className="btn-primary h-14 shrink-0 whitespace-nowrap px-9 text-[16px] shadow-glow">Buy now</Link>;
 }

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
-import { getUser, ownsProduct, findProduct } from "@/lib/data";
+import { getUser, ownsProduct, findProduct, pickEdition } from "@/lib/data";
 
 const BOOKS_DIR = process.env.BOOKS_DIR || path.join(process.cwd(), "private", "books");
 
@@ -10,8 +10,10 @@ export async function GET(req: Request, { params }: { params: { slug: string } }
   const user = await getUser();
   if (!user) return NextResponse.json({ error: "login required" }, { status: 401 });
   const product = findProduct(params.slug);
-  const part = Number(new URL(req.url).searchParams.get("part") ?? 0);
-  const fileName = product?.parts.length ? product.parts[part]?.file : product?.file_path;
+  const params2 = new URL(req.url).searchParams;
+  const part = Number(params2.get("part") ?? 0);
+  const edition = product ? pickEdition(product, params2.get("lang")) : null;
+  const fileName = edition?.parts?.length ? edition.parts[part]?.file : edition?.file_path;
   if (!product || !fileName) return NextResponse.json({ error: "file not found" }, { status: 404 });
   if (!(await ownsProduct(user.id, product.slug))) return NextResponse.json({ error: "not purchased" }, { status: 403 });
 

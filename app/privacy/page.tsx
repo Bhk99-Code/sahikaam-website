@@ -8,26 +8,26 @@ export const metadata: Metadata = { title: "Privacy Policy" };
 export default function Privacy() {
   return (
     <Policy title="Privacy Policy">
-      <p className="text-[13px] text-ink-5">Last updated: {BUSINESS.updated}</p>
-      <h2>Hum kya information lete hain</h2>
+      <p className="text-[13px] text-fog">Last updated: {BUSINESS.updated}</p>
+      <h2>What we collect</h2>
       <ul>
-        <li><b>Account:</b> aapka email address (login ke liye).</li>
-        <li><b>Orders:</b> kya khareeda, kitne mein, kab, aur Razorpay ka payment/order ID.</li>
-        <li><b>Usage:</b> aap kis page tak padh chuke hain, taaki wahi se dobara khule.</li>
+        <li><b>Account:</b> your email address, used to sign you in.</li>
+        <li><b>Orders:</b> what you bought, the amount, the date and the Razorpay payment/order ID.</li>
+        <li><b>Reading:</b> the page you reached, so the book reopens where you left off.</li>
       </ul>
-      <p>Card, UPI ya bank details Razorpay collect karta hai — wo hamare server par kabhi nahi aati.</p>
-      <h2>Istemal kaise hota hai</h2>
+      <p>Card, UPI and bank details are collected by Razorpay and never reach our servers.</p>
+      <h2>How we use it</h2>
       <ul>
-        <li>Aapko khareeda hua content dene ke liye.</li>
-        <li>Order, payment aur support se jude messages bhejne ke liye.</li>
-        <li>Content ki chori rokne ke liye (watermark mein masked email).</li>
+        <li>To give you access to what you bought.</li>
+        <li>To send messages about your sign-in, orders, payments and support requests.</li>
+        <li>To prevent piracy (a masked email appears in the reader watermark).</li>
       </ul>
-      <h2>Kiske saath share hoti hai</h2>
-      <p>Sirf service providers ke saath jo website chalane mein madad karte hain: Razorpay (payments) aur Hostinger (website hosting, database aur email). Hum aapka data bechte nahi hain.</p>
-      <h2>Aapke adhikaar</h2>
-      <p>Apna data dekhne, sudharne ya account delete karwane ke liye {SUPPORT_EMAIL} par likhein.</p>
+      <h2>Who we share it with</h2>
+      <p>Only the providers that run the service: Razorpay (payments) and Hostinger (website hosting, database and email). We never sell your data.</p>
+      <h2>Your rights</h2>
+      <p>To see, correct or delete your data, write to {SUPPORT_EMAIL}.</p>
       <h2>Cookies</h2>
-      <p>Hum sirf zaroori cookies use karte hain jo aapko logged-in rakhti hain.</p>
+      <p>We use only the essential cookie that keeps you signed in.</p>
     </Policy>
   );
 }

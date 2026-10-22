@@ -25,6 +25,16 @@ const PATHS: Record<string, string> = {
   card: "M3 6h18v12H3zM3 10h18",
   menu: "M4 7h16M4 12h12M4 17h16",
   lock: "M6 11h12v10H6zM8 11V7a4 4 0 018 0v4",
+  globe: "M12 3a9 9 0 100 18 9 9 0 000-18zM3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3z",
+  bolt: "M13 2L4 14h7l-1 8 9-12h-7z",
+  star: "M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z",
+  factory: "M3 21V10l6 4V10l6 4V6h6v15zM7 17h2M12 17h2M17 17h2",
+  hammer: "M14 6l4 4M3 21l9-9M12.5 4.5l7 7-2.5 2.5-7-7z",
+  coins: "M8 8a5 3 0 1010 0 5 3 0 10-10 0zM8 8v4c0 1.7 2.2 3 5 3s5-1.3 5-3V8M6 12a5 3 0 105 3",
+  layers: "M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17l9 5 9-5",
+  sparkle: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 3v4M17 5h4",
+  arrow: "M5 12h14M13 6l6 6-6 6",
+  x: "M6 6l12 12M18 6L6 18",
 };
 
 export function Icon({ name, size = 22, className = "", strokeWidth = 1.8 }: { name: keyof typeof PATHS | string; size?: number; className?: string; strokeWidth?: number }) {
