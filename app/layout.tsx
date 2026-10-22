@@ -9,7 +9,7 @@ import { SITE_URL } from "@/lib/env";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "SahiKaam — Practical business ebooks for India", template: "%s | SahiKaam" },
+  title: { default: "SahiKaam — From ₹10 lakh to ₹1,000 crore, step by step", template: "%s | SahiKaam" },
   description: "Manufacturing, low-investment and contracting business ebooks with real Indian numbers, permissions and funding — in Hindi and English.",
   openGraph: { siteName: "SahiKaam", locale: "en_IN", type: "website", images: ["/covers/manufacturing-50.jpg"] },
 };

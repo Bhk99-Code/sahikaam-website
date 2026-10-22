@@ -48,10 +48,10 @@ export default async function Home() {
           <div className="flex flex-col items-start gap-6">
             <span className="chip"><Icon name="sparkle" size={14} className="text-sun" /> Now in Hindi + English</span>
             <h1 className="font-display text-[38px] font-extrabold leading-[1.02] tracking-tight min-[380px]:text-[42px] sm:text-[58px] lg:text-[62px] xl:text-[68px]">
-              Start the <span className="text-gradient">right business.</span><br />With real numbers.
+              From <span className="text-gradient">₹10 lakh</span> to <span className="text-gradient">₹1,000 crore.</span><br />Step by step.
             </h1>
             <p className="max-w-xl text-[17px] leading-relaxed text-cream-2 md:text-[19px]">
-              Practical ebooks on manufacturing, low-investment and contracting businesses — with the money, machinery, permissions and funding you need, explained the Indian way.
+              Practical business roadmaps for Indian founders, in Hindi and English — with the money, machinery, permissions and funding you need at every step.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/books" className="btn-primary h-14 px-8 text-[16px]">Browse ebooks <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
