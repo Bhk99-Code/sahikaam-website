@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 html { -webkit-tap-highlight-color: transparent; color-scheme: dark; }
-body { background: #0A1230; color: #F5F1E6; }
+body { background: #06140F; color: #F3F5EE; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
-:focus-visible { outline: 3px solid #F5B83D; outline-offset: 2px; }
+:focus-visible { outline: 3px solid #FFB02E; outline-offset: 2px; }
 
 @layer components {
   .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }

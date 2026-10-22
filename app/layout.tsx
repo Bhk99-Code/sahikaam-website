@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Manufacturing, low-investment and contracting business ebooks with real Indian numbers, permissions and funding — in Hindi and English.",
   openGraph: { siteName: "SahiKaam", locale: "en_IN", type: "website", images: ["/covers/manufacturing-50.jpg"] },
 };
-export const viewport: Viewport = { themeColor: "#0A1230", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#06140F", width: "device-width", initialScale: 1 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const user = await getUser();
