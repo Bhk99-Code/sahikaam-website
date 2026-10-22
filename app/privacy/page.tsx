@@ -20,7 +20,7 @@ export default function Privacy() {
       <ul>
         <li>To give you access to what you bought.</li>
         <li>To send messages about your sign-in, orders, payments and support requests.</li>
-        <li>To prevent piracy (a masked email appears in the reader watermark).</li>
+        <li>To prevent piracy (only signed-in buyers can open a book).</li>
       </ul>
       <h2>Who we share it with</h2>
       <p>Only the providers that run the service: Razorpay (payments) and Hostinger (website hosting, database and email). We never sell your data.</p>

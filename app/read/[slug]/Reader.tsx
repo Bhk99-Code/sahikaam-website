@@ -6,10 +6,10 @@ import { Icon } from "@/components/Icon";
 
 type Props = {
   slug: string; title: string; lang: string; languages: { lang: string; label: string }[];
-  parts: string[]; part: number; startPage: number; watermark: string;
+  parts: string[]; part: number; startPage: number;
 };
 
-export function Reader({ slug, title, lang, languages, parts, part, startPage, watermark }: Props) {
+export function Reader({ slug, title, lang, languages, parts, part, startPage }: Props) {
   const router = useRouter();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -20,6 +20,8 @@ export function Reader({ slug, title, lang, languages, parts, part, startPage, w
   const [zoom, setZoom] = useState(1);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [jump, setJump] = useState("");
+  // page is blanked while the reader is not in focus or a screenshot shortcut is pressed
+  const [shield, setShield] = useState(false);
 
   // load the document once
   useEffect(() => {
@@ -90,11 +92,61 @@ export function Reader({ slug, title, lang, languages, parts, part, startPage, w
     return () => window.removeEventListener("keydown", onKey);
   }, [pages]);
 
+  // screenshot / copy deterrents. A web page cannot fully stop OS screenshots or a phone camera,
+  // so this hides the page whenever the reader loses focus or a capture shortcut is pressed.
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const hideFor = (ms: number) => {
+      setShield(true);
+      clearTimeout(timer);
+      timer = setTimeout(() => { if (document.hasFocus() && !document.hidden) setShield(false); }, ms);
+    };
+    const wipeClipboard = () => { navigator.clipboard?.writeText?.("").catch(() => {}); };
+    const onKeyDown = (e: KeyboardEvent) => {
+      const k = e.key.toLowerCase();
+      const mod = e.ctrlKey || e.metaKey;
+      if (k === "printscreen") { e.preventDefault(); wipeClipboard(); hideFor(2500); return; }
+      // Mac Cmd+Shift (3/4/5), Windows Win+Shift+S
+      if ((e.metaKey && e.shiftKey) || (e.shiftKey && k === "s" && (e.metaKey || e.getModifierState?.("OS")))) { hideFor(3000); return; }
+      if (mod && ["p", "s", "c", "a", "u"].includes(k)) { e.preventDefault(); e.stopPropagation(); }
+      if (k === "f12" || (mod && e.shiftKey && ["i", "j", "c"].includes(k))) { e.preventDefault(); }
+    };
+    const onKeyUp = (e: KeyboardEvent) => { if (e.key.toLowerCase() === "printscreen") { wipeClipboard(); hideFor(2500); } };
+    const onBlur = () => { clearTimeout(timer); setShield(true); };
+    const onFocus = () => hideFor(400);
+    const onVisibility = () => { if (document.hidden) onBlur(); else onFocus(); };
+    const stop = (e: Event) => e.preventDefault();
+    window.addEventListener("keydown", onKeyDown, true);
+    window.addEventListener("keyup", onKeyUp, true);
+    window.addEventListener("blur", onBlur);
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onVisibility);
+    document.addEventListener("copy", stop);
+    document.addEventListener("cut", stop);
+    document.addEventListener("dragstart", stop);
+    window.addEventListener("beforeprint", onBlur);
+    window.addEventListener("afterprint", onFocus);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("keydown", onKeyDown, true);
+      window.removeEventListener("keyup", onKeyUp, true);
+      window.removeEventListener("blur", onBlur);
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onVisibility);
+      document.removeEventListener("copy", stop);
+      document.removeEventListener("cut", stop);
+      document.removeEventListener("dragstart", stop);
+      window.removeEventListener("beforeprint", onBlur);
+      window.removeEventListener("afterprint", onFocus);
+    };
+  }, []);
+
   const go = (n: number) => setPage(Math.min(Math.max(1, n), pages || 1));
 
   return (
     <div className="reader fixed inset-0 z-50 flex select-none flex-col bg-[#0E0E10] text-white" onContextMenu={(e) => e.preventDefault()}>
-      <style>{`@media print { .reader { display: none !important; } }`}</style>
+      <style>{`@media print { html, body { display: none !important; } }
+        .reader canvas { -webkit-touch-callout: none; -webkit-user-drag: none; user-select: none; }`}</style>
       <header className="flex items-center gap-2 px-3 py-3">
         <Link href="/library" aria-label="Back to library" className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-white/10"><Icon name="back" /></Link>
         <span className="flex-1 truncate text-[15px] font-semibold">{title}</span>
@@ -126,14 +178,13 @@ export function Reader({ slug, title, lang, languages, parts, part, startPage, w
             </div>
           )}
           <div className={`relative ${status === "ready" ? "" : "hidden"}`}>
-            <canvas ref={canvasRef} className="block bg-white shadow-2xl" />
-            {/* watermark */}
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <span key={i} className="absolute left-1/2 whitespace-nowrap text-[15px] font-bold text-black/[0.07]"
-                  style={{ top: `${8 + i * 16}%`, transform: "translateX(-50%) rotate(-28deg)" }}>{watermark}</span>
-              ))}
-            </div>
+            <canvas ref={canvasRef} draggable={false} onContextMenu={(e) => e.preventDefault()}
+              className={`block bg-white shadow-2xl transition-[filter] duration-75 ${shield ? "blur-2xl brightness-0" : ""}`} />
+            {shield && (
+              <div className="absolute inset-0 flex items-center justify-center bg-[#0E0E10] px-6 text-center text-[15px] text-white/70">
+                Tap or click here to continue reading.
+              </div>
+            )}
           </div>
         </div>
       </div>

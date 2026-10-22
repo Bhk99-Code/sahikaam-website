@@ -18,7 +18,7 @@ export default function Terms() {
       <ul>
         <li>All content is the copyright of SahiKaam. You receive a licence for personal, non-commercial use only.</li>
         <li>Copying the content, sharing screenshots or recordings, reselling or publishing it is not allowed.</li>
-        <li>Every page carries a watermark linked to your account so that the source of any leak can be traced.</li>
+        <li>The reader blocks copying, printing and screenshots where the device allows it.</li>
       </ul>
       <h2>4. Prices and payment</h2>
       <p>All prices are in Indian Rupees (INR) and include applicable taxes. Payments are processed by Razorpay; we never store your card or bank details.</p>
