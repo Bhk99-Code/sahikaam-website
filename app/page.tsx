@@ -69,7 +69,7 @@ export default async function Home() {
 
       {reading && (
         <section className="container-x">
-          <Link href={`/read/${reading.product.slug}`} className="card flex items-center gap-4 p-4 hover:border-white/20">
+          <Link href={`/read/${reading.product.slug}`} className="card flex items-center gap-4 p-4 hover:border-ink/20">
             <BookCover product={reading.product} size="sm" />
             <div className="flex flex-1 flex-col gap-1">
               <span className="eyebrow">Continue reading</span>
@@ -90,7 +90,7 @@ export default async function Home() {
             const cat = CATEGORY[b.category];
             return (
               <Link key={p.slug} href={`/book/${b.slug}`}
-                className="group relative overflow-hidden rounded-card border border-white/[0.08] bg-night-2 p-6 transition hover:-translate-y-1"
+                className="group relative overflow-hidden rounded-card border border-ink/[0.08] bg-night-2 p-6 transition hover:-translate-y-1"
                 style={{ boxShadow: `inset 0 1px 0 ${cat.color}55` }}>
                 <div aria-hidden="true" className="absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-25 blur-3xl transition group-hover:opacity-40" style={{ background: cat.color }} />
                 <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl" style={{ background: `${cat.color}22`, color: cat.color }}>
@@ -157,7 +157,7 @@ export default async function Home() {
       {/* FAQ */}
       <section className="container-x max-w-3xl py-14">
         <SectionTitle eyebrow="Questions" title="Good to know" />
-        <div className="card divide-y divide-white/[0.07] overflow-hidden">
+        <div className="card divide-y divide-ink/[0.07] overflow-hidden">
           {FAQS.map((f) => (
             <details key={f.q} className="group">
               <summary className="flex min-h-[60px] cursor-pointer list-none items-center gap-3 px-5 py-4 text-[16px] font-semibold text-cream">
@@ -196,7 +196,7 @@ function HeroStack({ books }: { books: Product[] }) {
           <BookCover product={b} />
         </Link>
       ))}
-      <div className="absolute bottom-[2%] left-[4%] z-20 flex items-center gap-3 rounded-2xl border border-white/10 bg-night-3/90 px-4 py-3 shadow-lift backdrop-blur">
+      <div className="absolute bottom-[2%] left-[4%] z-20 flex items-center gap-3 rounded-2xl border border-ink/10 bg-night-3/90 px-4 py-3 shadow-lift backdrop-blur">
         <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-mint/15 text-mint"><Icon name="globe" size={18} strokeWidth={2} /></span>
         <span className="text-[13px] leading-tight text-cream"><b>Hindi + English</b><br /><span className="text-fog">in every purchase</span></span>
       </div>
@@ -228,7 +228,7 @@ function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; chea
         </div>
         <div className="relative rounded-card bg-brand-gradient p-[1.5px]">
           <div className="relative flex h-full flex-col overflow-hidden rounded-[21px] bg-night-2 p-7">
-            <span className="absolute right-5 top-5 rounded-full bg-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-night">Most popular</span>
+            <span className="absolute right-5 top-5 rounded-full bg-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-cream">Most popular</span>
             <p className="eyebrow">All Access Pass</p>
             <p className="mt-3 flex items-baseline gap-3 font-display text-[44px] font-extrabold text-cream">
               {rupees(allAccess.price)}

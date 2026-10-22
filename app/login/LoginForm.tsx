@@ -45,7 +45,7 @@ export function LoginForm({ next }: { next: string }) {
     </form>
   ) : (
     <form onSubmit={verify} className="mt-6">
-      <p className="rounded-2xl bg-white/[0.05] p-3 text-[14px] text-cream-2">Code sent to <b className="text-cream">{email}</b>. Check your spam folder too.</p>
+      <p className="rounded-2xl bg-ink/[0.05] p-3 text-[14px] text-cream-2">Code sent to <b className="text-cream">{email}</b>. Check your spam folder too.</p>
       <label htmlFor="code" className="mt-4 block text-[14px] font-semibold text-cream">6-digit code</label>
       <input id="code" inputMode="numeric" autoComplete="one-time-code" required maxLength={6} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
         className={`${input} tracking-[0.5em]`} />

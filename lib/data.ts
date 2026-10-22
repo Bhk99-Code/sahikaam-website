@@ -13,8 +13,8 @@ const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => {
   const editions: Edition[] = p.editions ?? [];
   const ready = editions.filter((e) => !e.coming_soon);
   return {
-    subtitle: null, description: null, mrp: null, badge: null, cover_color: p.accent ?? "#FF7A1A", cover_url: null,
-    level: null, is_published: true, sort_order: 100, category: "manufacturing", accent: "#FF7A1A",
+    subtitle: null, description: null, mrp: null, badge: null, cover_color: p.accent ?? "#E8590C", cover_url: null,
+    level: null, is_published: true, sort_order: 100, category: "manufacturing", accent: "#E8590C",
     ...p,
     id: p.slug,
     pages: p.pages ?? (ready.length ? Math.max(...ready.map((e) => e.pages ?? 0)) || null : null),

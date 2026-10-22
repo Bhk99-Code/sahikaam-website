@@ -11,7 +11,7 @@ export function BookCover({ product, size = "md", covers = [] }: { product: Prod
       {size !== "sm" && (
         <div aria-hidden="true" className="absolute inset-x-[12%] bottom-[-6%] top-[20%] rounded-full opacity-60 blur-2xl" style={{ background: product.accent }} />
       )}
-      <div className="relative aspect-[3/4] overflow-hidden rounded-[6px_12px_12px_6px] shadow-lift ring-1 ring-white/10">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-[6px_12px_12px_6px] shadow-lift ring-1 ring-ink/10">
         {product.cover_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={product.cover_url} alt={`${product.title} cover`} className="h-full w-full object-cover" loading="lazy" />
@@ -35,7 +35,7 @@ function BundleStack({ covers, size, accent }: { covers: string[]; size: Size; a
       {covers.slice(0, 3).map((src, i) => (
         // eslint-disable-next-line @next/next/no-img-element
         <img key={src} src={src} alt="" loading="lazy"
-          className={`absolute ${w} aspect-[3/4] rounded-[6px] object-cover shadow-lift ring-1 ring-white/10 ${tilt[i] ?? ""}`} />
+          className={`absolute ${w} aspect-[3/4] rounded-[6px] object-cover shadow-lift ring-1 ring-ink/10 ${tilt[i] ?? ""}`} />
       ))}
     </div>
   );

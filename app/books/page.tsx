@@ -23,7 +23,7 @@ export default async function Books({ searchParams }: { searchParams: { cat?: st
       <form action="/books" className="mt-6 flex gap-2">
         {cat && <input type="hidden" name="cat" value={cat} />}
         <label htmlFor="q" className="sr-only">Search</label>
-        <div className="flex h-[52px] min-w-0 flex-1 items-center gap-2 rounded-full border border-white/10 bg-night-3 px-5 text-fog focus-within:border-saffron-500">
+        <div className="flex h-[52px] min-w-0 flex-1 items-center gap-2 rounded-full border border-ink/10 bg-night-3 px-5 text-fog focus-within:border-saffron-500">
           <Icon name="search" size={18} />
           <input id="q" name="q" defaultValue={q} placeholder="Search by business, topic or title"
             className="w-full bg-transparent text-[15px] text-cream outline-none placeholder:text-fog-2" />
@@ -31,7 +31,7 @@ export default async function Books({ searchParams }: { searchParams: { cat?: st
         <button className="btn-primary h-[52px]">Search</button>
       </form>
       <div className="no-scrollbar mt-5 flex gap-2 overflow-x-auto" role="tablist" aria-label="Categories">
-        <Tab href="/books" active={!cat} color="#F7F2EA">All</Tab>
+        <Tab href="/books" active={!cat} color="#1C1424">All</Tab>
         {cats.map(([key, c]) => (
           <Tab key={key} href={`/books?cat=${key}`} active={cat === key} color={c.color}>{c.label}</Tab>
         ))}
@@ -55,7 +55,7 @@ export default async function Books({ searchParams }: { searchParams: { cat?: st
 function Tab({ href, active, color, children }: { href: string; active: boolean; color: string; children: React.ReactNode }) {
   return (
     <Link href={href} role="tab" aria-selected={active}
-      className={`flex h-10 shrink-0 items-center gap-2 rounded-full px-5 text-[14px] font-bold transition ${active ? "text-night" : "border border-white/10 text-cream-2 hover:bg-white/5"}`}
+      className={`flex h-10 shrink-0 items-center gap-2 rounded-full px-5 text-[14px] font-bold transition ${active ? "text-night" : "border border-ink/10 text-cream-2 hover:bg-ink/5"}`}
       style={active ? { background: color } : undefined}>
       {!active && <span aria-hidden="true" className="h-2 w-2 rounded-full" style={{ background: color }} />}
       {children}

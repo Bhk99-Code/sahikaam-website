@@ -15,7 +15,7 @@ export function BottomNav() {
   const path = usePathname();
   if (path.startsWith("/read/") || path.startsWith("/book/") || path.startsWith("/checkout/")) return null;
   return (
-    <nav aria-label="Quick" className="fixed inset-x-3 bottom-3 z-40 flex h-[68px] items-center justify-around rounded-full border border-white/10 bg-night-3/95 px-1.5 shadow-lift backdrop-blur-xl md:hidden">
+    <nav aria-label="Quick" className="fixed inset-x-3 bottom-3 z-40 flex h-[68px] items-center justify-around rounded-full border border-ink/10 bg-night-3/95 px-1.5 shadow-lift backdrop-blur-xl md:hidden">
       {ITEMS.map((it) => {
         const active = it.href === "/" ? path === "/" : path.startsWith(it.href);
         return (

@@ -35,7 +35,7 @@ export default function Help() {
       <section className="mt-10">
         <div className="grid grid-cols-2 gap-3">
           {REQUESTS.map((r) => (
-            <a key={r.label} href={mail(r.subject)} className="card flex h-[104px] flex-col justify-between p-4 hover:border-white/20">
+            <a key={r.label} href={mail(r.subject)} className="card flex h-[104px] flex-col justify-between p-4 hover:border-ink/20">
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-saffron-500/15 text-saffron-400"><Icon name={r.icon} size={20} strokeWidth={2} /></span>
               <span className="text-[15px] font-semibold text-cream">{r.label}</span>
             </a>
@@ -45,7 +45,7 @@ export default function Help() {
 
       <section className="mt-12">
         <SectionTitle title="Common questions" />
-        <div className="card divide-y divide-white/[0.07] overflow-hidden">
+        <div className="card divide-y divide-ink/[0.07] overflow-hidden">
           {FAQS.map((f) => (
             <details key={f.q} className="group">
               <summary className="flex min-h-[60px] cursor-pointer list-none items-center gap-3 px-5 py-4 text-[15px] font-semibold text-cream">
@@ -60,15 +60,15 @@ export default function Help() {
 
       <section className="mt-12">
         <SectionTitle title="Talk to us" />
-        <div className="card divide-y divide-white/[0.07] overflow-hidden">
+        <div className="card divide-y divide-ink/[0.07] overflow-hidden">
           {SUPPORT_WHATSAPP && (
-            <a href={`https://wa.me/${SUPPORT_WHATSAPP}`} className="flex items-center gap-4 p-5 hover:bg-white/[0.03]">
+            <a href={`https://wa.me/${SUPPORT_WHATSAPP}`} className="flex items-center gap-4 p-5 hover:bg-ink/[0.03]">
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-mint/15 text-mint"><Icon name="chat" /></span>
               <span className="flex-1"><b className="block text-cream">WhatsApp</b><span className="text-[13px] text-fog">Chat in Hindi or English</span></span>
               <Icon name="chevron" className="text-fog" />
             </a>
           )}
-          <a href={`mailto:${SUPPORT_EMAIL}`} className="flex items-center gap-4 p-5 hover:bg-white/[0.03]">
+          <a href={`mailto:${SUPPORT_EMAIL}`} className="flex items-center gap-4 p-5 hover:bg-ink/[0.03]">
             <span className="flex h-11 w-11 items-center justify-center rounded-full bg-saffron-500/15 text-saffron-400"><Icon name="mail" /></span>
             <span className="flex-1"><b className="block text-cream">Email</b><span className="text-[13px] text-fog">{SUPPORT_EMAIL}</span></span>
             <Icon name="chevron" className="text-fog" />

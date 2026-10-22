@@ -2,20 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-html { -webkit-tap-highlight-color: transparent; color-scheme: dark; }
-body { background: #0B0A10; color: #F7F2EA; }
+html { -webkit-tap-highlight-color: transparent; color-scheme: light; }
+body { background: #FFF7EC; color: #1C1424; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
-:focus-visible { outline: 3px solid #FF7A1A; outline-offset: 2px; }
+:focus-visible { outline: 3px solid #E8590C; outline-offset: 2px; }
 
 @layer components {
   .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
-  .card { @apply rounded-card border border-white/[0.08] bg-night-2; }
+  .card { @apply rounded-card border border-ink/[0.08] bg-night-2 shadow-[0_1px_2px_rgba(60,30,10,0.04)]; }
   .eyebrow { @apply text-[12px] font-bold uppercase tracking-[0.2em] text-fog; }
   .btn { @apply inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-bold transition; }
-  .btn-primary { @apply btn bg-saffron-500 text-night hover:bg-saffron-400; }
-  .btn-ghost { @apply btn border border-white/15 text-cream hover:bg-white/5; }
-  .chip { @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[12px] font-semibold text-cream-2; }
+  .btn-primary { @apply btn bg-saffron-500 text-white hover:bg-saffron-700; }
+  .btn-ghost { @apply btn border border-ink/15 bg-night-2 text-cream hover:bg-ink/5; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-night-2 px-3 py-1 text-[12px] font-semibold text-cream-2; }
   .text-gradient { @apply bg-brand-gradient bg-clip-text text-transparent; }
-  .field { @apply h-[52px] w-full rounded-[14px] border border-white/10 bg-night-3 px-4 text-[16px] text-cream outline-none placeholder:text-fog-2 focus:border-saffron-500; }
+  .field { @apply h-[52px] w-full rounded-[14px] border border-ink/15 bg-night-2 px-4 text-[16px] text-cream outline-none placeholder:text-fog-2 focus:border-saffron-500; }
 }

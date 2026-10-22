@@ -60,7 +60,7 @@ export default async function Library({ searchParams }: { searchParams: { new?: 
                 <span className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: product.accent }}>{CATEGORY[product.category]?.label}</span>
                 <span className="font-display text-[18px] font-bold leading-snug text-cream">{product.title}</span>
                 <span className="text-[13px] text-fog">{progress ? `Page ${progress}${total ? ` of ${total}` : ""}` : "Not started yet"}</span>
-                <span className="block h-1.5 rounded bg-white/10"><span className="block h-1.5 rounded" style={{ width: `${pct}%`, background: product.accent }} /></span>
+                <span className="block h-1.5 rounded bg-ink/10"><span className="block h-1.5 rounded" style={{ width: `${pct}%`, background: product.accent }} /></span>
                 <div className="mt-1 flex flex-wrap gap-2">
                   {ready.map((e) => (
                     <Link key={e.lang} href={`/read/${product.slug}?lang=${e.lang}`} className={e === ready[0] ? "btn-primary h-10 px-5 text-[14px]" : "btn-ghost h-10 px-5 text-[14px]"}>

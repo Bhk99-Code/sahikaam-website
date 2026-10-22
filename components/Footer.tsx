@@ -5,7 +5,7 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-white/[0.07] bg-night-2 pb-28 md:pb-0">
+    <footer className="mt-20 border-t border-ink/[0.07] bg-night-2 pb-28 md:pb-0">
       <div className="container-x grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Logo />
@@ -20,7 +20,7 @@ export function Footer() {
         <FooterCol title="Explore" links={[["/books", "All ebooks"], ["/book/all-access", "All Access Pass"], ["/library", "My library"], ["/help", "Help center"]]} />
         <FooterCol title="Policies" links={[["/terms", "Terms & conditions"], ["/privacy", "Privacy policy"], ["/refund-policy", "Refund & cancellation"], ["/delivery-policy", "Delivery policy"], ["/contact", "Contact us"]]} />
       </div>
-      <p className="border-t border-white/[0.07] py-5 text-center text-[12px] text-fog-2">
+      <p className="border-t border-ink/[0.07] py-5 text-center text-[12px] text-fog-2">
         © {new Date().getFullYear()} SahiKaam · Operated by {BUSINESS.legalName}, {BUSINESS.address}
       </p>
     </footer>

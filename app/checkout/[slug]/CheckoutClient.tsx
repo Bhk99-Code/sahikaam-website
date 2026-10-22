@@ -51,7 +51,7 @@ export function CheckoutClient({ slug, title, price, email, ready, keyId, whatsa
         name: "SahiKaam",
         description: title,
         prefill: { email },
-        theme: { color: "#FF7A1A" },
+        theme: { color: "#E8590C" },
         handler: async (resp: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
           const v = await fetch("/api/checkout/verify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(resp) });
           if (v.ok) { router.replace(`/library?new=${slug}`); router.refresh(); }
@@ -87,7 +87,7 @@ export function CheckoutClient({ slug, title, price, email, ready, keyId, whatsa
       <div className="card mt-4 space-y-2 p-5 text-[15px] text-cream-2">
         <Row label="Price" value={rupees(price)} />
         {applied && <Row label={`Coupon (${applied.code})`} value={`− ${rupees(applied.discount)}`} green />}
-        <div className="border-t border-white/10 pt-3"><Row label="Total" value={amount === 0 ? "₹0" : rupees(amount)} bold /></div>
+        <div className="border-t border-ink/10 pt-3"><Row label="Total" value={amount === 0 ? "₹0" : rupees(amount)} bold /></div>
       </div>
 
       {error && <p role="alert" className="mt-4 rounded-2xl bg-rosy/10 p-4 text-[14px] text-rosy">{error}</p>}

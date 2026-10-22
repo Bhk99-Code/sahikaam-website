@@ -8,7 +8,7 @@ export function ProductCard({ product, covers = [], rank }: { product: Product; 
   const langs = product.editions.map((e) => e.label + (e.coming_soon ? " (soon)" : ""));
   return (
     <Link href={`/book/${product.slug}`}
-      className="group relative flex flex-col gap-4 rounded-card border border-white/[0.08] bg-night-2 p-4 transition hover:-translate-y-1 hover:border-white/20">
+      className="group relative flex flex-col gap-4 rounded-card border border-ink/[0.08] bg-night-2 p-4 transition hover:-translate-y-1 hover:border-ink/20">
       {rank && (
         <span className="absolute left-3 top-3 z-20 flex h-8 min-w-8 items-center justify-center rounded-full bg-cream px-2 font-display text-[14px] font-extrabold text-night">#{rank}</span>
       )}

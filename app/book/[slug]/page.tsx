@@ -31,7 +31,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
   return (
     <div className="pb-32 md:pb-10">
       {/* Top: cover + buy box */}
-      <section className="relative overflow-hidden border-b border-white/[0.07]">
+      <section className="relative overflow-hidden border-b border-ink/[0.07]">
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 left-1/2 h-[480px] w-[760px] -translate-x-1/2 rounded-full opacity-25 blur-[120px]" style={{ background: product.accent }} />
         <div className="container-x relative py-6 md:py-12">
           <Link href="/books" className="inline-flex items-center gap-1 text-[14px] font-semibold text-fog hover:text-cream">
@@ -110,7 +110,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
               <h2 className="font-display text-[26px] font-extrabold text-cream">Books in this pass</h2>
               <div className="mt-5 flex flex-col gap-3">
                 {included.map((b) => (
-                  <Link key={b.slug} href={`/book/${b.slug}`} className="card flex items-center gap-4 p-4 hover:border-white/20">
+                  <Link key={b.slug} href={`/book/${b.slug}`} className="card flex items-center gap-4 p-4 hover:border-ink/20">
                     <BookCover product={b} size="sm" />
                     <div className="flex-1">
                       <p className="font-bold text-cream">{b.title}</p>
@@ -126,7 +126,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
           {!isBundle && product.chapters.length > 0 && (
             <section id="inside" className="scroll-mt-24">
               <h2 className="font-display text-[26px] font-extrabold text-cream">Inside the book</h2>
-              <ol className="card mt-5 divide-y divide-white/[0.07] overflow-hidden">
+              <ol className="card mt-5 divide-y divide-ink/[0.07] overflow-hidden">
                 {product.chapters.map((t, i) => (
                   <li key={i} className="flex items-center gap-4 p-4">
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl font-display text-[14px] font-extrabold" style={{ background: `${product.accent}1f`, color: product.accent }}>
@@ -145,7 +145,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 {product.editions.map((e) => (
                   <div key={e.lang} className="card flex items-center gap-4 p-5">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/[0.06] font-display text-[18px] font-extrabold text-cream">{e.lang === "hi" ? "हि" : "En"}</span>
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink/[0.06] font-display text-[18px] font-extrabold text-cream">{e.lang === "hi" ? "हि" : "En"}</span>
                     <div className="flex-1">
                       <p className="font-bold text-cream">{e.label} edition</p>
                       <p className="text-[13px] text-fog">{e.coming_soon ? "Coming soon — free for buyers" : `${e.pages ?? ""} pages · included`}</p>
@@ -183,7 +183,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
       </div>
 
       {/* Mobile sticky buy bar */}
-      <div className="fixed inset-x-0 bottom-0 z-50 flex items-center gap-4 border-t border-white/10 bg-night-2/95 px-5 pb-6 pt-3 backdrop-blur-xl md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-50 flex items-center gap-4 border-t border-ink/10 bg-night-2/95 px-5 pb-6 pt-3 backdrop-blur-xl md:hidden">
         <div className="flex-1"><Price product={product} off={off} compact /></div>
         <BuyButton owned={owned} slug={product.slug} openHref={openHref} />
       </div>
