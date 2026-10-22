@@ -12,15 +12,18 @@ const REQUESTS = [
   { label: "Book not in my library", icon: "library", subject: "Book not in library" },
   { label: "Reader problem", icon: "alert", subject: "Reader problem" },
   { label: "Refund request", icon: "refund", subject: "Refund request" },
+  { label: "Can't sign in", icon: "lock", subject: "Account recovery" },
+  { label: "Bonus Excel issue", icon: "download", subject: "Bonus file issue" },
 ];
 
 const FAQS = [
   { q: "I paid, but the book is not in my library", a: "Refresh the library page — bank confirmation can take 2–5 minutes. If it is still missing after 15 minutes, tap “Payment issue” and send us your payment ID." },
   { q: "How do I read my ebook?", a: "Sign in, open My library and tap “Read”. Books open in any browser on phone, tablet or computer, and your page is saved automatically." },
   { q: "How do I switch between Hindi and English?", a: "Use the language buttons in My library or at the top of the reader." },
-  { q: "Can I download the PDF?", a: "No. To protect the books from piracy they open only in the SahiKaam reader — but your access never expires." },
+  { q: "Can I download the PDF?", a: "No. To protect the books from piracy they open only in the SahiKaam reader — but single books never expire (All Access lasts for the plan you bought)." },
   { q: "What is the refund policy?", a: `Because ebooks are delivered instantly, we don't refund after access. If you were charged twice or the book won't open, write to us within ${BUSINESS.refundDays} days — see the full refund policy.` },
-  { q: "My sign-in code did not arrive", a: "Check your spam or promotions folder, wait a minute and tap “Send code” again. Make sure the email address is spelled correctly." },
+  { q: "My sign-in code did not arrive", a: "For email: check your spam or promotions folder. For SMS: check the number and wait a minute (DND does not block login codes). Then tap “Resend code”, or switch to the other tab and sign in with your email or mobile instead." },
+  { q: "Can I sign in with my mobile number?", a: "Yes. Choose “Mobile” on the sign-in page and enter the 6-digit SMS code. Add both your mobile and email in Account, so either one opens the same library." },
 ];
 
 export default function Help() {
@@ -56,6 +59,23 @@ export default function Help() {
             </details>
           ))}
         </div>
+      </section>
+
+      <section id="recover" className="mt-12 scroll-mt-24">
+        <SectionTitle title="Get back into your account" />
+        <ol className="card divide-y divide-ink/[0.07] overflow-hidden">
+          {[
+            ["Use your other sign-in", "If you added both a mobile number and an email, sign in with the one you still have — it opens the same library."],
+            ["Changed your number or email?", "Sign in with the one that still works, open Account and change the other. Each change is confirmed with a code."],
+            ["Lost both?", `Message us on WhatsApp or email ${SUPPORT_EMAIL} with your Razorpay payment ID (starts with “pay_”, it is in your payment SMS or email) and the new email or number you want to use. We check the payment and move your books — usually the same day.`],
+            ["Phone lost or stolen?", "Sign in on another device, open Account and tap “Sign out of all devices”."],
+          ].map(([t, d], i) => (
+            <li key={t} className="flex gap-4 p-5">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-saffron-500/15 font-display text-[14px] font-extrabold text-saffron-400">{i + 1}</span>
+              <span><b className="block text-[15px] text-cream">{t}</b><span className="text-[14px] leading-relaxed text-fog">{d}</span></span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className="mt-12">

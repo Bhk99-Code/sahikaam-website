@@ -1,4 +1,5 @@
 import { notFound, redirect } from "next/navigation";
+import { maskEmail, maskPhone } from "@/lib/auth";
 import type { Metadata } from "next";
 import { findProduct, getUser, ownsProduct, getProgress, pickEdition } from "@/lib/data";
 import { Reader } from "./Reader";
@@ -16,7 +17,7 @@ export default async function ReadPage({ params, searchParams }: { params: { slu
   const edition = pickEdition(product, searchParams.lang);
   if (!edition) redirect("/library");
   const progress = await getProgress(user.id, product.slug);
-  const masked = user.email.replace(/^(.{2}).*(@.*)$/, "$1•••$2");
+  const masked = user.email ? maskEmail(user.email) : user.phone ? maskPhone(user.phone) : "SahiKaam reader";
   const watermark = `Licensed to ${masked} · ${user.id.slice(0, 8)}`;
   const languages = product.editions.filter((e) => !e.coming_soon).map((e) => ({ lang: e.lang, label: e.label }));
   const parts = (edition.parts ?? []).map((p) => p.title);

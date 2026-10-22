@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-const PROTECTED = ["/library", "/read", "/learn", "/checkout"];
+const PROTECTED = ["/library", "/read", "/learn", "/checkout", "/account", "/admin"];
 
 /** Quick gate: no session cookie → send to login. Pages still check the session in the database. */
 export function middleware(request: NextRequest) {
@@ -15,5 +15,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/library/:path*", "/read/:path*", "/learn/:path*", "/checkout/:path*"],
+  matcher: ["/library/:path*", "/read/:path*", "/learn/:path*", "/checkout/:path*", "/account/:path*", "/admin/:path*"],
 };

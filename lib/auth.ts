@@ -1,17 +1,23 @@
 import "server-only";
 import crypto from "crypto";
-import { cookies } from "next/headers";
-import { one, run } from "./db";
+import { cookies, headers } from "next/headers";
+import { all, one, run } from "./db";
 import { sendMail } from "./mail";
-import { isEmailConfigured, isProduction } from "./env";
+import { sendSmsCode } from "./sms";
+import { isEmailConfigured, isProduction, isSmsConfigured } from "./env";
 
 export const SESSION_COOKIE = "sk_session";
 const SESSION_DAYS = 60;
 const CODE_MINUTES = 10;
-const MAX_CODES_PER_HOUR = 5;
+const MAX_CODES_PER_HOUR = 5; // per email / phone
+const MAX_SMS_PER_IP_HOUR = 10; // SMS costs money: also limit per network address
 const MAX_ATTEMPTS = 5;
 
-export type User = { id: string; email: string };
+export type User = { id: string; email: string | null; phone: string | null };
+/** How a person signs in: an email address or an Indian mobile number ("+91XXXXXXXXXX"). */
+export type Identity = { kind: "email" | "phone"; value: string };
+/** login = sign in / sign up. link = add or change the email/phone of the signed-in account. */
+export type CodePurpose = "login" | "link";
 
 function secret() {
   const s = process.env.APP_SECRET;
@@ -28,80 +34,181 @@ export function normalizeEmail(raw: unknown) {
   return /^[^\s@]{1,64}@[^\s@]{1,180}\.[a-z]{2,}$/.test(email) ? email : null;
 }
 
-/** Creates a 6-digit login code and emails it. In local preview it returns the code instead. */
-export async function sendLoginCode(email: string): Promise<{ ok: true; devCode?: string } | { ok: false; error: string }> {
+/** Accepts 98765 43210, 098765..., +91 98765..., 9198765... → "+919876543210". Indian mobiles only. */
+export function normalizePhone(raw: unknown) {
+  let d = String(raw ?? "").replace(/\D/g, "");
+  if (d.length === 12 && d.startsWith("91")) d = d.slice(2);
+  else if (d.length === 11 && d.startsWith("0")) d = d.slice(1);
+  return /^[6-9]\d{9}$/.test(d) ? "+91" + d : null;
+}
+
+export function parseIdentity(body: { email?: unknown; phone?: unknown }): Identity | null {
+  if (body.phone != null && body.phone !== "") {
+    const phone = normalizePhone(body.phone);
+    return phone ? { kind: "phone", value: phone } : null;
+  }
+  const email = normalizeEmail(body.email);
+  return email ? { kind: "email", value: email } : null;
+}
+
+export const maskEmail = (e: string) => e.replace(/^(.{2}).*(@.*)$/, "$1•••$2");
+export const maskPhone = (p: string) => p.replace(/^\+91(\d{2})\d{5}(\d{3})$/, "+91 $1•••••$2");
+export const userLabel = (u: User) => u.email ?? (u.phone ? maskPhone(u.phone) : "Your account");
+
+const codeKey = (id: Identity, purpose: CodePurpose, userId?: string) =>
+  purpose === "link" ? `link:${userId}:${id.value}` : id.value;
+
+function clientIp() {
+  const h = headers();
+  return (h.get("x-forwarded-for")?.split(",")[0] || h.get("x-real-ip") || "unknown").trim();
+}
+
+/** Counts a hit for key k; false when the hourly limit is already used up. */
+async function allow(k: string, limit: number) {
+  const row = await one<{ hits: number; window_start: number }>("SELECT hits, window_start FROM rate_limits WHERE k = ?", [k]);
+  if (row && now() - Number(row.window_start) < 3600_000) {
+    if (Number(row.hits) >= limit) return false;
+    await run("UPDATE rate_limits SET hits = hits + 1 WHERE k = ?", [k]);
+  } else {
+    await run("DELETE FROM rate_limits WHERE k = ?", [k]);
+    await run("INSERT INTO rate_limits (k, hits, window_start) VALUES (?, 1, ?)", [k, now()]);
+  }
+  return true;
+}
+
+export async function findUserBy(id: Identity) {
+  return one<User>(`SELECT id, email, phone FROM users WHERE ${id.kind === "email" ? "email" : "phone"} = ?`, [id.value]);
+}
+
+type SendResult = { ok: true; devCode?: string } | { ok: false; error: string; status?: number };
+
+/** Creates a 6-digit code and sends it by email or SMS. In local preview it returns the code instead. */
+export async function sendCode(id: Identity, purpose: CodePurpose = "login", userId?: string): Promise<SendResult> {
+  if (purpose === "link") {
+    const owner = await findUserBy(id);
+    if (owner && owner.id !== userId) {
+      return { ok: false, status: 409, error: id.kind === "phone"
+        ? "This number is already linked to another SahiKaam account. Sign in with it, or contact Help."
+        : "This email is already linked to another SahiKaam account. Sign in with it, or contact Help." };
+    }
+  }
+  const key = codeKey(id, purpose, userId);
   const existing = await one<{ sent_count: number; window_start: number }>(
-    "SELECT sent_count, window_start FROM login_codes WHERE email = ?", [email]);
+    "SELECT sent_count, window_start FROM login_codes WHERE email = ?", [key]);
   const inWindow = existing && now() - Number(existing.window_start) < 3600_000;
   if (inWindow && Number(existing.sent_count) >= MAX_CODES_PER_HOUR) {
-    return { ok: false, error: "Bahut zyada code maange gaye. 1 ghante baad try karein." };
+    return { ok: false, status: 429, error: "Too many codes requested. Please try again in an hour." };
+  }
+  const devMode = !isProduction && (id.kind === "email" ? !isEmailConfigured : !isSmsConfigured);
+  if (id.kind === "phone" && !isSmsConfigured && !devMode) {
+    return { ok: false, status: 503, error: "Mobile sign-in is not available right now. Please use your email." };
+  }
+  if (id.kind === "email" && !isEmailConfigured && !devMode) {
+    return { ok: false, status: 503, error: "Email sign-in is not available right now. Please try again soon." };
+  }
+  if (id.kind === "phone" && !devMode && !(await allow(`sms-ip:${clientIp()}`, MAX_SMS_PER_IP_HOUR))) {
+    return { ok: false, status: 429, error: "Too many codes requested. Please try again in an hour." };
   }
 
   const code = String(crypto.randomInt(100000, 1000000));
   const sentCount = inWindow ? Number(existing.sent_count) + 1 : 1;
   const windowStart = inWindow ? Number(existing.window_start) : now();
-  await run("DELETE FROM login_codes WHERE email = ?", [email]);
+  await run("DELETE FROM login_codes WHERE email = ?", [key]);
   await run(
     "INSERT INTO login_codes (email, code_hash, expires_at, attempts, sent_count, window_start) VALUES (?, ?, ?, 0, ?, ?)",
-    [email, hash(email + ":" + code), now() + CODE_MINUTES * 60_000, sentCount, windowStart]);
+    [key, hash(key + ":" + code), now() + CODE_MINUTES * 60_000, sentCount, windowStart]);
 
-  if (!isEmailConfigured) {
-    if (isProduction) return { ok: false, error: "Login email abhi set nahi hai. Thodi der baad try karein." };
-    console.log(`[local preview] login code for ${email}: ${code}`);
+  if (devMode) {
+    console.log(`[local preview] ${purpose} code for ${id.value}: ${code}`);
     return { ok: true, devCode: code };
   }
   try {
-    await sendMail(
-      email,
-      `SahiKaam login code: ${code}`,
-      `<div style="font-family:sans-serif;font-size:16px"><h2>SahiKaam login code</h2><p>Aapka code hai: <b style="font-size:24px;letter-spacing:4px">${code}</b></p><p>Ye code ${CODE_MINUTES} minute tak chalega. Agar aapne login nahi kiya, to is email ko ignore karein.</p></div>`,
-      `SahiKaam login code: ${code}\nYe code ${CODE_MINUTES} minute tak chalega.`);
+    if (id.kind === "phone") await sendSmsCode(id.value, code);
+    else await sendMail(
+      id.value,
+      `SahiKaam code: ${code}`,
+      `<div style="font-family:sans-serif;font-size:16px"><h2>Your SahiKaam code</h2><p><b style="font-size:24px;letter-spacing:4px">${code}</b></p><p>This code works for ${CODE_MINUTES} minutes. If you did not ask for it, ignore this email.</p></div>`,
+      `Your SahiKaam code: ${code}\nThis code works for ${CODE_MINUTES} minutes.`);
   } catch (e) {
-    console.error("sendLoginCode", e);
-    return { ok: false, error: "Email nahi ja paya. Thodi der baad try karein." };
+    console.error("sendCode", id.kind, e);
+    return { ok: false, status: 502, error: id.kind === "phone" ? "SMS could not be sent. Please try again or use your email." : "Email could not be sent. Please try again soon." };
   }
   return { ok: true };
 }
 
-/** Checks the code; on success creates the user (if new) and a session cookie. */
-export async function verifyLoginCode(email: string, code: string): Promise<boolean> {
+/** Checks (and uses up) a code. */
+export async function checkCode(id: Identity, code: string, purpose: CodePurpose = "login", userId?: string): Promise<boolean> {
+  const key = codeKey(id, purpose, userId);
   const row = await one<{ code_hash: string; expires_at: number; attempts: number }>(
-    "SELECT code_hash, expires_at, attempts FROM login_codes WHERE email = ?", [email]);
+    "SELECT code_hash, expires_at, attempts FROM login_codes WHERE email = ?", [key]);
   if (!row || Number(row.expires_at) < now() || Number(row.attempts) >= MAX_ATTEMPTS) return false;
-
-  const a = Buffer.from(hash(email + ":" + code));
+  const a = Buffer.from(hash(key + ":" + code));
   const b = Buffer.from(String(row.code_hash));
   if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) {
-    await run("UPDATE login_codes SET attempts = attempts + 1 WHERE email = ?", [email]);
+    await run("UPDATE login_codes SET attempts = attempts + 1 WHERE email = ?", [key]);
     return false;
   }
-  await run("DELETE FROM login_codes WHERE email = ?", [email]);
+  await run("DELETE FROM login_codes WHERE email = ?", [key]);
+  return true;
+}
 
-  let user = await one<User>("SELECT id, email FROM users WHERE email = ?", [email]);
+/** Login: checks the code, creates the user if new, and starts a session. */
+export async function verifyLogin(id: Identity, code: string): Promise<boolean> {
+  if (!(await checkCode(id, code))) return false;
+  let user = await findUserBy(id);
   if (!user) {
-    user = { id: crypto.randomUUID(), email };
-    await run("INSERT INTO users (id, email, created_at) VALUES (?, ?, ?)", [user.id, email, now()]);
+    user = { id: crypto.randomUUID(), email: id.kind === "email" ? id.value : null, phone: id.kind === "phone" ? id.value : null };
+    await run("INSERT INTO users (id, email, phone, created_at) VALUES (?, ?, ?, ?)", [user.id, user.email, user.phone, now()]);
   }
+  await startSession(user.id);
+  return true;
+}
 
+/** Adds or changes the email/phone of a signed-in account after the code sent to it is confirmed. */
+export async function linkIdentity(user: User, id: Identity, code: string): Promise<{ ok: true } | { ok: false; error: string }> {
+  if (!(await checkCode(id, code, "link", user.id))) return { ok: false, error: "That code is wrong or has expired." };
+  const owner = await findUserBy(id);
+  if (owner && owner.id !== user.id) return { ok: false, error: "This is already linked to another account. Contact Help." };
+  const old = id.kind === "email" ? user.email : user.phone;
+  await run(`UPDATE users SET ${id.kind === "email" ? "email" : "phone"} = ? WHERE id = ?`, [id.value, user.id]);
+  // Tell the old email address, so a stolen session cannot quietly take over the account.
+  if (id.kind === "email" && old && old !== id.value && isEmailConfigured) {
+    sendMail(old, "Your SahiKaam email was changed",
+      `<p>The email on your SahiKaam account was changed to <b>${maskEmail(id.value)}</b>. If this was not you, reply to this email right away.</p>`,
+      `The email on your SahiKaam account was changed to ${maskEmail(id.value)}. If this was not you, reply to this email right away.`).catch(() => {});
+  }
+  return { ok: true };
+}
+
+async function startSession(userId: string) {
   const token = crypto.randomBytes(32).toString("base64url");
   const expires = now() + SESSION_DAYS * 86400_000;
-  await run("INSERT INTO sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)", [hash(token), user.id, expires]);
+  await run("INSERT INTO sessions (token_hash, user_id, expires_at, created_at) VALUES (?, ?, ?, ?)", [hash(token), userId, expires, now()]);
   cookies().set(SESSION_COOKIE, token, {
     httpOnly: true, secure: isProduction, sameSite: "lax", path: "/", expires: new Date(expires),
   });
-  return true;
 }
 
 export async function getUser(): Promise<User | null> {
   const token = cookies().get(SESSION_COOKIE)?.value;
   if (!token) return null;
   return one<User>(
-    "SELECT u.id, u.email FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = ? AND s.expires_at > ?",
+    "SELECT u.id, u.email, u.phone FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = ? AND s.expires_at > ?",
     [hash(token), now()]);
+}
+
+export async function activeSessionCount(userId: string) {
+  return (await all("SELECT token_hash FROM sessions WHERE user_id = ? AND expires_at > ?", [userId, now()])).length;
 }
 
 export async function signOut() {
   const token = cookies().get(SESSION_COOKIE)?.value;
   if (token) await run("DELETE FROM sessions WHERE token_hash = ?", [hash(token)]);
+  cookies().delete(SESSION_COOKIE);
+}
+
+/** Ends every session of this user (all phones and computers), including this one. */
+export async function signOutEverywhere(userId: string) {
+  await run("DELETE FROM sessions WHERE user_id = ?", [userId]);
   cookies().delete(SESSION_COOKIE);
 }

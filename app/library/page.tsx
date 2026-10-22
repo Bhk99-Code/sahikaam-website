@@ -4,6 +4,7 @@ import { getLibrary, getUser, getProducts } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
 import { CATEGORY } from "@/lib/format";
+import { userLabel } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "My library", robots: { index: false } };
@@ -20,14 +21,25 @@ export default async function Library({ searchParams }: { searchParams: { new?: 
       <div className="flex items-center gap-4">
         <div className="min-w-0 flex-1">
           <h1 className="font-display text-[28px] font-extrabold tracking-tight text-cream sm:text-[34px]">My library</h1>
-          <p className="truncate text-[14px] text-fog">{user?.email ?? "Your ebooks"}</p>
+          <p className="truncate text-[14px] text-fog">{user ? userLabel(user) : "Your ebooks"}</p>
         </div>
+        {user && (
+          <Link href="/account" aria-label="Account" className="btn-ghost h-11 w-11 px-0 text-[14px] sm:w-auto sm:px-4"><Icon name="user" size={18} /> <span className="hidden sm:inline">Account</span></Link>
+        )}
         {user && (
           <form action="/auth/signout" method="post">
             <button aria-label="Sign out" className="btn-ghost h-11 w-11 px-0 text-[14px] sm:w-auto sm:px-4"><Icon name="logout" size={18} /> <span className="hidden sm:inline">Sign out</span></button>
           </form>
         )}
       </div>
+
+      {user && (!user.email || !user.phone) && (
+        <Link href="/account" className="mt-6 flex items-center gap-3 rounded-card border border-saffron-500/30 bg-saffron-500/10 p-4 text-cream hover:border-saffron-500/60">
+          <Icon name="shield" className="shrink-0 text-saffron-400" strokeWidth={2} />
+          <span className="flex-1 text-[14px]"><b>Protect your account:</b> add your {user.email ? "mobile number" : "email"} so you can always get back into your library.</span>
+          <Icon name="arrow" size={18} className="shrink-0 text-saffron-400" />
+        </Link>
+      )}
 
       {fresh && (
         <div role="status" className="mt-6 flex items-center gap-3 rounded-card border border-mint/30 bg-mint/10 p-4 text-cream">

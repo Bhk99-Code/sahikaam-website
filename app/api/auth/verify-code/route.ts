@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
-import { normalizeEmail, verifyLoginCode } from "@/lib/auth";
+import { parseIdentity, verifyLogin } from "@/lib/auth";
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
-  const email = normalizeEmail(body.email);
+  const id = parseIdentity(body);
   const code = String(body.code ?? "").replace(/\D/g, "");
-  if (!email || code.length !== 6) return NextResponse.json({ error: "Code galat hai" }, { status: 400 });
-  if (!(await verifyLoginCode(email, code))) {
-    return NextResponse.json({ error: "Code galat hai ya expire ho gaya. Dobara try karein." }, { status: 400 });
+  if (!id || code.length !== 6) return NextResponse.json({ error: "Wrong code" }, { status: 400 });
+  if (!(await verifyLogin(id, code))) {
+    return NextResponse.json({ error: "That code is wrong or has expired. Please try again." }, { status: 400 });
   }
   return NextResponse.json({ ok: true });
 }

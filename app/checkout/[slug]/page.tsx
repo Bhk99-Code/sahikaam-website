@@ -37,7 +37,8 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
         slug={product.slug}
         title={product.title}
         price={product.price}
-        email={user.email}
+        email={user.email ?? ""}
+        phone={user.phone ?? ""}
         ready={isRazorpayConfigured}
         keyId={process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? ""}
         whatsapp={SUPPORT_WHATSAPP}

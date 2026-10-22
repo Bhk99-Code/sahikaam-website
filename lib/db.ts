@@ -15,11 +15,14 @@ type Driver = {
 
 const MYSQL_SCHEMA = [
   `CREATE TABLE IF NOT EXISTS users (
-    id VARCHAR(36) PRIMARY KEY, email VARCHAR(191) NOT NULL UNIQUE, created_at BIGINT NOT NULL
+    id VARCHAR(36) PRIMARY KEY, email VARCHAR(191) UNIQUE, phone VARCHAR(20) UNIQUE, created_at BIGINT NOT NULL
   ) CHARACTER SET utf8mb4`,
   `CREATE TABLE IF NOT EXISTS login_codes (
     email VARCHAR(191) PRIMARY KEY, code_hash VARCHAR(64) NOT NULL, expires_at BIGINT NOT NULL,
     attempts INT NOT NULL DEFAULT 0, sent_count INT NOT NULL DEFAULT 0, window_start BIGINT NOT NULL
+  ) CHARACTER SET utf8mb4`,
+  `CREATE TABLE IF NOT EXISTS rate_limits (
+    k VARCHAR(191) PRIMARY KEY, hits INT NOT NULL DEFAULT 0, window_start BIGINT NOT NULL
   ) CHARACTER SET utf8mb4`,
   `CREATE TABLE IF NOT EXISTS sessions (
     token_hash VARCHAR(64) PRIMARY KEY, user_id VARCHAR(36) NOT NULL, expires_at BIGINT NOT NULL
@@ -36,7 +39,14 @@ const MYSQL_SCHEMA = [
 ];
 
 // Columns added after the first release. Each runs once; "duplicate column" errors are ignored.
-const MIGRATIONS = ["ALTER TABLE purchases ADD COLUMN expires_at BIGINT NULL"];
+const MIGRATIONS = [
+  "ALTER TABLE purchases ADD COLUMN expires_at BIGINT NULL",
+  // Mobile login: users may sign up with a phone only, so email becomes optional.
+  "ALTER TABLE users ADD COLUMN phone VARCHAR(20) NULL",
+  "CREATE UNIQUE INDEX users_phone ON users (phone)",
+  "ALTER TABLE users MODIFY email VARCHAR(191) NULL",
+  "ALTER TABLE sessions ADD COLUMN created_at BIGINT NULL",
+];
 
 // SQLite accepts the same statements once the MySQL-only table option is removed.
 const SQLITE_SCHEMA = MYSQL_SCHEMA.map((s) => s.replace(/\s*CHARACTER SET utf8mb4$/, ""));
@@ -68,6 +78,14 @@ async function sqliteDriver(): Promise<Driver> {
   const db = new DatabaseSync(path.join(dir, "preview.sqlite"));
   for (const s of SQLITE_SCHEMA) db.exec(s);
   for (const m of MIGRATIONS) { try { db.exec(m.replace(" NULL", "")); } catch { /* already added */ } }
+  // SQLite cannot drop NOT NULL with ALTER: rebuild an old preview users table once so email can be empty.
+  const emailCol = (db.prepare("PRAGMA table_info(users)").all() as Row[]).find((c) => c.name === "email");
+  if (emailCol?.notnull) {
+    db.exec(`BEGIN;
+      CREATE TABLE users_new (id VARCHAR(36) PRIMARY KEY, email VARCHAR(191) UNIQUE, phone VARCHAR(20) UNIQUE, created_at BIGINT NOT NULL);
+      INSERT INTO users_new (id, email, phone, created_at) SELECT id, email, phone, created_at FROM users;
+      DROP TABLE users; ALTER TABLE users_new RENAME TO users; COMMIT;`);
+  }
   return {
     async all(sql, params = []) {
       return db.prepare(sql).all(...params) as Row[];

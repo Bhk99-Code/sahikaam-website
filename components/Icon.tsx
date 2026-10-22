@@ -12,6 +12,7 @@ const PATHS: Record<string, string> = {
   back: "M15 6l-6 6 6 6",
   down: "M6 9l6 6 6-6",
   shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4",
+  phone: "M7 2h10a1 1 0 011 1v18a1 1 0 01-1 1H7a1 1 0 01-1-1V3a1 1 0 011-1zM11 18h2",
   mail: "M3 5h18v14H3zM3 7l9 6 9-6",
   chat: "M21 12a9 9 0 01-13.5 7.8L3 21l1.2-4.5A9 9 0 1121 12z",
   user: "M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0",

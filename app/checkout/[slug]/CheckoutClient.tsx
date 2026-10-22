@@ -9,9 +9,9 @@ declare global {
   interface Window { Razorpay?: any }
 }
 
-type Props = { slug: string; title: string; price: number; email: string; ready: boolean; keyId: string; whatsapp: string };
+type Props = { slug: string; title: string; price: number; email: string; phone: string; ready: boolean; keyId: string; whatsapp: string };
 
-export function CheckoutClient({ slug, title, price, email, ready, keyId, whatsapp }: Props) {
+export function CheckoutClient({ slug, title, price, email, phone, ready, keyId, whatsapp }: Props) {
   const router = useRouter();
   const [code, setCode] = useState("");
   const [applied, setApplied] = useState<{ code: string; discount: number; amount: number } | null>(null);
@@ -50,7 +50,7 @@ export function CheckoutClient({ slug, title, price, email, ready, keyId, whatsa
         currency: "INR",
         name: "SahiKaam",
         description: title,
-        prefill: { email },
+        prefill: { email: email || undefined, contact: phone || undefined },
         theme: { color: "#FF6A00" },
         handler: async (resp: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
           const v = await fetch("/api/checkout/verify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(resp) });
@@ -102,7 +102,7 @@ export function CheckoutClient({ slug, title, price, email, ready, keyId, whatsa
         <Icon name="lock" size={20} strokeWidth={2} />
         {busy ? "Processing…" : amount === 0 ? "Get it free" : `Pay ${rupees(amount)}`}
       </button>
-      <p className="mt-3 text-center text-[13px] text-fog">Paying as {email} · UPI, cards, net banking, wallets · secured by Razorpay</p>
+      <p className="mt-3 text-center text-[13px] text-fog">Paying as {email || phone} · UPI, cards, net banking, wallets · secured by Razorpay</p>
     </>
   );
 }
