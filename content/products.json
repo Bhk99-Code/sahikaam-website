@@ -12,7 +12,7 @@
       "price": 3999,
       "mrp": 4999,
       "badge": "Bestseller",
-      "cover_url": "/covers/manufacturing-50.jpg",
+      "cover_url": "/covers/manufacturing-50-v2.jpg",
       "level": "Beginner to advanced",
       "sort_order": 10,
       "highlights": [
@@ -74,7 +74,7 @@
       "price": 1999,
       "mrp": 2999,
       "badge": "Low investment",
-      "cover_url": "/covers/andha-paisa.svg",
+      "cover_url": "/covers/legal-business-andha-paisa-v2.jpg",
       "level": "Beginner",
       "sort_order": 20,
       "highlights": [
@@ -205,7 +205,7 @@
       "price": 2999,
       "mrp": 3999,
       "badge": "Construction",
-      "cover_url": "/covers/contractor-bano.jpg",
+      "cover_url": "/covers/contractor-bano-v2.jpg",
       "level": "Beginner",
       "sort_order": 30,
       "highlights": [
@@ -397,7 +397,7 @@
       "price": 1499,
       "mrp": 2499,
       "badge": "Project report",
-      "cover_url": "/covers/fly-ash-bricks.jpg",
+      "cover_url": "/covers/fly-ash-bricks-v2.jpg",
       "level": "Beginner",
       "sort_order": 60,
       "highlights": [
@@ -464,7 +464,7 @@
       "price": 1499,
       "mrp": 2499,
       "badge": "Project report",
-      "cover_url": "/covers/paver-blocks.jpg",
+      "cover_url": "/covers/paver-blocks-v2.jpg",
       "level": "Beginner",
       "sort_order": 61,
       "highlights": [
@@ -530,7 +530,7 @@
       "price": 999,
       "mrp": 1499,
       "badge": "40 ideas",
-      "cover_url": "/covers/food-processing-40.jpg",
+      "cover_url": "/covers/food-processing-40-v2.jpg",
       "level": "Beginner",
       "sort_order": 62,
       "highlights": [
@@ -597,7 +597,7 @@
       "price": 999,
       "mrp": 1499,
       "badge": "30 ideas",
-      "cover_url": "/covers/krishi-kachra-se-kamaai.jpg",
+      "cover_url": "/covers/krishi-kachra-se-kamaai-v2.jpg",
       "level": "Beginner",
       "sort_order": 63,
       "highlights": [
@@ -663,7 +663,7 @@
       "price": 999,
       "mrp": 1499,
       "badge": "Licence + compliance",
-      "cover_url": "/covers/labour-contractor-bano.jpg",
+      "cover_url": "/covers/labour-contractor-bano-v2.jpg",
       "level": "Beginner",
       "sort_order": 64,
       "highlights": [
@@ -730,7 +730,7 @@
       "price": 799,
       "mrp": 1299,
       "badge": "Loan + subsidy",
-      "cover_url": "/covers/pmegp-step-by-step.jpg",
+      "cover_url": "/covers/pmegp-step-by-step-v2.jpg",
       "level": "Beginner",
       "sort_order": 65,
       "highlights": [
@@ -797,7 +797,7 @@
       "price": 799,
       "mrp": 1299,
       "badge": "Franchise guide",
-      "cover_url": "/covers/franchise-lo-sahi-lo.jpg",
+      "cover_url": "/covers/franchise-lo-sahi-lo-v2.jpg",
       "level": "Beginner",
       "sort_order": 66,
       "highlights": [
@@ -864,7 +864,7 @@
       "price": 499,
       "mrp": 799,
       "badge": "Start here",
-      "cover_url": "/covers/idea-test-karo.jpg",
+      "cover_url": "/covers/idea-test-karo-v2.jpg",
       "level": "Beginner",
       "sort_order": 67,
       "highlights": [
