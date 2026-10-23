@@ -1,8 +1,9 @@
 {
-  "_help": "Coupon jodne ke liye neeche ek line copy karein. percent_off YA flat_off (rupees). product_slug khaali = sab products par. expires_at jaise 2026-11-30T23:59:59+05:30",
+  "_help": "Coupon jodne ke liye neeche ek line copy karein. percent_off YA flat_off (rupees). product_slug khaali = sab products par. featured: true wala code site ki offer patti aur checkout par dikhta hai. expires_at jaise 2026-11-30T23:59:59+05:30",
   "coupons": [
     {
       "code": "LAUNCH20",
+      "featured": true,
       "percent_off": 20,
       "max_uses": 100,
       "expires_at": "2026-12-31T23:59:59+05:30"

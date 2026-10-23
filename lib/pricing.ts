@@ -14,6 +14,7 @@ type Coupon = {
   max_uses?: number | null;
   expires_at?: string | null;
   is_active?: boolean;
+  featured?: boolean;
 };
 
 const COUPONS = couponFile.coupons as Coupon[];
@@ -37,4 +38,12 @@ export async function priceWithCoupon(product: { slug: string; price: number }, 
   else if (c.flat_off) discount = c.flat_off;
   discount = Math.min(discount, product.price);
   return { ok: true, amount: product.price - discount, discount, coupon: code };
+}
+
+/** The coupon shown in the offer bar and pre-filled at checkout (marked "featured" in coupons.json). */
+export function featuredCoupon(): { code: string; label: string } | null {
+  const c = COUPONS.find((x) => x.featured && x.is_active !== false && !(x.expires_at && new Date(x.expires_at) < new Date()));
+  if (!c) return null;
+  const label = c.percent_off ? `${c.percent_off}% OFF` : c.flat_off ? `₹${c.flat_off} OFF` : "";
+  return label ? { code: c.code.toUpperCase(), label } : null;
 }

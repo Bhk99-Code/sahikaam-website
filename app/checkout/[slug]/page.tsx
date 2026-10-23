@@ -7,6 +7,7 @@ import { Icon } from "@/components/Icon";
 import { CheckoutClient } from "./CheckoutClient";
 import { accessLabel, rupees, TYPE_LABEL } from "@/lib/format";
 import { isRazorpayConfigured, SUPPORT_WHATSAPP } from "@/lib/env";
+import { featuredCoupon } from "@/lib/pricing";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Checkout", robots: { index: false } };
@@ -42,6 +43,7 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
         ready={isRazorpayConfigured}
         keyId={process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? ""}
         whatsapp={SUPPORT_WHATSAPP}
+        offerCode={featuredCoupon()?.code ?? ""}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/Icon";
@@ -9,26 +9,32 @@ declare global {
   interface Window { Razorpay?: any }
 }
 
-type Props = { slug: string; title: string; price: number; email: string; phone: string; ready: boolean; keyId: string; whatsapp: string };
+type Props = { slug: string; title: string; price: number; email: string; phone: string; ready: boolean; keyId: string; whatsapp: string; offerCode: string };
 
-export function CheckoutClient({ slug, title, price, email, phone, ready, keyId, whatsapp }: Props) {
+export function CheckoutClient({ slug, title, price, email, phone, ready, keyId, whatsapp, offerCode }: Props) {
   const router = useRouter();
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(offerCode);
   const [applied, setApplied] = useState<{ code: string; discount: number; amount: number } | null>(null);
   const [couponMsg, setCouponMsg] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const amount = applied ? applied.amount : price;
 
-  async function applyCoupon() {
+  async function applyCoupon(c = code) {
     setCouponMsg("");
-    if (!code.trim()) return;
-    const res = await fetch("/api/checkout/quote", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ slug, coupon: code }) });
+    if (!c.trim()) return;
+    const res = await fetch("/api/checkout/quote", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ slug, coupon: c }) });
     const data = await res.json();
     if (!res.ok) { setApplied(null); setCouponMsg(data.error || "This coupon could not be applied"); return; }
     setApplied({ code: data.coupon, discount: data.discount, amount: data.amount });
     setCouponMsg(`Coupon applied — you save ${rupees(data.discount)}`);
   }
+
+  // The site-wide offer code is applied for the buyer automatically; they can still change it.
+  useEffect(() => {
+    if (offerCode && price > 0) applyCoupon(offerCode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function pay() {
     setBusy(true);
@@ -78,7 +84,7 @@ export function CheckoutClient({ slug, title, price, email, phone, ready, keyId,
           <div className="mt-3 flex gap-2">
             <input id="coupon" value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="Enter code"
               className="field h-12 min-w-0 flex-1 uppercase" />
-            <button type="button" onClick={applyCoupon} className="btn-ghost h-12">Apply</button>
+            <button type="button" onClick={() => applyCoupon()} className="btn-ghost h-12">Apply</button>
           </div>
           {couponMsg && <p className={`mt-2 text-[14px] ${applied ? "text-mint" : "text-rosy"}`}>{couponMsg}</p>}
         </div>
