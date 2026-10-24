@@ -21,5 +21,10 @@ export const CATEGORY = {
   "food-agro": { label: "Food & agro", color: "#FF8A3D", blurb: "Food processing and farm-waste businesses" },
   funding: { label: "Loans & funding", color: "#FFB27A", blurb: "Government loans and subsidies" },
   startup: { label: "Startup basics", color: "#FFC59A", blurb: "Test ideas, pick franchises" },
+  government: { label: "Government business", color: "#FFB27A", blurb: "Win tenders and sell on GeM" },
+  energy: { label: "Solar & EV", color: "#FFC23D", blurb: "Solar installation and EV charging work" },
+  online: { label: "Online & AI", color: "#FFC59A", blurb: "Sell online and earn with AI services" },
+  "real-estate": { label: "Real estate", color: "#FFA866", blurb: "Plotting, townships and property valuation" },
+  trade: { label: "Export & trade", color: "#FF8A3D", blurb: "Export from India, step by step" },
   bundle: { label: "Bundles", color: "#FFFFFF", blurb: "Everything together, best price" },
 } as const;

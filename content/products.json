@@ -380,11 +380,25 @@
         "labour-contractor-bano",
         "pmegp-step-by-step",
         "franchise-lo-sahi-lo",
-        "idea-test-karo"
+        "idea-test-karo",
+        "government-tenders",
+        "solar-business",
+        "plotting-township",
+        "sell-on-gem",
+        "ev-charging-contractor",
+        "export-business",
+        "property-valuer",
+        "sell-on-marketplaces",
+        "earn-with-ai",
+        "business-after-retirement",
+        "side-business-with-job",
+        "home-business-women",
+        "village-business-ideas",
+        "labour-supply-business"
       ],
       "highlights": [
         {
-          "title": "11",
+          "title": "25",
           "text": "Ebooks today"
         },
         {
@@ -401,7 +415,7 @@
         }
       ],
       "learn": [
-        "All 11 ebooks, including 2 complete project reports",
+        "All 25 ebooks, including 2 complete project reports",
         "9 bonus Excel tools — DPRs, calculators and trackers",
         "Every new ebook we publish during your year",
         "Hindi and English editions",
@@ -434,11 +448,25 @@
         "labour-contractor-bano",
         "pmegp-step-by-step",
         "franchise-lo-sahi-lo",
-        "idea-test-karo"
+        "idea-test-karo",
+        "government-tenders",
+        "solar-business",
+        "plotting-township",
+        "sell-on-gem",
+        "ev-charging-contractor",
+        "export-business",
+        "property-valuer",
+        "sell-on-marketplaces",
+        "earn-with-ai",
+        "business-after-retirement",
+        "side-business-with-job",
+        "home-business-women",
+        "village-business-ideas",
+        "labour-supply-business"
       ],
       "highlights": [
         {
-          "title": "11",
+          "title": "25",
           "text": "Ebooks today"
         },
         {
@@ -455,7 +483,7 @@
         }
       ],
       "learn": [
-        "All 11 ebooks, including 2 complete project reports",
+        "All 25 ebooks, including 2 complete project reports",
         "9 bonus Excel tools — DPRs, calculators and trackers",
         "Every new ebook we publish during your 6 months",
         "Hindi and English editions",
@@ -1054,6 +1082,930 @@
         "/covers/v3/idea-test-karo-3d-back-v3.png",
         "/covers/v3/idea-test-karo-v3.jpg",
         "/covers/v3/idea-test-karo-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "government-tenders",
+      "type": "ebook",
+      "category": "government",
+      "accent": "#FFB27A",
+      "title": "How to Win Government Tenders",
+      "subtitle": "Find, bid, execute and get paid — the roadmap for small contractors and suppliers",
+      "description": "A complete guide to government work for small firms: types of tenders, where to find them, getting your firm ready, reading a tender document, EMD and guarantees, filling your rate, the L1 game, online bids, executing the work, billing and payment, why bids get rejected and how to grow from small to big.",
+      "price": 999,
+      "mrp": 1499,
+      "badge": "New",
+      "cover_url": "/covers/v3/government-tenders-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 68,
+      "highlights": [
+        {
+          "title": "14",
+          "text": "Chapters"
+        },
+        {
+          "title": "L1",
+          "text": "How to fill your rate"
+        },
+        {
+          "title": "EMD",
+          "text": "Fees and guarantees"
+        },
+        {
+          "title": "90 days",
+          "text": "Action plan"
+        }
+      ],
+      "learn": [
+        "Find the right tenders on the right portals",
+        "Get your firm registered and ready to bid",
+        "Read a tender document and fill a winning rate",
+        "Submit online bids without silly rejections",
+        "Execute the work, bill correctly and get paid"
+      ],
+      "chapters": [
+        "Get ready",
+        "Bid to win",
+        "Execute and get paid",
+        "Grow"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 63,
+          "file_path": "government-tenders.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 63,
+          "file_path": "government-tenders-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/government-tenders-3d-front-v3.png",
+        "/covers/v3/government-tenders-3d-back-v3.png",
+        "/covers/v3/government-tenders-v3.jpg",
+        "/covers/v3/government-tenders-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "solar-business",
+      "type": "ebook",
+      "category": "energy",
+      "accent": "#FFC23D",
+      "title": "Start Your Solar Business",
+      "subtitle": "Rooftop, EPC and maintenance — from first survey to steady AMC income",
+      "description": "Five ways to earn from solar, explained in plain words: registrations and empanelment, government schemes and subsidy, net metering and DISCOM approval, vendors, how to make a quote customers trust, finding customers, installation and safety, bigger commercial projects and recurring O&M and AMC income.",
+      "price": 999,
+      "mrp": 1499,
+      "badge": "New",
+      "cover_url": "/covers/v3/solar-business-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 69,
+      "highlights": [
+        {
+          "title": "5",
+          "text": "Business models"
+        },
+        {
+          "title": "Subsidy",
+          "text": "Schemes explained"
+        },
+        {
+          "title": "Quote",
+          "text": "Worked examples"
+        },
+        {
+          "title": "AMC",
+          "text": "Recurring income"
+        }
+      ],
+      "learn": [
+        "Choose the right solar business model for you",
+        "Get registered and empanelled with the DISCOM",
+        "Explain subsidy and payback to customers",
+        "Make a clear quote and install safely",
+        "Build steady income from O&M and AMC"
+      ],
+      "chapters": [
+        "Understand solar",
+        "Set up",
+        "Sell and install",
+        "Grow"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 53,
+          "file_path": "solar-business.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 56,
+          "file_path": "solar-business-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/solar-business-3d-front-v3.png",
+        "/covers/v3/solar-business-3d-back-v3.png",
+        "/covers/v3/solar-business-v3.jpg",
+        "/covers/v3/solar-business-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "plotting-township",
+      "type": "ebook",
+      "category": "real-estate",
+      "accent": "#FFA866",
+      "title": "Start a Plotting & Township Business",
+      "subtitle": "From raw land to sold plots — land checks, approvals, costing and sales",
+      "description": "A step-by-step guide for first-time developers: how plotting creates value, choosing the right land, title and legal checks, conversion and approvals, designing a layout that sells, development works, project costing, profit models, funding, selling plots, documentation and registry.",
+      "price": 799,
+      "mrp": 1299,
+      "badge": "New",
+      "cover_url": "/covers/v3/plotting-township-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 70,
+      "highlights": [
+        {
+          "title": "Title",
+          "text": "Legal checks"
+        },
+        {
+          "title": "Layout",
+          "text": "That sells"
+        },
+        {
+          "title": "Costing",
+          "text": "Full project"
+        },
+        {
+          "title": "90 days",
+          "text": "Action plan"
+        }
+      ],
+      "learn": [
+        "Pick land that can actually be developed and sold",
+        "Check title and avoid legal traps",
+        "Get conversion and layout approvals",
+        "Cost the project and choose a profit model",
+        "Sell plots and complete registry correctly"
+      ],
+      "chapters": [
+        "Understand plotting",
+        "Approvals and design",
+        "Money",
+        "Sell and grow"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 39,
+          "file_path": "plotting-township.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 41,
+          "file_path": "plotting-township-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/plotting-township-3d-front-v3.png",
+        "/covers/v3/plotting-township-3d-back-v3.png",
+        "/covers/v3/plotting-township-v3.jpg",
+        "/covers/v3/plotting-township-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "sell-on-gem",
+      "type": "ebook",
+      "category": "government",
+      "accent": "#FFB27A",
+      "title": "How to Sell on GeM",
+      "subtitle": "Government e-Marketplace — your first order in 90 days",
+      "description": "Sell products and services to government buyers on GeM: what you can sell, registration step by step, catalogues that get orders, how orders come, bidding, pricing to win, delivery, invoice and acceptance, MSE and start-up benefits, ratings and penalties, and the common mistakes that get sellers suspended.",
+      "price": 799,
+      "mrp": 1299,
+      "badge": "New",
+      "cover_url": "/covers/v3/sell-on-gem-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 71,
+      "highlights": [
+        {
+          "title": "Step by step",
+          "text": "Registration"
+        },
+        {
+          "title": "Bids",
+          "text": "And direct orders"
+        },
+        {
+          "title": "MSE",
+          "text": "Benefits"
+        },
+        {
+          "title": "90 days",
+          "text": "To first order"
+        }
+      ],
+      "learn": [
+        "Register on GeM and build catalogues that get orders",
+        "Understand direct purchase, L1 and bids",
+        "Price to win without losing money",
+        "Deliver, invoice and get acceptance on time",
+        "Use MSE and start-up benefits"
+      ],
+      "chapters": [
+        "Understand GeM",
+        "Register and list",
+        "Deliver and get paid",
+        "Grow"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 44,
+          "file_path": "sell-on-gem.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 44,
+          "file_path": "sell-on-gem-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/sell-on-gem-3d-front-v3.png",
+        "/covers/v3/sell-on-gem-3d-back-v3.png",
+        "/covers/v3/sell-on-gem-v3.jpg",
+        "/covers/v3/sell-on-gem-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "ev-charging-contractor",
+      "type": "ebook",
+      "category": "energy",
+      "accent": "#FFC23D",
+      "title": "Become an EV Charging Contractor",
+      "subtitle": "Install, maintain and grow with India's EV charging rollout",
+      "description": "How to build a contracting business around EV chargers: the market and business models, charger basics, registration and vendor onboarding, the cluster model, site survey, DISCOM connection and approvals, costing and rates, team and SOP, testing and handover, and O&M and breakdown service income.",
+      "price": 799,
+      "mrp": 1299,
+      "badge": "New",
+      "cover_url": "/covers/v3/ev-charging-contractor-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 72,
+      "highlights": [
+        {
+          "title": "Models",
+          "text": "Ways to earn"
+        },
+        {
+          "title": "DISCOM",
+          "text": "Approvals"
+        },
+        {
+          "title": "Rates",
+          "text": "Costing guide"
+        },
+        {
+          "title": "O&M",
+          "text": "Repeat income"
+        }
+      ],
+      "learn": [
+        "Understand charger types and business models",
+        "Get onboarded as a vendor with charge-point operators",
+        "Survey sites and handle DISCOM approvals",
+        "Cost jobs and set your rates",
+        "Earn steady income from O&M and breakdown service"
+      ],
+      "chapters": [
+        "Understand the market",
+        "Get contracts",
+        "Execute",
+        "Grow"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 43,
+          "file_path": "ev-charging-contractor.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 44,
+          "file_path": "ev-charging-contractor-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/ev-charging-contractor-3d-front-v3.png",
+        "/covers/v3/ev-charging-contractor-3d-back-v3.png",
+        "/covers/v3/ev-charging-contractor-v3.jpg",
+        "/covers/v3/ev-charging-contractor-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "export-business",
+      "type": "ebook",
+      "category": "trade",
+      "accent": "#FF8A3D",
+      "title": "Start Your Export Business",
+      "subtitle": "Product, buyer, paperwork, pricing and payment — step by step",
+      "description": "Start exporting from India: why export, what to export, registrations, market research, finding your first buyer, quotations and Incoterms, payment terms, documentation, logistics, quality and certification, export costing and pricing, government support and the mistakes to avoid.",
+      "price": 799,
+      "mrp": 1299,
+      "badge": "New",
+      "cover_url": "/covers/v3/export-business-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 73,
+      "highlights": [
+        {
+          "title": "IEC",
+          "text": "Registrations"
+        },
+        {
+          "title": "Incoterms",
+          "text": "Quotes made easy"
+        },
+        {
+          "title": "Docs",
+          "text": "Shipping paperwork"
+        },
+        {
+          "title": "90 days",
+          "text": "Action plan"
+        }
+      ],
+      "learn": [
+        "Choose a product and a market to start with",
+        "Get IEC and the other registrations",
+        "Find your first buyer and send a proper quotation",
+        "Choose safe payment terms and prepare documents",
+        "Cost and price your export order correctly"
+      ],
+      "chapters": [
+        "Prepare",
+        "Find buyers",
+        "Ship and get paid",
+        "Price and grow"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 44,
+          "file_path": "export-business.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 46,
+          "file_path": "export-business-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/export-business-3d-front-v3.png",
+        "/covers/v3/export-business-3d-back-v3.png",
+        "/covers/v3/export-business-v3.jpg",
+        "/covers/v3/export-business-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "property-valuer",
+      "type": "ebook",
+      "category": "real-estate",
+      "accent": "#FFA866",
+      "title": "Become a Property Valuer",
+      "subtitle": "Registration, site inspection, methods and reports — with worked valuations",
+      "description": "A practical guide to the valuation profession: when valuation is needed, becoming a registered valuer, valuation approaches, site inspection, document checks, fully worked valuations, writing the report, getting on bank panels, income streams and fees, risks and ethics, and growing the practice.",
+      "price": 799,
+      "mrp": 1299,
+      "badge": "New",
+      "cover_url": "/covers/v3/property-valuer-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 74,
+      "highlights": [
+        {
+          "title": "Worked",
+          "text": "Valuation examples"
+        },
+        {
+          "title": "Bank panels",
+          "text": "How to get on"
+        },
+        {
+          "title": "Report",
+          "text": "Writing guide"
+        },
+        {
+          "title": "Fees",
+          "text": "Income streams"
+        }
+      ],
+      "learn": [
+        "Know when and why property valuation is needed",
+        "Understand the route to becoming a valuer",
+        "Inspect a site and check documents properly",
+        "Value a property and write a clean report",
+        "Get on bank panels and grow your fees"
+      ],
+      "chapters": [
+        "The profession",
+        "Inspect and value",
+        "Reports and business",
+        "Ethics and growth"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 42,
+          "file_path": "property-valuer.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 42,
+          "file_path": "property-valuer-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/property-valuer-3d-front-v3.png",
+        "/covers/v3/property-valuer-3d-back-v3.png",
+        "/covers/v3/property-valuer-v3.jpg",
+        "/covers/v3/property-valuer-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "sell-on-marketplaces",
+      "type": "ebook",
+      "category": "online",
+      "accent": "#FFC59A",
+      "title": "Sell on Amazon, Flipkart & Meesho",
+      "subtitle": "Choose products, price for profit and grow an online brand",
+      "description": "A handbook for marketplace sellers: which marketplace for what, choosing products, sourcing, registration and compliance, listings that sell, fees and real margin, fulfilment options, your first 50 orders, ads that pay, returns and RTO, account health and building your own brand beyond marketplaces.",
+      "price": 599,
+      "mrp": 999,
+      "badge": "New",
+      "cover_url": "/covers/v3/sell-on-marketplaces-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 75,
+      "highlights": [
+        {
+          "title": "3",
+          "text": "Marketplaces"
+        },
+        {
+          "title": "Margin",
+          "text": "Real fee maths"
+        },
+        {
+          "title": "Ads",
+          "text": "That pay back"
+        },
+        {
+          "title": "RTO",
+          "text": "Returns control"
+        }
+      ],
+      "learn": [
+        "Pick products that sell and still leave margin",
+        "Register and list correctly on each marketplace",
+        "Work out fees and your real profit per order",
+        "Get your first 50 orders and run ads that pay",
+        "Control returns and RTO, then build a brand"
+      ],
+      "chapters": [
+        "Choose",
+        "List and price",
+        "Grow sales",
+        "Build a brand"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 49,
+          "file_path": "sell-on-marketplaces.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 47,
+          "file_path": "sell-on-marketplaces-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/sell-on-marketplaces-3d-front-v3.png",
+        "/covers/v3/sell-on-marketplaces-3d-back-v3.png",
+        "/covers/v3/sell-on-marketplaces-v3.jpg",
+        "/covers/v3/sell-on-marketplaces-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "earn-with-ai",
+      "type": "ebook",
+      "category": "online",
+      "accent": "#FFC59A",
+      "title": "Earn with AI Services",
+      "subtitle": "20 services you can sell to local businesses from day one",
+      "description": "The honest truth about earning with AI, your toolkit and niche, and 20 services you can sell — content, design, video and voice, business automation and education — plus how to get your first client, price your work, keep quality honest and grow into an agency.",
+      "price": 599,
+      "mrp": 999,
+      "badge": "New",
+      "cover_url": "/covers/v3/earn-with-ai-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 76,
+      "highlights": [
+        {
+          "title": "20",
+          "text": "Services to sell"
+        },
+        {
+          "title": "Toolkit",
+          "text": "AI tools"
+        },
+        {
+          "title": "Pricing",
+          "text": "What to charge"
+        },
+        {
+          "title": "Agency",
+          "text": "Grow path"
+        }
+      ],
+      "learn": [
+        "Pick a niche and the right AI tools",
+        "Choose from 20 services local businesses pay for",
+        "Win your first client without cold selling",
+        "Price your services and deliver honest quality",
+        "Grow from freelancer to a small agency"
+      ],
+      "chapters": [
+        "Understand",
+        "20 services",
+        "Sell and deliver",
+        "Grow"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 55,
+          "file_path": "earn-with-ai.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 55,
+          "file_path": "earn-with-ai-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/earn-with-ai-3d-front-v3.png",
+        "/covers/v3/earn-with-ai-3d-back-v3.png",
+        "/covers/v3/earn-with-ai-v3.jpg",
+        "/covers/v3/earn-with-ai-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "business-after-retirement",
+      "type": "ebook",
+      "category": "legal",
+      "accent": "#FF8A3D",
+      "title": "Start a Business After Retirement",
+      "subtitle": "Your experience is your capital — low-risk businesses for people over 50",
+      "description": "A simple, safe guide for starting after retirement without risking your savings: the safe-money rule, knowing your strengths, 20 experience-, asset- and service-based businesses plus franchise and dealership options, avoiding fraud, your family's role, money and tax, and keeping a healthy balance.",
+      "price": 599,
+      "mrp": 999,
+      "badge": "New",
+      "cover_url": "/covers/v3/business-after-retirement-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 77,
+      "highlights": [
+        {
+          "title": "20",
+          "text": "Business ideas"
+        },
+        {
+          "title": "Safe-money",
+          "text": "Rule"
+        },
+        {
+          "title": "Fraud",
+          "text": "How to avoid"
+        },
+        {
+          "title": "90 days",
+          "text": "Action plan"
+        }
+      ],
+      "learn": [
+        "Protect your savings with the safe-money rule",
+        "Turn your experience into a business",
+        "Choose from 20 low-risk businesses",
+        "Spot and avoid common frauds",
+        "Handle money, tax and family roles calmly"
+      ],
+      "chapters": [
+        "Prepare",
+        "20 businesses",
+        "Protect",
+        "Live well"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 59,
+          "file_path": "business-after-retirement.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 59,
+          "file_path": "business-after-retirement-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/business-after-retirement-3d-front-v3.png",
+        "/covers/v3/business-after-retirement-3d-back-v3.png",
+        "/covers/v3/business-after-retirement-v3.jpg",
+        "/covers/v3/business-after-retirement-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "side-business-with-job",
+      "type": "ebook",
+      "category": "legal",
+      "accent": "#FF8A3D",
+      "title": "Start a Side Business with Your Job",
+      "subtitle": "Keep your salary, build a second income",
+      "description": "How to build a second income without risking your job: what to check before you start, choosing an idea, 24 weekend, evening, run-by-others and asset-based businesses, team and systems, money and tax, avoiding burnout and knowing when it is safe to quit your job.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/side-business-with-job-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 78,
+      "highlights": [
+        {
+          "title": "24",
+          "text": "Side business ideas"
+        },
+        {
+          "title": "Weekend",
+          "text": "And evening options"
+        },
+        {
+          "title": "Burnout",
+          "text": "How to avoid"
+        },
+        {
+          "title": "Quit?",
+          "text": "When it's safe"
+        }
+      ],
+      "learn": [
+        "Check your job rules before you start",
+        "Choose from 24 side businesses that fit your time",
+        "Set up systems so it runs without you",
+        "Handle money and tax for a second income",
+        "Decide when it's safe to quit your job"
+      ],
+      "chapters": [
+        "Prepare",
+        "24 ideas",
+        "Run it",
+        "Decide"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 55,
+          "file_path": "side-business-with-job.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 54,
+          "file_path": "side-business-with-job-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/side-business-with-job-3d-front-v3.png",
+        "/covers/v3/side-business-with-job-3d-back-v3.png",
+        "/covers/v3/side-business-with-job-v3.jpg",
+        "/covers/v3/side-business-with-job-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "home-business-women",
+      "type": "ebook",
+      "category": "legal",
+      "accent": "#FF8A3D",
+      "title": "30 Home Business Ideas for Women",
+      "subtitle": "Start from home with small investment — steps, customers and monthly maths",
+      "description": "Thirty home businesses across food, fashion, services, online and crafts, each with steps and real monthly calculations — plus registration, your first 10 customers, pricing, money and schemes, balancing home and work, safety and a 90-day plan.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/home-business-women-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 79,
+      "highlights": [
+        {
+          "title": "30",
+          "text": "Home business ideas"
+        },
+        {
+          "title": "Monthly",
+          "text": "Real calculations"
+        },
+        {
+          "title": "Schemes",
+          "text": "Money and loans"
+        },
+        {
+          "title": "90 days",
+          "text": "Action plan"
+        }
+      ],
+      "learn": [
+        "Choose a home business that fits your skills and time",
+        "See real monthly costs and earnings for each idea",
+        "Register simply and price your work right",
+        "Find your first 10 customers",
+        "Balance home and work, and stay safe"
+      ],
+      "chapters": [
+        "Prepare",
+        "30 ideas",
+        "Run the business",
+        "Grow"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 60,
+          "file_path": "home-business-women.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 59,
+          "file_path": "home-business-women-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/home-business-women-3d-front-v3.png",
+        "/covers/v3/home-business-women-3d-back-v3.png",
+        "/covers/v3/home-business-women-v3.jpg",
+        "/covers/v3/home-business-women-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "village-business-ideas",
+      "type": "ebook",
+      "category": "legal",
+      "accent": "#FF8A3D",
+      "title": "30 Village Business Ideas",
+      "subtitle": "Low investment, local demand, steady income",
+      "description": "Thirty businesses for villages and small towns — farm-linked, animal-based, processing, service and trading — with investment, earnings and how to start, plus schemes and subsidies, FPOs and groups, selling produce, money, mistakes to avoid and a 90-day plan.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/village-business-ideas-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 80,
+      "highlights": [
+        {
+          "title": "30",
+          "text": "Village business ideas"
+        },
+        {
+          "title": "Low",
+          "text": "Investment"
+        },
+        {
+          "title": "FPO",
+          "text": "Schemes and groups"
+        },
+        {
+          "title": "90 days",
+          "text": "Action plan"
+        }
+      ],
+      "learn": [
+        "Understand what the village market needs",
+        "Choose from 30 low-investment businesses",
+        "Use schemes, subsidies and FPOs",
+        "Sell your produce at a better price",
+        "Avoid common mistakes and start in 90 days"
+      ],
+      "chapters": [
+        "Understand",
+        "30 ideas",
+        "Support and sell",
+        "Grow"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 62,
+          "file_path": "village-business-ideas.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 63,
+          "file_path": "village-business-ideas-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/village-business-ideas-3d-front-v3.png",
+        "/covers/v3/village-business-ideas-3d-back-v3.png",
+        "/covers/v3/village-business-ideas-v3.jpg",
+        "/covers/v3/village-business-ideas-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "labour-supply-business",
+      "type": "ebook",
+      "category": "construction",
+      "accent": "#FFA866",
+      "title": "Start a Labour Supply Business",
+      "subtitle": "From 5 workers to 500 — a starter roadmap for labour contractors",
+      "description": "A short starter guide to manpower supply: who buys manpower, business models, the legal framework, registrations and compliance calendar, sourcing and keeping workers, pricing, finding clients, agreements and work orders, attendance, payroll and billing, the cash-flow gap, safety and insurance, and scaling up.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/labour-supply-business-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 81,
+      "highlights": [
+        {
+          "title": "Starter",
+          "text": "Quick guide"
+        },
+        {
+          "title": "Pricing",
+          "text": "Your service"
+        },
+        {
+          "title": "Payroll",
+          "text": "And billing"
+        },
+        {
+          "title": "90 days",
+          "text": "Action plan"
+        }
+      ],
+      "learn": [
+        "Know who buys manpower and how they pay",
+        "Get registrations and a compliance calendar in place",
+        "Source and keep reliable workers",
+        "Price your service and sign proper work orders",
+        "Manage payroll, billing and the cash-flow gap"
+      ],
+      "chapters": [
+        "Understand the business",
+        "Set up",
+        "Win and run",
+        "Grow safely"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 44,
+          "file_path": "labour-supply-business.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 44,
+          "file_path": "labour-supply-business-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/labour-supply-business-3d-front-v3.png",
+        "/covers/v3/labour-supply-business-3d-back-v3.png",
+        "/covers/v3/labour-supply-business-v3.jpg",
+        "/covers/v3/labour-supply-business-back-v3.jpg"
       ]
     }
   ]
