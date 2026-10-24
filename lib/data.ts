@@ -1,6 +1,6 @@
 import "server-only";
 import catalog from "@/content/products.json";
-import { all, one } from "./db";
+import { all, one, run } from "./db";
 import type { Edition, Product } from "./types";
 
 export { getUser } from "./auth";
@@ -63,7 +63,32 @@ export type LibraryItem = { product: Product; progress: number; purchasedAt: num
 // A purchase counts while it has no expiry (lifetime) or the expiry is in the future.
 const ACTIVE = "(expires_at IS NULL OR expires_at > ?)";
 
+/**
+ * An active pass covers every book now in its bundle_items, including books added after it was bought:
+ * add any missing purchase rows with the pass's end date (and extend shorter ones).
+ */
+async function syncBundles(userId: string) {
+  const bundles = PRODUCTS.filter((p) => p.bundle_items.length);
+  if (!bundles.length) return;
+  const passes = await all<{ product_slug: string; order_id: string | null; expires_at: number | null }>(
+    `SELECT product_slug, order_id, expires_at FROM purchases WHERE user_id = ? AND product_slug IN (${bundles.map(() => "?").join(",")}) AND ${ACTIVE}`,
+    [userId, ...bundles.map((b) => b.slug), Date.now()]);
+  for (const pass of passes) {
+    const end = pass.expires_at == null ? null : Number(pass.expires_at);
+    for (const s of findProduct(pass.product_slug)?.bundle_items ?? []) {
+      const row = await one<{ expires_at: number | null }>("SELECT expires_at FROM purchases WHERE user_id = ? AND product_slug = ?", [userId, s]);
+      if (!row) {
+        await run("INSERT INTO purchases (user_id, product_slug, order_id, progress, created_at, expires_at) VALUES (?, ?, ?, 0, ?, ?)",
+          [userId, s, pass.order_id, Date.now(), end]).catch(() => { /* a parallel request inserted it first */ });
+      } else if (row.expires_at != null && (end == null || end > Number(row.expires_at))) {
+        await run("UPDATE purchases SET expires_at = ? WHERE user_id = ? AND product_slug = ?", [end, userId, s]);
+      }
+    }
+  }
+}
+
 export async function getLibrary(userId: string): Promise<LibraryItem[]> {
+  await syncBundles(userId);
   const rows = await all<{ product_slug: string; progress: number; created_at: number; expires_at: number | null }>(
     `SELECT product_slug, progress, created_at, expires_at FROM purchases WHERE user_id = ? AND ${ACTIVE} ORDER BY created_at DESC`, [userId, Date.now()]);
   return rows
@@ -72,6 +97,7 @@ export async function getLibrary(userId: string): Promise<LibraryItem[]> {
 }
 
 export async function ownsProduct(userId: string, slug: string) {
+  await syncBundles(userId);
   return Boolean(await one(`SELECT 1 AS ok FROM purchases WHERE user_id = ? AND product_slug = ? AND ${ACTIVE}`, [userId, slug, Date.now()]));
 }
 
