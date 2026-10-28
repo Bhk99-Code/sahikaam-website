@@ -18,6 +18,7 @@ export function CodeForm({ kind, sendUrl, verifyUrl, submitLabel, onDone, initia
   const [error, setError] = useState("");
   const payload = () => (kind === "phone" ? { phone: value.trim() } : { email: value.trim() });
 
+  const [channel, setChannel] = useState("SMS");
   async function post(url: string, body: object) {
     setBusy(true);
     setError("");
@@ -32,6 +33,7 @@ export function CodeForm({ kind, sendUrl, verifyUrl, submitLabel, onDone, initia
     const { res, data } = await post(sendUrl, payload());
     if (!res.ok) return setError(data.error || "We could not send the code. Please try again.");
     setCode(data.devCode ?? ""); // local preview only
+    if (data.channel) setChannel(data.channel);
     setStep("code");
   }
 
@@ -65,7 +67,7 @@ export function CodeForm({ kind, sendUrl, verifyUrl, submitLabel, onDone, initia
   return (
     <form onSubmit={verify}>
       <p className="rounded-2xl bg-ink/[0.05] p-3 text-[14px] text-cream-2">
-        Code sent to <b className="text-cream">{shown}</b>{kind === "phone" ? " by SMS." : ". Check your spam folder too."}
+        Code sent to <b className="text-cream">{shown}</b>{kind === "phone" ? ` on ${channel}.` : ". Check your spam folder too."}
       </p>
       <label htmlFor={`c-${kind}`} className="mt-4 block text-[14px] font-semibold text-cream">6-digit code</label>
       <input id={`c-${kind}`} inputMode="numeric" autoComplete="one-time-code" required maxLength={6} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}

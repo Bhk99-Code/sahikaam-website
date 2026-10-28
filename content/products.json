@@ -365,7 +365,7 @@
       "title": "All Access Pass",
       "subtitle": "Every SahiKaam ebook in Hindi and English — one year, one payment",
       "description": "Read every SahiKaam ebook — manufacturing, project reports, food and agro, contracting, funding and startup guides — plus every new book we publish during your year. Hindi and English editions included.",
-      "price": 14999,
+      "price": 9999,
       "badge": "Best value",
       "level": "All levels",
       "sort_order": 5,
@@ -394,11 +394,29 @@
         "side-business-with-job",
         "home-business-women",
         "village-business-ideas",
-        "labour-supply-business"
+        "labour-supply-business",
+        "bolo-aisa-log-ruk-jaayein",
+        "interview-mein-chha-jao",
+        "mic-pakdo-darr-bhagao",
+        "save-peoples-time",
+        "help-people-save-or-earn",
+        "improve-peoples-health",
+        "make-learning-better",
+        "protect-people",
+        "create-equal-access",
+        "make-essentials-accessible",
+        "modernise-old-systems",
+        "make-energy-more-efficient",
+        "protect-the-environment",
+        "improve-transportation",
+        "help-people-find-peace",
+        "fight-basic-deprivation",
+        "make-life-simpler",
+        "help-people-connect"
       ],
       "highlights": [
         {
-          "title": "25",
+          "title": "43",
           "text": "Ebooks today"
         },
         {
@@ -415,7 +433,7 @@
         }
       ],
       "learn": [
-        "All 25 ebooks, including 2 complete project reports",
+        "All 43 ebooks, including 2 project reports and the 135-idea series",
         "9 bonus Excel tools — DPRs, calculators and trackers",
         "Every new ebook we publish during your year",
         "Hindi and English editions",
@@ -462,11 +480,29 @@
         "side-business-with-job",
         "home-business-women",
         "village-business-ideas",
-        "labour-supply-business"
+        "labour-supply-business",
+        "bolo-aisa-log-ruk-jaayein",
+        "interview-mein-chha-jao",
+        "mic-pakdo-darr-bhagao",
+        "save-peoples-time",
+        "help-people-save-or-earn",
+        "improve-peoples-health",
+        "make-learning-better",
+        "protect-people",
+        "create-equal-access",
+        "make-essentials-accessible",
+        "modernise-old-systems",
+        "make-energy-more-efficient",
+        "protect-the-environment",
+        "improve-transportation",
+        "help-people-find-peace",
+        "fight-basic-deprivation",
+        "make-life-simpler",
+        "help-people-connect"
       ],
       "highlights": [
         {
-          "title": "25",
+          "title": "43",
           "text": "Ebooks today"
         },
         {
@@ -483,7 +519,7 @@
         }
       ],
       "learn": [
-        "All 25 ebooks, including 2 complete project reports",
+        "All 43 ebooks, including 2 project reports and the 135-idea series",
         "9 bonus Excel tools — DPRs, calculators and trackers",
         "Every new ebook we publish during your 6 months",
         "Hindi and English editions",
@@ -492,7 +528,8 @@
       "chapters": [],
       "editions": [],
       "access_days": 183,
-      "variant_of": "all-access"
+      "variant_of": "all-access",
+      "is_published": false
     },
     {
       "slug": "fly-ash-bricks",

@@ -4,7 +4,7 @@ import { cookies, headers } from "next/headers";
 import { all, one, run } from "./db";
 import { sendMail } from "./mail";
 import { sendSmsCode } from "./sms";
-import { isEmailConfigured, isProduction, isSmsConfigured } from "./env";
+import { isEmailConfigured, isProduction, isSmsConfigured, phoneChannel } from "./env";
 
 export const SESSION_COOKIE = "sk_session";
 const SESSION_DAYS = 60;
@@ -131,7 +131,7 @@ export async function sendCode(id: Identity, purpose: CodePurpose = "login", use
       `Your SahiKaam code: ${code}\nThis code works for ${CODE_MINUTES} minutes.`);
   } catch (e) {
     console.error("sendCode", id.kind, e);
-    return { ok: false, status: 502, error: id.kind === "phone" ? "SMS could not be sent. Please try again or use your email." : "Email could not be sent. Please try again soon." };
+    return { ok: false, status: 502, error: id.kind === "phone" ? `${phoneChannel} message could not be sent. Please try again or use your email.` : "Email could not be sent. Please try again soon." };
   }
   return { ok: true };
 }
