@@ -4,7 +4,7 @@ import { Icon } from "./Icon";
 
 export function Header({ signedIn }: { signedIn: boolean }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-ink/[0.07] bg-night/85 backdrop-blur-xl">
+    <header className="on-navy sticky top-0 z-40 border-b border-ink/[0.07] bg-night/95 backdrop-blur-xl">
       <div className="container-x flex h-16 items-center gap-2 sm:h-[68px] sm:gap-3">
         <Logo />
         <nav aria-label="Main" className="ml-6 hidden items-center gap-1 md:flex">

@@ -2,11 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-html { -webkit-tap-highlight-color: transparent; color-scheme: dark; }
-body { background: #0A0A0A; color: #FFFFFF; }
+/* Navy + ivory + gold. Light ivory pages; .on-navy bands (header, hero, footer) flip the same tokens. Gold is for highlights. */
+:root {
+  --night: 247 243 235; --night-2: 255 255 255; --night-3: 251 248 242; --night-4: 236 231 222; --night-5: 226 221 210;
+  --cream: 37 43 51; --cream-2: 74 81 90; --ink: 20 35 56; --fog: 96 103 111; --fog-2: 138 144 153;
+  --s300: 227 207 163; --s400: 151 112 47; --s500: 20 35 56; --s600: 34 58 88; --s700: 14 26 43;
+  --rosy: 20 35 56; --mint: 46 125 80; --sky: 151 112 47; --sun: 151 112 47; --grape: 198 167 109;
+  --gold-gradient: linear-gradient(120deg, #97702F 0%, #C6A76D 100%);
+}
+.on-navy {
+  --night: 20 35 56; --night-2: 28 46 71; --night-3: 34 54 82; --night-4: 44 66 96; --night-5: 56 80 112;
+  --cream: 247 243 235; --cream-2: 204 210 219; --ink: 247 243 235; --fog: 168 176 188; --fog-2: 130 140 154;
+  --s300: 227 207 163; --s400: 198 167 109; --s500: 247 243 235; --s600: 232 224 210; --s700: 214 205 188;
+  --rosy: 198 167 109; --mint: 198 167 109; --sky: 198 167 109; --sun: 198 167 109; --grape: 227 207 163;
+  --gold-gradient: linear-gradient(120deg, #C6A76D 0%, #E3CFA3 100%);
+  color: rgb(var(--cream));
+}
+html { -webkit-tap-highlight-color: transparent; color-scheme: light; }
+body { background: rgb(var(--night)); color: rgb(var(--cream)); }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
-:focus-visible { outline: 3px solid #FF6A00; outline-offset: 2px; }
+:focus-visible { outline: 3px solid #97702F; outline-offset: 2px; }
 
 @layer components {
   .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
@@ -16,6 +32,7 @@ body { background: #0A0A0A; color: #FFFFFF; }
   .btn-primary { @apply btn bg-saffron-500 text-white hover:bg-saffron-600; }
   .btn-ghost { @apply btn border border-ink/15 bg-night-2 text-cream hover:bg-ink/5; }
   .chip { @apply inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-ink/[0.04] px-3 py-1 text-[12px] font-semibold text-cream-2; }
-  .text-gradient { @apply bg-brand-gradient bg-clip-text text-transparent; }
+  .text-gradient { @apply bg-gold-gradient bg-clip-text text-transparent; }
+  .on-navy .btn-primary { @apply text-[#142338]; }
   .field { @apply h-[52px] w-full rounded-[14px] border border-ink/15 bg-night-3 px-4 text-[16px] text-cream outline-none placeholder:text-fog-2 focus:border-saffron-500; }
 }

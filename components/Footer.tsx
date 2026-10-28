@@ -5,7 +5,7 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-ink/[0.07] bg-night-2 pb-28 md:pb-0">
+    <footer className="on-navy mt-20 border-t border-ink/[0.07] bg-night pb-28 md:pb-0">
       <div className="container-x grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Logo />

@@ -9,13 +9,17 @@ export { getUser } from "./auth";
  * Products live in content/products.json (edit that file to add a book or change a price).
  * Each product's id is its slug.
  */
+const THEME_ACCENT = "#97702F";
+
 const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => {
   const editions: Edition[] = p.editions ?? [];
   const ready = editions.filter((e) => !e.coming_soon);
   return {
     subtitle: null, description: null, mrp: null, badge: null, cover_color: p.accent ?? "#FF6A00", cover_url: null,
-    level: null, is_published: true, sort_order: 100, category: "manufacturing", accent: "#FF6A00",
+    level: null, is_published: true, sort_order: 100, category: "manufacturing",
     ...p,
+    // Navy + ivory + gold theme: one gold accent for every book (covers keep their own colours)
+    accent: THEME_ACCENT,
     id: p.slug,
     pages: p.pages ?? (ready.length ? Math.max(...ready.map((e) => e.pages ?? 0)) || null : null),
     highlights: p.highlights ?? [],

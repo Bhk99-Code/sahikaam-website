@@ -4,8 +4,10 @@ import { ProductCard } from "@/components/ProductCard";
 import { SectionTitle } from "@/components/SectionTitle";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
-import { accessLabel, CATEGORY, percentOff, rupees } from "@/lib/format";
+import { accessLabel, CATEGORY, rupees } from "@/lib/format";
 import type { Product } from "@/lib/types";
+import { HeroSearch, type SearchItem } from "@/components/HeroSearch";
+import { TopCarousel, type Slide } from "@/components/TopCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +18,16 @@ const PATHS = [
   { slug: "krishi-kachra-se-kamaai", icon: "leaf", q: "I live near farms and want to earn from agriculture" },
   { slug: "pmegp-step-by-step", icon: "bank", q: "I need a business loan with a government subsidy" },
   { slug: "idea-test-karo", icon: "bulb", q: "I have an idea, but I'm not sure people will buy" },
+];
+
+// Real pages from the books (public/samples), shown as a preview of what is inside
+const SAMPLES = [
+  { img: "/samples/fly-ash-bricks-p32.jpg", slug: "fly-ash-bricks", label: "Cost of one brick and the right price" },
+  { img: "/samples/pmegp-step-by-step-p15.jpg", slug: "pmegp-step-by-step", label: "Your PMEGP subsidy, worked out" },
+  { img: "/samples/government-tenders-p34.jpg", slug: "government-tenders", label: "Filling a tender rate, item by item" },
+  { img: "/samples/food-processing-40-p18.jpg", slug: "food-processing-40", label: "Full working for 6 food businesses" },
+  { img: "/samples/solar-business-p46.jpg", slug: "solar-business", label: "A 50 kW solar quote with margin" },
+  { img: "/samples/save-peoples-time-p39.jpg", slug: "problem-solve-karo-paisa-kamao", label: "Break-even and a 3-year plan" },
 ];
 
 const WHY = [
@@ -40,33 +52,48 @@ export default async function Home() {
   const books = products.filter((p) => p.type === "ebook");
   const allAccess = products.find((p) => p.slug === "all-access");
   const covers = books.map((b) => b.cover_url).filter(Boolean) as string[];
-  const totalPages = books.reduce((n, b) => n + (b.pages ?? 0), 0);
+  // Count every readable title, including books sold only inside a series
+  const titles = allAccess ? allAccess.bundle_items.map((s) => findProduct(s)).filter((p): p is NonNullable<typeof p> => Boolean(p)) : books;
+  const totalPages = titles.reduce((n, b) => n + (b.pages ?? 0), 0);
+  const series = products.find((p) => p.slug === "problem-solve-karo-paisa-kamao");
+  const searchItems = buildSearch(products, series ?? null);
+  const slides = buildSlides(allAccess ?? null, series ?? null, titles.length);
+  const cats = Object.entries(CATEGORY)
+    .filter(([k]) => k !== "bundle")
+    .map(([k, c]) => ({ key: k, ...c, count: titles.filter((t) => t.category === k && t.is_published).length }))
+    .filter((c) => c.count > 0);
 
   return (
     <div className="overflow-x-hidden">
-      {/* Hero */}
-      <section className="relative">
-        <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-saffron-500/20 blur-[120px]" />
-        <div className="container-x relative grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[1.1fr_1fr] lg:py-20">
-          <div className="flex flex-col items-start gap-6">
-            <span className="chip"><Icon name="sparkle" size={14} className="text-sun" /> Now in Hindi + English</span>
-            <h1 className="font-display text-[38px] font-extrabold leading-[1.02] tracking-tight min-[380px]:text-[42px] sm:text-[58px] lg:text-[62px] xl:text-[68px]">
-              From <span className="text-gradient">₹10 lakh</span> to <span className="text-gradient">₹1,000 crore.</span><br />Step by step.
-            </h1>
-            <p className="max-w-xl text-[17px] leading-relaxed text-cream-2 md:text-[19px]">
-              Practical business roadmaps for Indian founders, in Hindi and English — with the money, machinery, permissions and funding you need at every step.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/books" className="btn-primary h-14 px-8 text-[16px]">Browse ebooks <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
-              {allAccess && <Link href="/book/all-access" className="btn-ghost h-14 px-7 text-[16px]">All Access · from {rupees(getPlans(allAccess)[0].price)}</Link>}
-            </div>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-fog">
-              <li className="flex items-center gap-2"><Icon name="check" size={16} className="text-mint" strokeWidth={2.4} /> {books.length} ebooks · {totalPages.toLocaleString("en-IN")}+ pages</li>
-              <li className="flex items-center gap-2"><Icon name="check" size={16} className="text-mint" strokeWidth={2.4} /> Lifetime access on every ebook</li>
-              <li className="flex items-center gap-2"><Icon name="check" size={16} className="text-mint" strokeWidth={2.4} /> UPI · cards · net banking</li>
-            </ul>
-          </div>
-          <HeroStack books={books} />
+      {/* Featured slider: All Access first, then the strongest books */}
+      <TopCarousel slides={slides} />
+
+      {/* Bestsellers */}
+      <section className="container-x pt-14">
+        <SectionTitle eyebrow="Sabse zyada pasand ki gayi" title="Bestselling books" href="/books" linkText="Saari books" />
+        <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-4">
+          {products.slice(0, 8).map((p, i) => (
+            <ProductCard key={p.id} product={p} covers={p.type === "bundle" ? bundleCovers(p) : []} rank={p.type === "ebook" ? i : undefined} />
+          ))}
+        </div>
+      </section>
+
+      {/* Headline, search and the numbers */}
+      <section className="relative border-b border-ink/[0.07]">
+        <div className="container-x flex flex-col items-center gap-6 py-12 text-center sm:py-16">
+          <span className="chip"><Icon name="sparkle" size={14} className="text-sun" /> Hindi + English · har book mein dono</span>
+          <h1 className="max-w-4xl font-display text-[30px] font-extrabold leading-[1.15] tracking-tight min-[380px]:text-[34px] sm:text-[44px] lg:text-[50px]">
+            <span className="text-gradient">Andha paisa</span> kamane ke legal tareeke — dhoondh-dhoondh ke laaye hain.
+          </h1>
+          <p className="max-w-2xl text-[17px] leading-relaxed text-cream-2 md:text-[19px]">
+            {titles.length} books, 500+ asli business ideas. Kitna paisa lagega, kahan se shuru karein, kaise kamayein aur business ko agle level tak kaise le jaayein — sab step by step.
+          </p>
+          <div className="flex w-full justify-center text-left"><HeroSearch items={searchItems} /></div>
+          <dl className="grid w-full max-w-2xl grid-cols-4 divide-x divide-ink/10 rounded-2xl border border-ink/10 bg-night-2 py-4 shadow-lift">
+            {[[String(titles.length), "Books"], ["500+", "Business ideas"], [`${(Math.floor(totalPages / 100) * 100).toLocaleString("en-IN")}+`, "Pages"], ["2", "Languages"]].map(([v, k]) => (
+              <div key={k}><dt className="sr-only">{k}</dt><dd className="font-display text-[24px] font-extrabold text-saffron-400 sm:text-[30px]">{v}</dd><dd className="text-[12px] text-fog sm:text-[13px]">{k}</dd></div>
+            ))}
+          </dl>
         </div>
       </section>
 
@@ -82,6 +109,44 @@ export default async function Home() {
           </Link>
         </section>
       )}
+
+
+      {/* Start is easy, growth is the real work */}
+      <section className="container-x pt-14">
+        <SectionTitle eyebrow="Shuru karna aasaan hai. Badhana asli kaam hai." title="Business shuru sab karte hain — hum sikhate hain use bada kaise karein" />
+        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["Sahi idea chuno", "Aapke budget ke hisaab se — kitna lagega, kitna kamaoge, pehle hi pata."],
+            ["Pehle customer lao", "Pehle 10, phir 100 customer kahan se aur kaise milenge."],
+            ["Agle level tak le jao", "Team, system, doosri branch, naya shehar — chhoti dukaan se bada brand."],
+            ["Munafa maximum karo", "Sahi daam, kam kharcha, baar-baar aane wale customer, loan aur subsidy."],
+          ].map(([t, d], i) => (
+            <li key={t} className="card p-6">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-gradient font-display text-[18px] font-extrabold text-white">{i + 1}</span>
+              <p className="mt-4 font-display text-[20px] font-bold text-cream">{t}</p>
+              <p className="mt-2 text-[15px] leading-relaxed text-fog">{d}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-5 text-[15px] text-cream-2">Har book mein: shuru karne se lekar badhane tak ka poora raasta — asli numbers ke saath.</p>
+      </section>
+
+      {/* Browse by category */}
+      <section className="container-x pt-14">
+        <SectionTitle eyebrow="Apni line chuno" title="Har tarah ke business ke liye book" href="/books" />
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {cats.map((c) => (
+            <Link key={c.key} href={`/books?cat=${c.key}`} className="card group flex flex-col gap-1 p-5 transition hover:-translate-y-0.5 hover:border-saffron-400/40">
+              <span className="font-display text-[18px] font-bold leading-snug text-cream">{c.label}</span>
+              <span className="text-[13px] leading-snug text-fog">{c.blurb}</span>
+              <span className="mt-2 text-[13px] font-bold text-saffron-400">{c.count} {c.count === 1 ? "book" : "books"} →</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* The 135-idea series */}
+      {series && <SeriesBand series={series} />}
 
       {/* Pick your path */}
       <section className="container-x py-14">
@@ -110,15 +175,22 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Bestsellers */}
-      <section className="container-x py-6">
-        <SectionTitle eyebrow="Readers' favourites" title="Bestselling ebooks" href="/books" />
-        <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-4">
-          {products.slice(0, 8).map((p, i) => (
-            <ProductCard key={p.id} product={p} covers={p.type === "bundle" ? bundleCovers(p) : []} rank={p.type === "ebook" ? i : undefined} />
+      {/* A look inside */}
+      <section className="py-6">
+        <div className="container-x">
+          <SectionTitle eyebrow="Andar ki ek jhalak" title="Theory nahi — asli hisaab, asli numbers" />
+        </div>
+        <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-4 sm:scroll-px-[max(1.5rem,calc((100vw_-_72rem)/2_+_1.5rem))] sm:px-[max(1.5rem,calc((100vw_-_72rem)/2_+_1.5rem))]">
+          {SAMPLES.map((p) => (
+            <Link key={p.img} href={`/book/${p.slug}`} className="group w-[220px] shrink-0 snap-start sm:w-[250px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.img} alt={`Sample page: ${p.label}`} loading="lazy" className="aspect-[420/595] w-full rounded-lg border border-ink/10 bg-white object-cover shadow-lift transition group-hover:-translate-y-1" />
+              <p className="mt-3 text-[14px] font-semibold leading-snug text-cream">{p.label}</p>
+            </Link>
           ))}
         </div>
       </section>
+
 
       {/* All Access plan */}
       {allAccess && books.length > 0 && <PlanSection allAccess={allAccess} cheapest={Math.min(...books.map((b) => b.price))} covers={covers} />}
@@ -185,39 +257,6 @@ export default async function Home() {
   );
 }
 
-function HeroStack({ books }: { books: Product[] }) {
-  const pos = [
-    "-left-[4%] top-[10%] w-[46%]",
-    "left-[26%] -top-[2%] z-10 w-[52%]",
-    "-right-[4%] top-[12%] w-[46%]",
-  ];
-  const lead = books[0];
-  return (
-    <div className="relative mx-auto aspect-[5/4] w-full max-w-[460px] sm:max-w-[540px]">
-      {books.slice(0, 3).map((b, i) => (
-        <Link key={b.slug} href={`/book/${b.slug}`} className={`absolute transition hover:-translate-y-2 ${pos[i]}`} aria-label={b.title}>
-          {b.gallery[0] ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={b.gallery[0]} alt={`${b.title} — 3D book`} className="w-full drop-shadow-2xl" />
-          ) : (
-            <BookCover product={b} />
-          )}
-        </Link>
-      ))}
-      <div className="absolute bottom-[2%] left-[4%] z-20 flex items-center gap-3 rounded-2xl border border-ink/10 bg-night-3/90 px-4 py-3 shadow-lift backdrop-blur">
-        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-mint/15 text-mint"><Icon name="globe" size={18} strokeWidth={2} /></span>
-        <span className="text-[13px] leading-tight text-cream"><b>Hindi + English</b><br /><span className="text-fog">in every purchase</span></span>
-      </div>
-      {lead?.mrp && lead.mrp > lead.price && (
-        <div className="absolute bottom-[14%] right-[3%] z-20 rounded-2xl bg-rosy px-4 py-2.5 text-white shadow-lift">
-          <span className="block text-[11px] font-bold uppercase tracking-wider opacity-90">Launch price</span>
-          <span className="font-display text-[20px] font-extrabold">{percentOff(lead.price, lead.mrp)}% off</span>
-        </div>
-      )}
-    </div>
-  );
-}
-
 function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; cheapest: number; covers: string[] }) {
   const save = (allAccess.mrp ?? 0) - allAccess.price;
   return (
@@ -260,4 +299,77 @@ function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; chea
       </div>
     </section>
   );
+}
+
+/** Everything the hero search can find: published books and bundles, plus books sold only inside the series. */
+function buildSearch(products: Product[], series: Product | null): SearchItem[] {
+  const item = (p: Product, href: string, price: string, note: string): SearchItem => ({
+    href, title: p.title, note, price, cover: p.cover_url,
+    text: `${p.title} ${p.subtitle ?? ""} ${p.description ?? ""} ${CATEGORY[p.category]?.label ?? ""}`.toLowerCase(),
+  });
+  const list = products.map((p) => item(p, `/book/${p.slug}`, rupees(p.price), p.subtitle ?? CATEGORY[p.category]?.label ?? ""));
+  if (series) {
+    for (const s of series.bundle_items) {
+      const b = findProduct(s);
+      if (b && !b.is_published) list.push(item(b, `/book/${series.slug}`, `Series ${rupees(series.price)}`, b.subtitle ?? series.title));
+    }
+  }
+  return list;
+}
+
+function SeriesBand({ series }: { series: Product }) {
+  const covers = series.bundle_items.slice(0, 5).map((s) => findProduct(s)?.gallery[0]).filter(Boolean) as string[];
+  return (
+    <section className="on-navy mt-14 bg-night">
+      <div className="container-x grid items-center gap-10 py-14 lg:grid-cols-2">
+        <div className="relative mx-auto h-[260px] w-full max-w-[520px] sm:h-[320px]">
+          {covers.map((c, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={c} src={c} alt="" className="absolute top-0 w-[38%] drop-shadow-2xl"
+              style={{ left: `${i * 15.5}%`, transform: `translateY(${Math.abs(i - 2) * 14}px)`, zIndex: 10 - Math.abs(i - 2) }} />
+          ))}
+        </div>
+        <div className="flex flex-col items-start gap-5">
+          <span className="chip">Full series · {series.bundle_items.length} books</span>
+          <h2 className="font-display text-[30px] font-extrabold leading-tight md:text-[42px]">
+            <span className="text-gradient">Chhoti problem, bada business.</span><br />Logon ki problem solve karo, paisa kamao.
+          </h2>
+          <p className="text-[17px] leading-relaxed text-cream-2">
+            Har book ek badi problem leti hai — time, paisa, sehat, padhai, bijli, kachra, transport — aur batati hai ki usse business kaise banayein: 5 chhote ideas, 4 bade ideas, poora kharcha aur 90 din ka plan.
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link href={`/book/${series.slug}`} className="btn-primary h-14 px-8 text-[16px]">Poori series dekho <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
+            <span className="text-[15px] text-fog"><b className="font-display text-[24px] text-cream">{rupees(series.price)}</b>{series.mrp ? <s className="ml-2">{rupees(series.mrp)}</s> : null}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Featured slides: the All Access Pass, the manufacturing bestseller, the 135-idea series and Contractor Bano. */
+function buildSlides(allAccess: Product | null, series: Product | null, count: number): Slide[] {
+  const slides: Slide[] = [];
+  const book = (slug: string, eyebrow: string, title: string, cta: string) => {
+    const b = findProduct(slug);
+    if (!b?.is_published) return;
+    slides.push({ eyebrow, title, sub: b.subtitle ?? "", price: rupees(b.price), mrp: b.mrp ? rupees(b.mrp) : undefined,
+      href: `/book/${b.slug}`, cta, images: b.gallery.length ? [b.gallery[0]] : b.cover_url ? [b.cover_url] : [] });
+  };
+  if (allAccess) {
+    const plan = getPlans(allAccess)[0];
+    slides.push({ eyebrow: "All Access Pass", title: `Saari ${count} books, ek pass mein`, sub: `Hindi + English, 500+ business ideas, 9 Excel tools — aur saal bhar mein aane wali nayi books bhi free. ${accessLabel(plan.access_days)}.`,
+      price: rupees(plan.price), mrp: plan.mrp ? rupees(plan.mrp) : undefined, href: "/book/all-access", cta: "Pass lo",
+      images: ["fly-ash-bricks", "legal-business-andha-paisa", "manufacturing-50", "contractor-bano", "solar-business"]
+        .map((x) => findProduct(x)?.gallery[0]).filter(Boolean) as string[] });
+  }
+  book("manufacturing-50", "Bestseller · 50 Most Profitable Manufacturing", "₹10 lakh ki factory se ₹1,000 crore tak", "Book dekho");
+  if (series) {
+    slides.push({ eyebrow: "Nayi series · 15 books", title: "Chhoti-chhoti problem solve karo, crore tak ka roadmap", sub: series.subtitle ?? "",
+      price: rupees(series.price), mrp: series.mrp ? rupees(series.mrp) : undefined, href: `/book/${series.slug}`, cta: "Series dekho",
+      images: series.bundle_items.slice(0, 5).map((x) => findProduct(x)?.gallery[0]).filter(Boolean) as string[] });
+  }
+  book("contractor-bano", "Contractor Bano", "Contractor banne ka step-by-step poora roadmap", "Book dekho");
+  book("government-tenders", "How to Win Government Tenders", "Sarkari tender jeetne ka step-by-step roadmap", "Book dekho");
+  return slides;
 }

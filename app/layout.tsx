@@ -9,8 +9,8 @@ import { SITE_URL } from "@/lib/env";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "SahiKaam — From ₹10 lakh to ₹1,000 crore, step by step", template: "%s | SahiKaam" },
-  description: "Manufacturing, low-investment and contracting business ebooks with real Indian numbers, permissions and funding — in Hindi and English.",
+  title: { default: "SahiKaam — Andha paisa kamane ke legal tareeke, step by step", template: "%s | SahiKaam" },
+  description: "43 business books, 500+ ideas in Hindi and English — manufacturing, contracting, government tenders, solar, food, agro and more, with real Indian numbers and a step-by-step roadmap.",
   openGraph: { siteName: "SahiKaam", locale: "en_IN", type: "website", images: ["/covers/manufacturing-50.jpg"] },
 };
 export const viewport: Viewport = { themeColor: "#0A0A0A", width: "device-width", initialScale: 1 };
@@ -22,7 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Noto+Serif+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       </head>
       <body className="font-sans antialiased">
         <OfferBar />
