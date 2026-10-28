@@ -26,5 +26,6 @@ export const CATEGORY = {
   online: { label: "Online & AI", color: "#FFC59A", blurb: "Sell online and earn with AI services" },
   "real-estate": { label: "Real estate", color: "#FFA866", blurb: "Plotting, townships and property valuation" },
   trade: { label: "Export & trade", color: "#FF8A3D", blurb: "Export from India, step by step" },
+  skills: { label: "Speaking & career", color: "#FFB27A", blurb: "Storytelling, interviews and stage confidence" },
   bundle: { label: "Bundles", color: "#FFFFFF", blurb: "Everything together, best price" },
 } as const;

@@ -2007,6 +2007,1291 @@
         "/covers/v3/labour-supply-business-v3.jpg",
         "/covers/v3/labour-supply-business-back-v3.jpg"
       ]
+    },
+    {
+      "slug": "bolo-aisa-log-ruk-jaayein",
+      "type": "ebook",
+      "category": "skills",
+      "accent": "#FFB27A",
+      "is_published": true,
+      "title": "Bolo Aisa, Log Ruk Jaayein",
+      "subtitle": "Awaaz Mein Dum · Book 1",
+      "description": "Duniya ke best speakers ki 10 storytelling tricks. Weak vs strong examples, ready scripts aur 21 din ka plan — class, interview ya pitch, log sirf aapko sunenge.",
+      "price": 399,
+      "mrp": 699,
+      "badge": "New",
+      "cover_url": "/covers/v3/bolo-aisa-log-ruk-jaayein-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 82,
+      "highlights": [
+        {
+          "title": "10",
+          "text": "Tricks"
+        },
+        {
+          "title": "5",
+          "text": "Ready scripts"
+        },
+        {
+          "title": "21",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "Name the enemy and make people pick your side",
+        "Create honest urgency without shouting",
+        "Sell benefits, not features",
+        "Show, don't tell — demos and examples",
+        "Weak vs strong examples and fill-in templates"
+      ],
+      "chapters": [],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 61,
+          "file_path": "bolo-aisa-log-ruk-jaayein.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 62,
+          "file_path": "bolo-aisa-log-ruk-jaayein-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/bolo-aisa-log-ruk-jaayein-3d-front-v3.png",
+        "/covers/v3/bolo-aisa-log-ruk-jaayein-3d-back-v3.png",
+        "/covers/v3/bolo-aisa-log-ruk-jaayein-v3.jpg",
+        "/covers/v3/bolo-aisa-log-ruk-jaayein-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "interview-mein-chha-jao",
+      "type": "ebook",
+      "category": "skills",
+      "accent": "#FFB27A",
+      "is_published": true,
+      "title": "Interview Mein Chha Jao",
+      "subtitle": "Awaaz Mein Dum · Book 2",
+      "description": "\"Tell me about yourself\" se salary talk tak. STAR stories, 20 HR sawalon ke model jawab, GD aur online interview — har jawab ek yaad rehne wali kahani.",
+      "price": 399,
+      "mrp": 699,
+      "badge": "New",
+      "cover_url": "/covers/v3/interview-mein-chha-jao-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 83,
+      "highlights": [
+        {
+          "title": "20",
+          "text": "Hr questions"
+        },
+        {
+          "title": "STAR",
+          "text": "Stories"
+        },
+        {
+          "title": "7",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "\"Tell me about yourself\" in 60–90 seconds",
+        "Turn any experience into a STAR story",
+        "Answer strengths, weaknesses and \"why you?\"",
+        "20 common HR questions with model answers",
+        "Group discussions, online interviews and salary talk"
+      ],
+      "chapters": [],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 45,
+          "file_path": "interview-mein-chha-jao.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 47,
+          "file_path": "interview-mein-chha-jao-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/interview-mein-chha-jao-3d-front-v3.png",
+        "/covers/v3/interview-mein-chha-jao-3d-back-v3.png",
+        "/covers/v3/interview-mein-chha-jao-v3.jpg",
+        "/covers/v3/interview-mein-chha-jao-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "mic-pakdo-darr-bhagao",
+      "type": "ebook",
+      "category": "skills",
+      "accent": "#FFB27A",
+      "is_published": true,
+      "title": "Mic Pakdo, Darr Bhagao",
+      "subtitle": "Awaaz Mein Dum · Book 3",
+      "description": "Haath kaanpte hain, awaaz atakti hai? Nervousness sambhalna, talk ka structure, voice, body language, viva aur debate — 21 din mein stage ka darr khatam.",
+      "price": 399,
+      "mrp": 699,
+      "badge": "New",
+      "cover_url": "/covers/v3/mic-pakdo-darr-bhagao-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 84,
+      "highlights": [
+        {
+          "title": "1–20",
+          "text": "Minute talks"
+        },
+        {
+          "title": "Viva",
+          "text": "& debates"
+        },
+        {
+          "title": "21",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "Calm your nerves before and on stage",
+        "Hook, body, close — a structure for any talk",
+        "Use your voice, pauses and eye contact",
+        "Simple slides that help, not hide you",
+        "Class presentations, viva, debates and Q&A"
+      ],
+      "chapters": [],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 47,
+          "file_path": "mic-pakdo-darr-bhagao.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 46,
+          "file_path": "mic-pakdo-darr-bhagao-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/mic-pakdo-darr-bhagao-3d-front-v3.png",
+        "/covers/v3/mic-pakdo-darr-bhagao-3d-back-v3.png",
+        "/covers/v3/mic-pakdo-darr-bhagao-v3.jpg",
+        "/covers/v3/mic-pakdo-darr-bhagao-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "save-peoples-time",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Waqt Bachao, Paisa Kamao",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 1 of 15",
+      "description": "Log apna time bachane ke liye khushi se paisa dete hain. Delivery, home service aur booking jaise 9 business — kam paise se shuru karo, har order par kamao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/save-peoples-time-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 85,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 47,
+          "file_path": "save-peoples-time.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 47,
+          "file_path": "save-peoples-time-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/save-peoples-time-3d-front-v3.png",
+        "/covers/v3/save-peoples-time-3d-back-v3.png",
+        "/covers/v3/save-peoples-time-v3.jpg",
+        "/covers/v3/save-peoples-time-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "help-people-save-or-earn",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Logon Ki Jeb Bharo",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 2 of 15",
+      "description": "Har koi paisa bachana aur kamana chahta hai. Bachat, insurance, side income aur reselling mein 9 business — logon ka bharosa jeeto, har client se kamao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/help-people-save-or-earn-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 86,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 47,
+          "file_path": "help-people-save-or-earn.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 47,
+          "file_path": "help-people-save-or-earn-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/help-people-save-or-earn-3d-front-v3.png",
+        "/covers/v3/help-people-save-or-earn-3d-back-v3.png",
+        "/covers/v3/help-people-save-or-earn-v3.jpg",
+        "/covers/v3/help-people-save-or-earn-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "improve-peoples-health",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Sehat Ka Business",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 3 of 15",
+      "description": "Sehat par India har saal crore kharch karta hai. Clinic, lab, dawai, diet aur ghar par care mein 9 business — sasti, achhi sehat do aur kamao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/improve-peoples-health-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 87,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 48,
+          "file_path": "improve-peoples-health.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 49,
+          "file_path": "improve-peoples-health-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/improve-peoples-health-3d-front-v3.png",
+        "/covers/v3/improve-peoples-health-3d-back-v3.png",
+        "/covers/v3/improve-peoples-health-v3.jpg",
+        "/covers/v3/improve-peoples-health-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "make-learning-better",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Padhao Aur Kamao",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 4 of 15",
+      "description": "Parents padhai par sabse zyada kharch karte hain. Tuition, skill course aur online classes mein 9 business — bachchon ko sach mein sikhao, fees se kamao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/make-learning-better-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 88,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 47,
+          "file_path": "make-learning-better.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 48,
+          "file_path": "make-learning-better-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/make-learning-better-3d-front-v3.png",
+        "/covers/v3/make-learning-better-3d-back-v3.png",
+        "/covers/v3/make-learning-better-v3.jpg",
+        "/covers/v3/make-learning-better-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "protect-people",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Hifazat Ka Business",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 5 of 15",
+      "description": "Log suraksha ke liye kabhi kanjoosi nahi karte. CCTV, security guard, fire safety aur cyber help mein 9 business — bharosa do, har mahine kamao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/protect-people-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 89,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 49,
+          "file_path": "protect-people.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 48,
+          "file_path": "protect-people-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/protect-people-3d-front-v3.png",
+        "/covers/v3/protect-people-3d-back-v3.png",
+        "/covers/v3/protect-people-v3.jpg",
+        "/covers/v3/protect-people-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "create-equal-access",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Jinhe Sab Bhool Gaye",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 6 of 15",
+      "description": "Jinhe sab bhool gaye, wahi sabse wafadar customer bante hain. Gaon, mahilaon aur divyangon ki madad wale 9 business — darwaze kholo, kamai pao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/create-equal-access-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 90,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 49,
+          "file_path": "create-equal-access.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 49,
+          "file_path": "create-equal-access-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/create-equal-access-3d-front-v3.png",
+        "/covers/v3/create-equal-access-3d-back-v3.png",
+        "/covers/v3/create-equal-access-v3.jpg",
+        "/covers/v3/create-equal-access-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "make-essentials-accessible",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Roti Kapda Makaan Business",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 7 of 15",
+      "description": "Roti, paani, dawai aur rehne ki jagah ki maang kabhi khatam nahi hoti. In zarooraton mein 9 business — sahi daam par do, roz kamao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/make-essentials-accessible-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 91,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 48,
+          "file_path": "make-essentials-accessible.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 48,
+          "file_path": "make-essentials-accessible-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/make-essentials-accessible-3d-front-v3.png",
+        "/covers/v3/make-essentials-accessible-3d-back-v3.png",
+        "/covers/v3/make-essentials-accessible-v3.jpg",
+        "/covers/v3/make-essentials-accessible-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "modernise-old-systems",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Purana Dhandha, Naya Tareeka",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 8 of 15",
+      "description": "Lakhs dukaan aur factory abhi bhi kagaz par chal rahi hain. Software, digital setup, drone aur smart tools ke 9 business — unka kaam aasaan karo, fees lo.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/modernise-old-systems-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 92,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 49,
+          "file_path": "modernise-old-systems.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 48,
+          "file_path": "modernise-old-systems-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/modernise-old-systems-3d-front-v3.png",
+        "/covers/v3/modernise-old-systems-3d-back-v3.png",
+        "/covers/v3/modernise-old-systems-v3.jpg",
+        "/covers/v3/modernise-old-systems-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "make-energy-more-efficient",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Bijli Bachao, Paisa Banao",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 9 of 15",
+      "description": "Har ghar aur dukaan bijli ka bill kam karna chahti hai. Solar, LED, energy audit aur biogas ke 9 business — bachat dikhao, saalon tak kamao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/make-energy-more-efficient-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 93,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 48,
+          "file_path": "make-energy-more-efficient.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 47,
+          "file_path": "make-energy-more-efficient-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/make-energy-more-efficient-3d-front-v3.png",
+        "/covers/v3/make-energy-more-efficient-3d-back-v3.png",
+        "/covers/v3/make-energy-more-efficient-v3.jpg",
+        "/covers/v3/make-energy-more-efficient-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "protect-the-environment",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Kachre Mein Khazana",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 10 of 15",
+      "description": "Jise log kachra samajhte hain, usme asli khazana hai. Recycling, compost, e-waste aur green products ke 9 business — saaf karo aur kamao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/protect-the-environment-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 94,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 49,
+          "file_path": "protect-the-environment.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 50,
+          "file_path": "protect-the-environment-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/protect-the-environment-3d-front-v3.png",
+        "/covers/v3/protect-the-environment-3d-back-v3.png",
+        "/covers/v3/protect-the-environment-v3.jpg",
+        "/covers/v3/protect-the-environment-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "improve-transportation",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Pahiye Pe Paisa",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 11 of 15",
+      "description": "India roz chalta hai — log bhi, saamaan bhi. E-rickshaw, delivery, logistics aur EV ke 9 business — har trip, har parcel par kamao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/improve-transportation-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 95,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 49,
+          "file_path": "improve-transportation.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 49,
+          "file_path": "improve-transportation-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/improve-transportation-3d-front-v3.png",
+        "/covers/v3/improve-transportation-3d-back-v3.png",
+        "/covers/v3/improve-transportation-v3.jpg",
+        "/covers/v3/improve-transportation-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "help-people-find-peace",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Sukoon Ka Business",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 12 of 15",
+      "description": "Tension bhari zindagi mein log sukoon dhoondh rahe hain. Yoga, meditation, retreat aur companionship ke 9 business — sukoon do, izzat se kamao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/help-people-find-peace-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 96,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 48,
+          "file_path": "help-people-find-peace.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 48,
+          "file_path": "help-people-find-peace-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/help-people-find-peace-3d-front-v3.png",
+        "/covers/v3/help-people-find-peace-3d-back-v3.png",
+        "/covers/v3/help-people-find-peace-v3.jpg",
+        "/covers/v3/help-people-find-peace-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "fight-basic-deprivation",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Zaroorat Hi Business Hai",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 13 of 15",
+      "description": "Jo parivaar sabse tezi se aage badh rahe hain, unki zarooratein bhi badh rahi hain. Poshan, saaf-safai aur ghar ke 9 business — seva bhi, kamai bhi.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/fight-basic-deprivation-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 97,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 49,
+          "file_path": "fight-basic-deprivation.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 48,
+          "file_path": "fight-basic-deprivation-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/fight-basic-deprivation-3d-front-v3.png",
+        "/covers/v3/fight-basic-deprivation-3d-back-v3.png",
+        "/covers/v3/fight-basic-deprivation-v3.jpg",
+        "/covers/v3/fight-basic-deprivation-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "make-life-simpler",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Jhanjhat Khatam, Business Shuru",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 14 of 15",
+      "description": "Har kaam mein jhanjhat hai — repair, shifting, kagaz, booking. In jhanjhaton ko khatam karne wale 9 business — ek call mein kaam karo, bharosa aur paisa dono pao.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/make-life-simpler-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 98,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 48,
+          "file_path": "make-life-simpler.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 47,
+          "file_path": "make-life-simpler-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/make-life-simpler-3d-front-v3.png",
+        "/covers/v3/make-life-simpler-3d-back-v3.png",
+        "/covers/v3/make-life-simpler-v3.jpg",
+        "/covers/v3/make-life-simpler-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "help-people-connect",
+      "type": "ebook",
+      "category": "startup",
+      "accent": "#FFC59A",
+      "is_published": false,
+      "title": "Logon Ko Jodo, Paisa Jodo",
+      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 15 of 15",
+      "description": "Log naye shehar mein dost, sathi aur network dhoondhte hain. Community, events, clubs aur matchmaking ke 9 business — logon ko jodo, paisa jodo.",
+      "price": 499,
+      "mrp": 799,
+      "badge": "New",
+      "cover_url": "/covers/v3/help-people-connect-v3.jpg",
+      "level": "Beginner",
+      "sort_order": 99,
+      "highlights": [
+        {
+          "title": "9",
+          "text": "Startup ideas"
+        },
+        {
+          "title": "7",
+          "text": "Modules"
+        },
+        {
+          "title": "90",
+          "text": "Day plan"
+        }
+      ],
+      "learn": [
+        "The problem and the market, with real numbers",
+        "Who solved it in India, and what went wrong for others",
+        "5 start-small ideas and 4 build-big ideas",
+        "Validate with real customers, then register",
+        "Start-up cost, break-even and a 3-year money plan"
+      ],
+      "chapters": [
+        "The problem and the market",
+        "Who solved it",
+        "5 start-small ideas",
+        "4 build-big ideas",
+        "Validate and launch",
+        "The money",
+        "Grow",
+        "Your 90-day plan"
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 49,
+          "file_path": "help-people-connect.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 48,
+          "file_path": "help-people-connect-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/help-people-connect-3d-front-v3.png",
+        "/covers/v3/help-people-connect-3d-back-v3.png",
+        "/covers/v3/help-people-connect-v3.jpg",
+        "/covers/v3/help-people-connect-back-v3.jpg"
+      ]
+    },
+    {
+      "slug": "problem-solve-karo-paisa-kamao",
+      "type": "bundle",
+      "category": "bundle",
+      "accent": "#FF6A00",
+      "title": "Problem Solve Karo, Paisa Kamao",
+      "subtitle": "135 business ideas in 15 books — find a real problem, solve it, and earn from it",
+      "description": "A complete series of 15 books. Each book takes one big problem Indians face — time, money, health, learning, safety, food, energy, waste, transport, peace and more — and shows the market with real numbers, who solved it in India, 5 ideas you can start small, 4 ideas that can grow big, how to validate and launch, the full money plan and a 90-day plan. Every book in Hindi and English.",
+      "price": 2999,
+      "mrp": 7485,
+      "badge": "Full series",
+      "level": "All levels",
+      "sort_order": 7,
+      "highlights": [
+        {
+          "title": "15",
+          "text": "Books"
+        },
+        {
+          "title": "135",
+          "text": "Business ideas"
+        },
+        {
+          "title": "2",
+          "text": "Languages"
+        },
+        {
+          "title": "Lifetime",
+          "text": "Access"
+        }
+      ],
+      "learn": [
+        "15 complete books — one big problem in each",
+        "135 business ideas: 75 you can start small, 60 that can grow big",
+        "Real market numbers and Indian companies that solved each problem",
+        "Validate, register and launch — step by step for every idea",
+        "Start-up cost, profit per customer, break-even and a 3-year money plan",
+        "A 90-day launch plan in every book",
+        "Hindi and English editions, read on phone or computer, lifetime access"
+      ],
+      "chapters": [],
+      "editions": [],
+      "bundle_items": [
+        "save-peoples-time",
+        "help-people-save-or-earn",
+        "improve-peoples-health",
+        "make-learning-better",
+        "protect-people",
+        "create-equal-access",
+        "make-essentials-accessible",
+        "modernise-old-systems",
+        "make-energy-more-efficient",
+        "protect-the-environment",
+        "improve-transportation",
+        "help-people-find-peace",
+        "fight-basic-deprivation",
+        "make-life-simpler",
+        "help-people-connect"
+      ],
+      "access_days": null
+    },
+    {
+      "slug": "awaaz-mein-dum",
+      "type": "bundle",
+      "category": "bundle",
+      "accent": "#FFB27A",
+      "title": "Awaaz Mein Dum — 3 books",
+      "subtitle": "Storytelling, interviews and stage confidence for students",
+      "description": "All three Awaaz Mein Dum books together: speak so people stop and listen, win interviews with stories, and lose your stage fear. Hindi and English.",
+      "price": 899,
+      "badge": "Save more",
+      "level": "Students",
+      "sort_order": 8,
+      "highlights": [
+        {
+          "title": "3",
+          "text": "Books"
+        },
+        {
+          "title": "21",
+          "text": "Day plans"
+        },
+        {
+          "title": "2",
+          "text": "Languages"
+        },
+        {
+          "title": "Lifetime",
+          "text": "Access"
+        }
+      ],
+      "learn": [
+        "Bolo Aisa, Log Ruk Jaayein — 10 storytelling tricks",
+        "Interview Mein Chha Jao — STAR stories and 20 HR answers",
+        "Mic Pakdo, Darr Bhagao — calm, structure and stage presence",
+        "Hindi and English editions, lifetime access"
+      ],
+      "chapters": [],
+      "editions": [],
+      "bundle_items": [
+        "bolo-aisa-log-ruk-jaayein",
+        "interview-mein-chha-jao",
+        "mic-pakdo-darr-bhagao"
+      ],
+      "access_days": null
     }
   ]
 }

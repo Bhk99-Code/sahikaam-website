@@ -119,18 +119,27 @@ export default async function BookPage({ params }: { params: { slug: string } })
 
           {included.length > 0 && (
             <section>
-              <h2 className="font-display text-[26px] font-extrabold text-cream">Books in this pass</h2>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">{product.access_days ? "Books in this pass" : `All ${included.length} books in this series`}</h2>
               <div className="mt-5 flex flex-col gap-3">
-                {included.map((b) => (
-                  <Link key={b.slug} href={`/book/${b.slug}`} className="card flex items-center gap-4 p-4 hover:border-ink/20">
-                    <BookCover product={b} size="sm" />
-                    <div className="flex-1">
-                      <p className="font-bold text-cream">{b.title}</p>
-                      <p className="text-[13px] text-fog">{b.pages} pages · {b.editions.map((e) => e.label).join(" · ")}</p>
-                    </div>
-                    <span className="text-[14px] text-fog-2 line-through">{rupees(b.price)}</span>
-                  </Link>
-                ))}
+                {included.map((b) => {
+                  const body = (
+                    <>
+                      <BookCover product={b} size="sm" />
+                      <div className="flex-1">
+                        <p className="font-bold text-cream">{b.title}</p>
+                        {/* Books sold only inside a series have no page of their own, so describe them here */}
+                        {!b.is_published && b.description && <p className="mt-1 text-[14px] leading-relaxed text-fog">{b.description}</p>}
+                        <p className="mt-1 text-[13px] text-fog">{b.pages} pages · {b.editions.map((e) => e.label).join(" · ")}</p>
+                      </div>
+                      {b.is_published && <span className="text-[14px] text-fog-2 line-through">{rupees(b.price)}</span>}
+                    </>
+                  );
+                  return b.is_published ? (
+                    <Link key={b.slug} href={`/book/${b.slug}`} className="card flex items-center gap-4 p-4 hover:border-ink/20">{body}</Link>
+                  ) : (
+                    <div key={b.slug} className="card flex items-center gap-4 p-4">{body}</div>
+                  );
+                })}
               </div>
             </section>
           )}

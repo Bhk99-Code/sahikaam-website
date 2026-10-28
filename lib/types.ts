@@ -1,5 +1,5 @@
 export type ProductType = "ebook" | "course" | "bundle";
-export type Category = "manufacturing" | "legal" | "construction" | "food-agro" | "funding" | "startup" | "government" | "energy" | "online" | "real-estate" | "trade" | "bundle";
+export type Category = "manufacturing" | "legal" | "construction" | "food-agro" | "funding" | "startup" | "government" | "energy" | "online" | "real-estate" | "trade" | "skills" | "bundle";
 
 export type Lesson = { title: string; video_url: string; minutes?: number };
 export type Part = { title: string; file: string };
