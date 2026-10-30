@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import { Policy } from "@/components/Policy";
 import { BUSINESS } from "@/lib/business";
 import { SUPPORT_EMAIL, SUPPORT_WHATSAPP } from "@/lib/env";
+import { whatsappUrl } from "@/components/SocialLinks";
 
-export const metadata: Metadata = { title: "Contact Us" };
+export const metadata: Metadata = {
+  title: "Contact Us — WhatsApp, Instagram, email",
+  description: "SahiKaam (Sahi Kaam) se sampark karein — WhatsApp, Instagram @sahikaam.official, email aur pata: Chhindwara, Madhya Pradesh.",
+  alternates: { canonical: "/contact" },
+};
 
 export default function Contact() {
   return (
@@ -16,7 +21,8 @@ export default function Contact() {
         <li><b>Address:</b> {BUSINESS.address}</li>
         <li><b>Email:</b> <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></li>
         <li><b>Phone:</b> {BUSINESS.phone}</li>
-        {SUPPORT_WHATSAPP && <li><b>WhatsApp:</b> <a href={`https://wa.me/${SUPPORT_WHATSAPP}`}>Chat with us</a></li>}
+        {SUPPORT_WHATSAPP && <li><b>WhatsApp:</b> <a href={whatsappUrl}>Chat with us</a></li>}
+        <li><b>Instagram:</b> <a href={BUSINESS.instagram}>@sahikaam.official</a></li>
       </ul>
     </Policy>
   );

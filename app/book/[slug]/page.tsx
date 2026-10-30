@@ -7,12 +7,50 @@ import { BookGallery } from "@/components/BookGallery";
 import { Icon } from "@/components/Icon";
 import { accessLabel, CATEGORY, percentOff, rupees, TYPE_LABEL } from "@/lib/format";
 import type { Product } from "@/lib/types";
+import { JsonLd } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/env";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const p = await getProduct(params.slug);
-  return p ? { title: p.title, description: p.subtitle ?? p.description ?? undefined, openGraph: p.cover_url ? { images: [p.cover_url] } : undefined } : {};
+  if (!p) return {};
+  const kind = p.type === "bundle" ? "Bundle" : "Ebook in Hindi & English";
+  const description = [p.subtitle, p.description].filter(Boolean).join(" — ").slice(0, 300) || undefined;
+  const image = p.gallery[0] ?? p.cover_url;
+  return {
+    title: `${p.title} — ${kind}`,
+    description,
+    alternates: { canonical: `/book/${p.slug}` },
+    openGraph: { type: "website", url: `/book/${p.slug}`, title: `${p.title} | SahiKaam`, description, images: image ? [image] : undefined },
+    twitter: { card: "summary_large_image", title: `${p.title} | SahiKaam`, description, images: image ? [image] : undefined },
+  };
+}
+
+/** Product + Book + breadcrumb data so search results can show the price, languages and path. */
+function productLd(p: Product) {
+  const url = `${SITE_URL}/book/${p.slug}`;
+  const image = [p.cover_url, p.gallery[0]].filter(Boolean).map((x) => `${SITE_URL}${x}`);
+  const offer = { "@type": "Offer", price: p.price, priceCurrency: "INR", availability: "https://schema.org/InStock", url, seller: { "@id": `${SITE_URL}/#org` } };
+  const main = p.type === "bundle"
+    ? { "@type": "Product", name: p.title, description: p.description ?? p.subtitle, image, brand: { "@type": "Brand", name: "SahiKaam" }, url, offers: offer }
+    : {
+        "@type": ["Product", "Book"], name: p.title, description: p.description ?? p.subtitle, image, url,
+        brand: { "@type": "Brand", name: "SahiKaam" }, author: { "@id": `${SITE_URL}/#org` }, publisher: { "@id": `${SITE_URL}/#org` },
+        bookFormat: "https://schema.org/EBook", inLanguage: p.editions.map((e) => (e.lang === "hi" ? "hi" : "en")),
+        numberOfPages: p.pages ?? undefined, offers: offer,
+      };
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      main,
+      { "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "SahiKaam", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "All ebooks", item: `${SITE_URL}/books` },
+        { "@type": "ListItem", position: 3, name: p.title, item: url },
+      ] },
+    ],
+  };
 }
 
 export default async function BookPage({ params }: { params: { slug: string } }) {
@@ -33,6 +71,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
 
   return (
     <div className="pb-32 md:pb-10">
+      <JsonLd data={productLd(product)} />
       {/* Top: cover + buy box */}
       <section className="relative overflow-hidden border-b border-ink/[0.07]">
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 left-1/2 h-[480px] w-[760px] -translate-x-1/2 rounded-full opacity-25 blur-[120px]" style={{ background: product.accent }} />

@@ -6,7 +6,11 @@ import { Icon } from "@/components/Icon";
 import { CATEGORY } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "All ebooks" };
+export const metadata: Metadata = {
+  title: "All business ebooks in Hindi & English — 43 books, 500+ ideas",
+  description: "SahiKaam (Sahi Kaam) ki saari business books: manufacturing, contractor, government tender, GeM, solar, EV, food, agro, PMEGP loan, franchise, online aur AI — Hindi aur English mein, step-by-step roadmap ke saath.",
+  alternates: { canonical: "/books" },
+};
 
 export default async function Books({ searchParams }: { searchParams: { cat?: string; q?: string } }) {
   const all = await getProducts();

@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { SUPPORT_EMAIL, SUPPORT_WHATSAPP } from "@/lib/env";
+import { SUPPORT_EMAIL } from "@/lib/env";
 import { BUSINESS } from "@/lib/business";
 import { Logo } from "./Logo";
+import { SocialLinks } from "./SocialLinks";
 
 export function Footer() {
   return (
@@ -10,12 +11,12 @@ export function Footer() {
         <div>
           <Logo />
           <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-fog">
-            Practical business ebooks for Indian founders — real numbers, permissions and funding, in Hindi and English.
+            SahiKaam (Sahi Kaam) — practical business ebooks for Indian founders: real numbers, permissions and funding, in Hindi and English.
           </p>
           <p className="mt-4 text-[14px] text-fog">
             <a className="font-semibold text-cream hover:text-saffron-400" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
-            {SUPPORT_WHATSAPP && <> · <a className="font-semibold text-cream hover:text-saffron-400" href={`https://wa.me/${SUPPORT_WHATSAPP}`}>WhatsApp</a></>}
           </p>
+          <div className="mt-4"><SocialLinks /></div>
         </div>
         <FooterCol title="Explore" links={[["/books", "All ebooks"], ["/book/all-access", "All Access Pass"], ["/library", "My library"], ["/help", "Help center"]]} />
         <FooterCol title="Policies" links={[["/terms", "Terms & conditions"], ["/privacy", "Privacy policy"], ["/refund-policy", "Refund & cancellation"], ["/delivery-policy", "Delivery policy"], ["/contact", "Contact us"]]} />

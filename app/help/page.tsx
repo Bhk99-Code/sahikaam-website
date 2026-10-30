@@ -5,7 +5,7 @@ import { SectionTitle } from "@/components/SectionTitle";
 import { SUPPORT_EMAIL, SUPPORT_WHATSAPP } from "@/lib/env";
 import { BUSINESS } from "@/lib/business";
 
-export const metadata: Metadata = { title: "Help center" };
+export const metadata: Metadata = { title: "Help center", alternates: { canonical: "/help" } };
 
 const REQUESTS = [
   { label: "Payment issue", icon: "card", subject: "Payment issue" },
