@@ -36,6 +36,8 @@ export type Product = {
   level: string | null;
   highlights: Highlight[];
   learn: string[];
+  /** "What's inside": a heading and a short explanation for each main part of the book. */
+  inside: Highlight[];
   chapters: string[];
   lessons: Lesson[];
   bundle_items: string[];

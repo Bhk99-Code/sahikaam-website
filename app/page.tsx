@@ -56,6 +56,8 @@ export default async function Home() {
   const titles = allAccess ? allAccess.bundle_items.map((s) => findProduct(s)).filter((p): p is NonNullable<typeof p> => Boolean(p)) : books;
   const totalPages = titles.reduce((n, b) => n + (b.pages ?? 0), 0);
   const series = products.find((p) => p.slug === "problem-solve-karo-paisa-kamao");
+  // Every bundle except the All Access pass, which has its own banner
+  const packs = products.filter((p) => p.type === "bundle" && !p.access_days).slice(0, 8);
   const searchItems = buildSearch(products, series ?? null);
   const slides = buildSlides(allAccess ?? null, series ?? null, titles.length);
   const cats = Object.entries(CATEGORY)
@@ -68,13 +70,59 @@ export default async function Home() {
       {/* Featured slider: All Access first, then the strongest books */}
       <TopCarousel slides={slides} />
 
-      {/* Bestsellers */}
-      <section className="container-x pt-14">
+      {/* All Access: always visible right under the slider */}
+      {allAccess && (
+        <section className="container-x pt-8">
+          <Link href="/book/all-access" className="on-navy group flex flex-col items-start gap-4 rounded-card bg-night p-6 shadow-lift sm:flex-row sm:items-center sm:justify-between sm:p-7">
+            <span>
+              <span className="eyebrow text-saffron-300">All Access Pass · {accessLabel(getPlans(allAccess)[0].access_days)}</span>
+              <span className="mt-2 block font-display text-[24px] font-extrabold leading-tight text-cream sm:text-[30px]">Saari {titles.length} books, ek pass mein — <span className="text-gradient">{rupees(getPlans(allAccess)[0].price)}</span></span>
+              <span className="mt-1 block text-[15px] text-cream-2">Hindi + English · 500+ business ideas · 9 Excel tools · nayi books bhi free</span>
+            </span>
+            <span className="btn-primary h-14 shrink-0 px-8 text-[16px]">Pass lo <Icon name="arrow" size={18} strokeWidth={2.2} className="transition group-hover:translate-x-1" /></span>
+          </Link>
+        </section>
+      )}
+
+      {/* Bestsellers: single books only */}
+      <section className="container-x pt-12">
         <SectionTitle eyebrow="Sabse zyada pasand ki gayi" title="Bestselling books" href="/books" linkText="Saari books" />
         <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-4">
-          {products.slice(0, 8).map((p, i) => (
-            <ProductCard key={p.id} product={p} covers={p.type === "bundle" ? bundleCovers(p) : []} rank={p.type === "ebook" ? i : undefined} />
+          {books.slice(0, 8).map((p, i) => (
+            <ProductCard key={p.id} product={p} rank={i + 1} />
           ))}
+        </div>
+      </section>
+
+      {/* Themed bundles */}
+      {packs.length > 0 && (
+        <section className="container-x pt-14">
+          <SectionTitle eyebrow="Saath lo, zyada bachao" title="Topic wale bundles — ek line ki saari books" href="/books?cat=bundle" linkText="Saare bundles" />
+          <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-4">
+            {packs.map((p) => (
+              <ProductCard key={p.id} product={p} covers={bundleCovers(p)} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* "You are lucky" — the decision is the visitor's */}
+      <section className="on-navy mt-14 bg-night">
+        <div className="container-x flex flex-col items-center gap-5 py-14 text-center">
+          <span className="chip">Ek minute rukiye</span>
+          <h2 className="max-w-3xl font-display text-[30px] font-extrabold leading-tight md:text-[44px]">
+            Aap <span className="text-gradient">bhagyashali</span> hain — kyunki aap business karna chahte hain.
+          </h2>
+          <p className="max-w-2xl text-[17px] leading-relaxed text-cream-2 md:text-[19px]">
+            Zyadatar log zindagi bhar sirf sochte reh jaate hain. Aapke saamne {titles.length} books, 500+ business ideas aur har ek ka step-by-step roadmap hai — kitna paisa lagega, kahan se shuru karein aur kaise badhayein.
+          </p>
+          <p className="max-w-2xl text-[15px] italic text-fog">
+            Agar aap business nahi karna chahte, to bina kuch khareede — aur bina apna dhandha shuru kiye — yahan se ja sakte hain. Faisla aapka hai.
+          </p>
+          <div className="mt-2 flex flex-wrap justify-center gap-3">
+            <Link href="/books" className="btn-primary h-14 px-8 text-[16px]">Haan, main business karna chahta hoon <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
+            {allAccess && <Link href="/book/all-access" className="btn-ghost h-14 px-7 text-[16px]">Saari books · {rupees(getPlans(allAccess)[0].price)}</Link>}
+          </div>
         </div>
       </section>
 
@@ -248,8 +296,8 @@ export default async function Home() {
       {/* Final CTA */}
       <section className="container-x">
         <div className="relative overflow-hidden rounded-[28px] bg-brand-gradient p-8 text-night md:p-14">
-          <h2 className="max-w-2xl font-display text-[32px] font-extrabold leading-tight md:text-[46px]">Your business plan starts with one good book.</h2>
-          <p className="mt-3 max-w-xl text-[16px] font-medium opacity-80">Hindi and English. Read on any device. Yours for life.</p>
+          <h2 className="max-w-2xl font-display text-[32px] font-extrabold leading-tight md:text-[46px]">Aaj ek book. Kal apna dhandha.</h2>
+          <p className="mt-3 max-w-xl text-[16px] font-medium opacity-80">Bhagyashali wahi hai jo shuru karta hai. Hindi aur English, kisi bhi phone par, hamesha ke liye.</p>
           <Link href="/books" className="btn mt-7 h-14 bg-night px-8 text-[16px] text-cream hover:bg-black">See all ebooks <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
         </div>
       </section>

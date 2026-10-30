@@ -25,6 +25,7 @@ const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => {
     highlights: p.highlights ?? [],
     gallery: p.gallery ?? [],
     learn: p.learn ?? [],
+    inside: p.inside ?? [],
     chapters: p.chapters ?? [],
     lessons: p.lessons ?? [],
     bundle_items: p.bundle_items ?? [],

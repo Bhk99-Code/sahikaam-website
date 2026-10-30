@@ -94,9 +94,26 @@ export default async function BookPage({ params }: { params: { slug: string } })
             </div>
           )}
 
+          {product.inside.length > 0 && (
+            <section>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">Is book mein kya milega</h2>
+              <ol className="mt-5 grid gap-3 md:grid-cols-2">
+                {product.inside.map((x, i) => (
+                  <li key={x.title} className="card flex gap-4 p-5">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-gradient font-display text-[15px] font-extrabold text-white">{i + 1}</span>
+                    <span>
+                      <span className="block font-display text-[17px] font-bold leading-snug text-cream">{x.title}</span>
+                      <span className="mt-1 block text-[15px] leading-relaxed text-cream-2">{x.text}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+
           {product.learn.length > 0 && (
             <section>
-              <h2 className="font-display text-[26px] font-extrabold text-cream">{isBundle ? "What's included" : "What you'll learn"}</h2>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">{isBundle ? "Is bundle mein kya milega" : "Padhne ke baad aap kar paoge"}</h2>
               <ul className="mt-5 grid gap-3 md:grid-cols-2">
                 {product.learn.map((t) => (
                   <li key={t} className="card flex gap-3 p-4 text-[15px] leading-relaxed text-cream-2">
@@ -119,7 +136,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
 
           {included.length > 0 && (
             <section>
-              <h2 className="font-display text-[26px] font-extrabold text-cream">{product.access_days ? "Books in this pass" : `All ${included.length} books in this series`}</h2>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">{product.access_days ? "Books in this pass" : `Is bundle ki saari ${included.length} books`}</h2>
               <div className="mt-5 flex flex-col gap-3">
                 {included.map((b) => {
                   const body = (
