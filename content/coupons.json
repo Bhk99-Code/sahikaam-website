@@ -7,13 +7,6 @@
       "percent_off": 20,
       "max_uses": 100,
       "expires_at": "2026-12-31T23:59:59+05:30"
-    },
-    {
-      "code": "SKTEST3569",
-      "percent_off": 99,
-      "max_uses": 2,
-      "expires_at": "2026-10-23T23:59:59+05:30",
-      "_note": "owner payment test only"
     }
   ]
 }
