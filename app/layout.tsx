@@ -36,7 +36,6 @@ const ORG = {
     {
       "@type": "Organization", "@id": `${SITE_URL}/#org`, name: "SahiKaam", alternateName: BUSINESS.altNames, url: SITE_URL,
       logo: `${SITE_URL}/icon.svg`, email: SUPPORT_EMAIL, telephone: BUSINESS.phone, sameAs: [BUSINESS.instagram],
-      address: { "@type": "PostalAddress", streetAddress: BUSINESS.street, addressLocality: BUSINESS.city, addressRegion: BUSINESS.state, postalCode: BUSINESS.pincode, addressCountry: "IN" },
       contactPoint: { "@type": "ContactPoint", contactType: "customer support", telephone: BUSINESS.phone, email: SUPPORT_EMAIL, availableLanguage: ["Hindi", "English"], areaServed: "IN" },
     },
     {

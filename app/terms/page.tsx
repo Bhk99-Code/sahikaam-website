@@ -27,9 +27,9 @@ export default function Terms() {
       <h2>6. Refunds</h2>
       <p>Refunds follow our <a href="/refund-policy">Refund &amp; Cancellation Policy</a>.</p>
       <h2>7. Governing law</h2>
-      <p>These terms are governed by the laws of India. Any dispute falls under the jurisdiction of the courts of Chhindwara, Madhya Pradesh.</p>
+      <p>These terms are governed by the laws of India, and any dispute falls under the jurisdiction of the Indian courts.</p>
       <h2>8. Contact</h2>
-      <p>{SUPPORT_EMAIL} · {BUSINESS.address}</p>
+      <p>{SUPPORT_EMAIL}</p>
     </Policy>
   );
 }

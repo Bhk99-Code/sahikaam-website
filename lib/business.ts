@@ -1,14 +1,9 @@
 // Business details shown on Contact / Terms / policy pages and in search-engine data. Razorpay checks these during activation.
 export const BUSINESS = {
-  legalName: "Sahikaam", // TODO: proprietor ka poora naam ya registered company naam (Razorpay KYC se match hona chahiye)
-  address: "Private Bus Stand, Chhindwara, Madhya Pradesh 480001",
-  street: "Private Bus Stand",
-  city: "Chhindwara",
-  state: "Madhya Pradesh",
-  pincode: "480001",
+  legalName: "SahiKaam",
   phone: "+91 82691 64260",
   refundDays: 7,                                 // refund window for genuine issues
-  updated: "22 October 2026",
+  updated: "1 November 2026",
   // How people may type the name when they search for us
   altNames: ["Sahi Kaam", "SahiKaam.com", "सही काम", "Sahikaam ebooks"],
   instagram: "https://www.instagram.com/sahikaam.official/",

@@ -6,7 +6,7 @@ import { whatsappUrl } from "@/components/SocialLinks";
 
 export const metadata: Metadata = {
   title: "Contact Us — WhatsApp, Instagram, email",
-  description: "SahiKaam (Sahi Kaam) se sampark karein — WhatsApp, Instagram @sahikaam.official, email aur pata: Chhindwara, Madhya Pradesh.",
+  description: "SahiKaam (Sahi Kaam) se sampark karein — WhatsApp, Instagram @sahikaam.official, email aur phone.",
   alternates: { canonical: "/contact" },
 };
 
@@ -18,7 +18,6 @@ export default function Contact() {
       <ul>
         <li><b>Brand:</b> SahiKaam</li>
         <li><b>Operated by:</b> {BUSINESS.legalName}</li>
-        <li><b>Address:</b> {BUSINESS.address}</li>
         <li><b>Email:</b> <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></li>
         <li><b>Phone:</b> {BUSINESS.phone}</li>
         {SUPPORT_WHATSAPP && <li><b>WhatsApp:</b> <a href={whatsappUrl}>Chat with us</a></li>}

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { SUPPORT_EMAIL } from "@/lib/env";
-import { BUSINESS } from "@/lib/business";
 import { Logo } from "./Logo";
 import { SocialLinks } from "./SocialLinks";
 
@@ -22,7 +21,7 @@ export function Footer() {
         <FooterCol title="Policies" links={[["/terms", "Terms & conditions"], ["/privacy", "Privacy policy"], ["/refund-policy", "Refund & cancellation"], ["/delivery-policy", "Delivery policy"], ["/contact", "Contact us"]]} />
       </div>
       <p className="border-t border-ink/[0.07] py-5 text-center text-[12px] text-fog-2">
-        © {new Date().getFullYear()} SahiKaam · Operated by {BUSINESS.legalName}, {BUSINESS.address}
+        © {new Date().getFullYear()} SahiKaam · sahikaam.com
       </p>
     </footer>
   );
