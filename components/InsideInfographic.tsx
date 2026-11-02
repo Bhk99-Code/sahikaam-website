@@ -89,9 +89,9 @@ export function InsideInfographic({ items, title, visual }: { items: Item[]; tit
 
       {/* Phones: the book on top, then the steps as pastel cards */}
       <div className="md:hidden">
-        <div className="mx-auto flex w-[78%] max-w-[300px] flex-col items-center rounded-full bg-gradient-to-b from-white to-[#ECECE9] px-6 py-9 text-center shadow-lift">
+        <div className="mx-auto flex aspect-square w-[80%] max-w-[300px] flex-col items-center justify-center rounded-full bg-gradient-to-b from-white to-[#ECECE9] px-6 pb-4 text-center shadow-lift">
           <span className="font-serif text-[11px] uppercase tracking-[0.3em] text-[#8A8A8A]">What&apos;s inside</span>
-          <div className="mt-3 w-[62%]">{visual}</div>
+          <div className="mt-2 w-[48%]">{visual}</div>
           <span className="mt-3 line-clamp-2 font-serif text-[15px] uppercase leading-tight tracking-[0.04em] text-[#6B6B6B]">{title}</span>
         </div>
         <ol className="mt-6 flex flex-col gap-3">
