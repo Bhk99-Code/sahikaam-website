@@ -84,7 +84,7 @@ export default async function Library({ searchParams }: { searchParams: { new?: 
                   ))}
                   {product.bonus.map((b, i) => (
                     <a key={b.file} href={`/api/bonus/${product.slug}?i=${i}`} download className="btn-ghost h-10 whitespace-nowrap px-4 text-[13px] sm:px-5 sm:text-[14px]">
-                      <Icon name="download" size={16} /> Bonus Excel
+                      <Icon name="download" size={16} /> {/\.xlsx$/i.test(b.file) ? "Bonus Excel" : "Bonus file"}
                     </a>
                   ))}
                 </div>

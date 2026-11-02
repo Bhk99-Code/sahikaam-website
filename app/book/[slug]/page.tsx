@@ -100,7 +100,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
                 {product.level && <li className="chip"><Icon name="star" size={14} /> {product.level}</li>}
                 <li className="chip"><Icon name="globe" size={14} /> {isBundle ? "Hindi + English" : product.editions.map((e) => e.label + (e.coming_soon ? " (soon)" : "")).join(" · ")}</li>
                 <li className="chip"><Icon name="check" size={14} /> {accessLabel(product.access_days)}</li>
-                {product.bonus.length > 0 && <li className="chip"><Icon name="gift" size={14} /> Bonus Excel</li>}
+                {product.bonus.length > 0 && <li className="chip"><Icon name="gift" size={14} /> {product.bonus.every((b) => /\.xlsx$/i.test(b.file)) ? "Bonus Excel" : "Free bonus"}</li>}
               </ul>
 
               {plans.length > 1 && !owned ? (
@@ -209,7 +209,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
                     <div className="flex items-center gap-4 rounded-[21px] bg-night-2 p-5">
                       <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-saffron-500/15 text-saffron-400"><Icon name="gift" size={22} strokeWidth={2} /></span>
                       <div className="min-w-0 flex-1">
-                        <p className="font-bold text-cream">{b.title} <span className="ml-1 rounded-full bg-ink/10 px-2 py-0.5 align-middle text-[11px] font-bold text-cream-2">.xlsx</span></p>
+                        <p className="font-bold text-cream">{b.title} <span className="ml-1 rounded-full bg-ink/10 px-2 py-0.5 align-middle text-[11px] font-bold text-cream-2">{b.file.slice(b.file.lastIndexOf("."))}</span></p>
                         {b.text && <p className="mt-1 text-[14px] leading-relaxed text-fog">{b.text}</p>}
                       </div>
                       {owned && (
@@ -219,7 +219,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
                   </div>
                 ))}
               </div>
-              {!owned && <p className="mt-3 text-[13px] text-fog">Editable Excel — download it from your library after purchase.</p>}
+              {!owned && <p className="mt-3 text-[13px] text-fog">{product.bonus.every((b) => /\.xlsx$/i.test(b.file)) ? "Editable Excel" : "Bonus files"} — download from your library after purchase.</p>}
             </section>
           )}
 

@@ -38,6 +38,9 @@ const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => {
 // Bundles without an explicit MRP show the total of their books as the MRP.
 for (const p of PRODUCTS) if (p.type === "bundle" && p.mrp == null) p.mrp = p.bundle_items.reduce((n, s) => n + (PRODUCTS.find((x) => x.slug === s)?.price ?? 0), 0) || null;
 
+/** How many ebooks the All Access pass covers (used in titles and copy, so it never goes stale). */
+export const ALL_ACCESS_COUNT: number = PRODUCTS.find((p) => p.slug === "all-access")?.bundle_items.length ?? 0;
+
 /** The edition to open: the requested language if available, else the first available one. */
 export function pickEdition(product: Product, lang?: string | null): Edition | null {
   const ready = product.editions.filter((e) => !e.coming_soon);

@@ -494,11 +494,22 @@
         "help-people-find-peace",
         "fight-basic-deprivation",
         "make-life-simpler",
-        "help-people-connect"
+        "help-people-connect",
+        "pashupalan-se-paisa",
+        "copper-scrap-recycling",
+        "battery-recycling",
+        "building-waste-recycling",
+        "ghar-01-neev-rcc",
+        "ghar-02-eent-plaster",
+        "ghar-03-plumbing",
+        "ghar-04-electrical",
+        "ghar-05-tiles",
+        "ghar-06-elevation-paint",
+        "ghar-07-agreement"
       ],
       "highlights": [
         {
-          "title": "43",
+          "title": "54",
           "text": "Ebooks today"
         },
         {
@@ -515,8 +526,8 @@
         }
       ],
       "learn": [
-        "All 43 ebooks, including 2 project reports and the 135-idea series",
-        "9 bonus Excel tools — DPRs, calculators and trackers",
+        "All 54 ebooks, including 6 project reports and the 135-idea series",
+        "12 bonus Excel tools plus 2 PDF kits — DPRs, calculators and trackers",
         "Every new ebook we publish during your year",
         "Hindi and English editions",
         "Read on phone, tablet or computer for 365 days"
@@ -601,7 +612,7 @@
         }
       ],
       "learn": [
-        "All 43 ebooks, including 2 project reports and the 135-idea series",
+        "All 54 ebooks, including 6 project reports and the 135-idea series",
         "9 bonus Excel tools — DPRs, calculators and trackers",
         "Every new ebook we publish during your 6 months",
         "Hindi and English editions",
@@ -621,8 +632,8 @@
       "title": "Fly Ash Bricks — Complete Project Report",
       "subtitle": "₹33 lakh mein roz 8,000 eent ki factory — step-by-step project report",
       "description": "A complete project report for a fly ash brick factory — market, raw material and mix design, machinery, land and layout, licences, project cost, PMEGP/MUDRA/bank funding, cost per brick, a 5-year P&L with DSCR and break-even, and how to sell your first 50 lakh bricks.",
-      "price": 1499,
-      "mrp": 2499,
+      "price": 599,
+      "mrp": 4000,
       "badge": "Project report",
       "cover_url": "/covers/v3/fly-ash-bricks-v3.jpg",
       "level": "Beginner",
@@ -725,8 +736,8 @@
       "title": "Paver Blocks — Complete Project Report",
       "subtitle": "Paver factory + laying business — ₹48 lakh project ka step-by-step plan",
       "description": "A complete project report for an interlocking paver block factory — shapes, thickness, colours and IS 15658, mix design, machinery, layout, licences, project cost, funding through PMEGP, MUDRA or banks, cost per square foot, a 5-year P&L — plus the extra income from laying the pavers yourself.",
-      "price": 1499,
-      "mrp": 2499,
+      "price": 599,
+      "mrp": 4000,
       "badge": "Project report",
       "cover_url": "/covers/v3/paver-blocks-v3.jpg",
       "level": "Beginner",
@@ -828,8 +839,8 @@
       "title": "Food Processing — 40 Business Ideas",
       "subtitle": "₹2 lakh se apna food business — 40 ideas, step-by-step",
       "description": "Forty food processing businesses you can start from a small unit — grains and spices, pickles and sauces, dairy, bakery and snacks, millets and makhana. Includes full costing for six ideas, FSSAI 2026 and labelling rules, packaging and MRP, selling from kirana to quick commerce, and government help such as PMFME and PMEGP.",
-      "price": 999,
-      "mrp": 1499,
+      "price": 599,
+      "mrp": 4000,
       "badge": "40 ideas",
       "cover_url": "/covers/v3/food-processing-40-v3.jpg",
       "level": "Beginner",
@@ -932,8 +943,8 @@
       "title": "Krishi Kachra se Kamaai",
       "subtitle": "Khet ke kachre se kamai — 30 business, step-by-step",
       "description": "Thirty businesses that turn farm waste into money — briquettes and pellets, biochar and Bio-CNG, compost and bio-fertiliser, cattle feed and mushrooms, plates, boards and packaging, and service businesses like baling and aggregation. With machines, costs, buyers, raw-material planning and government schemes.",
-      "price": 999,
-      "mrp": 1499,
+      "price": 599,
+      "mrp": 4000,
       "badge": "30 ideas",
       "cover_url": "/covers/v3/krishi-kachra-se-kamaai-v3.jpg",
       "level": "Beginner",
@@ -1035,8 +1046,8 @@
       "title": "Labour Contractor Bano",
       "subtitle": "Labour contractor banne ka step-by-step roadmap — licence, rate aur pehla client",
       "description": "How to start a manpower and labour contracting business under the new Labour Codes — registrations and the OSH Code licence, wages, PF, ESIC and bonus, building your billing rate, finding your first client, managing workers and supervisors, registers and challans, working capital and a 3-year plan.",
-      "price": 999,
-      "mrp": 1499,
+      "price": 599,
+      "mrp": 4000,
       "badge": "Licence + compliance",
       "cover_url": "/covers/v3/labour-contractor-bano-v3.jpg",
       "level": "Beginner",
@@ -1451,8 +1462,8 @@
       "title": "How to Win Government Tenders",
       "subtitle": "Sarkari tender dhoondhne, bharne aur jeetne ka step-by-step roadmap",
       "description": "A complete guide to government work for small firms: types of tenders, where to find them, getting your firm ready, reading a tender document, EMD and guarantees, filling your rate, the L1 game, online bids, executing the work, billing and payment, why bids get rejected and how to grow from small to big.",
-      "price": 999,
-      "mrp": 1499,
+      "price": 599,
+      "mrp": 4000,
       "badge": "New",
       "cover_url": "/covers/v3/government-tenders-v3.jpg",
       "level": "Beginner",
@@ -1547,8 +1558,8 @@
       "title": "Start Your Solar Business",
       "subtitle": "Solar business ka step-by-step roadmap — pehle survey se AMC ki kamai tak",
       "description": "Five ways to earn from solar, explained in plain words: registrations and empanelment, government schemes and subsidy, net metering and DISCOM approval, vendors, how to make a quote customers trust, finding customers, installation and safety, bigger commercial projects and recurring O&M and AMC income.",
-      "price": 999,
-      "mrp": 1499,
+      "price": 599,
+      "mrp": 4000,
       "badge": "New",
       "cover_url": "/covers/v3/solar-business-v3.jpg",
       "level": "Beginner",
@@ -1643,8 +1654,8 @@
       "title": "Start a Plotting & Township Business",
       "subtitle": "Zameen se bike hue plot tak — plotting business ka step-by-step plan",
       "description": "A step-by-step guide for first-time developers: how plotting creates value, choosing the right land, title and legal checks, conversion and approvals, designing a layout that sells, development works, project costing, profit models, funding, selling plots, documentation and registry.",
-      "price": 799,
-      "mrp": 1299,
+      "price": 599,
+      "mrp": 4000,
       "badge": "New",
       "cover_url": "/covers/v3/plotting-township-v3.jpg",
       "level": "Beginner",
@@ -1739,8 +1750,8 @@
       "title": "How to Sell on GeM",
       "subtitle": "GeM par sarkar ko maal bechne ka step-by-step tareeka — 90 din mein pehla order",
       "description": "Sell products and services to government buyers on GeM: what you can sell, registration step by step, catalogues that get orders, how orders come, bidding, pricing to win, delivery, invoice and acceptance, MSE and start-up benefits, ratings and penalties, and the common mistakes that get sellers suspended.",
-      "price": 799,
-      "mrp": 1299,
+      "price": 599,
+      "mrp": 4000,
       "badge": "New",
       "cover_url": "/covers/v3/sell-on-gem-v3.jpg",
       "level": "Beginner",
@@ -1835,8 +1846,8 @@
       "title": "Become an EV Charging Contractor",
       "subtitle": "EV charging contractor banne ka step-by-step roadmap",
       "description": "How to build a contracting business around EV chargers: the market and business models, charger basics, registration and vendor onboarding, the cluster model, site survey, DISCOM connection and approvals, costing and rates, team and SOP, testing and handover, and O&M and breakdown service income.",
-      "price": 799,
-      "mrp": 1299,
+      "price": 599,
+      "mrp": 4000,
       "badge": "New",
       "cover_url": "/covers/v3/ev-charging-contractor-v3.jpg",
       "level": "Beginner",
@@ -1931,8 +1942,8 @@
       "title": "Start Your Export Business",
       "subtitle": "Export business ka step-by-step roadmap — product, buyer, kagaz aur payment",
       "description": "Start exporting from India: why export, what to export, registrations, market research, finding your first buyer, quotations and Incoterms, payment terms, documentation, logistics, quality and certification, export costing and pricing, government support and the mistakes to avoid.",
-      "price": 799,
-      "mrp": 1299,
+      "price": 599,
+      "mrp": 4000,
       "badge": "New",
       "cover_url": "/covers/v3/export-business-v3.jpg",
       "level": "Beginner",
@@ -2027,8 +2038,8 @@
       "title": "Become a Property Valuer",
       "subtitle": "Property valuer banne ka step-by-step roadmap — registration se bank panel tak",
       "description": "A practical guide to the valuation profession: when valuation is needed, becoming a registered valuer, valuation approaches, site inspection, document checks, fully worked valuations, writing the report, getting on bank panels, income streams and fees, risks and ethics, and growing the practice.",
-      "price": 799,
-      "mrp": 1299,
+      "price": 599,
+      "mrp": 4000,
       "badge": "New",
       "cover_url": "/covers/v3/property-valuer-v3.jpg",
       "level": "Beginner",
@@ -4169,9 +4180,8 @@
       "accent": "#97702F",
       "title": "Factory Starter Pack",
       "subtitle": "Factory lagane ka poora set — 50 ideas, 2 project reports aur PMEGP loan guide",
-      "description": "4 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹7,796 — is pack mein ₹4,999.",
-      "price": 4999,
-      "mrp": 7796,
+      "description": "4 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹5,996 — is pack mein ₹3,999.",
+      "price": 3999,
       "badge": "Manufacturing",
       "level": "All levels",
       "sort_order": 9,
@@ -4181,7 +4191,7 @@
           "text": "Books"
         },
         {
-          "title": "36%",
+          "title": "33%",
           "text": "Bachat"
         },
         {
@@ -4216,9 +4226,8 @@
       "accent": "#97702F",
       "title": "Contractor Pack",
       "subtitle": "Contractor banne se sarkari kaam jeetne tak — 5 books ka poora roadmap",
-      "description": "5 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹6,295 — is pack mein ₹3,499.",
+      "description": "5 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹5,295 — is pack mein ₹3,499.",
       "price": 3499,
-      "mrp": 6295,
       "badge": "Construction",
       "level": "All levels",
       "sort_order": 10,
@@ -4228,7 +4237,7 @@
           "text": "Books"
         },
         {
-          "title": "44%",
+          "title": "34%",
           "text": "Bachat"
         },
         {
@@ -4263,20 +4272,19 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Kam Paise Se Business Pack",
-      "subtitle": "Kam paise, ghar, gaon ya naukri ke saath — 200+ business ideas, 5 books",
-      "description": "5 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹3,995 — is pack mein ₹2,499.",
-      "price": 2499,
-      "mrp": 3995,
+      "subtitle": "Kam paise, ghar, gaon ya naukri ke saath — 200+ business ideas, 7 books",
+      "description": "7 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹5,393 — is pack mein ₹2,999.",
+      "price": 2999,
       "badge": "Low investment",
       "level": "All levels",
       "sort_order": 11,
       "highlights": [
         {
-          "title": "5",
+          "title": "7",
           "text": "Books"
         },
         {
-          "title": "37%",
+          "title": "44%",
           "text": "Bachat"
         },
         {
@@ -4292,7 +4300,8 @@
         "128 legal business jo kam paise se shuru hote hain",
         "Ghar se, gaon mein aur naukri ke saath chalne wale business",
         "Idea ko 7 din mein ₹0 mein test karna",
-        "Har idea ka kharcha, kamai aur pehla customer"
+        "Har idea ka kharcha, kamai aur pehla customer",
+        "Franchise lene se pehle ROI check — aur retirement ke baad business"
       ],
       "chapters": [],
       "editions": [],
@@ -4301,7 +4310,9 @@
         "side-business-with-job",
         "home-business-women",
         "village-business-ideas",
-        "idea-test-karo"
+        "idea-test-karo",
+        "franchise-lo-sahi-lo",
+        "business-after-retirement"
       ],
       "access_days": null
     },
@@ -4311,20 +4322,19 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Food & Agro Pack",
-      "subtitle": "Khana, kheti aur gaon — 100 business ideas, 3 books",
-      "description": "3 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹2,497 — is pack mein ₹1,499.",
+      "subtitle": "Khana, kheti, gaon aur pashupalan — 4 books, 130+ business ideas",
+      "description": "4 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹2,296 — is pack mein ₹1,499.",
       "price": 1499,
-      "mrp": 2497,
       "badge": "Food & agro",
       "level": "All levels",
       "sort_order": 12,
       "highlights": [
         {
-          "title": "3",
+          "title": "4",
           "text": "Books"
         },
         {
-          "title": "40%",
+          "title": "35%",
           "text": "Bachat"
         },
         {
@@ -4340,14 +4350,16 @@
         "40 food processing business — masala, achaar, paneer, namkeen",
         "Khet ke kachre se 30 business — briquette, compost, mushroom",
         "Gaon ke 30 business — kam paisa, pakki maang",
-        "FSSAI, packaging aur sarkari schemes"
+        "FSSAI, packaging aur sarkari schemes",
+        "Pashupalan — dairy, bakri, murgi, suar aur 35+ business, project report ke saath"
       ],
       "chapters": [],
       "editions": [],
       "bundle_items": [
         "food-processing-40",
         "krishi-kachra-se-kamaai",
-        "village-business-ideas"
+        "village-business-ideas",
+        "pashupalan-se-paisa"
       ],
       "access_days": null
     },
@@ -4358,9 +4370,8 @@
       "accent": "#97702F",
       "title": "Online & AI Pack",
       "subtitle": "Ghar baithe online kamai — marketplace, AI services aur export",
-      "description": "4 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹2,496 — is pack mein ₹1,499.",
+      "description": "4 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹2,296 — is pack mein ₹1,499.",
       "price": 1499,
-      "mrp": 2496,
       "badge": "Online",
       "level": "All levels",
       "sort_order": 13,
@@ -4370,7 +4381,7 @@
           "text": "Books"
         },
         {
-          "title": "40%",
+          "title": "35%",
           "text": "Bachat"
         },
         {
@@ -4405,9 +4416,8 @@
       "accent": "#97702F",
       "title": "Solar & EV Pack",
       "subtitle": "Bijli ka business — solar installation aur EV charging contractor",
-      "description": "2 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹1,798 — is pack mein ₹1,299.",
-      "price": 1299,
-      "mrp": 1798,
+      "description": "2 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹1,198 — is pack mein ₹799.",
+      "price": 799,
       "badge": "Energy",
       "level": "All levels",
       "sort_order": 14,
@@ -4417,7 +4427,7 @@
           "text": "Books"
         },
         {
-          "title": "28%",
+          "title": "33%",
           "text": "Bachat"
         },
         {
@@ -4449,20 +4459,19 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Real Estate Pack",
-      "subtitle": "Zameen, plot aur property — plotting, valuation aur paver ka kaam",
-      "description": "3 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹3,097 — is pack mein ₹1,999.",
-      "price": 1999,
-      "mrp": 3097,
+      "subtitle": "Zameen, plot aur property — plotting aur valuation ka kaam",
+      "description": "2 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹1,198 — is pack mein ₹799.",
+      "price": 799,
       "badge": "Real estate",
       "level": "All levels",
       "sort_order": 15,
       "highlights": [
         {
-          "title": "3",
+          "title": "2",
           "text": "Books"
         },
         {
-          "title": "35%",
+          "title": "33%",
           "text": "Bachat"
         },
         {
@@ -4477,15 +4486,792 @@
       "learn": [
         "Zameen chunne se plot bechne tak ka poora plan",
         "Property valuer banna aur bank panel par aana",
-        "Paver block factory + laying ka do-tarfa business",
         "Approvals, costing aur registry"
       ],
       "chapters": [],
       "editions": [],
       "bundle_items": [
         "plotting-township",
-        "property-valuer",
-        "paver-blocks"
+        "property-valuer"
+      ],
+      "access_days": null
+    },
+    {
+      "slug": "pashupalan-se-paisa",
+      "type": "ebook",
+      "category": "food-agro",
+      "accent": "#97702F",
+      "title": "Pashupalan Se Paisa — with Project Report",
+      "subtitle": "Dairy, bakri, murgi, suar aur 35+ business — chhote farm se crore ke brand tak ka roadmap",
+      "description": "Pashupalan ka poora guide: nasl, shed, chara, tike, sarkari subsidy, doodh se ghee-paneer-ice cream, packaging aur brand. Project report aur kamai ke hisaab ke saath. Sab hisaab udaharan hain, income ki guarantee nahi.",
+      "price": 599,
+      "mrp": 4000,
+      "badge": "Project report",
+      "level": "Beginner",
+      "sort_order": 54,
+      "highlights": [
+        {
+          "title": "35+",
+          "text": "Businesses"
+        },
+        {
+          "title": "Subsidy",
+          "text": "Schemes explained"
+        },
+        {
+          "title": "Project report",
+          "text": "Inside the book"
+        },
+        {
+          "title": "127",
+          "text": "Pages"
+        }
+      ],
+      "learn": [
+        "Dairy, bakri, murgi, suar — apne budget ka janwar chunna",
+        "Shed, chara aur tike ka sahi plan",
+        "Sarkari subsidy aur bank loan ka raasta",
+        "Doodh se ghee, paneer aur ice cream — value addition",
+        "Packaging, labelling aur apna brand banana",
+        "Lakh se crore tak scale karne ka stage-by-stage roadmap"
+      ],
+      "chapters": [
+        "Market samjho",
+        "Janwar ka business chuno",
+        "Value addition aur brand",
+        "Scale karo"
+      ],
+      "inside": [
+        {
+          "title": "Market aur sahi janwar",
+          "text": "Kaun kharidta hai, kitna, aur aapke liye kaun sa janwar theek hai."
+        },
+        {
+          "title": "Dairy farming",
+          "text": "Gai-bhains ki nasl, shed, chara, breeding aur 4 dairy models."
+        },
+        {
+          "title": "Bakri, murgi aur suar",
+          "text": "Stall-fed farm, contract broiler, layer, desi murgi, hatchery aur suar palan."
+        },
+        {
+          "title": "Chara aur feed",
+          "text": "Hara chara, silage, hydroponics aur feed ka business."
+        },
+        {
+          "title": "Doodh se brand tak",
+          "text": "Ghee, paneer, ice cream, packaging aur dairy brand kaise banta hai."
+        },
+        {
+          "title": "Project report aur kamai",
+          "text": "Lagat, kamai, break-even aur bank ke liye report — udaharan ke saath."
+        },
+        {
+          "title": "Lakh se crore ka roadmap",
+          "text": "Har stage par kya karna hai, Amul se Milky Mist tak ki asli kahaniyon ke saath."
+        }
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 127,
+          "file_path": "pashupalan-se-paisa.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 124,
+          "file_path": "pashupalan-se-paisa-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/pashupalan-se-paisa-3d-front-v3.png",
+        "/covers/v3/pashupalan-se-paisa-3d-back-v3.png",
+        "/covers/v3/pashupalan-se-paisa-v3.jpg",
+        "/covers/v3/pashupalan-se-paisa-back-v3.jpg"
+      ],
+      "cover_url": "/covers/v3/pashupalan-se-paisa-v3.jpg"
+    },
+    {
+      "slug": "copper-scrap-recycling",
+      "type": "ebook",
+      "category": "manufacturing",
+      "accent": "#97702F",
+      "title": "Copper Wire & Scrap Recycling — with Project Report",
+      "subtitle": "Tambe ke tar aur kabaad ka business — kharid se bikri tak, lagat aur munafe ke poore hisaab ke saath",
+      "description": "Tambe ke tar aur scrap se copper nikalne ka business: grade aur jaanch, supplier network, stripping machine, licence, lagat aur munafa. Saath mein project report Excel. Sab hisaab udaharan hain.",
+      "price": 1499,
+      "mrp": 4000,
+      "badge": "Project report",
+      "level": "Beginner",
+      "sort_order": 56,
+      "highlights": [
+        {
+          "title": "3",
+          "text": "Setup sizes"
+        },
+        {
+          "title": "Excel",
+          "text": "Project report"
+        },
+        {
+          "title": "10",
+          "text": "Chapters"
+        },
+        {
+          "title": "48",
+          "text": "Pages"
+        }
+      ],
+      "learn": [
+        "Copper ke grade pehchanna aur sahi bhav lagana",
+        "Scrap supplier ka network banana",
+        "Stripping aur granulator — haath se machine tak",
+        "Lagat, kamai aur break-even ka hisaab",
+        "Licence, kanoon aur safety",
+        "Pehle 30-60-90 din ka plan"
+      ],
+      "chapters": [
+        "Market aur model",
+        "Maal aur process",
+        "Paisa aur licence",
+        "Bikri aur growth"
+      ],
+      "inside": [
+        {
+          "title": "Business ke 3 model",
+          "text": "Haath se stripping, machine, aur granulator — apne budget ke hisaab se."
+        },
+        {
+          "title": "Grade aur jaanch",
+          "text": "Copper ke grade, tarazu aur sahi bhav kaise tay karein."
+        },
+        {
+          "title": "Maal kahan se aayega",
+          "text": "Kabadi, mill aur supplier network banane ka tareeka."
+        },
+        {
+          "title": "Process aur machine",
+          "text": "Stripping, granulating, safai aur transport."
+        },
+        {
+          "title": "Investment aur munafa",
+          "text": "Chhota, medium aur bada setup — lagat aur kamai ka poora hisaab."
+        },
+        {
+          "title": "Licence aur safety",
+          "text": "Kaunse kagaz chahiye aur kaam kaise surakshit rakhein."
+        },
+        {
+          "title": "Project report Excel",
+          "text": "Bank ko dikhane layak 8-sheet report — apne rate dalkar badal sakte hain."
+        }
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 48,
+          "file_path": "copper-scrap-recycling.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 48,
+          "file_path": "copper-scrap-recycling-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/copper-scrap-recycling-3d-front-v3.png",
+        "/covers/v3/copper-scrap-recycling-3d-back-v3.png",
+        "/covers/v3/copper-scrap-recycling-v3.jpg",
+        "/covers/v3/copper-scrap-recycling-back-v3.jpg"
+      ],
+      "cover_url": "/covers/v3/copper-scrap-recycling-v3.jpg",
+      "bonus": [
+        {
+          "title": "Copper Recycling — Project Report (Excel)",
+          "text": "Project cost, cost per unit, 5-year P&L, loan & DSCR, PMEGP check, break-even",
+          "file": "copper-scrap-recycling/Copper_Scrap_Recycling_DPR_SahiKaam.xlsx"
+        }
+      ]
+    },
+    {
+      "slug": "battery-recycling",
+      "type": "ebook",
+      "category": "manufacturing",
+      "accent": "#97702F",
+      "title": "Battery Recycling Business — with Project Report",
+      "subtitle": "Purani battery jama karo, chhanto aur authorised recycler ko becho — lagat aur munafe ke poore hisaab ke saath",
+      "description": "Purani battery ka collection business: kahan se aayegi, kaise chhanten, surakshit bhandaran, authorised recycler, licence aur lagat. Saath mein project report Excel. Sab hisaab udaharan hain.",
+      "price": 1499,
+      "mrp": 4000,
+      "badge": "Project report",
+      "level": "Beginner",
+      "sort_order": 57,
+      "highlights": [
+        {
+          "title": "3",
+          "text": "Setup sizes"
+        },
+        {
+          "title": "Excel",
+          "text": "Project report"
+        },
+        {
+          "title": "10",
+          "text": "Chapters"
+        },
+        {
+          "title": "48",
+          "text": "Pages"
+        }
+      ],
+      "learn": [
+        "Battery collection ke 3 model",
+        "Garage, dealer aur e-rickshaw se maal jodna",
+        "Surakshit bhandaran aur transport",
+        "Authorised recycler aur EPR network",
+        "Licence aur safety ke niyam",
+        "Lagat, kamai aur break-even"
+      ],
+      "chapters": [
+        "Market aur model",
+        "Maal aur process",
+        "Paisa aur licence",
+        "Bikri aur growth"
+      ],
+      "inside": [
+        {
+          "title": "3 tareeke se shuru karein",
+          "text": "Seedhi kharid-bikri, sorting centre, ya recycler ke saath tie-up."
+        },
+        {
+          "title": "Grade aur jaanch",
+          "text": "Battery ki kism pehchanna aur sahi rate lagana."
+        },
+        {
+          "title": "Maal kahan se aayega",
+          "text": "Garage, dealer, e-rickshaw aur workshop se supplier network."
+        },
+        {
+          "title": "Bhandaran aur transport",
+          "text": "Yard, pallet, gaadi aur surakshit rakhrakhav."
+        },
+        {
+          "title": "Investment aur munafa",
+          "text": "Chhota, madhyam aur bada plan ka poora hisaab."
+        },
+        {
+          "title": "Licence aur kanoon",
+          "text": "Battery waste ke niyam aur authorisation — dhyan se samjhaaya gaya."
+        },
+        {
+          "title": "Project report Excel",
+          "text": "Bank ko dikhane layak 8-sheet report — apne rate dalkar badal sakte hain."
+        }
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 48,
+          "file_path": "battery-recycling.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 48,
+          "file_path": "battery-recycling-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/battery-recycling-3d-front-v3.png",
+        "/covers/v3/battery-recycling-3d-back-v3.png",
+        "/covers/v3/battery-recycling-v3.jpg",
+        "/covers/v3/battery-recycling-back-v3.jpg"
+      ],
+      "cover_url": "/covers/v3/battery-recycling-v3.jpg",
+      "bonus": [
+        {
+          "title": "Battery Recycling — Project Report (Excel)",
+          "text": "Project cost, cost per unit, 5-year P&L, loan & DSCR, PMEGP check, break-even",
+          "file": "battery-recycling/Battery_Recycling_DPR_SahiKaam.xlsx"
+        }
+      ]
+    },
+    {
+      "slug": "building-waste-recycling",
+      "type": "ebook",
+      "category": "construction",
+      "accent": "#97702F",
+      "title": "Building Waste Recycling Business — with Project Report",
+      "subtitle": "Tooti imaaraton ke malbe se ret, gitti aur paver block banao aur becho — crusher plant ka poora hisaab",
+      "description": "Building aur demolition (C&D) ke malbe ka business: malba kahan se milega, crusher plant, ret-gitti-paver block, niyam aur lagat. Saath mein project report Excel. Sab hisaab udaharan hain.",
+      "price": 1499,
+      "mrp": 4000,
+      "badge": "Project report",
+      "level": "Beginner",
+      "sort_order": 55,
+      "highlights": [
+        {
+          "title": "3",
+          "text": "Plant sizes"
+        },
+        {
+          "title": "Excel",
+          "text": "Project report"
+        },
+        {
+          "title": "10",
+          "text": "Chapters"
+        },
+        {
+          "title": "48",
+          "text": "Pages"
+        }
+      ],
+      "learn": [
+        "Malba kahan se aur kis rate par aayega",
+        "Crusher plant aur machine ka chunav",
+        "Ret, gitti aur paver block banakar bechna",
+        "Pollution board aur local permission",
+        "Lagat, kamai aur break-even",
+        "Pehle 30-60-90 din ka plan"
+      ],
+      "chapters": [
+        "Market aur model",
+        "Maal aur process",
+        "Paisa aur licence",
+        "Bikri aur growth"
+      ],
+      "inside": [
+        {
+          "title": "C&D malba kya hai",
+          "text": "Building banane aur todne ka malba — aur isse kya-kya ban sakta hai."
+        },
+        {
+          "title": "Malba kahan se aayega",
+          "text": "Thekedaar, nagar nigam aur demolition party se supplier network."
+        },
+        {
+          "title": "Crusher aur machine",
+          "text": "Plant ka size, power aur jagah ka hisaab."
+        },
+        {
+          "title": "Ret, gitti aur paver",
+          "text": "Recycled product aur unke bikri ke rate."
+        },
+        {
+          "title": "Investment aur munafa",
+          "text": "Chhota, madhyam aur bada plant — lagat aur kamai."
+        },
+        {
+          "title": "Niyam aur permission",
+          "text": "Pollution board ki consent aur local anumati."
+        },
+        {
+          "title": "Project report Excel",
+          "text": "Bank ko dikhane layak 8-sheet report — apne rate dalkar badal sakte hain."
+        }
+      ],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 48,
+          "file_path": "building-waste-recycling.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 48,
+          "file_path": "building-waste-recycling-en.pdf"
+        }
+      ],
+      "gallery": [
+        "/covers/v3/building-waste-recycling-3d-front-v3.png",
+        "/covers/v3/building-waste-recycling-3d-back-v3.png",
+        "/covers/v3/building-waste-recycling-v3.jpg",
+        "/covers/v3/building-waste-recycling-back-v3.jpg"
+      ],
+      "cover_url": "/covers/v3/building-waste-recycling-v3.jpg",
+      "bonus": [
+        {
+          "title": "Building Waste Recycling — Project Report (Excel)",
+          "text": "Project cost, cost per unit, 5-year P&L, loan & DSCR, PMEGP check, break-even",
+          "file": "building-waste-recycling/Building_Waste_Recycling_DPR_SahiKaam.xlsx"
+        }
+      ]
+    },
+    {
+      "slug": "ghar-01-neev-rcc",
+      "type": "ebook",
+      "category": "construction",
+      "accent": "#97702F",
+      "is_published": false,
+      "title": "Neev aur RCC",
+      "subtitle": "Ghar Banao Sahi · Book 1 of 7",
+      "description": "Plinth, column, beam, slab aur seedhi — sariya kahan aur kitna, concrete kaisa",
+      "price": 299,
+      "mrp": null,
+      "badge": "New",
+      "level": "Beginner",
+      "sort_order": 86,
+      "highlights": [],
+      "learn": [],
+      "chapters": [],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 32,
+          "file_path": "ghar-01-neev-rcc.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 32,
+          "file_path": "ghar-01-neev-rcc-en.pdf"
+        }
+      ],
+      "cover_url": "/covers/v3/ghar-01-neev-rcc-v3.jpg"
+    },
+    {
+      "slug": "ghar-02-eent-plaster",
+      "type": "ebook",
+      "category": "construction",
+      "accent": "#97702F",
+      "is_published": false,
+      "title": "Eent, Plaster aur Waterproofing",
+      "subtitle": "Ghar Banao Sahi · Book 2 of 7",
+      "description": "Eent chunne se terrace waterproofing tak — har step 3D tasveer mein",
+      "price": 299,
+      "mrp": null,
+      "badge": "New",
+      "level": "Beginner",
+      "sort_order": 87,
+      "highlights": [],
+      "learn": [],
+      "chapters": [],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 32,
+          "file_path": "ghar-02-eent-plaster.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 32,
+          "file_path": "ghar-02-eent-plaster-en.pdf"
+        }
+      ],
+      "cover_url": "/covers/v3/ghar-02-eent-plaster-v3.jpg"
+    },
+    {
+      "slug": "ghar-03-plumbing",
+      "type": "ebook",
+      "category": "construction",
+      "accent": "#97702F",
+      "is_published": false,
+      "title": "Plumbing aur Pani ki Line",
+      "subtitle": "Ghar Banao Sahi · Book 3 of 7",
+      "description": "Tanki se nal tak, naali se chamber tak — pipe, fitting aur pressure test",
+      "price": 299,
+      "mrp": null,
+      "badge": "New",
+      "level": "Beginner",
+      "sort_order": 88,
+      "highlights": [],
+      "learn": [],
+      "chapters": [],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 32,
+          "file_path": "ghar-03-plumbing.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 32,
+          "file_path": "ghar-03-plumbing-en.pdf"
+        }
+      ],
+      "cover_url": "/covers/v3/ghar-03-plumbing-v3.jpg"
+    },
+    {
+      "slug": "ghar-04-electrical",
+      "type": "ebook",
+      "category": "construction",
+      "accent": "#97702F",
+      "is_published": false,
+      "title": "Electrical aur False Ceiling",
+      "subtitle": "Ghar Banao Sahi · Book 4 of 7",
+      "description": "Layout se switch tak, DB se earthing tak, aur upar false ceiling",
+      "price": 299,
+      "mrp": null,
+      "badge": "New",
+      "level": "Beginner",
+      "sort_order": 89,
+      "highlights": [],
+      "learn": [],
+      "chapters": [],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 32,
+          "file_path": "ghar-04-electrical.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 32,
+          "file_path": "ghar-04-electrical-en.pdf"
+        }
+      ],
+      "cover_url": "/covers/v3/ghar-04-electrical-v3.jpg"
+    },
+    {
+      "slug": "ghar-05-tiles",
+      "type": "ebook",
+      "category": "construction",
+      "accent": "#97702F",
+      "is_published": false,
+      "title": "Tiles aur Flooring",
+      "subtitle": "Ghar Banao Sahi · Book 5 of 7",
+      "description": "Farsh ki taiyari se grout tak — seedhi, samtal, bina khokhlepan ke tiles",
+      "price": 299,
+      "mrp": null,
+      "badge": "New",
+      "level": "Beginner",
+      "sort_order": 90,
+      "highlights": [],
+      "learn": [],
+      "chapters": [],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 32,
+          "file_path": "ghar-05-tiles.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 32,
+          "file_path": "ghar-05-tiles-en.pdf"
+        }
+      ],
+      "cover_url": "/covers/v3/ghar-05-tiles-v3.jpg"
+    },
+    {
+      "slug": "ghar-06-elevation-paint",
+      "type": "ebook",
+      "category": "construction",
+      "accent": "#97702F",
+      "is_published": false,
+      "title": "Elevation aur Paint",
+      "subtitle": "Ghar Banao Sahi · Book 6 of 7",
+      "description": "Ghar ka bahari roop aur har deewar ka rang — taiyari ke saath",
+      "price": 299,
+      "mrp": null,
+      "badge": "New",
+      "level": "Beginner",
+      "sort_order": 91,
+      "highlights": [],
+      "learn": [],
+      "chapters": [],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 32,
+          "file_path": "ghar-06-elevation-paint.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 32,
+          "file_path": "ghar-06-elevation-paint-en.pdf"
+        }
+      ],
+      "cover_url": "/covers/v3/ghar-06-elevation-paint-v3.jpg"
+    },
+    {
+      "slug": "ghar-07-agreement",
+      "type": "ebook",
+      "category": "construction",
+      "accent": "#97702F",
+      "is_published": false,
+      "title": "Agreement aur Payment",
+      "subtitle": "Ghar Banao Sahi · Book 7 of 7",
+      "description": "Contractor chunne se handover tak — likhit agreement, sahi naap, sahi samay par payment",
+      "price": 299,
+      "mrp": null,
+      "badge": "New",
+      "level": "Beginner",
+      "sort_order": 92,
+      "highlights": [],
+      "learn": [],
+      "chapters": [],
+      "editions": [
+        {
+          "lang": "hi",
+          "label": "Hindi",
+          "pages": 32,
+          "file_path": "ghar-07-agreement.pdf"
+        },
+        {
+          "lang": "en",
+          "label": "English",
+          "pages": 32,
+          "file_path": "ghar-07-agreement-en.pdf"
+        }
+      ],
+      "cover_url": "/covers/v3/ghar-07-agreement-v3.jpg"
+    },
+    {
+      "slug": "ghar-banao-sahi",
+      "type": "bundle",
+      "category": "bundle",
+      "accent": "#97702F",
+      "title": "Ghar Banao Sahi — 7 Visual Guides",
+      "subtitle": "Apna ghar banane se pehle — neev se paint tak 3D tasveeron mein, aur contractor ke saath agreement ka poora guide",
+      "description": "Ghar banane wale ke liye 7 books ek saath, Hindi aur English dono mein, 3D tasveeron ke saath. Saath mein 2 free bonus: contractor ke saath Agreement Templates aur site par kaam ki Construction Checklist.",
+      "price": 1999,
+      "mrp": 10000,
+      "badge": "7 books + 2 bonus",
+      "level": "All levels",
+      "sort_order": 8,
+      "highlights": [
+        {
+          "title": "7",
+          "text": "Books"
+        },
+        {
+          "title": "3D",
+          "text": "Visual guides"
+        },
+        {
+          "title": "2",
+          "text": "Free bonus files"
+        },
+        {
+          "title": "2",
+          "text": "Languages"
+        }
+      ],
+      "learn": [
+        "Neev aur RCC — sariya aur concrete sahi laga ya nahi, khud check karein",
+        "Eent, plaster aur waterproofing ki baariki",
+        "Plumbing aur bijli ki line — deewar mein jaane se pehle jaanch",
+        "Tiles, elevation aur paint ka sahi kaam",
+        "Contractor ke saath likhit agreement aur sahi payment",
+        "Site par kaam ki checklist — har step par tick karein"
+      ],
+      "chapters": [],
+      "inside": [
+        {
+          "title": "Neev aur RCC",
+          "text": "Plinth, column, beam, slab aur seedhi — sariya kahan aur kitna, concrete kaisa"
+        },
+        {
+          "title": "Eent, Plaster aur Waterproofing",
+          "text": "Eent chunne se terrace waterproofing tak — har step 3D tasveer mein"
+        },
+        {
+          "title": "Plumbing aur Pani ki Line",
+          "text": "Tanki se nal tak, naali se chamber tak — pipe, fitting aur pressure test"
+        },
+        {
+          "title": "Electrical aur False Ceiling",
+          "text": "Layout se switch tak, DB se earthing tak, aur upar false ceiling"
+        },
+        {
+          "title": "Tiles aur Flooring",
+          "text": "Farsh ki taiyari se grout tak — seedhi, samtal, bina khokhlepan ke tiles"
+        },
+        {
+          "title": "Elevation aur Paint",
+          "text": "Ghar ka bahari roop aur har deewar ka rang — taiyari ke saath"
+        },
+        {
+          "title": "Agreement aur Payment",
+          "text": "Contractor chunne se handover tak — likhit agreement, sahi naap, sahi samay par payment"
+        }
+      ],
+      "editions": [],
+      "bundle_items": [
+        "ghar-01-neev-rcc",
+        "ghar-02-eent-plaster",
+        "ghar-03-plumbing",
+        "ghar-04-electrical",
+        "ghar-05-tiles",
+        "ghar-06-elevation-paint",
+        "ghar-07-agreement"
+      ],
+      "access_days": null,
+      "bonus": [
+        {
+          "title": "Agreement Templates (Hindi + English)",
+          "text": "Contractor ke saath likhit agreement ke 2 templates — rate, schedule aur payment ke saath",
+          "file": "ghar-banao-sahi/agreement-templates-hi-en.pdf"
+        },
+        {
+          "title": "Construction Checklist (Hindi + English)",
+          "text": "Site par har kaam ki jaanch ki list — niv se finishing tak",
+          "file": "ghar-banao-sahi/construction-checklist-hi-en.pdf"
+        }
+      ]
+    },
+    {
+      "slug": "recycling-pack",
+      "type": "bundle",
+      "category": "bundle",
+      "accent": "#97702F",
+      "title": "Recycling Business Pack",
+      "subtitle": "Tamba, battery aur imaarati malba — 3 recycling business, 3 project reports",
+      "description": "3 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹4,497 — is pack mein ₹2,999.",
+      "price": 2999,
+      "badge": "Recycling",
+      "level": "All levels",
+      "sort_order": 16,
+      "highlights": [
+        {
+          "title": "3",
+          "text": "Books"
+        },
+        {
+          "title": "33%",
+          "text": "Bachat"
+        },
+        {
+          "title": "3",
+          "text": "Project reports"
+        },
+        {
+          "title": "Lifetime",
+          "text": "Access"
+        }
+      ],
+      "learn": [
+        "Tambe ke tar aur kabaad ka business",
+        "Purani battery ka collection aur authorised recycler",
+        "Imaarati malbe se ret, gitti aur paver block",
+        "Teeno ke saath project report Excel — lagat, munafa, loan, break-even"
+      ],
+      "chapters": [],
+      "editions": [],
+      "bundle_items": [
+        "copper-scrap-recycling",
+        "battery-recycling",
+        "building-waste-recycling"
       ],
       "access_days": null
     }

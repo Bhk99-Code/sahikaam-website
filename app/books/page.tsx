@@ -1,13 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getProducts, bundleCovers } from "@/lib/data";
+import { getProducts, bundleCovers, ALL_ACCESS_COUNT } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
 import { Icon } from "@/components/Icon";
 import { CATEGORY } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "All business ebooks in Hindi & English — 43 books, 500+ ideas",
+  title: `All business ebooks in Hindi & English — ${ALL_ACCESS_COUNT} books, 500+ ideas`,
   description: "SahiKaam (Sahi Kaam) ki saari business books: manufacturing, contractor, government tender, GeM, solar, EV, food, agro, PMEGP loan, franchise, online aur AI — Hindi aur English mein, step-by-step roadmap ke saath.",
   alternates: { canonical: "/books" },
 };

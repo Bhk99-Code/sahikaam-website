@@ -4,13 +4,13 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
 import { OfferBar } from "@/components/OfferBar";
-import { getUser } from "@/lib/data";
+import { getUser, ALL_ACCESS_COUNT } from "@/lib/data";
 import { SITE_URL, SUPPORT_EMAIL } from "@/lib/env";
 import { BUSINESS } from "@/lib/business";
 import { JsonLd } from "@/components/JsonLd";
 import { WhatsAppFloat } from "@/components/SocialLinks";
 
-const DESCRIPTION = "SahiKaam (Sahi Kaam) — 43 business books, 500+ business ideas in Hindi and English: manufacturing, contractor, government tender, solar, food, agro, PMEGP loan and more, with real Indian numbers and a step-by-step roadmap.";
+const DESCRIPTION = `SahiKaam (Sahi Kaam) — ${ALL_ACCESS_COUNT} business books, 500+ business ideas in Hindi and English: manufacturing, contractor, government tender, solar, food, agro, PMEGP loan and more, with real Indian numbers and a step-by-step roadmap.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   applicationName: "SahiKaam",
   keywords: ["SahiKaam", "Sahi Kaam", "sahikaam.com", "business ideas in Hindi", "business books Hindi", "manufacturing business ideas", "contractor kaise bane", "government tender kaise bhare", "PMEGP loan", "solar business", "food processing business", "andha paisa", "small business ideas India"],
   alternates: { canonical: "/" },
-  openGraph: { siteName: "SahiKaam", locale: "en_IN", type: "website", url: "/", title: "SahiKaam (Sahi Kaam) — 43 business books in Hindi & English", description: DESCRIPTION, images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "SahiKaam — business books in Hindi and English" }] },
-  twitter: { card: "summary_large_image", title: "SahiKaam (Sahi Kaam) — 43 business books in Hindi & English", description: DESCRIPTION, images: ["/og.jpg"] },
+  openGraph: { siteName: "SahiKaam", locale: "en_IN", type: "website", url: "/", title: `SahiKaam (Sahi Kaam) — ${ALL_ACCESS_COUNT} business books in Hindi & English`, description: DESCRIPTION, images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "SahiKaam — business books in Hindi and English" }] },
+  twitter: { card: "summary_large_image", title: `SahiKaam (Sahi Kaam) — ${ALL_ACCESS_COUNT} business books in Hindi & English`, description: DESCRIPTION, images: ["/og.jpg"] },
   // Search Console / Bing Webmaster codes come from env vars, so they can be added without a code change
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,

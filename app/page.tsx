@@ -57,7 +57,7 @@ export default async function Home() {
   const totalPages = titles.reduce((n, b) => n + (b.pages ?? 0), 0);
   const series = products.find((p) => p.slug === "problem-solve-karo-paisa-kamao");
   // Every bundle except the All Access pass, which has its own banner
-  const packs = products.filter((p) => p.type === "bundle" && !p.access_days).slice(0, 8);
+  const packs = products.filter((p) => p.type === "bundle" && !p.access_days).slice(0, 12);
   const searchItems = buildSearch(products, series ?? null);
   const slides = buildSlides(allAccess ?? null, series ?? null, titles.length);
   const cats = Object.entries(CATEGORY)
@@ -77,7 +77,7 @@ export default async function Home() {
             <span>
               <span className="eyebrow text-saffron-300">All Access Pass · {accessLabel(getPlans(allAccess)[0].access_days)}</span>
               <span className="mt-2 block font-display text-[24px] font-extrabold leading-tight text-cream sm:text-[30px]">Saari {titles.length} books, ek pass mein — <span className="text-gradient">{rupees(getPlans(allAccess)[0].price)}</span></span>
-              <span className="mt-1 block text-[15px] text-cream-2">Hindi + English · 500+ business ideas · 9 Excel tools · nayi books bhi free</span>
+              <span className="mt-1 block text-[15px] text-cream-2">Hindi + English · 500+ business ideas · 12 Excel tools · nayi books bhi free</span>
             </span>
             <span className="btn-primary h-14 shrink-0 px-8 text-[16px]">Pass lo <Icon name="arrow" size={18} strokeWidth={2.2} className="transition group-hover:translate-x-1" /></span>
           </Link>
@@ -406,7 +406,7 @@ function buildSlides(allAccess: Product | null, series: Product | null, count: n
   };
   if (allAccess) {
     const plan = getPlans(allAccess)[0];
-    slides.push({ eyebrow: "All Access Pass", title: `Saari ${count} books, ek pass mein`, sub: `Hindi + English, 500+ business ideas, 9 Excel tools — aur saal bhar mein aane wali nayi books bhi free. ${accessLabel(plan.access_days)}.`,
+    slides.push({ eyebrow: "All Access Pass", title: `Saari ${count} books, ek pass mein`, sub: `Hindi + English, 500+ business ideas, 12 Excel tools — aur saal bhar mein aane wali nayi books bhi free. ${accessLabel(plan.access_days)}.`,
       price: rupees(plan.price), mrp: plan.mrp ? rupees(plan.mrp) : undefined, href: "/book/all-access", cta: "Pass lo",
       images: ["fly-ash-bricks", "legal-business-andha-paisa", "manufacturing-50", "contractor-bano", "solar-business"]
         .map((x) => findProduct(x)?.gallery[0]).filter(Boolean) as string[] });
