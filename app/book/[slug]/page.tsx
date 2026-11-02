@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getProduct, getUser, ownsProduct, bundleCovers, findProduct, getPlans } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
 import { BookGallery } from "@/components/BookGallery";
+import { InsideInfographic } from "@/components/InsideInfographic";
 import { Icon } from "@/components/Icon";
 import { accessLabel, CATEGORY, percentOff, rupees, TYPE_LABEL } from "@/lib/format";
 import type { Product } from "@/lib/types";
@@ -120,6 +121,16 @@ export default async function BookPage({ params }: { params: { slug: string } })
         </div>
       </section>
 
+      {product.inside.length > 0 && (
+        <section className="container-x pt-14">
+          <InsideInfographic items={product.inside} title={product.title.replace(/ — with Project Report$/, "")}
+            visual={product.gallery[0] ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={product.gallery[0]} alt="" className="w-full drop-shadow-[0_18px_22px_rgba(15,15,17,0.3)]" />
+            ) : <BookCover product={product} covers={covers} />} />
+        </section>
+      )}
+
       <div className="container-x grid gap-10 py-12 lg:grid-cols-[1fr_340px]">
         <div className="flex flex-col gap-12">
           {product.highlights.length > 0 && (
@@ -131,23 +142,6 @@ export default async function BookPage({ params }: { params: { slug: string } })
                 </div>
               ))}
             </div>
-          )}
-
-          {product.inside.length > 0 && (
-            <section>
-              <h2 className="font-display text-[26px] font-extrabold text-cream">What&apos;s inside</h2>
-              <ol className="mt-5 grid gap-3 md:grid-cols-2">
-                {product.inside.map((x, i) => (
-                  <li key={x.title} className="card flex gap-4 p-5">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-gradient font-display text-[15px] font-extrabold text-white">{i + 1}</span>
-                    <span>
-                      <span className="block font-display text-[17px] font-bold leading-snug text-cream">{x.title}</span>
-                      <span className="mt-1 block text-[15px] leading-relaxed text-cream-2">{x.text}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </section>
           )}
 
           {product.learn.length > 0 && (
