@@ -9,12 +9,12 @@ import { isRazorpayConfigured } from "@/lib/env";
 
 export async function POST(req: Request) {
   const user = await getUser();
-  if (!user) return NextResponse.json({ error: "Pehle login karein" }, { status: 401 });
+  if (!user) return NextResponse.json({ error: "Please sign in first" }, { status: 401 });
 
   const { slug, coupon } = await req.json().catch(() => ({}));
   const product = await getProduct(String(slug || ""));
-  if (!product) return NextResponse.json({ error: "Product nahi mila" }, { status: 404 });
-  if (await ownsProduct(user.id, product.slug)) return NextResponse.json({ error: "Ye aapki Library mein pehle se hai" }, { status: 409 });
+  if (!product) return NextResponse.json({ error: "Product not found" }, { status: 404 });
+  if (await ownsProduct(user.id, product.slug)) return NextResponse.json({ error: "This is already in your library" }, { status: 409 });
 
   const price = await priceWithCoupon(product, coupon);
   if (!price.ok) return NextResponse.json({ error: price.error }, { status: 400 });
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ free: true });
   }
 
-  if (!isRazorpayConfigured) return NextResponse.json({ error: "Online payment jald shuru hoga. Abhi WhatsApp/email par sampark karein." }, { status: 503 });
+  if (!isRazorpayConfigured) return NextResponse.json({ error: "Online payment will start soon. For now, please contact us on WhatsApp or email." }, { status: 503 });
 
   // Reuse a recent unpaid order for the same product and price instead of creating duplicates
   const recent = await one<{ razorpay_order_id: string }>(
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     rzpOrder = await createRazorpayOrder(price.amount, id.slice(0, 36), { product: product.slug, user_id: user.id });
   } catch (e) {
     console.error(e);
-    return NextResponse.json({ error: "Payment gateway se connect nahi ho paya. Thodi der baad try karein." }, { status: 502 });
+    return NextResponse.json({ error: "Could not connect to the payment gateway. Please try again in a moment." }, { status: 502 });
   }
   await run("INSERT INTO orders (id, user_id, product_slug, amount, coupon_code, razorpay_order_id, status, created_at) VALUES (?, ?, ?, ?, ?, ?, 'created', ?)",
     [id, user.id, product.slug, price.amount, price.coupon, rzpOrder.id, now]);

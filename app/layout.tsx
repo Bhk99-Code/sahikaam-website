@@ -14,10 +14,10 @@ const DESCRIPTION = `SahiKaam (Sahi Kaam) — ${ALL_ACCESS_COUNT} business books
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "SahiKaam (Sahi Kaam) — Business books in Hindi & English | Andha paisa kamane ke legal tareeke", template: "%s | SahiKaam" },
+  title: { default: "SahiKaam (Sahi Kaam) — Business ebooks in Hindi & English | Ideas, numbers and roadmaps", template: "%s | SahiKaam" },
   description: DESCRIPTION,
   applicationName: "SahiKaam",
-  keywords: ["SahiKaam", "Sahi Kaam", "sahikaam.com", "business ideas in Hindi", "business books Hindi", "manufacturing business ideas", "contractor kaise bane", "government tender kaise bhare", "PMEGP loan", "solar business", "food processing business", "andha paisa", "small business ideas India"],
+  keywords: ["SahiKaam", "Sahi Kaam", "sahikaam.com", "business ideas in Hindi", "business books Hindi", "manufacturing business ideas", "how to become a contractor", "how to win government tenders", "PMEGP loan", "solar business", "food processing business", "small business ideas India"],
   alternates: { canonical: "/" },
   openGraph: { siteName: "SahiKaam", locale: "en_IN", type: "website", url: "/", title: `SahiKaam (Sahi Kaam) — ${ALL_ACCESS_COUNT} business books in Hindi & English`, description: DESCRIPTION, images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "SahiKaam — business books in Hindi and English" }] },
   twitter: { card: "summary_large_image", title: `SahiKaam (Sahi Kaam) — ${ALL_ACCESS_COUNT} business books in Hindi & English`, description: DESCRIPTION, images: ["/og.jpg"] },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } : undefined,
   },
 };
-export const viewport: Viewport = { themeColor: "#142338", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#F4F4F1", width: "device-width", initialScale: 1 };
 
 // Who we are, for Google's knowledge panel and the sitelinks search box
 const ORG = {
@@ -53,7 +53,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Noto+Serif+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..800&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
         <JsonLd data={ORG} />
       </head>
       <body className="font-sans antialiased">

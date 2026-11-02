@@ -9,7 +9,7 @@ export { getUser } from "./auth";
  * Products live in content/products.json (edit that file to add a book or change a price).
  * Each product's id is its slug.
  */
-const THEME_ACCENT = "#97702F";
+const THEME_ACCENT = "#FF6A3D";
 
 const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => {
   const editions: Edition[] = p.editions ?? [];

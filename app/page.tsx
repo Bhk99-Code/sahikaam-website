@@ -7,7 +7,6 @@ import { Icon } from "@/components/Icon";
 import { accessLabel, CATEGORY, rupees } from "@/lib/format";
 import type { Product } from "@/lib/types";
 import { HeroSearch, type SearchItem } from "@/components/HeroSearch";
-import { TopCarousel, type Slide } from "@/components/TopCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -59,34 +58,108 @@ export default async function Home() {
   // Every bundle except the All Access pass, which has its own banner
   const packs = products.filter((p) => p.type === "bundle" && !p.access_days).slice(0, 12);
   const searchItems = buildSearch(products, series ?? null);
-  const slides = buildSlides(allAccess ?? null, series ?? null, titles.length);
+  const passPrice = allAccess ? rupees(getPlans(allAccess)[0].price) : "";
+  const hero = ["manufacturing-50", "contractor-bano", "fly-ash-bricks"].map((s) => findProduct(s)?.gallery[0]).filter(Boolean) as string[];
   const cats = Object.entries(CATEGORY)
     .filter(([k]) => k !== "bundle")
     .map(([k, c]) => ({ key: k, ...c, count: titles.filter((t) => t.category === k && t.is_published).length }))
     .filter((c) => c.count > 0);
+  const stats: [string, string][] = [[String(titles.length), "Ebooks"], ["500+", "Business ideas"], [`${(Math.floor(totalPages / 100) * 100).toLocaleString("en-IN")}+`, "Pages"], ["12", "Excel tools"], ["2", "Languages"]];
 
   return (
     <div className="overflow-x-hidden">
-      {/* Featured slider: All Access first, then the strongest books */}
-      <TopCarousel slides={slides} />
+      {/* Hero */}
+      <section className="relative">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-[radial-gradient(60%_60%_at_78%_20%,rgba(255,106,61,0.16),transparent_70%),radial-gradient(40%_50%_at_10%_0%,rgba(255,255,255,0.9),transparent_70%)]" />
+        <div className="container-x relative grid items-center gap-10 pb-10 pt-8 lg:grid-cols-[1.08fr_1fr] lg:gap-6 lg:pb-16 lg:pt-14">
+          <div className="flex flex-col items-start gap-6">
+            <Link href="/books" className="inline-flex items-center gap-2 rounded-full bg-night-2 py-1.5 pl-1.5 pr-4 text-[13px] font-medium text-cream shadow-card transition hover:shadow-lift">
+              <span className="tag-new">New</span> Livestock, recycling and home-building guides <Icon name="chevron" size={15} className="text-fog" />
+            </Link>
+            <h1 className="font-display text-[40px] font-extrabold leading-[1.02] text-cream min-[400px]:text-[46px] sm:text-[60px] lg:text-[68px]">
+              Find the business you can start.<br />
+              <span className="text-gradient">Then build it right.</span>
+            </h1>
+            <p className="max-w-xl text-[17px] leading-relaxed text-cream-2 sm:text-[18px]">
+              {titles.length} ebooks and 500+ business ideas in Hindi and English — with the investment, licences, loans and 5-year numbers behind every idea.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <Link href="/books" className="btn-primary h-14 w-full px-8 text-[16px] sm:w-auto">Browse all ebooks <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
+              {allAccess && <Link href="/book/all-access" className="btn-ghost h-14 w-full px-7 text-[16px] sm:w-auto">All Access · {passPrice}</Link>}
+            </div>
+            <ul className="grid gap-2.5 text-[14.5px] font-medium text-cream-2">
+              {["Project reports with Excel tools", "Real Indian numbers, not theory", "Read on any phone — no app needed"].map((x) => (
+                <li key={x} className="flex items-center gap-2.5"><Icon name="check" size={17} strokeWidth={2.6} className="text-[#E8451A]" />{x}</li>
+              ))}
+            </ul>
+            <div className="w-full pt-1"><HeroSearch items={searchItems} /></div>
+          </div>
 
-      {/* All Access: always visible right under the slider */}
+          {/* Right: floating books and fact cards */}
+          <div className="relative mx-auto h-[360px] w-full max-w-[540px] sm:h-[480px]" aria-hidden="true">
+            <div className="absolute inset-x-[8%] bottom-[6%] top-[14%] rounded-[36px] bg-gradient-to-br from-white to-night-4 shadow-card ring-1 ring-ink/[0.04]" />
+            {hero[1] && /* eslint-disable-next-line @next/next/no-img-element */ <img src={hero[1]} alt="" className="absolute bottom-[8%] left-[-2%] w-[40%] -rotate-6 drop-shadow-[0_24px_30px_rgba(15,15,17,0.28)]" />}
+            {hero[2] && /* eslint-disable-next-line @next/next/no-img-element */ <img src={hero[2]} alt="" className="absolute bottom-[10%] right-[-2%] w-[40%] rotate-6 drop-shadow-[0_24px_30px_rgba(15,15,17,0.28)]" />}
+            {hero[0] && /* eslint-disable-next-line @next/next/no-img-element */ <img src={hero[0]} alt="" className="absolute bottom-[12%] left-1/2 z-10 w-[52%] -translate-x-1/2 drop-shadow-[0_30px_40px_rgba(15,15,17,0.35)]" />}
+            <div className="absolute left-0 top-[4%] z-20 flex items-center gap-3 rounded-2xl bg-night-2 p-3 pr-5 shadow-lift sm:left-[-4%]">
+              <span className="icon-tile h-10 w-10"><Icon name="layers" size={19} strokeWidth={2} /></span>
+              <span><span className="block text-[13px] font-bold text-cream">Project report included</span><span className="block text-[11.5px] text-fog">5-year P&amp;L · loan &amp; DSCR</span></span>
+            </div>
+            <div className="absolute right-0 top-[18%] z-20 flex items-center gap-3 rounded-2xl bg-night-2 p-3 pr-5 shadow-lift sm:right-[-3%]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-saffron-500 font-display text-[13px] font-bold text-white">35%</span>
+              <span><span className="block text-[13px] font-bold text-cream">Subsidy explained</span><span className="block text-[11.5px] text-fog">PMEGP, step by step</span></span>
+            </div>
+            <div className="absolute bottom-[1%] right-[6%] z-20 flex items-center gap-2 rounded-full bg-night-2 py-2 pl-2 pr-4 shadow-lift">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1FA855] text-white"><Icon name="globe" size={14} strokeWidth={2.2} /></span>
+              <span className="text-[12.5px] font-semibold text-cream">Hindi + English</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Numbers */}
+      <section className="container-x">
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-[24px] bg-ink/[0.06] shadow-card sm:grid-cols-5">
+          {stats.map(([v, k], i) => (
+            <div key={k} className={`bg-night-2 px-5 py-5 text-center ${i === stats.length - 1 ? "col-span-2 sm:col-span-1" : ""}`}>
+              <dd className="font-display text-[30px] font-extrabold leading-none text-cream sm:text-[34px]">{v}</dd>
+              <dt className="mt-1.5 text-[12.5px] font-medium text-fog">{k}</dt>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      {reading && (
+        <section className="container-x pt-8">
+          <Link href={`/read/${reading.product.slug}`} className="card flex items-center gap-4 p-4 transition hover:shadow-lift">
+            <BookCover product={reading.product} size="sm" />
+            <div className="flex flex-1 flex-col gap-1">
+              <span className="eyebrow">Continue reading</span>
+              <span className="font-semibold text-cream">{reading.product.title}</span>
+            </div>
+            <Icon name="chevron" className="text-fog" />
+          </Link>
+        </section>
+      )}
+
+      {/* All Access banner */}
       {allAccess && (
         <section className="container-x pt-8">
-          <Link href="/book/all-access" className="on-navy group flex flex-col items-start gap-4 rounded-card bg-night p-6 shadow-lift sm:flex-row sm:items-center sm:justify-between sm:p-7">
-            <span>
-              <span className="eyebrow text-saffron-300">All Access Pass · {accessLabel(getPlans(allAccess)[0].access_days)}</span>
-              <span className="mt-2 block font-display text-[24px] font-extrabold leading-tight text-cream sm:text-[30px]">Saari {titles.length} books, ek pass mein — <span className="text-gradient">{rupees(getPlans(allAccess)[0].price)}</span></span>
-              <span className="mt-1 block text-[15px] text-cream-2">Hindi + English · 500+ business ideas · 12 Excel tools · nayi books bhi free</span>
+          <Link href="/book/all-access" className="on-navy group relative flex flex-col items-start gap-5 overflow-hidden rounded-[28px] bg-night p-7 shadow-lift sm:flex-row sm:items-center sm:justify-between sm:p-9">
+            <div aria-hidden="true" className="absolute -right-16 -top-24 h-72 w-72 rounded-full bg-[#FF4F1F]/30 blur-3xl" />
+            <span className="relative">
+              <span className="eyebrow !text-[#FF8A5E]">All Access Pass · {accessLabel(getPlans(allAccess)[0].access_days)}</span>
+              <span className="mt-3 block font-display text-[28px] font-extrabold leading-[1.05] text-cream sm:text-[38px]">All {titles.length} ebooks, one pass — <span className="text-gradient">{passPrice}</span></span>
+              <span className="mt-2 block text-[15px] text-cream-2">Hindi + English · 500+ business ideas · 12 Excel tools · new books included</span>
             </span>
-            <span className="btn-primary h-14 shrink-0 px-8 text-[16px]">Pass lo <Icon name="arrow" size={18} strokeWidth={2.2} className="transition group-hover:translate-x-1" /></span>
+            <span className="btn-primary relative h-14 shrink-0 px-8 text-[16px]">Get the pass <Icon name="arrow" size={18} strokeWidth={2.2} className="transition group-hover:translate-x-1" /></span>
           </Link>
         </section>
       )}
 
       {/* Bestsellers: single books only */}
-      <section className="container-x pt-12">
-        <SectionTitle eyebrow="Sabse zyada pasand ki gayi" title="Bestselling books" href="/books" linkText="Saari books" />
+      <section className="container-x pt-16">
+        <SectionTitle eyebrow="Most loved" title="Bestselling ebooks" href="/books" linkText="All ebooks" />
         <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-4">
           {books.slice(0, 8).map((p, i) => (
             <ProductCard key={p.id} product={p} rank={i + 1} />
@@ -96,8 +169,8 @@ export default async function Home() {
 
       {/* Themed bundles */}
       {packs.length > 0 && (
-        <section className="container-x pt-14">
-          <SectionTitle eyebrow="Saath lo, zyada bachao" title="Topic wale bundles — ek line ki saari books" href="/books?cat=bundle" linkText="Saare bundles" />
+        <section className="container-x pt-16">
+          <SectionTitle eyebrow="Buy together, save more" title="Bundles by topic — every book in one line" href="/books?cat=bundle" linkText="All bundles" />
           <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-4">
             {packs.map((p) => (
               <ProductCard key={p.id} product={p} covers={bundleCovers(p)} />
@@ -106,88 +179,57 @@ export default async function Home() {
         </section>
       )}
 
-      {/* "You are lucky" — the decision is the visitor's */}
-      <section className="on-navy mt-14 bg-night">
-        <div className="container-x flex flex-col items-center gap-5 py-14 text-center">
-          <span className="chip">Ek minute rukiye</span>
-          <h2 className="max-w-3xl font-display text-[30px] font-extrabold leading-tight md:text-[44px]">
-            Aap <span className="text-gradient">bhagyashali</span> hain — kyunki aap business karna chahte hain.
+      {/* "You are lucky": the decision is the visitor's */}
+      <section className="on-navy relative mt-16 overflow-hidden bg-night">
+        <div aria-hidden="true" className="absolute left-1/2 top-0 h-64 w-[700px] -translate-x-1/2 rounded-full bg-[#FF4F1F]/20 blur-[100px]" />
+        <div className="container-x relative flex flex-col items-center gap-5 py-16 text-center">
+          <span className="chip !bg-white/10 !text-white !shadow-none">One minute before you scroll</span>
+          <h2 className="max-w-3xl font-display text-[34px] font-extrabold leading-[1.05] sm:text-[48px]">
+            You&apos;re <span className="serif-accent text-gradient text-[1.1em]">lucky</span> — because you want to build a business.
           </h2>
           <p className="max-w-2xl text-[17px] leading-relaxed text-cream-2 md:text-[19px]">
-            Zyadatar log zindagi bhar sirf sochte reh jaate hain. Aapke saamne {titles.length} books, 500+ business ideas aur har ek ka step-by-step roadmap hai — kitna paisa lagega, kahan se shuru karein aur kaise badhayein.
+            Most people spend their whole lives only thinking about it. In front of you: {titles.length} ebooks, 500+ business ideas and a step-by-step roadmap for each — what it costs, where to start and how to grow.
           </p>
           <p className="max-w-2xl text-[15px] italic text-fog">
-            Agar aap business nahi karna chahte, to bina kuch khareede — aur bina apna dhandha shuru kiye — yahan se ja sakte hain. Faisla aapka hai.
+            If you don&apos;t want to build a business, you can leave without buying anything. The decision is yours.
           </p>
           <div className="mt-2 flex flex-wrap justify-center gap-3">
-            <Link href="/books" className="btn-primary h-14 px-8 text-[16px]">Haan, main business karna chahta hoon <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
-            {allAccess && <Link href="/book/all-access" className="btn-ghost h-14 px-7 text-[16px]">Saari books · {rupees(getPlans(allAccess)[0].price)}</Link>}
+            <Link href="/books" className="btn-primary h-14 px-8 text-[16px]">Yes, I want to start a business <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
+            {allAccess && <Link href="/book/all-access" className="btn-ghost h-14 px-7 text-[16px]">All ebooks · {passPrice}</Link>}
           </div>
         </div>
       </section>
 
-      {/* Headline, search and the numbers */}
-      <section className="relative border-b border-ink/[0.07]">
-        <div className="container-x flex flex-col items-center gap-6 py-12 text-center sm:py-16">
-          <span className="chip"><Icon name="sparkle" size={14} className="text-sun" /> Hindi + English · har book mein dono</span>
-          <h1 className="max-w-4xl font-display text-[30px] font-extrabold leading-[1.15] tracking-tight min-[380px]:text-[34px] sm:text-[44px] lg:text-[50px]">
-            <span className="text-gradient">Andha paisa</span> kamane ke legal tareeke — dhoondh-dhoondh ke laaye hain.
-          </h1>
-          <p className="max-w-2xl text-[17px] leading-relaxed text-cream-2 md:text-[19px]">
-            {titles.length} books, 500+ asli business ideas. Kitna paisa lagega, kahan se shuru karein, kaise kamayein aur business ko agle level tak kaise le jaayein — sab step by step.
-          </p>
-          <div className="flex w-full justify-center text-left"><HeroSearch items={searchItems} /></div>
-          <dl className="grid w-full max-w-2xl grid-cols-4 divide-x divide-ink/10 rounded-2xl border border-ink/10 bg-night-2 py-4 shadow-lift">
-            {[[String(titles.length), "Books"], ["500+", "Business ideas"], [`${(Math.floor(totalPages / 100) * 100).toLocaleString("en-IN")}+`, "Pages"], ["2", "Languages"]].map(([v, k]) => (
-              <div key={k}><dt className="sr-only">{k}</dt><dd className="font-display text-[24px] font-extrabold text-saffron-400 sm:text-[30px]">{v}</dd><dd className="text-[12px] text-fog sm:text-[13px]">{k}</dd></div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {reading && (
-        <section className="container-x">
-          <Link href={`/read/${reading.product.slug}`} className="card flex items-center gap-4 p-4 hover:border-ink/20">
-            <BookCover product={reading.product} size="sm" />
-            <div className="flex flex-1 flex-col gap-1">
-              <span className="eyebrow">Continue reading</span>
-              <span className="font-bold text-cream">{reading.product.title}</span>
-            </div>
-            <Icon name="chevron" className="text-fog" />
-          </Link>
-        </section>
-      )}
-
-
       {/* Start is easy, growth is the real work */}
-      <section className="container-x pt-14">
-        <SectionTitle eyebrow="Shuru karna aasaan hai. Badhana asli kaam hai." title="Business shuru sab karte hain — hum sikhate hain use bada kaise karein" />
+      <section className="container-x pt-16">
+        <SectionTitle eyebrow="Starting is easy. Growing is the real work." title="Everyone starts a business. We teach you to grow it." />
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            ["Sahi idea chuno", "Aapke budget ke hisaab se — kitna lagega, kitna kamaoge, pehle hi pata."],
-            ["Pehle customer lao", "Pehle 10, phir 100 customer kahan se aur kaise milenge."],
-            ["Agle level tak le jao", "Team, system, doosri branch, naya shehar — chhoti dukaan se bada brand."],
-            ["Munafa maximum karo", "Sahi daam, kam kharcha, baar-baar aane wale customer, loan aur subsidy."],
-          ].map(([t, d], i) => (
-            <li key={t} className="card p-6">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-gradient font-display text-[18px] font-extrabold text-white">{i + 1}</span>
-              <p className="mt-4 font-display text-[20px] font-bold text-cream">{t}</p>
-              <p className="mt-2 text-[15px] leading-relaxed text-fog">{d}</p>
+            ["search", "Pick the right idea", "Matched to your budget — what it costs and what it can earn, before you begin."],
+            ["tag", "Get your first customers", "Where the first 10, then the first 100 customers come from."],
+            ["layers", "Take it to the next level", "Team, systems, a second branch, a new city — from a small shop to a bigger brand."],
+            ["coins", "Maximise your profit", "Right pricing, lower costs, repeat customers, loans and subsidies."],
+          ].map(([icon, t, d], i) => (
+            <li key={t} className="card relative overflow-hidden p-6">
+              <span aria-hidden="true" className="absolute right-5 top-3 select-none font-display text-[64px] font-extrabold leading-none text-[#FF4F1F] [text-shadow:2px_2px_0_#B8330F,4px_4px_0_rgba(15,15,17,0.12)]">{i + 1}</span>
+              <span className="icon-tile"><Icon name={icon} size={20} strokeWidth={2} /></span>
+              <p className="mt-5 font-display text-[21px] font-bold leading-tight text-cream">{t}</p>
+              <p className="mt-2 text-[14.5px] leading-relaxed text-fog">{d}</p>
             </li>
           ))}
         </ol>
-        <p className="mt-5 text-[15px] text-cream-2">Har book mein: shuru karne se lekar badhane tak ka poora raasta — asli numbers ke saath.</p>
+        <p className="mt-6 flex items-center gap-3 text-[15px] text-cream-2"><span className="hairline" />Every book covers the whole road — from starting to growing — with real numbers.</p>
       </section>
 
       {/* Browse by category */}
-      <section className="container-x pt-14">
-        <SectionTitle eyebrow="Apni line chuno" title="Har tarah ke business ke liye book" href="/books" />
+      <section className="container-x pt-16">
+        <SectionTitle eyebrow="Choose your line" title="A book for every kind of business" href="/books" linkText="All ebooks" />
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {cats.map((c) => (
-            <Link key={c.key} href={`/books?cat=${c.key}`} className="card group flex flex-col gap-1 p-5 transition hover:-translate-y-0.5 hover:border-saffron-400/40">
+            <Link key={c.key} href={`/books?cat=${c.key}`} className="card group flex flex-col gap-1 p-5 transition hover:-translate-y-0.5 hover:shadow-lift">
               <span className="font-display text-[18px] font-bold leading-snug text-cream">{c.label}</span>
               <span className="text-[13px] leading-snug text-fog">{c.blurb}</span>
-              <span className="mt-2 text-[13px] font-bold text-saffron-400">{c.count} {c.count === 1 ? "book" : "books"} →</span>
+              <span className="mt-3 text-[13px] font-semibold text-[#E8451A]">{c.count} {c.count === 1 ? "ebook" : "ebooks"} →</span>
             </Link>
           ))}
         </div>
@@ -197,24 +239,19 @@ export default async function Home() {
       {series && <SeriesBand series={series} />}
 
       {/* Pick your path */}
-      <section className="container-x py-14">
+      <section className="container-x py-16">
         <SectionTitle eyebrow="Not sure where to start?" title="Pick the line that sounds like you" />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {PATHS.map((p) => {
             const b = findProduct(p.slug);
             if (!b?.is_published) return null;
-            const cat = CATEGORY[b.category];
             return (
-              <Link key={p.slug} href={`/book/${b.slug}`}
-                className="group relative overflow-hidden rounded-card border border-ink/[0.08] bg-night-2 p-6 transition hover:-translate-y-1"
-                style={{ boxShadow: `inset 0 1px 0 ${cat.color}55` }}>
-                <div aria-hidden="true" className="absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-25 blur-3xl transition group-hover:opacity-40" style={{ background: cat.color }} />
-                <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl" style={{ background: `${cat.color}22`, color: cat.color }}>
-                  <Icon name={p.icon} size={24} strokeWidth={2} />
-                </span>
-                <p className="relative mt-5 font-display text-[20px] font-bold leading-snug text-cream">&ldquo;{p.q}&rdquo;</p>
-                <p className="relative mt-4 text-[14px] text-fog">Read <b className="text-cream">{b.title}</b></p>
-                <p className="relative mt-4 flex items-center gap-2 text-[14px] font-bold" style={{ color: cat.color }}>
+              <Link key={p.slug} href={`/book/${b.slug}`} className="card group relative overflow-hidden p-6 transition hover:-translate-y-1 hover:shadow-lift">
+                <div aria-hidden="true" className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[#FF4F1F] opacity-10 blur-3xl transition group-hover:opacity-25" />
+                <span className="icon-tile relative h-12 w-12"><Icon name={p.icon} size={22} strokeWidth={2} /></span>
+                <p className="relative mt-5 font-display text-[21px] font-bold leading-snug text-cream">&ldquo;{p.q}&rdquo;</p>
+                <p className="relative mt-4 text-[14px] text-fog">Read <b className="font-semibold text-cream">{b.title}</b></p>
+                <p className="relative mt-4 flex items-center gap-2 text-[14px] font-semibold text-[#E8451A]">
                   {rupees(b.price)} <Icon name="arrow" size={16} strokeWidth={2.2} className="transition group-hover:translate-x-1" />
                 </p>
               </Link>
@@ -224,21 +261,20 @@ export default async function Home() {
       </section>
 
       {/* A look inside */}
-      <section className="py-6">
+      <section className="py-4">
         <div className="container-x">
-          <SectionTitle eyebrow="Andar ki ek jhalak" title="Theory nahi — asli hisaab, asli numbers" />
+          <SectionTitle eyebrow="A look inside" title="Not theory — real workings, real numbers" />
         </div>
-        <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-4 sm:scroll-px-[max(1.5rem,calc((100vw_-_72rem)/2_+_1.5rem))] sm:px-[max(1.5rem,calc((100vw_-_72rem)/2_+_1.5rem))]">
+        <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-6 sm:scroll-px-[max(1.5rem,calc((100vw_-_72rem)/2_+_1.5rem))] sm:px-[max(1.5rem,calc((100vw_-_72rem)/2_+_1.5rem))]">
           {SAMPLES.map((p) => (
             <Link key={p.img} href={`/book/${p.slug}`} className="group w-[220px] shrink-0 snap-start sm:w-[250px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.img} alt={`Sample page: ${p.label}`} loading="lazy" className="aspect-[420/595] w-full rounded-lg border border-ink/10 bg-white object-cover shadow-lift transition group-hover:-translate-y-1" />
+              <img src={p.img} alt={`Sample page: ${p.label}`} loading="lazy" className="aspect-[420/595] w-full rounded-xl bg-white object-cover shadow-card transition duration-300 group-hover:-translate-y-1 group-hover:shadow-lift" />
               <p className="mt-3 text-[14px] font-semibold leading-snug text-cream">{p.label}</p>
             </Link>
           ))}
         </div>
       </section>
-
 
       {/* All Access plan */}
       {allAccess && books.length > 0 && <PlanSection allAccess={allAccess} cheapest={Math.min(...books.map((b) => b.price))} covers={covers} />}
@@ -253,10 +289,10 @@ export default async function Home() {
             ["Start reading", "It's in your library instantly. Switch between Hindi and English anytime."],
           ].map(([t, d], i) => (
             <li key={t} className="card flex gap-4 p-6">
-              <span className="font-display text-[44px] font-extrabold leading-none text-gradient">{i + 1}</span>
+              <span className="font-display text-[48px] font-extrabold leading-none text-[#FF4F1F] [text-shadow:2px_2px_0_#B8330F]">{i + 1}</span>
               <div>
-                <p className="font-display text-[19px] font-bold text-cream">{t}</p>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-fog">{d}</p>
+                <p className="font-display text-[20px] font-bold text-cream">{t}</p>
+                <p className="mt-1.5 text-[14.5px] leading-relaxed text-fog">{d}</p>
               </div>
             </li>
           ))}
@@ -269,9 +305,9 @@ export default async function Home() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {WHY.map((w) => (
             <div key={w.title} className="card p-6">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-saffron-500/15 text-saffron-400"><Icon name={w.icon} strokeWidth={2} /></span>
-              <p className="mt-4 font-display text-[18px] font-bold text-cream">{w.title}</p>
-              <p className="mt-1.5 text-[14px] leading-relaxed text-fog">{w.text}</p>
+              <span className="icon-tile"><Icon name={w.icon} size={20} strokeWidth={2} /></span>
+              <p className="mt-4 font-display text-[19px] font-bold text-cream">{w.title}</p>
+              <p className="mt-1.5 text-[14.5px] leading-relaxed text-fog">{w.text}</p>
             </div>
           ))}
         </div>
@@ -295,10 +331,11 @@ export default async function Home() {
 
       {/* Final CTA */}
       <section className="container-x">
-        <div className="relative overflow-hidden rounded-[28px] bg-brand-gradient p-8 text-night md:p-14">
-          <h2 className="max-w-2xl font-display text-[32px] font-extrabold leading-tight md:text-[46px]">Aaj ek book. Kal apna dhandha.</h2>
-          <p className="mt-3 max-w-xl text-[16px] font-medium opacity-80">Bhagyashali wahi hai jo shuru karta hai. Hindi aur English, kisi bhi phone par, hamesha ke liye.</p>
-          <Link href="/books" className="btn mt-7 h-14 bg-night px-8 text-[16px] text-cream hover:bg-black">See all ebooks <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
+        <div className="on-navy relative overflow-hidden rounded-[32px] bg-night p-8 md:p-14">
+          <div aria-hidden="true" className="absolute -right-20 -top-28 h-96 w-96 rounded-full bg-[#FF4F1F]/35 blur-3xl" />
+          <h2 className="relative max-w-2xl font-display text-[36px] font-extrabold leading-[1.02] md:text-[56px]">One book today. <span className="serif-accent text-gradient text-[1.08em]">Your own business</span> tomorrow.</h2>
+          <p className="relative mt-4 max-w-xl text-[16px] text-cream-2">Luck favours the people who start. Hindi and English, on any phone, for good.</p>
+          <Link href="/books" className="btn-primary relative mt-8 h-14 px-8 text-[16px]">See all ebooks <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
         </div>
       </section>
     </div>
@@ -323,7 +360,7 @@ function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; chea
         </div>
         <div className="relative rounded-card bg-brand-gradient p-[1.5px]">
           <div className="relative flex h-full flex-col overflow-hidden rounded-[21px] bg-night-2 p-7">
-            <span className="absolute right-5 top-5 rounded-full bg-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-night">Most popular</span>
+            <span className="absolute right-5 top-5 rounded-full bg-[#FF4F1F] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">Most popular</span>
             <p className="eyebrow">All Access Pass</p>
             <p className="mt-3 flex items-baseline gap-3 font-display text-[44px] font-extrabold text-cream">
               {rupees(allAccess.price)}
@@ -368,8 +405,9 @@ function buildSearch(products: Product[], series: Product | null): SearchItem[] 
 function SeriesBand({ series }: { series: Product }) {
   const covers = series.bundle_items.slice(0, 5).map((s) => findProduct(s)?.gallery[0]).filter(Boolean) as string[];
   return (
-    <section className="on-navy mt-14 bg-night">
-      <div className="container-x grid items-center gap-10 py-14 lg:grid-cols-2">
+    <section className="on-navy relative mt-16 overflow-hidden bg-night">
+      <div aria-hidden="true" className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#FF4F1F]/20 blur-3xl" />
+      <div className="container-x relative grid items-center gap-10 py-16 lg:grid-cols-2">
         <div className="relative mx-auto h-[260px] w-full max-w-[520px] sm:h-[320px]">
           {covers.map((c, i) => (
             // eslint-disable-next-line @next/next/no-img-element
@@ -378,46 +416,19 @@ function SeriesBand({ series }: { series: Product }) {
           ))}
         </div>
         <div className="flex flex-col items-start gap-5">
-          <span className="chip">Full series · {series.bundle_items.length} books</span>
-          <h2 className="font-display text-[30px] font-extrabold leading-tight md:text-[42px]">
-            <span className="text-gradient">Chhoti problem, bada business.</span><br />Logon ki problem solve karo, paisa kamao.
+          <span className="chip !bg-white/10 !text-white !shadow-none">Full series · {series.bundle_items.length} books</span>
+          <h2 className="font-display text-[34px] font-extrabold leading-[1.04] md:text-[46px]">
+            <span className="text-gradient">Small problems, big businesses.</span><br />Solve people&apos;s problems, build a business.
           </h2>
           <p className="text-[17px] leading-relaxed text-cream-2">
-            Har book ek badi problem leti hai — time, paisa, sehat, padhai, bijli, kachra, transport — aur batati hai ki usse business kaise banayein: 5 chhote ideas, 4 bade ideas, poora kharcha aur 90 din ka plan.
+            Every book takes one big problem — time, money, health, education, power, waste, transport — and shows how to turn it into a business: 5 small ideas, 4 big ideas, full costs and a 90-day plan.
           </p>
           <div className="flex flex-wrap items-center gap-4">
-            <Link href={`/book/${series.slug}`} className="btn-primary h-14 px-8 text-[16px]">Poori series dekho <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
-            <span className="text-[15px] text-fog"><b className="font-display text-[24px] text-cream">{rupees(series.price)}</b>{series.mrp ? <s className="ml-2">{rupees(series.mrp)}</s> : null}</span>
+            <Link href={`/book/${series.slug}`} className="btn-primary h-14 px-8 text-[16px]">See the full series <Icon name="arrow" size={18} strokeWidth={2.2} /></Link>
+            <span className="text-[15px] text-fog"><b className="font-display text-[26px] text-cream">{rupees(series.price)}</b>{series.mrp ? <s className="ml-2">{rupees(series.mrp)}</s> : null}</span>
           </div>
         </div>
       </div>
     </section>
   );
-}
-
-/** Featured slides: the All Access Pass, the manufacturing bestseller, the 135-idea series and Contractor Bano. */
-function buildSlides(allAccess: Product | null, series: Product | null, count: number): Slide[] {
-  const slides: Slide[] = [];
-  const book = (slug: string, eyebrow: string, title: string, cta: string) => {
-    const b = findProduct(slug);
-    if (!b?.is_published) return;
-    slides.push({ eyebrow, title, sub: b.subtitle ?? "", price: rupees(b.price), mrp: b.mrp ? rupees(b.mrp) : undefined,
-      href: `/book/${b.slug}`, cta, images: b.gallery.length ? [b.gallery[0]] : b.cover_url ? [b.cover_url] : [] });
-  };
-  if (allAccess) {
-    const plan = getPlans(allAccess)[0];
-    slides.push({ eyebrow: "All Access Pass", title: `Saari ${count} books, ek pass mein`, sub: `Hindi + English, 500+ business ideas, 12 Excel tools — aur saal bhar mein aane wali nayi books bhi free. ${accessLabel(plan.access_days)}.`,
-      price: rupees(plan.price), mrp: plan.mrp ? rupees(plan.mrp) : undefined, href: "/book/all-access", cta: "Pass lo",
-      images: ["fly-ash-bricks", "legal-business-andha-paisa", "manufacturing-50", "contractor-bano", "solar-business"]
-        .map((x) => findProduct(x)?.gallery[0]).filter(Boolean) as string[] });
-  }
-  book("manufacturing-50", "Bestseller · 50 Most Profitable Manufacturing", "₹10 lakh ki factory se ₹1,000 crore tak", "Book dekho");
-  if (series) {
-    slides.push({ eyebrow: "Nayi series · 15 books", title: "Chhoti-chhoti problem solve karo, crore tak ka roadmap", sub: series.subtitle ?? "",
-      price: rupees(series.price), mrp: series.mrp ? rupees(series.mrp) : undefined, href: `/book/${series.slug}`, cta: "Series dekho",
-      images: series.bundle_items.slice(0, 5).map((x) => findProduct(x)?.gallery[0]).filter(Boolean) as string[] });
-  }
-  book("contractor-bano", "Contractor Bano", "Contractor banne ka step-by-step poora roadmap", "Book dekho");
-  book("government-tenders", "How to Win Government Tenders", "Sarkari tender jeetne ka step-by-step roadmap", "Book dekho");
-  return slides;
 }

@@ -25,9 +25,9 @@ export async function priceWithCoupon(product: { slug: string; price: number }, 
   if (!code) return { ok: true, amount: product.price, discount: 0, coupon: null };
 
   const c = COUPONS.find((x) => x.code.toUpperCase() === code);
-  if (!c || c.is_active === false) return { ok: false, error: "Ye coupon valid nahi hai" };
-  if (c.expires_at && new Date(c.expires_at) < new Date()) return { ok: false, error: "Coupon expire ho chuka hai" };
-  if (c.product_slug && c.product_slug !== product.slug) return { ok: false, error: "Ye coupon is product par nahi chalega" };
+  if (!c || c.is_active === false) return { ok: false, error: "This coupon is not valid" };
+  if (c.expires_at && new Date(c.expires_at) < new Date()) return { ok: false, error: "This coupon has expired" };
+  if (c.product_slug && c.product_slug !== product.slug) return { ok: false, error: "This coupon does not apply to this product" };
   if (c.max_uses != null) {
     const used = await one<{ n: number }>("SELECT COUNT(*) AS n FROM orders WHERE coupon_code = ? AND status = 'paid'", [code]);
     if (Number(used?.n ?? 0) >= c.max_uses) return { ok: false, error: "Coupon ki limit poori ho gayi" };

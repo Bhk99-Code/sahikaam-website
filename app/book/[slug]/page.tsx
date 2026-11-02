@@ -135,7 +135,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
 
           {product.inside.length > 0 && (
             <section>
-              <h2 className="font-display text-[26px] font-extrabold text-cream">Is book mein kya milega</h2>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">What&apos;s inside</h2>
               <ol className="mt-5 grid gap-3 md:grid-cols-2">
                 {product.inside.map((x, i) => (
                   <li key={x.title} className="card flex gap-4 p-5">
@@ -152,7 +152,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
 
           {product.learn.length > 0 && (
             <section>
-              <h2 className="font-display text-[26px] font-extrabold text-cream">{isBundle ? "Is bundle mein kya milega" : "Padhne ke baad aap kar paoge"}</h2>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">{isBundle ? "What's in this bundle" : "What you'll be able to do"}</h2>
               <ul className="mt-5 grid gap-3 md:grid-cols-2">
                 {product.learn.map((t) => (
                   <li key={t} className="card flex gap-3 p-4 text-[15px] leading-relaxed text-cream-2">
@@ -175,7 +175,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
 
           {included.length > 0 && (
             <section>
-              <h2 className="font-display text-[26px] font-extrabold text-cream">{product.access_days ? "Books in this pass" : `Is bundle ki saari ${included.length} books`}</h2>
+              <h2 className="font-display text-[26px] font-extrabold text-cream">{product.access_days ? "Books in this pass" : `All ${included.length} books in this bundle`}</h2>
               <div className="mt-5 flex flex-col gap-3">
                 {included.map((b) => {
                   const body = (

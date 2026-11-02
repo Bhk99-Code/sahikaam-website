@@ -7,7 +7,7 @@
       "category": "manufacturing",
       "accent": "#FF6A00",
       "title": "50 Most Profitable Manufacturing Businesses",
-      "subtitle": "₹10 lakh ki factory se ₹1,000 crore ki company tak — poora step-by-step roadmap",
+      "subtitle": "From a ₹10 lakh factory to a ₹1,000 crore company — a complete step-by-step roadmap",
       "description": "Fifty manufacturing businesses that actually work in India — sorted by investment level, with the machinery, permissions, loans, subsidies and a 5-year profit picture for each. Ends with a step-by-step plan to grow a small unit into a ₹1,000 crore company.",
       "price": 3999,
       "mrp": 4999,
@@ -70,28 +70,28 @@
       ],
       "inside": [
         {
-          "title": "50 factories, 5 budget level",
-          "text": "₹10–50 lakh (fly ash, masala, cattle feed, LED…), ₹50 lakh–2 crore (PVC pipe, pouch, wire…), ₹2–5 crore (RMC, paint, PET bottle…) se ₹10 crore+ tak — apne budget ki line seedha chuno."
+          "title": "50 factories, 5 budget levels",
+          "text": "₹10–50 lakh (fly ash, masala, cattle feed, LED…), ₹50 lakh–2 crore (PVC pipe, pouch, wire…), ₹2–5 crore (RMC, paint, PET bottle…), up to ₹10 crore+ — go straight to the line that fits your budget."
         },
         {
-          "title": "Har business ka poora khaka",
-          "text": "Kaunsi machine, kitni jagah, kitna staff, kaunsa raw material aur kahan se — har factory ke liye alag-alag."
+          "title": "A full outline of every business",
+          "text": "Which machine, how much space, how much staff, which raw material and where to get it — separately for each factory."
         },
         {
-          "title": "Licence aur permission ki list",
-          "text": "Udyam, GST, pollution consent, BIS, factory licence — kaunsa kab chahiye, pehli baar mein sahi."
+          "title": "Licences and permissions list",
+          "text": "Udyam, GST, pollution consent, BIS, factory licence — which one you need and when, so you get it right the first time."
         },
         {
-          "title": "Loan aur subsidy ka raasta",
-          "text": "Bank loan, PMEGP, MUDRA aur state subsidy se paisa kaise jutayein — apni jeb se kam lagao."
+          "title": "The loan and subsidy route",
+          "text": "How to raise money through a bank loan, PMEGP, MUDRA and state subsidies — and put in less of your own."
         },
         {
-          "title": "5 saal ka profit picture",
-          "text": "Kharcha, bikri, munafa aur payback — paisa lagane se pehle hi pata chal jaata hai business chalega ya nahi."
+          "title": "5-year profit picture",
+          "text": "Cost, sales, profit and payback — know before you invest whether the business will work."
         },
         {
-          "title": "₹10 lakh se ₹1,000 crore tak ka roadmap",
-          "text": "Chhoti unit se doosra plant, brand, dealer network aur badi company tak — har stage par kya karna hai."
+          "title": "Roadmap from ₹10 lakh to ₹1,000 crore",
+          "text": "From a small unit to a second plant, a brand, a dealer network and a large company — what to do at each stage."
         }
       ]
     },
@@ -100,8 +100,8 @@
       "type": "ebook",
       "category": "legal",
       "accent": "#FF8A3D",
-      "title": "Legal Business – Andha Paisa",
-      "subtitle": "Kam paise se shuru hone wale 128 legal business — har ek ka poora roadmap",
+      "title": "128 Legal Businesses to Start Small",
+      "subtitle": "Legal businesses you can start with little money — a complete roadmap for each",
       "description": "Brokerage, rentals, labour supply, trading, government work, events, logistics and more — 128 fully legal business ideas across 15 chapters. Each idea shows how it earns, the permissions you need, where to find your first customers and how to run it properly.",
       "price": 1999,
       "mrp": 2999,
@@ -295,28 +295,28 @@
       ],
       "inside": [
         {
-          "title": "128 legal business ideas, 15 chapter",
-          "text": "Brokerage, rental, leasing, labour supply, B2B trading, sarkari kaam, events, logistics, export aur bahut kuch."
+          "title": "128 legal business ideas, 15 chapters",
+          "text": "Brokerage, rental, leasing, labour supply, B2B trading, government work, events, logistics, export and much more."
         },
         {
-          "title": "Har idea kaise kamata hai",
-          "text": "Commission, kiraya, margin ya fees — paisa kahan se aata hai, ek nazar mein samjho."
+          "title": "How each idea earns",
+          "text": "Commission, rent, margin or fees — see at a glance where the money comes from."
         },
         {
-          "title": "Kitna paisa lagega",
-          "text": "Bahut se business ₹0 ya kam paise se shuru hote hain — har idea ka shuruaati kharcha saaf."
+          "title": "How much money you need",
+          "text": "Many businesses start with ₹0 or very little — the starting cost of every idea is clear."
         },
         {
-          "title": "Kaunsi permission chahiye",
-          "text": "Registration, licence aur kaanooni zaroorat — taaki kaam poora legal rahe."
+          "title": "Which permissions you need",
+          "text": "Registration, licences and legal requirements — so your work stays fully legal."
         },
         {
-          "title": "Pehla customer kahan milega",
-          "text": "Kis se baat karni hai, pehla order kaise lena hai — har idea ke liye."
+          "title": "Where to find your first customer",
+          "text": "Who to talk to and how to get your first order — for every idea."
         },
         {
-          "title": "Galtiyan jo business band karwa deti hain",
-          "text": "Asli kisson se seekho kya nahi karna — aur business lamba kaise chalana hai."
+          "title": "Mistakes that shut businesses down",
+          "text": "Learn from real stories what not to do — and how to keep a business running for the long term."
         }
       ]
     },
@@ -325,8 +325,8 @@
       "type": "ebook",
       "category": "construction",
       "accent": "#FFA866",
-      "title": "Contractor Bano",
-      "subtitle": "Contractor banne ka step-by-step poora roadmap — registration se pehle project aur badi company tak",
+      "title": "Contractor Business Playbook",
+      "subtitle": "A complete step-by-step roadmap to becoming a contractor — from registration to your first project and a bigger company",
       "description": "A practical playbook for engineers and site staff who want to become contractors: registration, getting on tender lists, estimating and quoting, building a team, managing cash flow and delivering your first project without losses.",
       "price": 2999,
       "mrp": 3999,
@@ -395,32 +395,32 @@
       ],
       "inside": [
         {
-          "title": "Apni contracting category chuno",
-          "text": "Labour-only se turnkey tak — apne experience aur paise ke hisaab se sahi shuruaat."
+          "title": "Choose your contracting category",
+          "text": "From labour-only to turnkey — the right start for your experience and budget."
         },
         {
-          "title": "Business setup ki poori checklist",
-          "text": "Firm structure, alag bank account, hisaab-kitaab, invoice aur registration."
+          "title": "Complete business setup checklist",
+          "text": "Firm structure, a separate bank account, accounts, invoices and registration."
         },
         {
-          "title": "Pehle customer kahan se aayenge",
-          "text": "Architect, builder aur ghar banane wale — naam ke saath prospect list banana."
+          "title": "Where your first customers will come from",
+          "text": "Architects, builders and home builders — build a prospect list with names."
         },
         {
-          "title": "Quote aisa jo jeete, ghata na de",
-          "text": "Item-wise quotation, exclusions aur terms — ₹12 lakh ke project ka profit check worked out."
+          "title": "A quote that wins without losing money",
+          "text": "Item-wise quotation, exclusions and terms — with a profit check worked out for a ₹12 lakh project."
         },
         {
-          "title": "Agreement aur badlav ka hisaab",
-          "text": "Scope freeze, variation, delay notice aur records — jhagde aur nuksaan se bachao."
+          "title": "Agreements and handling changes",
+          "text": "Scope freeze, variations, delay notices and records — protect yourself from disputes and losses."
         },
         {
-          "title": "Labour, maal aur site control",
-          "text": "Attendance, productivity, PO, vendor payment calendar aur roz ki site report."
+          "title": "Labour, materials and site control",
+          "text": "Attendance, productivity, POs, a vendor payment calendar and a daily site report."
         },
         {
-          "title": "Cash flow aur payment recovery",
-          "text": "Kitna paisa kab chahiye, ageing report aur follow-up system — paisa phansne na do."
+          "title": "Cash flow and payment recovery",
+          "text": "How much money you need and when, an ageing report and a follow-up system — don't let your money get stuck."
         }
       ]
     },
@@ -630,7 +630,7 @@
       "category": "manufacturing",
       "accent": "#FF6A00",
       "title": "Fly Ash Bricks — Complete Project Report",
-      "subtitle": "₹33 lakh mein roz 8,000 eent ki factory — step-by-step project report",
+      "subtitle": "A factory making 8,000 bricks a day for ₹33 lakh — a step-by-step project report",
       "description": "A complete project report for a fly ash brick factory — market, raw material and mix design, machinery, land and layout, licences, project cost, PMEGP/MUDRA/bank funding, cost per brick, a 5-year P&L with DSCR and break-even, and how to sell your first 50 lakh bricks.",
       "price": 599,
       "mrp": 4000,
@@ -699,32 +699,32 @@
       ],
       "inside": [
         {
-          "title": "Poori project report (DPR)",
-          "text": "₹33 lakh ka project, roz 8,000 eent — har rupaye ka hisaab, bank ko dikhane layak."
+          "title": "Complete project report (DPR)",
+          "text": "A ₹33 lakh project making 8,000 bricks a day — every rupee accounted for, ready to show the bank."
         },
         {
-          "title": "Mix design aur banane ka tareeka",
-          "text": "Fly ash, cement, sand ka sahi anupaat aur poora production process step by step."
+          "title": "Mix design and the making process",
+          "text": "The right ratio of fly ash, cement and sand, and the full production process step by step."
         },
         {
-          "title": "Machine, zameen aur layout",
-          "text": "Kaunsi machine leni hai, kaise check karni hai, kitni jagah aur shed kaisa ho."
+          "title": "Machine, land and layout",
+          "text": "Which machine to buy, how to check it, how much space you need and what the shed should look like."
         },
         {
-          "title": "Ek eent ki cost aur sahi daam",
-          "text": "Ek-ek rupaye ka hisaab — kis daam par bechoge to kitna munafa."
+          "title": "Cost of one brick and the right price",
+          "text": "Every rupee accounted for — what profit you make at each selling price."
         },
         {
-          "title": "Loan aur subsidy",
-          "text": "PMEGP, MUDRA aur bank loan — apna hissa kitna, subsidy kitni."
+          "title": "Loan and subsidy",
+          "text": "PMEGP, MUDRA and bank loan — how much is your share and how much is the subsidy."
         },
         {
-          "title": "5 saal ka P&L, DSCR aur break-even",
-          "text": "Bank yahi dekhta hai — sab tayyar numbers ke saath."
+          "title": "5-year P&L, DSCR and break-even",
+          "text": "This is what the bank looks at — all with ready numbers."
         },
         {
           "title": "Free: DPR Excel + PMEGP calculator",
-          "text": "Neeli cells mein apne numbers daalo, poori report khud ban jaati hai. Saath mein rate card aur quotation templates."
+          "text": "Enter your numbers in the blue cells and the full report builds itself. Rate card and quotation templates included."
         }
       ]
     },
@@ -734,7 +734,7 @@
       "category": "manufacturing",
       "accent": "#FF6A00",
       "title": "Paver Blocks — Complete Project Report",
-      "subtitle": "Paver factory + laying business — ₹48 lakh project ka step-by-step plan",
+      "subtitle": "A paver factory plus a laying business — a step-by-step plan for a ₹48 lakh project",
       "description": "A complete project report for an interlocking paver block factory — shapes, thickness, colours and IS 15658, mix design, machinery, layout, licences, project cost, funding through PMEGP, MUDRA or banks, cost per square foot, a 5-year P&L — plus the extra income from laying the pavers yourself.",
       "price": 599,
       "mrp": 4000,
@@ -802,32 +802,32 @@
       ],
       "inside": [
         {
-          "title": "Poori project report (DPR)",
-          "text": "₹48 lakh ka paver block project — har kharche ka hisaab, bank-ready."
+          "title": "Complete project report (DPR)",
+          "text": "A ₹48 lakh paver block project — every expense accounted for, bank-ready."
         },
         {
-          "title": "Shape, thickness, colour aur IS 15658",
-          "text": "Kaunsa paver bikta hai aur quality standard kaise poora karna hai."
+          "title": "Shape, thickness, colour and IS 15658",
+          "text": "Which pavers sell and how to meet the quality standard."
         },
         {
-          "title": "Mix design, machine aur layout",
-          "text": "Raw material, mixer, moulds aur shed — kya lena hai aur kaise check karna hai."
+          "title": "Mix design, machine and layout",
+          "text": "Raw material, mixer, moulds and shed — what to buy and how to check it."
         },
         {
-          "title": "Ek sq ft ki cost aur sahi daam",
-          "text": "Kis daam par bechein ki munafa bhi ho aur order bhi mile."
+          "title": "Cost per sq ft and the right price",
+          "text": "Price so that you make a profit and still get orders."
         },
         {
-          "title": "Doosra business: paver laying",
-          "text": "Sirf bechna nahi, bichhana bhi — har parking aur colony se extra kamai."
+          "title": "The second business: paver laying",
+          "text": "Don't just sell — lay too. Extra income from every parking lot and colony."
         },
         {
-          "title": "5 saal ka P&L, DSCR aur break-even",
-          "text": "Loan, subsidy aur payback — bank ke saamne tayyar numbers."
+          "title": "5-year P&L, DSCR and break-even",
+          "text": "Loan, subsidy and payback — numbers ready to show the bank."
         },
         {
           "title": "Free: DPR Excel + PMEGP calculator",
-          "text": "Apne numbers daalo, report khud update. Rate card, quotation aur CRM templates bhi."
+          "text": "Enter your numbers and the report updates itself. Rate card, quotation and CRM templates too."
         }
       ]
     },
@@ -836,8 +836,8 @@
       "type": "ebook",
       "category": "food-agro",
       "accent": "#FF8A3D",
-      "title": "Food Processing — 40 Business Ideas",
-      "subtitle": "₹2 lakh se apna food business — 40 ideas, step-by-step",
+      "title": "40 Food Processing Businesses",
+      "subtitle": "Start your own food business from ₹2 lakh — 40 ideas, step by step",
       "description": "Forty food processing businesses you can start from a small unit — grains and spices, pickles and sauces, dairy, bakery and snacks, millets and makhana. Includes full costing for six ideas, FSSAI 2026 and labelling rules, packaging and MRP, selling from kirana to quick commerce, and government help such as PMFME and PMEGP.",
       "price": 599,
       "mrp": 4000,
@@ -907,31 +907,31 @@
       "inside": [
         {
           "title": "40 food business ideas",
-          "text": "Masala, aata, tel, achaar, jam, sauce, paneer, ghee, bakery, namkeen, millets, makhana aur ready-to-cook."
+          "text": "Masala, flour, oil, pickle, jam, sauce, paneer, ghee, bakery, namkeen, millets, makhana and ready-to-cook."
         },
         {
-          "title": "Apne area ke liye sahi product chuno",
-          "text": "Maang, kachcha maal aur budget dekh kar — galat product mein paisa mat phansao."
+          "title": "Choose the right product for your area",
+          "text": "Look at demand, raw material and budget — don't get your money stuck in the wrong product."
         },
         {
-          "title": "6 business ka poora hisaab",
-          "text": "Kharcha, bikri, munafa aur payback — worked numbers ke saath."
+          "title": "Full numbers for 6 businesses",
+          "text": "Cost, sales, profit and payback — with worked numbers."
         },
         {
-          "title": "FSSAI 2026, label aur Legal Metrology",
-          "text": "Licence, label par kya likhna zaroori hai — fine aur notice se bachao."
+          "title": "FSSAI 2026, labels and Legal Metrology",
+          "text": "The licence, what you must write on the label — avoid fines and notices."
         },
         {
-          "title": "Packing, shelf life aur MRP",
-          "text": "Recipe se pack ki cost, distributor-retailer margin, GST aur sahi MRP."
+          "title": "Packing, shelf life and MRP",
+          "text": "From recipe to pack cost, distributor and retailer margin, GST and the right MRP."
         },
         {
-          "title": "Kirana se quick commerce tak bechna",
-          "text": "Dukaan, modern trade, Blinkit-Zepto jaise app — maal kahan aur kaise bechein."
+          "title": "Selling from kirana to quick commerce",
+          "text": "Shops, modern trade, apps like Blinkit and Zepto — where and how to sell your product."
         },
         {
           "title": "Free: Idea calculator + MRP sheet",
-          "text": "6 business ka Excel — apne numbers daalo, munafa turant dekho."
+          "text": "An Excel for 6 businesses — enter your numbers and see the profit at once."
         }
       ]
     },
@@ -940,8 +940,8 @@
       "type": "ebook",
       "category": "food-agro",
       "accent": "#FF8A3D",
-      "title": "Krishi Kachra se Kamaai",
-      "subtitle": "Khet ke kachre se kamai — 30 business, step-by-step",
+      "title": "Earn from Farm Waste",
+      "subtitle": "Earn from farm waste — 30 businesses, step by step",
       "description": "Thirty businesses that turn farm waste into money — briquettes and pellets, biochar and Bio-CNG, compost and bio-fertiliser, cattle feed and mushrooms, plates, boards and packaging, and service businesses like baling and aggregation. With machines, costs, buyers, raw-material planning and government schemes.",
       "price": 599,
       "mrp": 4000,
@@ -1009,32 +1009,32 @@
       ],
       "inside": [
         {
-          "title": "30 business, khet ke kachre se",
-          "text": "Parali, bhusa, ganne ki khoi, gobar aur chhilke se kamai ke 30 tareeke."
+          "title": "30 businesses from farm waste",
+          "text": "30 ways to earn from stubble, husk, bagasse, cow dung and peels."
         },
         {
-          "title": "Energy, khaad, chara aur saamaan",
-          "text": "Briquette, pellet, biochar, Bio-CNG, vermicompost, mushroom, plate, board aur packaging."
+          "title": "Energy, manure, feed and materials",
+          "text": "Briquettes, pellets, biochar, Bio-CNG, vermicompost, mushrooms, plates, boards and packaging."
         },
         {
-          "title": "Fasal ke hisaab se kachre ka map",
-          "text": "Aapke area mein kaunsa kachra, kab aur kitna milta hai."
+          "title": "A crop-wise map of waste",
+          "text": "Which waste is available in your area, when and how much."
         },
         {
-          "title": "6 business ka poora hisaab",
-          "text": "Kharcha, bikri, munafa, payback aur break-even — worked numbers."
+          "title": "Full numbers for 6 businesses",
+          "text": "Cost, sales, profit, payback and break-even — worked numbers."
         },
         {
-          "title": "Kachcha maal kaise jutayein aur rakhein",
-          "text": "Season ka calendar aur storage — saal bhar plant chalane ke liye."
+          "title": "How to source and store raw material",
+          "text": "A season calendar and storage — to keep the plant running all year."
         },
         {
-          "title": "Kharidaar kaun hai — buyer list",
-          "text": "Factory, boiler, nursery, dairy — maal kisko bechna hai."
+          "title": "Who the buyers are — buyer list",
+          "text": "Factories, boilers, nurseries, dairies — who to sell your product to."
         },
         {
-          "title": "Sarkari madad: CRM, SATAT, AIF, PMEGP",
-          "text": "Kaunsi scheme se kitni madad milti hai aur kaise lein."
+          "title": "Government help: CRM, SATAT, AIF, PMEGP",
+          "text": "How much help each scheme gives and how to get it."
         }
       ]
     },
@@ -1043,8 +1043,8 @@
       "type": "ebook",
       "category": "construction",
       "accent": "#FFA866",
-      "title": "Labour Contractor Bano",
-      "subtitle": "Labour contractor banne ka step-by-step roadmap — licence, rate aur pehla client",
+      "title": "Become a Labour Contractor",
+      "subtitle": "A step-by-step roadmap to becoming a labour contractor — licence, rates and your first client",
       "description": "How to start a manpower and labour contracting business under the new Labour Codes — registrations and the OSH Code licence, wages, PF, ESIC and bonus, building your billing rate, finding your first client, managing workers and supervisors, registers and challans, working capital and a 3-year plan.",
       "price": 599,
       "mrp": 4000,
@@ -1113,32 +1113,32 @@
       ],
       "inside": [
         {
-          "title": "Naye Labour Codes 2025 aasaan bhasha mein",
-          "text": "Kya badla, aapko kya karna hai — bina vakeel ke samjho."
+          "title": "The new Labour Codes 2025 in simple words",
+          "text": "What changed and what you need to do — understand it without a lawyer."
         },
         {
-          "title": "Registration aur OSH Code licence",
-          "text": "Poori list aur licence lene ka tareeka step by step."
+          "title": "Registration and OSH Code licence",
+          "text": "The full list and how to get the licence step by step."
         },
         {
-          "title": "Wages, PF, ESIC aur bonus",
-          "text": "Kya dena zaroori hai, kaise jama karna hai — notice aur penalty se bachao."
+          "title": "Wages, PF, ESIC and bonus",
+          "text": "What you must pay and how to deposit it — avoid notices and penalties."
         },
         {
-          "title": "Billing rate kaise banayein",
-          "text": "Har worker par margin bachaane wala rate — calculator ke saath."
+          "title": "How to build your billing rate",
+          "text": "A rate that leaves a margin on every worker — with a calculator."
         },
         {
-          "title": "Pehla client kaise milega",
-          "text": "Factory, warehouse, site — kis se baat karni hai aur kaise."
+          "title": "How to get your first client",
+          "text": "Factory, warehouse, site — who to talk to and how."
         },
         {
-          "title": "Roz ka kaam aur paisa",
-          "text": "Attendance, wages, challan, register, working capital aur 3 saal ka plan."
+          "title": "Daily work and money",
+          "text": "Attendance, wages, challans, registers, working capital and a 3-year plan."
         },
         {
           "title": "Free: Manpower rate calculator",
-          "text": "Wage daalo — PF, ESIC, bonus, margin, GST aur bill apne aap. Compliance calendar bhi."
+          "text": "Enter the wage — PF, ESIC, bonus, margin, GST and the bill work out automatically. Compliance calendar included."
         }
       ]
     },
@@ -1147,8 +1147,8 @@
       "type": "ebook",
       "category": "funding",
       "accent": "#FFB27A",
-      "title": "PMEGP Step by Step",
-      "subtitle": "Business loan par 35% tak subsidy — form se paisa milne tak, step-by-step",
+      "title": "PMEGP Step-by-Step",
+      "subtitle": "Up to 35% subsidy on a business loan — from the form to the money in your account, step by step",
       "description": "Your complete guide to the PMEGP loan and subsidy scheme — eligibility, choosing a project, project cost structure, subsidy examples, documents, the online application, a DPR the bank accepts, the interview, sanction and EDP training, disbursement, the 3-year lock-in and how to avoid rejection and fraud.",
       "price": 799,
       "mrp": 1299,
@@ -1217,32 +1217,32 @@
       ],
       "inside": [
         {
-          "title": "PMEGP poora samjho",
-          "text": "Scheme kya hai, kaun eligible hai aur kaunsa project approve hota hai."
+          "title": "Understand PMEGP fully",
+          "text": "What the scheme is, who is eligible and which projects get approved."
         },
         {
-          "title": "Subsidy ka hisaab — 12 examples",
-          "text": "Gaon/shehar aur category ke hisaab se 15% se 35% tak — apna hissa kitna."
+          "title": "Subsidy working — 12 examples",
+          "text": "From 15% to 35% depending on rural/urban area and category — how much is your own share."
         },
         {
-          "title": "Documents ki poori list",
-          "text": "Kaunsa kagaz chahiye, kaise banana hai — kuch chhoote nahi."
+          "title": "The complete list of documents",
+          "text": "Which paper you need and how to prepare it — miss nothing."
         },
         {
-          "title": "Online form, har step",
-          "text": "Form bharne ka poora tareeka — galti se reject na ho."
+          "title": "The online form, every step",
+          "text": "The full way to fill the form — so it isn't rejected by mistake."
         },
         {
-          "title": "Bank wala DPR aur interview",
-          "text": "Aisi report jo bank maane, aur interview ke 25 sawal-jawab."
+          "title": "The bank's DPR and the interview",
+          "text": "A report the bank accepts, and 25 interview questions with answers."
         },
         {
-          "title": "Sanction se paisa milne tak",
-          "text": "EDP training, disbursement aur 3 saal ka lock-in — aage kya karna hai."
+          "title": "From sanction to the money",
+          "text": "EDP training, disbursement and the 3-year lock-in — what to do next."
         },
         {
           "title": "Free: PMEGP calculator + trackers",
-          "text": "Subsidy, apna hissa, loan aur EMI turant. Document aur application tracker bhi."
+          "text": "Subsidy, your own share, loan and EMI at once. Document and application trackers too."
         }
       ]
     },
@@ -1251,8 +1251,8 @@
       "type": "ebook",
       "category": "startup",
       "accent": "#FFC59A",
-      "title": "Franchise Lo, Sahi Lo",
-      "subtitle": "Kaunsi franchise, kitna paisa, kitna munafa — step-by-step, bina dhokhe ke",
+      "title": "Choose the Right Franchise",
+      "subtitle": "Which franchise, how much money, how much profit — step by step, without getting cheated",
       "description": "A practical guide to buying a franchise in India — whether franchising suits you, categories from ₹3 lakh to ₹1 crore+, outlet unit economics, 40 questions to check a brand, choosing a location, the 15 agreement clauses that matter, red flags and scams, funding, your first 90 days, taxes — and how to franchise your own business later.",
       "price": 799,
       "mrp": 1299,
@@ -1321,32 +1321,32 @@
       ],
       "inside": [
         {
-          "title": "Franchise aapke liye hai ya nahi",
-          "text": "Pehle khud ko check karo — phir paisa lagao."
+          "title": "Is a franchise right for you or not",
+          "text": "Check yourself first — then invest your money."
         },
         {
-          "title": "₹3 lakh se ₹1 crore+ ki categories",
-          "text": "Kis category mein kitna lagta hai aur kitna kamaata hai."
+          "title": "Categories from ₹3 lakh to ₹1 crore+",
+          "text": "How much each category needs and how much it earns."
         },
         {
-          "title": "Ek outlet ka asli hisaab",
-          "text": "Bikri, royalty, kiraya, staff — munafa aur payback kab."
+          "title": "The real numbers of one outlet",
+          "text": "Sales, royalty, rent, staff — profit and when you get payback."
         },
         {
-          "title": "Brand check karne ke 40 sawal",
-          "text": "Kaunsa brand sach mein achha hai — paisa dene se pehle poocho."
+          "title": "40 questions to check a brand",
+          "text": "Which brand is really good — ask before you pay."
         },
         {
-          "title": "Agreement ke 15 zaroori clause",
-          "text": "Kahan phans sakte ho — padh kar hi sign karo."
+          "title": "15 agreement clauses that matter",
+          "text": "Where you can get trapped — sign only after reading."
         },
         {
-          "title": "Red flags aur dhokhe se bachao",
-          "text": "Nakli franchise aur jhoothe vaadon ko pehchaano."
+          "title": "Red flags and how to avoid fraud",
+          "text": "Spot fake franchises and false promises."
         },
         {
           "title": "Free: ROI calculator + brand scorecard",
-          "text": "3 brand ko 10 cheezon par compare karo, payback aur break-even turant."
+          "text": "Compare 3 brands on 10 factors, and see payback and break-even at once."
         }
       ]
     },
@@ -1355,8 +1355,8 @@
       "type": "ebook",
       "category": "startup",
       "accent": "#FFC59A",
-      "title": "Idea Test Karo",
-      "subtitle": "7 din mein, ₹0 mein pata karo — log sach mein khareedenge ya nahi",
+      "title": "Test Your Idea",
+      "subtitle": "Find out in 7 days for ₹0 — will people really buy or not",
       "description": "Before you spend money on a shop, machine or website, test your idea in 7 days. Write the real problem, score your ideas, find free proof of demand, map competitors, size the market, talk to 10 real people without selling, decide Go or No-Go and run a pre-order test.",
       "price": 499,
       "mrp": 799,
@@ -1425,32 +1425,32 @@
       ],
       "inside": [
         {
-          "title": "90% ideas kyon fail hote hain",
-          "text": "Aur aapka idea us list mein na aaye — iska tareeka."
+          "title": "Why 90% of ideas fail",
+          "text": "And how to keep your idea off that list."
         },
         {
-          "title": "Pehle problem, phir idea",
-          "text": "Idea nahi hai? 20 asli problems jinse business ban sakta hai."
+          "title": "Problem first, idea later",
+          "text": "No idea yet? 20 real problems that can become a business."
         },
         {
           "title": "Idea scorecard",
-          "text": "Top 3 ideas mein se sabse mazboot ek chuno — numbers se."
+          "text": "Pick the strongest one out of your top 3 ideas — using numbers."
         },
         {
-          "title": "Maang ka saboot — 5 free jagah",
-          "text": "Bina paisa lagaye pata karo log sach mein khareedenge ya nahi."
+          "title": "Proof of demand — 5 free places",
+          "text": "Find out without spending money whether people will really buy."
         },
         {
-          "title": "10 logon se baat — bina beche",
-          "text": "Sahi sawal poocho, sach jaano."
+          "title": "Talk to 10 people — without selling",
+          "text": "Ask the right questions and learn the truth."
         },
         {
-          "title": "Go ya No-Go faisla",
-          "text": "Pre-order aur smoke test se paise wala saboot — tab paisa lagao."
+          "title": "The Go or No-Go decision",
+          "text": "Pre-order and smoke tests give you proof with money behind it — then invest."
         },
         {
           "title": "Free: Idea Test Toolkit Excel",
-          "text": "Scorecard, competitor map, market size, interview notes aur Go/No-Go sheet."
+          "text": "Scorecard, competitor map, market size, interview notes and a Go/No-Go sheet."
         }
       ]
     },
@@ -1460,7 +1460,7 @@
       "category": "government",
       "accent": "#FFB27A",
       "title": "How to Win Government Tenders",
-      "subtitle": "Sarkari tender dhoondhne, bharne aur jeetne ka step-by-step roadmap",
+      "subtitle": "A step-by-step roadmap to finding, filling and winning government tenders",
       "description": "A complete guide to government work for small firms: types of tenders, where to find them, getting your firm ready, reading a tender document, EMD and guarantees, filling your rate, the L1 game, online bids, executing the work, billing and payment, why bids get rejected and how to grow from small to big.",
       "price": 599,
       "mrp": 4000,
@@ -1521,32 +1521,32 @@
       ],
       "inside": [
         {
-          "title": "Sarkari kaam kyon aur kaunsa",
-          "text": "Tender ke types aur kaunsa aapke liye sahi — supply, service ya construction."
+          "title": "Why government work, and which kind",
+          "text": "Types of tenders and which suits you — supply, service or construction."
         },
         {
-          "title": "Tender kahan milte hain",
-          "text": "Portals aur sources jahan roz naye tender aate hain."
+          "title": "Where to find tenders",
+          "text": "Portals and sources where new tenders appear every day."
         },
         {
-          "title": "Firm ko tender-ready banana",
-          "text": "Registration, documents aur experience certificate."
+          "title": "Making your firm tender-ready",
+          "text": "Registration, documents and experience certificates."
         },
         {
-          "title": "Tender document padhna",
-          "text": "Kya dhyan se padhna hai taaki bid reject na ho."
+          "title": "Reading a tender document",
+          "text": "What to read carefully so your bid isn't rejected."
         },
         {
-          "title": "Rate kaise bharein — L1 ka khel",
-          "text": "Item-wise rate, EMD aur guarantee — jeetna bhi aur ghata bhi na ho."
+          "title": "How to fill your rate — the L1 game",
+          "text": "Item-wise rates, EMD and guarantees — win without making a loss."
         },
         {
-          "title": "Jeetne ke baad: kaam aur payment",
-          "text": "Kaam poora karna, bill banana aur paisa nikalwana."
+          "title": "After you win: work and payment",
+          "text": "Completing the work, making the bill and getting your money."
         },
         {
-          "title": "Chhote se bade tender tak",
-          "text": "Bid reject hone ki wajah, 90 din ka plan aur badhne ka raasta."
+          "title": "From small tenders to big ones",
+          "text": "Why bids get rejected, a 90-day plan and the way to grow."
         }
       ]
     },
@@ -1556,7 +1556,7 @@
       "category": "energy",
       "accent": "#FFC23D",
       "title": "Start Your Solar Business",
-      "subtitle": "Solar business ka step-by-step roadmap — pehle survey se AMC ki kamai tak",
+      "subtitle": "A step-by-step roadmap to the solar business — from the first survey to AMC income",
       "description": "Five ways to earn from solar, explained in plain words: registrations and empanelment, government schemes and subsidy, net metering and DISCOM approval, vendors, how to make a quote customers trust, finding customers, installation and safety, bigger commercial projects and recurring O&M and AMC income.",
       "price": 599,
       "mrp": 4000,
@@ -1617,32 +1617,32 @@
       ],
       "inside": [
         {
-          "title": "Solar mein paisa kahan hai",
-          "text": "Solar business ke 5 model — rooftop installer, EPC, dealer, AMC aur zyada."
+          "title": "Where the money is in solar",
+          "text": "5 solar business models — rooftop installer, EPC, dealer, AMC and more."
         },
         {
-          "title": "Registration aur empanelment",
-          "text": "DISCOM aur vendor list mein naam — kaam lene ke liye zaroori."
+          "title": "Registration and empanelment",
+          "text": "Getting your name on the DISCOM and vendor lists — needed to get work."
         },
         {
-          "title": "Subsidy aur net metering",
-          "text": "Sarkari subsidy aur DISCOM approval customer ke liye kaise karwayein."
+          "title": "Subsidy and net metering",
+          "text": "How to get the government subsidy and DISCOM approval for your customer."
         },
         {
-          "title": "Aisa quote jo customer maane",
-          "text": "Bachat aur payback ke saath — worked examples."
+          "title": "A quote customers accept",
+          "text": "With savings and payback — worked examples."
         },
         {
-          "title": "Customer kahan milenge",
-          "text": "Ghar, dukaan, factory — aur installation SOP aur safety."
+          "title": "Where to find customers",
+          "text": "Homes, shops, factories — plus the installation SOP and safety."
         },
         {
-          "title": "Commercial aur bade project",
-          "text": "Ghar se factory tak — bade kaam kaise lein."
+          "title": "Commercial and bigger projects",
+          "text": "From homes to factories — how to take on bigger work."
         },
         {
-          "title": "O&M aur AMC ki pakki kamai",
-          "text": "Install ke baad bhi har saal kamai, aur 90 din ka plan."
+          "title": "Steady income from O&M and AMC",
+          "text": "Earn every year even after installation, plus a 90-day plan."
         }
       ]
     },
@@ -1652,7 +1652,7 @@
       "category": "real-estate",
       "accent": "#FFA866",
       "title": "Start a Plotting & Township Business",
-      "subtitle": "Zameen se bike hue plot tak — plotting business ka step-by-step plan",
+      "subtitle": "From land to sold plots — a step-by-step plan for the plotting business",
       "description": "A step-by-step guide for first-time developers: how plotting creates value, choosing the right land, title and legal checks, conversion and approvals, designing a layout that sells, development works, project costing, profit models, funding, selling plots, documentation and registry.",
       "price": 599,
       "mrp": 4000,
@@ -1713,32 +1713,32 @@
       ],
       "inside": [
         {
-          "title": "Plotting se value kaise banti hai",
-          "text": "Ekad mein zameen khareedo, sq ft mein becho — beech ka poora hisaab."
+          "title": "How plotting creates value",
+          "text": "Buy land in acres, sell in sq ft — the full working in between."
         },
         {
-          "title": "Sahi zameen chunna",
-          "text": "Location, sadak, maang — kaunsi zameen bikegi."
+          "title": "Choosing the right land",
+          "text": "Location, road, demand — which land will sell."
         },
         {
-          "title": "Title aur legal check",
-          "text": "Kagaz ki jaanch — court case aur phanse paise se bachao."
+          "title": "Title and legal checks",
+          "text": "Check the papers — stay safe from court cases and stuck money."
         },
         {
-          "title": "Conversion aur approvals",
-          "text": "Zameen convert karwana aur layout pass karwana."
+          "title": "Conversion and approvals",
+          "text": "Getting the land converted and the layout passed."
         },
         {
-          "title": "Layout jo bike",
-          "text": "Sadak, naali, bijli, paani — plot ka design aur development."
+          "title": "A layout that sells",
+          "text": "Roads, drains, electricity, water — plot design and development."
         },
         {
-          "title": "Project costing aur profit model",
-          "text": "Poore project ka hisaab, funding aur partnership models."
+          "title": "Project costing and profit models",
+          "text": "The full project working, funding and partnership models."
         },
         {
-          "title": "Plot bechna aur registry",
-          "text": "Booking se registry tak, aur aam galtiyan."
+          "title": "Selling plots and registry",
+          "text": "From booking to registry, and common mistakes."
         }
       ]
     },
@@ -1748,7 +1748,7 @@
       "category": "government",
       "accent": "#FFB27A",
       "title": "How to Sell on GeM",
-      "subtitle": "GeM par sarkar ko maal bechne ka step-by-step tareeka — 90 din mein pehla order",
+      "subtitle": "A step-by-step way to sell to the government on GeM — first order in 90 days",
       "description": "Sell products and services to government buyers on GeM: what you can sell, registration step by step, catalogues that get orders, how orders come, bidding, pricing to win, delivery, invoice and acceptance, MSE and start-up benefits, ratings and penalties, and the common mistakes that get sellers suspended.",
       "price": 599,
       "mrp": 4000,
@@ -1809,32 +1809,32 @@
       ],
       "inside": [
         {
-          "title": "GeM kya hai aur kya bech sakte ho",
-          "text": "Sarkari daftar har cheez online khareedte hain — aap bhi seller ban sakte ho."
+          "title": "What GeM is and what you can sell",
+          "text": "Government offices buy almost everything online — you can become a seller too."
         },
         {
           "title": "Registration step by step",
-          "text": "GeM par seller banne ka poora tareeka."
+          "text": "The complete process to become a seller on GeM."
         },
         {
-          "title": "Catalogue jo order laaye",
-          "text": "Listing aisi banao ki sarkari khareedar aapko chunein."
+          "title": "Catalogues that get orders",
+          "text": "Create listings that make government buyers choose you."
         },
         {
-          "title": "Order kaise aate hain aur bidding",
-          "text": "Direct order, L1 aur bid — teeno samjho."
+          "title": "How orders come, and bidding",
+          "text": "Direct orders, L1 and bids — understand all three."
         },
         {
-          "title": "Jeetne wala daam",
-          "text": "Kam daam bhi aur munafa bhi — pricing ka tareeka."
+          "title": "A price that wins",
+          "text": "A low price and a profit too — how to price."
         },
         {
-          "title": "Delivery, invoice aur payment",
-          "text": "Maal pahunchana, acceptance aur samay par paisa."
+          "title": "Delivery, invoice and payment",
+          "text": "Delivering the goods, acceptance and getting paid on time."
         },
         {
-          "title": "MSE aur start-up ke fayde",
-          "text": "Chhote business ko milne wali chhoot — aur 90 din mein pehla order."
+          "title": "MSE and start-up benefits",
+          "text": "The relaxations small businesses get — and your first order in 90 days."
         }
       ]
     },
@@ -1844,7 +1844,7 @@
       "category": "energy",
       "accent": "#FFC23D",
       "title": "Become an EV Charging Contractor",
-      "subtitle": "EV charging contractor banne ka step-by-step roadmap",
+      "subtitle": "A step-by-step roadmap to becoming an EV charging contractor",
       "description": "How to build a contracting business around EV chargers: the market and business models, charger basics, registration and vendor onboarding, the cluster model, site survey, DISCOM connection and approvals, costing and rates, team and SOP, testing and handover, and O&M and breakdown service income.",
       "price": 599,
       "mrp": 4000,
@@ -1905,32 +1905,32 @@
       ],
       "inside": [
         {
-          "title": "EV charging market aur kamai ke model",
-          "text": "Charger lagane, chalane aur maintain karne ke tareeke."
+          "title": "The EV charging market and ways to earn",
+          "text": "Ways to install, run and maintain chargers."
         },
         {
-          "title": "Charger ki basic jaankari",
-          "text": "AC, DC aur kya chahiye — aasaan bhasha mein."
+          "title": "Charger basics",
+          "text": "AC, DC and what you need — in simple language."
         },
         {
-          "title": "Vendor banna aur kaam lena",
-          "text": "Charging companies ke saath registration aur onboarding."
+          "title": "Becoming a vendor and getting work",
+          "text": "Registration and onboarding with charging companies."
         },
         {
-          "title": "Site survey aur feasibility",
-          "text": "Jagah check karna aur report banana."
+          "title": "Site survey and feasibility",
+          "text": "Checking a location and preparing the report."
         },
         {
-          "title": "DISCOM connection aur approvals",
-          "text": "Bijli connection aur zaroori permission."
+          "title": "DISCOM connection and approvals",
+          "text": "The power connection and the permissions you need."
         },
         {
-          "title": "Costing aur rates",
-          "text": "Har kaam ka sahi rate — ghata nahi, munafa."
+          "title": "Costing and rates",
+          "text": "The right rate for every job — no losses, a profit."
         },
         {
-          "title": "O&M aur breakdown service",
-          "text": "Lagane ke baad bhi har mahine kamai."
+          "title": "O&M and breakdown service",
+          "text": "Earn every month, even after installation."
         }
       ]
     },
@@ -1940,7 +1940,7 @@
       "category": "trade",
       "accent": "#FF8A3D",
       "title": "Start Your Export Business",
-      "subtitle": "Export business ka step-by-step roadmap — product, buyer, kagaz aur payment",
+      "subtitle": "A step-by-step roadmap to starting an export business — product, buyer, paperwork and payment",
       "description": "Start exporting from India: why export, what to export, registrations, market research, finding your first buyer, quotations and Incoterms, payment terms, documentation, logistics, quality and certification, export costing and pricing, government support and the mistakes to avoid.",
       "price": 599,
       "mrp": 4000,
@@ -2001,32 +2001,32 @@
       ],
       "inside": [
         {
-          "title": "Kya export karein",
-          "text": "Aapke zile ka product duniya ko kaise bechein."
+          "title": "What to export",
+          "text": "How to sell your district's product to the world."
         },
         {
           "title": "Registrations",
-          "text": "IEC aur baaki zaroori registration."
+          "text": "IEC and the other registrations you need."
         },
         {
-          "title": "Pehla foreign buyer",
-          "text": "Market research aur buyer dhoondhne ke tareeke."
+          "title": "Your first foreign buyer",
+          "text": "Market research and ways to find buyers."
         },
         {
-          "title": "Quotation aur Incoterms",
-          "text": "Daam kaise likhein — FOB, CIF aasaan bhasha mein."
+          "title": "Quotation and Incoterms",
+          "text": "How to write your price — FOB and CIF in simple language."
         },
         {
-          "title": "Payment terms aur documents",
-          "text": "Paisa safe kaise aaye, aur shipping ke kagaz."
+          "title": "Payment terms and documents",
+          "text": "How to get your money safely, and the shipping paperwork."
         },
         {
-          "title": "Logistics aur quality",
-          "text": "Maal bhejna, certification aur quality."
+          "title": "Logistics and quality",
+          "text": "Shipping the goods, certification and quality."
         },
         {
-          "title": "Export costing aur sarkari madad",
-          "text": "Har kharcha jodkar sahi daam, aur schemes ka fayda."
+          "title": "Export costing and government support",
+          "text": "The right price after adding every cost, and the benefit of schemes."
         }
       ]
     },
@@ -2036,7 +2036,7 @@
       "category": "real-estate",
       "accent": "#FFA866",
       "title": "Become a Property Valuer",
-      "subtitle": "Property valuer banne ka step-by-step roadmap — registration se bank panel tak",
+      "subtitle": "A step-by-step roadmap to becoming a property valuer — from registration to bank panels",
       "description": "A practical guide to the valuation profession: when valuation is needed, becoming a registered valuer, valuation approaches, site inspection, document checks, fully worked valuations, writing the report, getting on bank panels, income streams and fees, risks and ethics, and growing the practice.",
       "price": 599,
       "mrp": 4000,
@@ -2097,32 +2097,32 @@
       ],
       "inside": [
         {
-          "title": "Valuation kab aur kyon chahiye",
-          "text": "Home loan, court, tax, parivaar ka batwara — kaam har mahine aata hai."
+          "title": "When and why valuation is needed",
+          "text": "Home loans, courts, tax, family partition — work comes in every month."
         },
         {
-          "title": "Valuer kaise banein",
-          "text": "Zaroori yogyata aur registration ka raasta."
+          "title": "How to become a valuer",
+          "text": "The qualifications you need and the route to registration."
         },
         {
-          "title": "Valuation ke tareeke",
-          "text": "Teeno approach aasaan bhasha mein."
+          "title": "Valuation methods",
+          "text": "All three approaches in simple language."
         },
         {
-          "title": "Site inspection aur document check",
-          "text": "Kya dekhna hai, kya poochna hai."
+          "title": "Site inspection and document check",
+          "text": "What to look at and what to ask."
         },
         {
-          "title": "Poori tarah kiye gaye valuations",
-          "text": "Asli jaise examples — step by step."
+          "title": "Fully worked valuations",
+          "text": "Real-life examples — step by step."
         },
         {
-          "title": "Report likhna aur bank panel",
-          "text": "Saaf report aur bank panel mein naam kaise aaye."
+          "title": "Writing the report and bank panels",
+          "text": "A clear report, and how to get your name on a bank panel."
         },
         {
-          "title": "Fees aur kamai ke raaste",
-          "text": "Har report se kamai aur practice badhane ka tareeka."
+          "title": "Fees and income streams",
+          "text": "Earning from every report and growing your practice."
         }
       ]
     },
@@ -2132,7 +2132,7 @@
       "category": "online",
       "accent": "#FFC59A",
       "title": "Sell on Amazon, Flipkart & Meesho",
-      "subtitle": "Amazon, Flipkart, Meesho par bechne ka step-by-step tareeka — munafe ke saath",
+      "subtitle": "A step-by-step way to sell on Amazon, Flipkart and Meesho — with a profit",
       "description": "A handbook for marketplace sellers: which marketplace for what, choosing products, sourcing, registration and compliance, listings that sell, fees and real margin, fulfilment options, your first 50 orders, ads that pay, returns and RTO, account health and building your own brand beyond marketplaces.",
       "price": 599,
       "mrp": 999,
@@ -2193,32 +2193,32 @@
       ],
       "inside": [
         {
-          "title": "Kaunsa marketplace kis cheez ke liye",
-          "text": "Amazon, Flipkart aur Meesho — kahan kya bikta hai."
+          "title": "Which marketplace for what",
+          "text": "Amazon, Flipkart and Meesho — what sells where."
         },
         {
-          "title": "Bikne wala product chunna",
-          "text": "Aur maal kahan se laana hai — sourcing."
+          "title": "Choosing a product that sells",
+          "text": "And where to get the goods — sourcing."
         },
         {
-          "title": "Registration aur compliance",
-          "text": "GST aur zaroori kaam."
+          "title": "Registration and compliance",
+          "text": "GST and the other essentials."
         },
         {
-          "title": "Listing jo bikti hai",
-          "text": "Photo, title aur description ka sahi tareeka."
+          "title": "Listings that sell",
+          "text": "The right way to do photos, titles and descriptions."
         },
         {
-          "title": "Fees ke baad asli munafa",
-          "text": "Commission, shipping, return — har order par sach mein kitna bacha."
+          "title": "Real profit after fees",
+          "text": "Commission, shipping, returns — how much you actually keep on each order."
         },
         {
-          "title": "Pehle 50 order aur ads",
-          "text": "Shuruaati bikri aur aise ads jo paisa wapas laayein."
+          "title": "Your first 50 orders and ads",
+          "text": "Early sales, and ads that bring your money back."
         },
         {
-          "title": "Return, RTO aur apna brand",
-          "text": "Nuksaan rokna, account health aur apna brand banana."
+          "title": "Returns, RTO and your own brand",
+          "text": "Preventing losses, account health and building your own brand."
         }
       ]
     },
@@ -2228,7 +2228,7 @@
       "category": "online",
       "accent": "#FFC59A",
       "title": "Earn with AI Services",
-      "subtitle": "AI se kamai ka step-by-step tareeka — 20 services jo dukaanein khareedti hain",
+      "subtitle": "A step-by-step way to earn with AI — 20 services that local shops buy",
       "description": "The honest truth about earning with AI, your toolkit and niche, and 20 services you can sell — content, design, video and voice, business automation and education — plus how to get your first client, price your work, keep quality honest and grow into an agency.",
       "price": 599,
       "mrp": 999,
@@ -2289,32 +2289,32 @@
       ],
       "inside": [
         {
-          "title": "AI se kamai ka sach",
-          "text": "Kya hota hai, kya nahi — bina jhooth ke."
+          "title": "The truth about earning with AI",
+          "text": "What works and what doesn't — with no lies."
         },
         {
-          "title": "Aapka AI toolkit",
-          "text": "Kaunse tools seekhne hain aur kaunsa niche chunna hai."
+          "title": "Your AI toolkit",
+          "text": "Which tools to learn and which niche to pick."
         },
         {
-          "title": "20 services jo log khareedte hain",
-          "text": "Content, design, video, voice, automation aur education services."
+          "title": "20 services people buy",
+          "text": "Content, design, video, voice, automation and education services."
         },
         {
-          "title": "Pehla client",
-          "text": "Local dukaan, clinic, coaching — kaise approach karein."
+          "title": "Your first client",
+          "text": "Local shops, clinics, coaching centres — how to approach them."
         },
         {
           "title": "Pricing",
-          "text": "Kitna charge karein ki client bhi khush aur munafa bhi."
+          "text": "How much to charge so the client is happy and you make a profit."
         },
         {
-          "title": "Quality aur imaandari",
-          "text": "Kaam aisa ki client baar-baar aaye."
+          "title": "Quality and honesty",
+          "text": "Work so good that clients come back again and again."
         },
         {
-          "title": "Freelancer se agency tak",
-          "text": "Team banana aur 90 din ka plan."
+          "title": "From freelancer to agency",
+          "text": "Building a team, and a 90-day plan."
         }
       ]
     },
@@ -2324,7 +2324,7 @@
       "category": "legal",
       "accent": "#FF8A3D",
       "title": "Start a Business After Retirement",
-      "subtitle": "Retirement ke baad safe business — bina savings dange mein daale, step-by-step",
+      "subtitle": "A safe business after retirement — step by step, without putting your savings at risk",
       "description": "A simple, safe guide for starting after retirement without risking your savings: the safe-money rule, knowing your strengths, 20 experience-, asset- and service-based businesses plus franchise and dealership options, avoiding fraud, your family's role, money and tax, and keeping a healthy balance.",
       "price": 599,
       "mrp": 999,
@@ -2385,32 +2385,32 @@
       ],
       "inside": [
         {
-          "title": "Retirement ke baad business kyon",
-          "text": "Aapka anubhav hi sabse badi poonji hai."
+          "title": "Why start a business after retirement",
+          "text": "Your experience is your biggest capital."
         },
         {
-          "title": "Safe-money rule",
-          "text": "Savings ka sirf kitna hissa lagana hai — pension aur budhapa safe."
+          "title": "The safe-money rule",
+          "text": "How much of your savings to use — keep your pension and old age safe."
         },
         {
-          "title": "Apni taakat pehchano",
-          "text": "Kaunsa kaam aap sabse achha kar sakte ho."
+          "title": "Know your strengths",
+          "text": "Which work you can do best."
         },
         {
           "title": "20 business ideas",
-          "text": "Anubhav wale, property wale, service aur franchise/dealership."
+          "text": "Experience-based, property-based, service, and franchise/dealership."
         },
         {
-          "title": "Dhokhe se bachao",
-          "text": "Retired logon ko pakadne wale scam pehchano."
+          "title": "Avoid fraud",
+          "text": "Recognise the scams that target retired people."
         },
         {
-          "title": "Parivaar, paisa aur tax",
-          "text": "Ghar walon ki bhoomika aur tax ka hisaab."
+          "title": "Family, money and tax",
+          "text": "The role of your family, and tax accounts."
         },
         {
-          "title": "Sehat aur kaam ka balance",
-          "text": "Aaram se chalne wala business, aur 90 din ka plan."
+          "title": "Health and work balance",
+          "text": "A business that runs at an easy pace, and a 90-day plan."
         }
       ]
     },
@@ -2420,7 +2420,7 @@
       "category": "legal",
       "accent": "#FF8A3D",
       "title": "Start a Side Business with Your Job",
-      "subtitle": "Naukri ke saath doosri kamai — 24 side business, step-by-step",
+      "subtitle": "A second income alongside your job — 24 side businesses, step by step",
       "description": "How to build a second income without risking your job: what to check before you start, choosing an idea, 24 weekend, evening, run-by-others and asset-based businesses, team and systems, money and tax, avoiding burnout and knowing when it is safe to quit your job.",
       "price": 499,
       "mrp": 799,
@@ -2481,32 +2481,32 @@
       ],
       "inside": [
         {
-          "title": "Sach jo koi nahi batata",
-          "text": "Naukri ke saath business mein kya mushkil hai."
+          "title": "The truth nobody tells you",
+          "text": "What is difficult about running a business alongside a job."
         },
         {
-          "title": "Shuru karne se pehle check",
-          "text": "Company ke niyam aur zaroori baatein."
+          "title": "Checks before you start",
+          "text": "Your company's rules and the essentials."
         },
         {
           "title": "24 side business ideas",
-          "text": "Weekend wale, shaam wale, doosron se chalwane wale aur property se kamane wale."
+          "text": "Weekend-based, evening-based, run-by-others and property-based."
         },
         {
-          "title": "Team aur system",
-          "text": "Business aapke bina bhi chale."
+          "title": "Team and systems",
+          "text": "A business that runs even without you."
         },
         {
-          "title": "Paisa aur tax",
-          "text": "Doosri kamai ka hisaab."
+          "title": "Money and tax",
+          "text": "Accounts for your second income."
         },
         {
-          "title": "Thakaan se bachao",
-          "text": "Naukri, ghar aur business — teeno sambhalo."
+          "title": "Avoid burnout",
+          "text": "Manage your job, home and business — all three."
         },
         {
-          "title": "Naukri kab chhodein",
-          "text": "Saaf numbers ke saath faisla, aur 90 din ka plan."
+          "title": "When to quit your job",
+          "text": "A decision based on clear numbers, and a 90-day plan."
         }
       ]
     },
@@ -2516,7 +2516,7 @@
       "category": "legal",
       "accent": "#FF8A3D",
       "title": "30 Home Business Ideas for Women",
-      "subtitle": "Ghar se business shuru karo — 30 ideas, kharcha aur kamai ka step-by-step hisaab",
+      "subtitle": "Start a business from home — 30 ideas, with a step-by-step calculation of costs and earnings",
       "description": "Thirty home businesses across food, fashion, services, online and crafts, each with steps and real monthly calculations — plus registration, your first 10 customers, pricing, money and schemes, balancing home and work, safety and a 90-day plan.",
       "price": 499,
       "mrp": 799,
@@ -2577,32 +2577,32 @@
       ],
       "inside": [
         {
-          "title": "30 ghar se chalne wale business",
-          "text": "Khana, fashion, service, online aur craft."
+          "title": "30 businesses you can run from home",
+          "text": "Food, fashion, services, online and crafts."
         },
         {
-          "title": "Har idea ka hisaab",
-          "text": "Kitna paisa lagega, kitna kamaoge, kitne ghante lagenge."
+          "title": "The numbers for every idea",
+          "text": "How much money it needs, how much you can earn, how many hours it takes."
         },
         {
-          "title": "Shuru karne ke steps",
-          "text": "Har idea ke liye step by step."
+          "title": "Steps to start",
+          "text": "Step by step for every idea."
         },
         {
-          "title": "Registration aur licence",
-          "text": "Zaroori kaagaz aasaan bhasha mein."
+          "title": "Registration and licence",
+          "text": "The documents you need, in simple language."
         },
         {
-          "title": "Pehle 10 customer",
-          "text": "Grahak kahan se aur kaise milenge."
+          "title": "Your first 10 customers",
+          "text": "Where and how to find customers."
         },
         {
-          "title": "Pricing, paisa aur schemes",
-          "text": "Sahi daam aur mahilaon ke liye sarkari schemes."
+          "title": "Pricing, money and schemes",
+          "text": "The right price, and government schemes for women."
         },
         {
-          "title": "Ghar aur kaam ka balance",
-          "text": "Suraksha aur 90 din ka plan."
+          "title": "Balancing home and work",
+          "text": "Safety, and a 90-day plan."
         }
       ]
     },
@@ -2612,7 +2612,7 @@
       "category": "legal",
       "accent": "#FF8A3D",
       "title": "30 Village Business Ideas",
-      "subtitle": "Gaon mein kam paise se pakki kamai — 30 business, step-by-step",
+      "subtitle": "Steady income in the village with low investment — 30 businesses, step by step",
       "description": "Thirty businesses for villages and small towns — farm-linked, animal-based, processing, service and trading — with investment, earnings and how to start, plus schemes and subsidies, FPOs and groups, selling produce, money, mistakes to avoid and a 90-day plan.",
       "price": 499,
       "mrp": 799,
@@ -2673,32 +2673,32 @@
       ],
       "inside": [
         {
-          "title": "Gaon ka market samjho",
-          "text": "Gaon ka paisa kahan jaata hai — wahi business hai."
+          "title": "Understand the village market",
+          "text": "Where village money goes — that is where the business is."
         },
         {
-          "title": "30 gaon ke business",
-          "text": "Kheti se jude, pashu wale, processing, service aur trading."
+          "title": "30 village businesses",
+          "text": "Farm-linked, animal-based, processing, service and trading."
         },
         {
-          "title": "Har idea ka hisaab",
-          "text": "Kitna lagega, kitna kamaoge aur kaise shuru karein."
+          "title": "The numbers for every idea",
+          "text": "What it costs, what you can earn and how to start."
         },
         {
-          "title": "Schemes aur subsidy",
-          "text": "Sarkari madad ka fayda kaise lein."
+          "title": "Schemes and subsidies",
+          "text": "How to get the benefit of government support."
         },
         {
-          "title": "FPO aur samooh",
-          "text": "Saath milkar zyada kamai."
+          "title": "FPOs and groups",
+          "text": "Earn more by working together."
         },
         {
-          "title": "Fasal achhe daam par bechna",
-          "text": "Bichauliye se bachkar seedha bechna."
+          "title": "Selling your crop at a good price",
+          "text": "Selling directly by avoiding middlemen."
         },
         {
-          "title": "Galtiyon se bachao",
-          "text": "Aur 90 din ka plan."
+          "title": "Avoid mistakes",
+          "text": "And a 90-day plan."
         }
       ]
     },
@@ -2708,7 +2708,7 @@
       "category": "construction",
       "accent": "#FFA866",
       "title": "Start a Labour Supply Business",
-      "subtitle": "5 workers se 500 tak — labour supply business ka starter roadmap",
+      "subtitle": "From 5 workers to 500 — a starter roadmap to the labour supply business",
       "description": "A short starter guide to manpower supply: who buys manpower, business models, the legal framework, registrations and compliance calendar, sourcing and keeping workers, pricing, finding clients, agreements and work orders, attendance, payroll and billing, the cash-flow gap, safety and insurance, and scaling up.",
       "price": 499,
       "mrp": 799,
@@ -2769,32 +2769,32 @@
       ],
       "inside": [
         {
-          "title": "Manpower kaun khareedta hai",
-          "text": "Factory, warehouse, site, hospital, society."
+          "title": "Who buys manpower",
+          "text": "Factories, warehouses, sites, hospitals, societies."
         },
         {
           "title": "Business models",
-          "text": "Kaunsa model aapke liye sahi."
+          "text": "Which model is right for you."
         },
         {
-          "title": "Kaanooni dhancha",
-          "text": "Registration aur compliance calendar."
+          "title": "The legal framework",
+          "text": "Registrations and the compliance calendar."
         },
         {
-          "title": "Workers dhoondhna aur rokna",
-          "text": "Bharosemand team kaise banayein."
+          "title": "Finding and keeping workers",
+          "text": "How to build a reliable team."
         },
         {
-          "title": "Service ka daam",
-          "text": "Rate jo munafa de."
+          "title": "Pricing your service",
+          "text": "A rate that gives you a profit."
         },
         {
-          "title": "Client, agreement aur billing",
-          "text": "Attendance, payroll aur bill."
+          "title": "Clients, agreements and billing",
+          "text": "Attendance, payroll and bills."
         },
         {
-          "title": "Cash-flow gap aur safety",
-          "text": "Client late de tab bhi wage time par — insurance aur badhne ka raasta."
+          "title": "The cash-flow gap and safety",
+          "text": "Pay wages on time even when the client pays late — insurance and the way to scale."
         }
       ]
     },
@@ -2806,7 +2806,7 @@
       "is_published": true,
       "title": "Bolo Aisa, Log Ruk Jaayein",
       "subtitle": "Awaaz Mein Dum · Book 1",
-      "description": "Duniya ke best speakers ki 10 storytelling tricks. Weak vs strong examples, ready scripts aur 21 din ka plan — class, interview ya pitch, log sirf aapko sunenge.",
+      "description": "10 storytelling tricks from the world's best speakers. Weak vs strong examples, ready scripts and a 21-day plan — in class, an interview or a pitch, people will listen only to you.",
       "price": 399,
       "mrp": 699,
       "badge": "New",
@@ -2858,31 +2858,31 @@
       "inside": [
         {
           "title": "10 storytelling tricks",
-          "text": "Duniya ke best speakers aur founders jo karte hain — ab aap bhi."
+          "text": "What the world's best speakers and founders do — now you can too."
         },
         {
-          "title": "Problem ko chehra do",
-          "text": "Log aapki taraf aa jaayenge — Name the Enemy trick."
+          "title": "Give the problem a face",
+          "text": "People will come to your side — the Name the Enemy trick."
         },
         {
-          "title": "Urgency aur sawal jagao",
-          "text": "Log suunne ko majboor ho jaayein."
+          "title": "Create urgency and curiosity",
+          "text": "Make people want to listen."
         },
         {
-          "title": "Features nahi, fayde becho",
-          "text": "Aur dikhao, sirf bolo mat."
+          "title": "Sell benefits, not features",
+          "text": "And show, don't just tell."
         },
         {
-          "title": "Mushkil baat aasaan karo",
-          "text": "Roz ki misaalon se samjhao."
+          "title": "Make hard things easy",
+          "text": "Explain with everyday examples."
         },
         {
-          "title": "Apni kahani, apna vision",
-          "text": "Dil se ek sachchi kahani aur saaf 'ask'."
+          "title": "Your story, your vision",
+          "text": "One honest story from the heart, and a clear 'ask'."
         },
         {
-          "title": "Toolkit + 21 din ka plan",
-          "text": "Weak vs strong examples, fill-in templates aur 5 ready scripts."
+          "title": "Toolkit + 21-day plan",
+          "text": "Weak vs strong examples, fill-in templates and 5 ready scripts."
         }
       ]
     },
@@ -2894,7 +2894,7 @@
       "is_published": true,
       "title": "Interview Mein Chha Jao",
       "subtitle": "Awaaz Mein Dum · Book 2",
-      "description": "\"Tell me about yourself\" se salary talk tak. STAR stories, 20 HR sawalon ke model jawab, GD aur online interview — har jawab ek yaad rehne wali kahani.",
+      "description": "From \"Tell me about yourself\" to salary talk. STAR stories, model answers to 20 HR questions, group discussions and online interviews — make every answer a story people remember.",
       "price": 399,
       "mrp": 699,
       "badge": "New",
@@ -2945,32 +2945,32 @@
       ],
       "inside": [
         {
-          "title": "Interview ek kahani ka test hai",
-          "text": "Interviewer sach mein kya dekhta hai."
+          "title": "An interview is a story test",
+          "text": "What the interviewer is really looking at."
         },
         {
           "title": "\"Tell me about yourself\"",
-          "text": "60–90 second ka jawab — Present, Past, Future se."
+          "text": "A 60–90 second answer using Present, Past, Future."
         },
         {
           "title": "STAR stories",
-          "text": "Har experience ko saboot mein badlo."
+          "text": "Turn every experience into proof."
         },
         {
-          "title": "Strength, weakness aur \"Why you?\"",
-          "text": "Imaandar jawab jo phir bhi impress kare."
+          "title": "Strengths, weaknesses and \"Why you?\"",
+          "text": "Honest answers that still impress."
         },
         {
-          "title": "20 HR sawal ke model jawab",
-          "text": "Apne hisaab se badal kar use karo."
+          "title": "Model answers to 20 HR questions",
+          "text": "Adapt them to your own life and use them."
         },
         {
-          "title": "Group discussion aur online interview",
-          "text": "Body language aur camera ke saamne kaise dikhein."
+          "title": "Group discussions and online interviews",
+          "text": "Body language, and how to look good on camera."
         },
         {
-          "title": "Salary, aapke sawal aur follow-up",
-          "text": "Story bank, 7 din ka plan aur interview day checklist."
+          "title": "Salary, your questions and follow-up",
+          "text": "A story bank, a 7-day plan and an interview-day checklist."
         }
       ]
     },
@@ -2982,7 +2982,7 @@
       "is_published": true,
       "title": "Mic Pakdo, Darr Bhagao",
       "subtitle": "Awaaz Mein Dum · Book 3",
-      "description": "Haath kaanpte hain, awaaz atakti hai? Nervousness sambhalna, talk ka structure, voice, body language, viva aur debate — 21 din mein stage ka darr khatam.",
+      "description": "Do your hands shake and your voice stumble? Handling nervousness, talk structure, voice, body language, viva and debate — beat stage fear in 21 days.",
       "price": 399,
       "mrp": 699,
       "badge": "New",
@@ -3033,32 +3033,32 @@
       ],
       "inside": [
         {
-          "title": "Darr kya karta hai, kaise rokein",
-          "text": "Ghabrahat ko shant karne ke tareeke."
+          "title": "What fear does, and how to stop it",
+          "text": "Ways to calm your nerves."
         },
         {
           "title": "Hook, Body, Close",
-          "text": "1 minute se 20 minute tak har talk ka structure."
+          "text": "A structure for every talk, from 1 minute to 20 minutes."
         },
         {
-          "title": "Awaaz aur pause",
-          "text": "Raftaar, volume, saaf bolna aur chuppi ki taakat."
+          "title": "Voice and pauses",
+          "text": "Pace, volume, speaking clearly and the power of silence."
         },
         {
-          "title": "Body language aur eye contact",
-          "text": "Kaise khade hon, chalein aur dekhein."
+          "title": "Body language and eye contact",
+          "text": "How to stand, walk and look."
         },
         {
-          "title": "Slides jo madad karein",
-          "text": "Slides ke peeche mat chhupo."
+          "title": "Slides that help",
+          "text": "Don't hide behind your slides."
         },
         {
-          "title": "Class presentation, viva aur debate",
-          "text": "Students ke sabse aam stage ke liye khaas tips."
+          "title": "Class presentations, viva and debate",
+          "text": "Special tips for the stages students face most."
         },
         {
-          "title": "Sawal-jawab aur galtiyan",
-          "text": "Bhool jao to kya karein — 21 din ka confidence plan."
+          "title": "Q&A and mistakes",
+          "text": "What to do if you forget — and a 21-day confidence plan."
         }
       ]
     },
@@ -3068,9 +3068,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Waqt Bachao, Paisa Kamao",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 1 of 15",
-      "description": "Log apna time bachane ke liye khushi se paisa dete hain. Delivery, home service aur booking jaise 9 business — kam paise se shuru karo, har order par kamao.",
+      "title": "Save People's Time",
+      "subtitle": "Problems Worth Billions · Book 1 of 15",
+      "description": "People gladly pay to save their time. 9 businesses such as delivery, home services and booking — start with little money and earn on every order.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3135,9 +3135,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Logon Ki Jeb Bharo",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 2 of 15",
-      "description": "Har koi paisa bachana aur kamana chahta hai. Bachat, insurance, side income aur reselling mein 9 business — logon ka bharosa jeeto, har client se kamao.",
+      "title": "Help People Save or Earn",
+      "subtitle": "Problems Worth Billions · Book 2 of 15",
+      "description": "Everyone wants to save and earn money. 9 businesses in savings, insurance, side income and reselling — win people's trust and earn from every client.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3202,9 +3202,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Sehat Ka Business",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 3 of 15",
-      "description": "Sehat par India har saal crore kharch karta hai. Clinic, lab, dawai, diet aur ghar par care mein 9 business — sasti, achhi sehat do aur kamao.",
+      "title": "Improve People's Health",
+      "subtitle": "Problems Worth Billions · Book 3 of 15",
+      "description": "India spends crores on health every year. 9 businesses in clinics, labs, medicines, diet and home care — offer affordable, good health care and earn.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3269,9 +3269,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Padhao Aur Kamao",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 4 of 15",
-      "description": "Parents padhai par sabse zyada kharch karte hain. Tuition, skill course aur online classes mein 9 business — bachchon ko sach mein sikhao, fees se kamao.",
+      "title": "Make Learning Better",
+      "subtitle": "Problems Worth Billions · Book 4 of 15",
+      "description": "Parents spend the most on education. Nine businesses in tuition, skill courses and online classes — help children truly learn, and earn from fees.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3336,9 +3336,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Hifazat Ka Business",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 5 of 15",
-      "description": "Log suraksha ke liye kabhi kanjoosi nahi karte. CCTV, security guard, fire safety aur cyber help mein 9 business — bharosa do, har mahine kamao.",
+      "title": "Protect People",
+      "subtitle": "Problems Worth Billions · Book 5 of 15",
+      "description": "People never cut corners on safety. Nine businesses in CCTV, security guards, fire safety and cyber help — give people peace of mind and earn every month.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3403,9 +3403,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Jinhe Sab Bhool Gaye",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 6 of 15",
-      "description": "Jinhe sab bhool gaye, wahi sabse wafadar customer bante hain. Gaon, mahilaon aur divyangon ki madad wale 9 business — darwaze kholo, kamai pao.",
+      "title": "Create Equal Access",
+      "subtitle": "Problems Worth Billions · Book 6 of 15",
+      "description": "The people everyone forgot become the most loyal customers. Nine businesses that help villages, women and people with disabilities — open the doors and earn.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3470,9 +3470,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Roti Kapda Makaan Business",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 7 of 15",
-      "description": "Roti, paani, dawai aur rehne ki jagah ki maang kabhi khatam nahi hoti. In zarooraton mein 9 business — sahi daam par do, roz kamao.",
+      "title": "Make Essentials Accessible",
+      "subtitle": "Problems Worth Billions · Book 7 of 15",
+      "description": "The need for food, water, medicine and housing never ends. Nine businesses in these basics — offer them at a fair price and earn every day.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3537,9 +3537,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Purana Dhandha, Naya Tareeka",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 8 of 15",
-      "description": "Lakhs dukaan aur factory abhi bhi kagaz par chal rahi hain. Software, digital setup, drone aur smart tools ke 9 business — unka kaam aasaan karo, fees lo.",
+      "title": "Modernise Old Systems",
+      "subtitle": "Problems Worth Billions · Book 8 of 15",
+      "description": "Lakhs of shops and factories still run on paper. Nine businesses in software, digital setup, drones and smart tools — make their work easier and charge fees.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3604,9 +3604,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Bijli Bachao, Paisa Banao",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 9 of 15",
-      "description": "Har ghar aur dukaan bijli ka bill kam karna chahti hai. Solar, LED, energy audit aur biogas ke 9 business — bachat dikhao, saalon tak kamao.",
+      "title": "Make Energy More Efficient",
+      "subtitle": "Problems Worth Billions · Book 9 of 15",
+      "description": "Every home and shop wants a lower electricity bill. Nine businesses in solar, LED, energy audits and biogas — show the savings and earn for years.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3671,9 +3671,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Kachre Mein Khazana",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 10 of 15",
-      "description": "Jise log kachra samajhte hain, usme asli khazana hai. Recycling, compost, e-waste aur green products ke 9 business — saaf karo aur kamao.",
+      "title": "Protect the Environment",
+      "subtitle": "Problems Worth Billions · Book 10 of 15",
+      "description": "What people call waste holds real treasure. Nine businesses in recycling, compost, e-waste and green products — clean up and earn.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3738,9 +3738,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Pahiye Pe Paisa",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 11 of 15",
-      "description": "India roz chalta hai — log bhi, saamaan bhi. E-rickshaw, delivery, logistics aur EV ke 9 business — har trip, har parcel par kamao.",
+      "title": "Improve Transportation",
+      "subtitle": "Problems Worth Billions · Book 11 of 15",
+      "description": "India is always on the move — people and goods both. Nine businesses in e-rickshaws, delivery, logistics and EVs — earn on every trip and every parcel.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3805,9 +3805,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Sukoon Ka Business",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 12 of 15",
-      "description": "Tension bhari zindagi mein log sukoon dhoondh rahe hain. Yoga, meditation, retreat aur companionship ke 9 business — sukoon do, izzat se kamao.",
+      "title": "Help People Find Peace",
+      "subtitle": "Problems Worth Billions · Book 12 of 15",
+      "description": "In stressful lives, people are looking for calm. Nine businesses in yoga, meditation, retreats and companionship — give people peace and earn with dignity.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3872,9 +3872,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Zaroorat Hi Business Hai",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 13 of 15",
-      "description": "Jo parivaar sabse tezi se aage badh rahe hain, unki zarooratein bhi badh rahi hain. Poshan, saaf-safai aur ghar ke 9 business — seva bhi, kamai bhi.",
+      "title": "Fight Basic Deprivation",
+      "subtitle": "Problems Worth Billions · Book 13 of 15",
+      "description": "The families that are rising fastest also have growing needs. Nine businesses in nutrition, sanitation and housing — serve people and earn too.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -3939,9 +3939,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Jhanjhat Khatam, Business Shuru",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 14 of 15",
-      "description": "Har kaam mein jhanjhat hai — repair, shifting, kagaz, booking. In jhanjhaton ko khatam karne wale 9 business — ek call mein kaam karo, bharosa aur paisa dono pao.",
+      "title": "Make Life Simpler",
+      "subtitle": "Problems Worth Billions · Book 14 of 15",
+      "description": "Every task has its hassles — repairs, shifting, paperwork, bookings. Nine businesses that remove these hassles — get the job done in one call and earn both trust and money.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -4006,9 +4006,9 @@
       "category": "startup",
       "accent": "#FFC59A",
       "is_published": false,
-      "title": "Logon Ko Jodo, Paisa Jodo",
-      "subtitle": "Problem Solve Karo, Paisa Kamao · Book 15 of 15",
-      "description": "Log naye shehar mein dost, sathi aur network dhoondhte hain. Community, events, clubs aur matchmaking ke 9 business — logon ko jodo, paisa jodo.",
+      "title": "Help People Connect",
+      "subtitle": "Problems Worth Billions · Book 15 of 15",
+      "description": "People in a new city look for friends, companions and a network. Nine businesses in community, events, clubs and matchmaking — connect people and build your income.",
       "price": 499,
       "mrp": 799,
       "badge": "New",
@@ -4072,8 +4072,8 @@
       "type": "bundle",
       "category": "bundle",
       "accent": "#FF6A00",
-      "title": "Problem Solve Karo, Paisa Kamao",
-      "subtitle": "Logon ki chhoti-chhoti problem solve karke crore tak kaise pahunchein — 135 business ideas ka poora roadmap",
+      "title": "Problems Worth Billions",
+      "subtitle": "How to go from solving people's small problems to crore-level businesses — a complete roadmap of 135 business ideas",
       "description": "A complete series of 15 books. Each book takes one big problem Indians face — time, money, health, learning, safety, food, energy, waste, transport, peace and more — and shows the market with real numbers, who solved it in India, 5 ideas you can start small, 4 ideas that can grow big, how to validate and launch, the full money plan and a 90-day plan. Every book in Hindi and English.",
       "price": 2999,
       "mrp": 7485,
@@ -4179,8 +4179,8 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Factory Starter Pack",
-      "subtitle": "Factory lagane ka poora set — 50 ideas, 2 project reports aur PMEGP loan guide",
-      "description": "4 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹5,996 — is pack mein ₹3,999.",
+      "subtitle": "Everything you need to set up a factory — 50 ideas, 2 project reports and a PMEGP loan guide",
+      "description": "4 books together, in both Hindi and English, with lifetime access. Bought separately ₹5,996 — in this pack ₹3,999.",
       "price": 3999,
       "badge": "Manufacturing",
       "level": "All levels",
@@ -4192,7 +4192,7 @@
         },
         {
           "title": "33%",
-          "text": "Bachat"
+          "text": "Savings"
         },
         {
           "title": "2",
@@ -4204,10 +4204,10 @@
         }
       ],
       "learn": [
-        "50 manufacturing businesses, ₹10 lakh se ₹5 crore+ tak",
-        "Fly ash bricks aur paver blocks ki poori project report (DPR)",
-        "PMEGP loan aur 35% tak subsidy ka step-by-step tareeka",
-        "Machine, licence, loan aur 5 saal ka profit — har business ka"
+        "50 manufacturing businesses, from ₹10 lakh to ₹5 crore+",
+        "Complete project report (DPR) for fly ash bricks and paver blocks",
+        "Step-by-step method for a PMEGP loan and subsidy of up to 35%",
+        "Machine, licence, loan and 5-year profit — for every business"
       ],
       "chapters": [],
       "editions": [],
@@ -4225,8 +4225,8 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Contractor Pack",
-      "subtitle": "Contractor banne se sarkari kaam jeetne tak — 5 books ka poora roadmap",
-      "description": "5 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹5,295 — is pack mein ₹3,499.",
+      "subtitle": "From becoming a contractor to winning government work — a complete roadmap in 5 books",
+      "description": "5 books together, in both Hindi and English, with lifetime access. Bought separately ₹5,295 — in this pack ₹3,499.",
       "price": 3499,
       "badge": "Construction",
       "level": "All levels",
@@ -4238,7 +4238,7 @@
         },
         {
           "title": "34%",
-          "text": "Bachat"
+          "text": "Savings"
         },
         {
           "title": "2",
@@ -4250,10 +4250,10 @@
         }
       ],
       "learn": [
-        "Contractor firm registration aur tender list mein naam",
-        "Sarkari tender bharna, rate bharna aur jeetna",
-        "GeM par sarkar ko maal aur service bechna",
-        "Labour supply aur manpower business — licence, rate, payroll"
+        "Contractor firm registration and getting on tender lists",
+        "Filling government tenders, quoting rates and winning",
+        "Selling goods and services to the government on GeM",
+        "Labour supply and manpower business — licence, rates, payroll"
       ],
       "chapters": [],
       "editions": [],
@@ -4272,8 +4272,8 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Kam Paise Se Business Pack",
-      "subtitle": "Kam paise, ghar, gaon ya naukri ke saath — 200+ business ideas, 7 books",
-      "description": "7 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹5,393 — is pack mein ₹2,999.",
+      "subtitle": "Start with little money, from home, a village or alongside a job — 200+ business ideas in 7 books",
+      "description": "7 books together, in both Hindi and English, with lifetime access. Bought separately ₹5,393 — in this pack ₹2,999.",
       "price": 2999,
       "badge": "Low investment",
       "level": "All levels",
@@ -4285,7 +4285,7 @@
         },
         {
           "title": "44%",
-          "text": "Bachat"
+          "text": "Savings"
         },
         {
           "title": "2",
@@ -4297,11 +4297,11 @@
         }
       ],
       "learn": [
-        "128 legal business jo kam paise se shuru hote hain",
-        "Ghar se, gaon mein aur naukri ke saath chalne wale business",
-        "Idea ko 7 din mein ₹0 mein test karna",
-        "Har idea ka kharcha, kamai aur pehla customer",
-        "Franchise lene se pehle ROI check — aur retirement ke baad business"
+        "128 legal businesses you can start with little money",
+        "Businesses you can run from home, in a village or alongside a job",
+        "Test an idea in 7 days for ₹0",
+        "Cost, earnings and first customer for every idea",
+        "Check ROI before taking a franchise — and businesses after retirement"
       ],
       "chapters": [],
       "editions": [],
@@ -4322,8 +4322,8 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Food & Agro Pack",
-      "subtitle": "Khana, kheti, gaon aur pashupalan — 4 books, 130+ business ideas",
-      "description": "4 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹2,296 — is pack mein ₹1,499.",
+      "subtitle": "Food, farming, village and livestock — 4 books, 130+ business ideas",
+      "description": "4 books together, Hindi and English, lifetime access. Bought separately ₹2,296 — in this pack ₹1,499.",
       "price": 1499,
       "badge": "Food & agro",
       "level": "All levels",
@@ -4335,7 +4335,7 @@
         },
         {
           "title": "35%",
-          "text": "Bachat"
+          "text": "Savings"
         },
         {
           "title": "2",
@@ -4347,11 +4347,11 @@
         }
       ],
       "learn": [
-        "40 food processing business — masala, achaar, paneer, namkeen",
-        "Khet ke kachre se 30 business — briquette, compost, mushroom",
-        "Gaon ke 30 business — kam paisa, pakki maang",
-        "FSSAI, packaging aur sarkari schemes",
-        "Pashupalan — dairy, bakri, murgi, suar aur 35+ business, project report ke saath"
+        "40 food processing businesses — masala, pickle, paneer, namkeen",
+        "30 businesses from farm waste — briquettes, compost, mushroom",
+        "30 village businesses — low investment, steady demand",
+        "FSSAI, packaging and government schemes",
+        "Livestock farming — dairy, goat, poultry, pig and 35+ businesses, with project report"
       ],
       "chapters": [],
       "editions": [],
@@ -4369,8 +4369,8 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Online & AI Pack",
-      "subtitle": "Ghar baithe online kamai — marketplace, AI services aur export",
-      "description": "4 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹2,296 — is pack mein ₹1,499.",
+      "subtitle": "Earn online from home — marketplaces, AI services and export",
+      "description": "4 books together, Hindi and English, lifetime access. Bought separately ₹2,296 — in this pack ₹1,499.",
       "price": 1499,
       "badge": "Online",
       "level": "All levels",
@@ -4382,7 +4382,7 @@
         },
         {
           "title": "35%",
-          "text": "Bachat"
+          "text": "Savings"
         },
         {
           "title": "2",
@@ -4394,10 +4394,10 @@
         }
       ],
       "learn": [
-        "Amazon, Flipkart, Meesho par munafe ke saath bechna",
-        "AI se 20 services jo local business khareedte hain",
-        "Export business — product, buyer, kagaz aur payment",
-        "Naukri ke saath doosri kamai"
+        "Sell profitably on Amazon, Flipkart and Meesho",
+        "20 AI services that local businesses buy",
+        "Export business — products, buyers, paperwork and payment",
+        "A second income alongside your job"
       ],
       "chapters": [],
       "editions": [],
@@ -4415,8 +4415,8 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Solar & EV Pack",
-      "subtitle": "Bijli ka business — solar installation aur EV charging contractor",
-      "description": "2 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹1,198 — is pack mein ₹799.",
+      "subtitle": "The power business — solar installation and EV charging contractor",
+      "description": "2 books together, Hindi and English, lifetime access. Bought separately ₹1,198 — in this pack ₹799.",
       "price": 799,
       "badge": "Energy",
       "level": "All levels",
@@ -4428,7 +4428,7 @@
         },
         {
           "title": "33%",
-          "text": "Bachat"
+          "text": "Savings"
         },
         {
           "title": "2",
@@ -4440,10 +4440,10 @@
         }
       ],
       "learn": [
-        "Solar business ke 5 model — rooftop, EPC aur AMC",
-        "Subsidy, net metering aur DISCOM approval",
-        "EV charger lagane aur maintain karne ka contract",
-        "Quote, costing aur hamesha chalne wali AMC kamai"
+        "5 solar business models — rooftop, EPC and AMC",
+        "Subsidy, net metering and DISCOM approval",
+        "Contracts for installing and maintaining EV chargers",
+        "Quotes, costing and recurring AMC income"
       ],
       "chapters": [],
       "editions": [],
@@ -4459,8 +4459,8 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Real Estate Pack",
-      "subtitle": "Zameen, plot aur property — plotting aur valuation ka kaam",
-      "description": "2 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹1,198 — is pack mein ₹799.",
+      "subtitle": "Land, plots and property — plotting and valuation work",
+      "description": "2 books together, Hindi and English, lifetime access. Bought separately ₹1,198 — in this pack ₹799.",
       "price": 799,
       "badge": "Real estate",
       "level": "All levels",
@@ -4472,7 +4472,7 @@
         },
         {
           "title": "33%",
-          "text": "Bachat"
+          "text": "Savings"
         },
         {
           "title": "2",
@@ -4484,9 +4484,9 @@
         }
       ],
       "learn": [
-        "Zameen chunne se plot bechne tak ka poora plan",
-        "Property valuer banna aur bank panel par aana",
-        "Approvals, costing aur registry"
+        "The full plan from choosing land to selling plots",
+        "Becoming a property valuer and getting on a bank panel",
+        "Approvals, costing and registry"
       ],
       "chapters": [],
       "editions": [],
@@ -4502,8 +4502,8 @@
       "category": "food-agro",
       "accent": "#97702F",
       "title": "Pashupalan Se Paisa — with Project Report",
-      "subtitle": "Dairy, bakri, murgi, suar aur 35+ business — chhote farm se crore ke brand tak ka roadmap",
-      "description": "Pashupalan ka poora guide: nasl, shed, chara, tike, sarkari subsidy, doodh se ghee-paneer-ice cream, packaging aur brand. Project report aur kamai ke hisaab ke saath. Sab hisaab udaharan hain, income ki guarantee nahi.",
+      "subtitle": "Dairy, goat, poultry, pig and 35+ businesses — a roadmap from a small farm to a crore-rupee brand",
+      "description": "A complete guide to livestock farming: breeds, sheds, feed, vaccines, government subsidy, milk to ghee, paneer and ice cream, packaging and branding. Includes a project report with cost and earning calculations. All figures are examples, not an income guarantee.",
       "price": 599,
       "mrp": 4000,
       "badge": "Project report",
@@ -4528,47 +4528,47 @@
         }
       ],
       "learn": [
-        "Dairy, bakri, murgi, suar — apne budget ka janwar chunna",
-        "Shed, chara aur tike ka sahi plan",
-        "Sarkari subsidy aur bank loan ka raasta",
-        "Doodh se ghee, paneer aur ice cream — value addition",
-        "Packaging, labelling aur apna brand banana",
-        "Lakh se crore tak scale karne ka stage-by-stage roadmap"
+        "Dairy, goat, poultry, pig — choose the animal that fits your budget",
+        "The right plan for shed, feed and vaccines",
+        "The path to government subsidy and bank loans",
+        "Value addition — ghee, paneer and ice cream from milk",
+        "Packaging, labelling and building your own brand",
+        "A stage-by-stage roadmap to scale from lakh to crore"
       ],
       "chapters": [
-        "Market samjho",
-        "Janwar ka business chuno",
-        "Value addition aur brand",
-        "Scale karo"
+        "Understand the market",
+        "Choose your animal business",
+        "Value addition and brand",
+        "Scale up"
       ],
       "inside": [
         {
-          "title": "Market aur sahi janwar",
-          "text": "Kaun kharidta hai, kitna, aur aapke liye kaun sa janwar theek hai."
+          "title": "Market and the right animal",
+          "text": "Who buys, how much, and which animal suits you."
         },
         {
           "title": "Dairy farming",
-          "text": "Gai-bhains ki nasl, shed, chara, breeding aur 4 dairy models."
+          "text": "Cow and buffalo breeds, sheds, feed, breeding and 4 dairy models."
         },
         {
-          "title": "Bakri, murgi aur suar",
-          "text": "Stall-fed farm, contract broiler, layer, desi murgi, hatchery aur suar palan."
+          "title": "Goat, poultry and pig",
+          "text": "Stall-fed farm, contract broiler, layer, desi poultry, hatchery and pig farming."
         },
         {
-          "title": "Chara aur feed",
-          "text": "Hara chara, silage, hydroponics aur feed ka business."
+          "title": "Fodder and feed",
+          "text": "Green fodder, silage, hydroponics and the feed business."
         },
         {
-          "title": "Doodh se brand tak",
-          "text": "Ghee, paneer, ice cream, packaging aur dairy brand kaise banta hai."
+          "title": "From milk to brand",
+          "text": "Ghee, paneer, ice cream, packaging and how a dairy brand is built."
         },
         {
-          "title": "Project report aur kamai",
-          "text": "Lagat, kamai, break-even aur bank ke liye report — udaharan ke saath."
+          "title": "Project report and earnings",
+          "text": "Cost, earnings, break-even and a bank-ready report — with examples."
         },
         {
-          "title": "Lakh se crore ka roadmap",
-          "text": "Har stage par kya karna hai, Amul se Milky Mist tak ki asli kahaniyon ke saath."
+          "title": "Roadmap from lakh to crore",
+          "text": "What to do at each stage, with real stories from Amul to Milky Mist."
         }
       ],
       "editions": [
@@ -4599,8 +4599,8 @@
       "category": "manufacturing",
       "accent": "#97702F",
       "title": "Copper Wire & Scrap Recycling — with Project Report",
-      "subtitle": "Tambe ke tar aur kabaad ka business — kharid se bikri tak, lagat aur munafe ke poore hisaab ke saath",
-      "description": "Tambe ke tar aur scrap se copper nikalne ka business: grade aur jaanch, supplier network, stripping machine, licence, lagat aur munafa. Saath mein project report Excel. Sab hisaab udaharan hain.",
+      "subtitle": "The copper wire and scrap business — from buying to selling, with complete cost and profit numbers",
+      "description": "A guide to recovering copper from wire and scrap: grades and testing, supplier network, stripping machine, licence, cost and profit. Includes a project report in Excel. All figures are examples.",
       "price": 1499,
       "mrp": 4000,
       "badge": "Project report",
@@ -4625,47 +4625,47 @@
         }
       ],
       "learn": [
-        "Copper ke grade pehchanna aur sahi bhav lagana",
-        "Scrap supplier ka network banana",
-        "Stripping aur granulator — haath se machine tak",
-        "Lagat, kamai aur break-even ka hisaab",
-        "Licence, kanoon aur safety",
-        "Pehle 30-60-90 din ka plan"
+        "Identify copper grades and set the right rate",
+        "Build a scrap supplier network",
+        "Stripping and granulator — from hand work to machine",
+        "Cost, earnings and break-even calculations",
+        "Licence, rules and safety",
+        "A plan for the first 30-60-90 days"
       ],
       "chapters": [
-        "Market aur model",
-        "Maal aur process",
-        "Paisa aur licence",
-        "Bikri aur growth"
+        "Market and model",
+        "Material and process",
+        "Money and licence",
+        "Sales and growth"
       ],
       "inside": [
         {
-          "title": "Business ke 3 model",
-          "text": "Haath se stripping, machine, aur granulator — apne budget ke hisaab se."
+          "title": "3 business models",
+          "text": "Hand stripping, machine, and granulator — to fit your budget."
         },
         {
-          "title": "Grade aur jaanch",
-          "text": "Copper ke grade, tarazu aur sahi bhav kaise tay karein."
+          "title": "Grade and testing",
+          "text": "Copper grades, weighing scales and how to fix the right rate."
         },
         {
-          "title": "Maal kahan se aayega",
-          "text": "Kabadi, mill aur supplier network banane ka tareeka."
+          "title": "Where the material comes from",
+          "text": "How to build a network of scrap dealers, mills and suppliers."
         },
         {
-          "title": "Process aur machine",
-          "text": "Stripping, granulating, safai aur transport."
+          "title": "Process and machines",
+          "text": "Stripping, granulating, cleaning and transport."
         },
         {
-          "title": "Investment aur munafa",
-          "text": "Chhota, medium aur bada setup — lagat aur kamai ka poora hisaab."
+          "title": "Investment and profit",
+          "text": "Small, medium and large setup — full cost and earnings numbers."
         },
         {
-          "title": "Licence aur safety",
-          "text": "Kaunse kagaz chahiye aur kaam kaise surakshit rakhein."
+          "title": "Licence and safety",
+          "text": "Which papers you need and how to keep work safe."
         },
         {
           "title": "Project report Excel",
-          "text": "Bank ko dikhane layak 8-sheet report — apne rate dalkar badal sakte hain."
+          "text": "An 8-sheet report good enough to show a bank — change the rates to your own."
         }
       ],
       "editions": [
@@ -4703,8 +4703,8 @@
       "category": "manufacturing",
       "accent": "#97702F",
       "title": "Battery Recycling Business — with Project Report",
-      "subtitle": "Purani battery jama karo, chhanto aur authorised recycler ko becho — lagat aur munafe ke poore hisaab ke saath",
-      "description": "Purani battery ka collection business: kahan se aayegi, kaise chhanten, surakshit bhandaran, authorised recycler, licence aur lagat. Saath mein project report Excel. Sab hisaab udaharan hain.",
+      "subtitle": "Collect old batteries, sort them and sell to an authorised recycler — with complete cost and profit numbers",
+      "description": "A guide to the used-battery collection business: where batteries come from, how to sort them, safe storage, authorised recyclers, licence and cost. Includes a project report in Excel. All figures are examples.",
       "price": 1499,
       "mrp": 4000,
       "badge": "Project report",
@@ -4729,47 +4729,47 @@
         }
       ],
       "learn": [
-        "Battery collection ke 3 model",
-        "Garage, dealer aur e-rickshaw se maal jodna",
-        "Surakshit bhandaran aur transport",
-        "Authorised recycler aur EPR network",
-        "Licence aur safety ke niyam",
-        "Lagat, kamai aur break-even"
+        "3 battery collection models",
+        "Source batteries from garages, dealers and e-rickshaws",
+        "Safe storage and transport",
+        "Authorised recyclers and the EPR network",
+        "Licence and safety rules",
+        "Cost, earnings and break-even"
       ],
       "chapters": [
-        "Market aur model",
-        "Maal aur process",
-        "Paisa aur licence",
-        "Bikri aur growth"
+        "Market and model",
+        "Material and process",
+        "Money and licence",
+        "Sales and growth"
       ],
       "inside": [
         {
-          "title": "3 tareeke se shuru karein",
-          "text": "Seedhi kharid-bikri, sorting centre, ya recycler ke saath tie-up."
+          "title": "3 ways to start",
+          "text": "Direct buying and selling, a sorting centre, or a tie-up with a recycler."
         },
         {
-          "title": "Grade aur jaanch",
-          "text": "Battery ki kism pehchanna aur sahi rate lagana."
+          "title": "Grade and testing",
+          "text": "Identify battery types and set the right rate."
         },
         {
-          "title": "Maal kahan se aayega",
-          "text": "Garage, dealer, e-rickshaw aur workshop se supplier network."
+          "title": "Where the material comes from",
+          "text": "A supplier network of garages, dealers, e-rickshaws and workshops."
         },
         {
-          "title": "Bhandaran aur transport",
-          "text": "Yard, pallet, gaadi aur surakshit rakhrakhav."
+          "title": "Storage and transport",
+          "text": "Yard, pallets, vehicles and safe handling."
         },
         {
-          "title": "Investment aur munafa",
-          "text": "Chhota, madhyam aur bada plan ka poora hisaab."
+          "title": "Investment and profit",
+          "text": "Full numbers for a small, medium and large plan."
         },
         {
-          "title": "Licence aur kanoon",
-          "text": "Battery waste ke niyam aur authorisation — dhyan se samjhaaya gaya."
+          "title": "Licence and rules",
+          "text": "Battery waste rules and authorisation — explained carefully."
         },
         {
           "title": "Project report Excel",
-          "text": "Bank ko dikhane layak 8-sheet report — apne rate dalkar badal sakte hain."
+          "text": "An 8-sheet report good enough to show a bank — change the rates to your own."
         }
       ],
       "editions": [
@@ -4807,8 +4807,8 @@
       "category": "construction",
       "accent": "#97702F",
       "title": "Building Waste Recycling Business — with Project Report",
-      "subtitle": "Tooti imaaraton ke malbe se ret, gitti aur paver block banao aur becho — crusher plant ka poora hisaab",
-      "description": "Building aur demolition (C&D) ke malbe ka business: malba kahan se milega, crusher plant, ret-gitti-paver block, niyam aur lagat. Saath mein project report Excel. Sab hisaab udaharan hain.",
+      "subtitle": "Make and sell sand, aggregate and paver blocks from demolished-building debris — the full crusher plant numbers",
+      "description": "A guide to the construction and demolition (C&D) waste business: where to get debris, crusher plant, sand-aggregate-paver blocks, rules and cost. Includes a project report in Excel. All figures are examples.",
       "price": 1499,
       "mrp": 4000,
       "badge": "Project report",
@@ -4833,47 +4833,47 @@
         }
       ],
       "learn": [
-        "Malba kahan se aur kis rate par aayega",
-        "Crusher plant aur machine ka chunav",
-        "Ret, gitti aur paver block banakar bechna",
-        "Pollution board aur local permission",
-        "Lagat, kamai aur break-even",
-        "Pehle 30-60-90 din ka plan"
+        "Where to get debris and at what rate",
+        "Choose the crusher plant and machines",
+        "Make and sell sand, aggregate and paver blocks",
+        "Pollution board and local permission",
+        "Cost, earnings and break-even",
+        "A plan for the first 30-60-90 days"
       ],
       "chapters": [
-        "Market aur model",
-        "Maal aur process",
-        "Paisa aur licence",
-        "Bikri aur growth"
+        "Market and model",
+        "Material and process",
+        "Money and licence",
+        "Sales and growth"
       ],
       "inside": [
         {
-          "title": "C&D malba kya hai",
-          "text": "Building banane aur todne ka malba — aur isse kya-kya ban sakta hai."
+          "title": "What is C&D waste",
+          "text": "Debris from building and demolition — and what can be made from it."
         },
         {
-          "title": "Malba kahan se aayega",
-          "text": "Thekedaar, nagar nigam aur demolition party se supplier network."
+          "title": "Where the debris comes from",
+          "text": "A supplier network of contractors, the municipality and demolition parties."
         },
         {
-          "title": "Crusher aur machine",
-          "text": "Plant ka size, power aur jagah ka hisaab."
+          "title": "Crusher and machines",
+          "text": "Plant size, power and space requirements."
         },
         {
-          "title": "Ret, gitti aur paver",
-          "text": "Recycled product aur unke bikri ke rate."
+          "title": "Sand, aggregate and pavers",
+          "text": "Recycled products and their selling rates."
         },
         {
-          "title": "Investment aur munafa",
-          "text": "Chhota, madhyam aur bada plant — lagat aur kamai."
+          "title": "Investment and profit",
+          "text": "Cost and earnings for a small, medium and large plant."
         },
         {
-          "title": "Niyam aur permission",
-          "text": "Pollution board ki consent aur local anumati."
+          "title": "Rules and permission",
+          "text": "Pollution board consent and local approval."
         },
         {
           "title": "Project report Excel",
-          "text": "Bank ko dikhane layak 8-sheet report — apne rate dalkar badal sakte hain."
+          "text": "An 8-sheet report good enough to show a bank — change the rates to your own."
         }
       ],
       "editions": [
@@ -4911,9 +4911,9 @@
       "category": "construction",
       "accent": "#97702F",
       "is_published": false,
-      "title": "Neev aur RCC",
-      "subtitle": "Ghar Banao Sahi · Book 1 of 7",
-      "description": "Plinth, column, beam, slab aur seedhi — sariya kahan aur kitna, concrete kaisa",
+      "title": "Foundation & RCC",
+      "subtitle": "Build Your Home Right · Book 1 of 7",
+      "description": "Plinth, column, beam, slab and staircase — where and how much steel, what kind of concrete",
       "price": 299,
       "mrp": null,
       "badge": "New",
@@ -4944,9 +4944,9 @@
       "category": "construction",
       "accent": "#97702F",
       "is_published": false,
-      "title": "Eent, Plaster aur Waterproofing",
-      "subtitle": "Ghar Banao Sahi · Book 2 of 7",
-      "description": "Eent chunne se terrace waterproofing tak — har step 3D tasveer mein",
+      "title": "Brickwork, Plaster & Waterproofing",
+      "subtitle": "Build Your Home Right · Book 2 of 7",
+      "description": "From choosing bricks to terrace waterproofing — every step in 3D pictures",
       "price": 299,
       "mrp": null,
       "badge": "New",
@@ -4977,9 +4977,9 @@
       "category": "construction",
       "accent": "#97702F",
       "is_published": false,
-      "title": "Plumbing aur Pani ki Line",
-      "subtitle": "Ghar Banao Sahi · Book 3 of 7",
-      "description": "Tanki se nal tak, naali se chamber tak — pipe, fitting aur pressure test",
+      "title": "Plumbing & Water Lines",
+      "subtitle": "Build Your Home Right · Book 3 of 7",
+      "description": "From tank to tap, from drain to chamber — pipes, fittings and pressure test",
       "price": 299,
       "mrp": null,
       "badge": "New",
@@ -5010,9 +5010,9 @@
       "category": "construction",
       "accent": "#97702F",
       "is_published": false,
-      "title": "Electrical aur False Ceiling",
-      "subtitle": "Ghar Banao Sahi · Book 4 of 7",
-      "description": "Layout se switch tak, DB se earthing tak, aur upar false ceiling",
+      "title": "Electrical & False Ceiling",
+      "subtitle": "Build Your Home Right · Book 4 of 7",
+      "description": "From layout to switch, from DB to earthing, and the false ceiling above",
       "price": 299,
       "mrp": null,
       "badge": "New",
@@ -5043,9 +5043,9 @@
       "category": "construction",
       "accent": "#97702F",
       "is_published": false,
-      "title": "Tiles aur Flooring",
-      "subtitle": "Ghar Banao Sahi · Book 5 of 7",
-      "description": "Farsh ki taiyari se grout tak — seedhi, samtal, bina khokhlepan ke tiles",
+      "title": "Tiles & Flooring",
+      "subtitle": "Build Your Home Right · Book 5 of 7",
+      "description": "From floor preparation to grout — straight, level, hollow-free tiles",
       "price": 299,
       "mrp": null,
       "badge": "New",
@@ -5076,9 +5076,9 @@
       "category": "construction",
       "accent": "#97702F",
       "is_published": false,
-      "title": "Elevation aur Paint",
-      "subtitle": "Ghar Banao Sahi · Book 6 of 7",
-      "description": "Ghar ka bahari roop aur har deewar ka rang — taiyari ke saath",
+      "title": "Elevation & Paint",
+      "subtitle": "Build Your Home Right · Book 6 of 7",
+      "description": "The outside look of your home and the colour of every wall — with preparation",
       "price": 299,
       "mrp": null,
       "badge": "New",
@@ -5109,9 +5109,9 @@
       "category": "construction",
       "accent": "#97702F",
       "is_published": false,
-      "title": "Agreement aur Payment",
-      "subtitle": "Ghar Banao Sahi · Book 7 of 7",
-      "description": "Contractor chunne se handover tak — likhit agreement, sahi naap, sahi samay par payment",
+      "title": "Agreement & Payment",
+      "subtitle": "Build Your Home Right · Book 7 of 7",
+      "description": "From choosing a contractor to handover — written agreement, correct measurement, payment on time",
       "price": 299,
       "mrp": null,
       "badge": "New",
@@ -5141,9 +5141,9 @@
       "type": "bundle",
       "category": "bundle",
       "accent": "#97702F",
-      "title": "Ghar Banao Sahi — 7 Visual Guides",
-      "subtitle": "Apna ghar banane se pehle — neev se paint tak 3D tasveeron mein, aur contractor ke saath agreement ka poora guide",
-      "description": "Ghar banane wale ke liye 7 books ek saath, Hindi aur English dono mein, 3D tasveeron ke saath. Saath mein 2 free bonus: contractor ke saath Agreement Templates aur site par kaam ki Construction Checklist.",
+      "title": "Build Your Home Right — 7 Visual Guides",
+      "subtitle": "Before you build your home — from foundation to paint in 3D pictures, plus a complete guide to your agreement with the contractor",
+      "description": "7 books together for anyone building a home, Hindi and English, with 3D pictures. Plus 2 free bonus files: Agreement Templates for working with your contractor and a Construction Checklist for the site.",
       "price": 1999,
       "mrp": 10000,
       "badge": "7 books + 2 bonus",
@@ -5168,42 +5168,42 @@
         }
       ],
       "learn": [
-        "Neev aur RCC — sariya aur concrete sahi laga ya nahi, khud check karein",
-        "Eent, plaster aur waterproofing ki baariki",
-        "Plumbing aur bijli ki line — deewar mein jaane se pehle jaanch",
-        "Tiles, elevation aur paint ka sahi kaam",
-        "Contractor ke saath likhit agreement aur sahi payment",
-        "Site par kaam ki checklist — har step par tick karein"
+        "Foundation & RCC — check for yourself whether the steel and concrete are right",
+        "The finer points of brickwork, plaster and waterproofing",
+        "Plumbing and electrical lines — check them before they go inside the wall",
+        "Doing tiles, elevation and paint correctly",
+        "A written agreement with your contractor and correct payments",
+        "A site checklist — tick off every step"
       ],
       "chapters": [],
       "inside": [
         {
-          "title": "Neev aur RCC",
-          "text": "Plinth, column, beam, slab aur seedhi — sariya kahan aur kitna, concrete kaisa"
+          "title": "Foundation & RCC",
+          "text": "Plinth, column, beam, slab and staircase — where and how much steel, what kind of concrete"
         },
         {
-          "title": "Eent, Plaster aur Waterproofing",
-          "text": "Eent chunne se terrace waterproofing tak — har step 3D tasveer mein"
+          "title": "Brickwork, Plaster & Waterproofing",
+          "text": "From choosing bricks to terrace waterproofing — every step in 3D pictures"
         },
         {
-          "title": "Plumbing aur Pani ki Line",
-          "text": "Tanki se nal tak, naali se chamber tak — pipe, fitting aur pressure test"
+          "title": "Plumbing & Water Lines",
+          "text": "From tank to tap, from drain to chamber — pipes, fittings and pressure test"
         },
         {
-          "title": "Electrical aur False Ceiling",
-          "text": "Layout se switch tak, DB se earthing tak, aur upar false ceiling"
+          "title": "Electrical & False Ceiling",
+          "text": "From layout to switch, from DB to earthing, and the false ceiling above"
         },
         {
-          "title": "Tiles aur Flooring",
-          "text": "Farsh ki taiyari se grout tak — seedhi, samtal, bina khokhlepan ke tiles"
+          "title": "Tiles & Flooring",
+          "text": "From floor preparation to grout — straight, level, hollow-free tiles"
         },
         {
-          "title": "Elevation aur Paint",
-          "text": "Ghar ka bahari roop aur har deewar ka rang — taiyari ke saath"
+          "title": "Elevation & Paint",
+          "text": "The outside look of your home and the colour of every wall — with preparation"
         },
         {
-          "title": "Agreement aur Payment",
-          "text": "Contractor chunne se handover tak — likhit agreement, sahi naap, sahi samay par payment"
+          "title": "Agreement & Payment",
+          "text": "From choosing a contractor to handover — written agreement, correct measurement, payment on time"
         }
       ],
       "editions": [],
@@ -5220,12 +5220,12 @@
       "bonus": [
         {
           "title": "Agreement Templates (Hindi + English)",
-          "text": "Contractor ke saath likhit agreement ke 2 templates — rate, schedule aur payment ke saath",
+          "text": "2 templates for a written agreement with your contractor — with rates, schedule and payment",
           "file": "ghar-banao-sahi/agreement-templates-hi-en.pdf"
         },
         {
           "title": "Construction Checklist (Hindi + English)",
-          "text": "Site par har kaam ki jaanch ki list — niv se finishing tak",
+          "text": "A checklist for inspecting every job on site — from foundation to finishing",
           "file": "ghar-banao-sahi/construction-checklist-hi-en.pdf"
         }
       ]
@@ -5236,8 +5236,8 @@
       "category": "bundle",
       "accent": "#97702F",
       "title": "Recycling Business Pack",
-      "subtitle": "Tamba, battery aur imaarati malba — 3 recycling business, 3 project reports",
-      "description": "3 books ek saath, Hindi aur English dono mein, lifetime access. Alag-alag lene par ₹4,497 — is pack mein ₹2,999.",
+      "subtitle": "Copper, battery and building debris — 3 recycling businesses, 3 project reports",
+      "description": "3 books together, Hindi and English, lifetime access. Bought separately ₹4,497 — in this pack ₹2,999.",
       "price": 2999,
       "badge": "Recycling",
       "level": "All levels",
@@ -5249,7 +5249,7 @@
         },
         {
           "title": "33%",
-          "text": "Bachat"
+          "text": "Savings"
         },
         {
           "title": "3",
@@ -5261,10 +5261,10 @@
         }
       ],
       "learn": [
-        "Tambe ke tar aur kabaad ka business",
-        "Purani battery ka collection aur authorised recycler",
-        "Imaarati malbe se ret, gitti aur paver block",
-        "Teeno ke saath project report Excel — lagat, munafa, loan, break-even"
+        "The copper wire and scrap business",
+        "Old battery collection and authorised recyclers",
+        "Sand, aggregate and paver blocks from building debris",
+        "A project report Excel with all three — cost, profit, loan, break-even"
       ],
       "chapters": [],
       "editions": [],
