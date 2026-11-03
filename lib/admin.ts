@@ -11,9 +11,39 @@ export async function getAdmin() {
 
 export type AdminUser = User & {
   created_at: number;
+  name: string | null; whatsapp: string | null; address: string | null; city: string | null; active: number | null;
   purchases: { product_slug: string; expires_at: number | null; created_at: number }[];
   orders: { id: string; product_slug: string; amount: number; status: string; razorpay_payment_id: string | null; created_at: number }[];
 };
+
+export type UserSummary = {
+  id: string; email: string | null; phone: string | null; name: string | null; whatsapp: string | null;
+  created_at: number; active: number | null; total_paid: number; last_paid_at: number | null;
+};
+
+/** Every buyer, newest first, with how much they've paid in total and when they last paid —
+ *  the super-admin "all users" overview (app/admin/page.tsx shows this when there's no search). */
+export async function listAllUsers(limit = 200): Promise<UserSummary[]> {
+  return all<UserSummary>(
+    `SELECT u.id, u.email, u.phone, u.name, u.whatsapp, u.created_at, u.active,
+       COALESCE(SUM(CASE WHEN o.status = 'paid' THEN o.amount ELSE 0 END), 0) AS total_paid,
+       MAX(CASE WHEN o.status = 'paid' THEN o.paid_at ELSE NULL END) AS last_paid_at
+     FROM users u LEFT JOIN orders o ON o.user_id = u.id
+     GROUP BY u.id, u.email, u.phone, u.name, u.whatsapp, u.created_at, u.active
+     ORDER BY u.created_at DESC LIMIT ?`,
+    [limit]
+  ) as unknown as Promise<UserSummary[]>;
+}
+
+/** Switches a buyer's account active/inactive. An inactive account's sessions are also ended, so
+ *  it can't keep using an already-open tab — a fresh sign-in is blocked by getUser()'s own check. */
+export async function setActive(userId: string, active: boolean): Promise<Result> {
+  const u = await one<User>("SELECT id FROM users WHERE id = ?", [userId]);
+  if (!u) return { ok: false, msg: "Account not found" };
+  await run("UPDATE users SET active = ? WHERE id = ?", [active ? 1 : 0, userId]);
+  if (!active) await run("DELETE FROM sessions WHERE user_id = ?", [userId]);
+  return { ok: true, msg: active ? "Account activated" : "Account deactivated and signed out everywhere" };
+}
 
 /** Finds accounts by email (or part of it), mobile number, order id or Razorpay payment/order id. */
 export async function searchUsers(q: string): Promise<AdminUser[]> {
@@ -26,7 +56,8 @@ export async function searchUsers(q: string): Promise<AdminUser[]> {
   (await all("SELECT user_id FROM orders WHERE id = ? OR razorpay_payment_id = ? OR razorpay_order_id = ? LIMIT 20", [q, q, q])).forEach((r) => ids.add(r.user_id));
   const out: AdminUser[] = [];
   for (const id of Array.from(ids).slice(0, 20)) {
-    const u = await one<User & { created_at: number }>("SELECT id, email, phone, created_at FROM users WHERE id = ?", [id]);
+    const u = await one<User & { created_at: number; name: string | null; whatsapp: string | null; address: string | null; city: string | null; active: number | null }>(
+      "SELECT id, email, phone, created_at, name, whatsapp, address, city, active FROM users WHERE id = ?", [id]);
     if (!u) continue;
     out.push({
       ...u,

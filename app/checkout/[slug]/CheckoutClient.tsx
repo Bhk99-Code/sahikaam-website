@@ -9,15 +9,23 @@ declare global {
   interface Window { Razorpay?: any }
 }
 
-type Props = { slug: string; title: string; price: number; email: string; phone: string; ready: boolean; keyId: string; whatsapp: string; offerCode: string };
+type Props = {
+  slug: string; title: string; price: number; email: string; phone: string; ready: boolean; keyId: string; whatsapp: string; offerCode: string;
+  savedName: string; savedWhatsapp: string; savedAddress: string; savedCity: string;
+};
 
-export function CheckoutClient({ slug, title, price, email, phone, ready, keyId, whatsapp, offerCode }: Props) {
+export function CheckoutClient({ slug, title, price, email, phone, ready, keyId, whatsapp, offerCode, savedName, savedWhatsapp, savedAddress, savedCity }: Props) {
   const router = useRouter();
   const [code, setCode] = useState(offerCode);
   const [applied, setApplied] = useState<{ code: string; discount: number; amount: number } | null>(null);
   const [couponMsg, setCouponMsg] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [name, setName] = useState(savedName);
+  const [buyerWhatsapp, setBuyerWhatsapp] = useState(savedWhatsapp);
+  const [address, setAddress] = useState(savedAddress);
+  const [city, setCity] = useState(savedCity);
+  const detailsReady = name.trim().length > 1 && buyerWhatsapp.replace(/\D/g, "").length >= 10 && address.trim().length > 2 && city.trim().length > 1;
   const amount = applied ? applied.amount : price;
 
   async function applyCoupon(c = code) {
@@ -37,12 +45,13 @@ export function CheckoutClient({ slug, title, price, email, phone, ready, keyId,
   }, []);
 
   async function pay() {
+    if (!detailsReady) { setError("Please fill your name, WhatsApp number, address and city first."); return; }
     setBusy(true);
     setError("");
     try {
       const res = await fetch("/api/checkout/create-order", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, coupon: applied?.code ?? null }),
+        body: JSON.stringify({ slug, coupon: applied?.code ?? null, name, whatsapp: buyerWhatsapp, address, city }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not start the payment. Please try again.");
@@ -77,6 +86,14 @@ export function CheckoutClient({ slug, title, price, email, phone, ready, keyId,
   return (
     <>
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
+
+      <div className="card mt-4 space-y-3 p-4">
+        <label className="flex items-center gap-2 text-[14px] font-semibold text-cream"><Icon name="user" size={18} /> Your details</label>
+        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Full name" className="field h-12 w-full" />
+        <input value={buyerWhatsapp} onChange={(e) => setBuyerWhatsapp(e.target.value)} placeholder="WhatsApp number" inputMode="tel" className="field h-12 w-full" />
+        <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" className="field h-12 w-full" />
+        <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" className="field h-12 w-full" />
+      </div>
 
       {price > 0 && (
         <div className="card mt-4 p-4">

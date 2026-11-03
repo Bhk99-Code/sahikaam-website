@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAdmin, movePurchases, setContact, signOutUser } from "@/lib/admin";
+import { getAdmin, movePurchases, setActive, setContact, signOutUser } from "@/lib/admin";
 
 /** Owner-only account recovery actions (form posts from /admin). */
 export async function POST(req: Request) {
@@ -12,6 +12,8 @@ export async function POST(req: Request) {
   const r = action === "email" || action === "phone" ? await setContact(userId, action, value)
     : action === "move" ? await movePurchases(userId, value)
     : action === "signout" ? await signOutUser(userId)
+    : action === "activate" ? await setActive(userId, true)
+    : action === "deactivate" ? await setActive(userId, false)
     : { ok: false, msg: "Unknown action" };
   console.log(`[admin] ${admin.email} ${action} ${userId} ${value} → ${r.msg}`);
   const back = new URL("/admin", req.url);

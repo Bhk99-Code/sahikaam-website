@@ -6,15 +6,28 @@ import { createRazorpayOrder } from "@/lib/razorpay";
 import { one, run } from "@/lib/db";
 import { grantProduct } from "@/lib/grant";
 import { isRazorpayConfigured } from "@/lib/env";
+import { saveBuyerInfo } from "@/lib/auth";
 
 export async function POST(req: Request) {
   const user = await getUser();
   if (!user) return NextResponse.json({ error: "Please sign in first" }, { status: 401 });
 
-  const { slug, coupon } = await req.json().catch(() => ({}));
+  const { slug, coupon, name, whatsapp, address, city } = await req.json().catch(() => ({}));
   const product = await getProduct(String(slug || ""));
   if (!product) return NextResponse.json({ error: "Product not found" }, { status: 404 });
   if (await ownsProduct(user.id, product.slug)) return NextResponse.json({ error: "This is already in your library" }, { status: 409 });
+
+  // Name, WhatsApp, address and city are collected at checkout so the owner can reach every
+  // buyer directly, not just by their login email/phone. Required so the super-admin panel
+  // always has this on every order.
+  const trimmedName = String(name || "").trim();
+  const trimmedWhatsapp = String(whatsapp || "").trim();
+  const trimmedAddress = String(address || "").trim();
+  const trimmedCity = String(city || "").trim();
+  if (trimmedName.length < 2 || trimmedWhatsapp.replace(/\D/g, "").length < 10 || trimmedAddress.length < 3 || trimmedCity.length < 2) {
+    return NextResponse.json({ error: "Please fill your name, WhatsApp number, address and city." }, { status: 400 });
+  }
+  await saveBuyerInfo(user.id, { name: trimmedName, whatsapp: trimmedWhatsapp, address: trimmedAddress, city: trimmedCity });
 
   const price = await priceWithCoupon(product, coupon);
   if (!price.ok) return NextResponse.json({ error: price.error }, { status: 400 });

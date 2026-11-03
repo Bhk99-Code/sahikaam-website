@@ -46,6 +46,13 @@ const MIGRATIONS = [
   "CREATE UNIQUE INDEX users_phone ON users (phone)",
   "ALTER TABLE users MODIFY email VARCHAR(191) NULL",
   "ALTER TABLE sessions ADD COLUMN created_at BIGINT NULL",
+  // Checkout info (name/WhatsApp/address) collected alongside payment, and the owner's
+  // super-admin activate/deactivate switch.
+  "ALTER TABLE users ADD COLUMN name VARCHAR(191) NULL",
+  "ALTER TABLE users ADD COLUMN whatsapp VARCHAR(20) NULL",
+  "ALTER TABLE users ADD COLUMN address VARCHAR(255) NULL",
+  "ALTER TABLE users ADD COLUMN city VARCHAR(120) NULL",
+  "ALTER TABLE users ADD COLUMN active TINYINT(1) NULL DEFAULT 1",
 ];
 
 // SQLite accepts the same statements once the MySQL-only table option is removed.

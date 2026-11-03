@@ -14,6 +14,8 @@ const MAX_SMS_PER_IP_HOUR = 10; // SMS costs money: also limit per network addre
 const MAX_ATTEMPTS = 5;
 
 export type User = { id: string; email: string | null; phone: string | null };
+/** Checkout-collected contact info, saved alongside a payment (lib/admin.ts shows it to the owner). */
+export type BuyerInfo = { name: string; whatsapp: string; address: string; city: string };
 /** How a person signs in: an email address or an Indian mobile number ("+91XXXXXXXXXX"). */
 export type Identity = { kind: "email" | "phone"; value: string };
 /** login = sign in / sign up. link = add or change the email/phone of the signed-in account. */
@@ -192,9 +194,17 @@ async function startSession(userId: string) {
 export async function getUser(): Promise<User | null> {
   const token = cookies().get(SESSION_COOKIE)?.value;
   if (!token) return null;
+  // active <> 0 (not strictly "= 1") so rows from before the "active" column existed, which have
+  // no value yet on some drivers, are still treated as active — only an explicit deactivate counts.
   return one<User>(
-    "SELECT u.id, u.email, u.phone FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = ? AND s.expires_at > ?",
+    "SELECT u.id, u.email, u.phone FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = ? AND s.expires_at > ? AND (u.active IS NULL OR u.active <> 0)",
     [hash(token), now()]);
+}
+
+/** Saves the name/WhatsApp/address/city a buyer gives at checkout. Empty strings clear a field. */
+export async function saveBuyerInfo(userId: string, info: BuyerInfo) {
+  await run("UPDATE users SET name = ?, whatsapp = ?, address = ?, city = ? WHERE id = ?",
+    [info.name || null, info.whatsapp || null, info.address || null, info.city || null, userId]);
 }
 
 export async function activeSessionCount(userId: string) {
