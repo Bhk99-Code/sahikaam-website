@@ -5,7 +5,12 @@ export const SUPPORT_WHATSAPP = process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP || "";
 export const isRazorpayConfigured = Boolean(
   process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET
 );
-export const isEmailConfigured = Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
+/** Email: RESEND_API_KEY (preferred — Hostinger's own shared-hosting IPs block outbound SMTP
+ *  relay to their own mail servers, so direct SMTP from this app is unreliable) or the
+ *  SMTP_HOST/SMTP_USER/SMTP_PASS trio as a fallback. */
+export const isEmailConfigured = Boolean(
+  process.env.RESEND_API_KEY || (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS)
+);
 export const isProduction = process.env.NODE_ENV === "production";
 /**
  * Mobile login codes: SMS_PROVIDER = "fast2sms", "msg91" (+ SMS_TEMPLATE_ID) or "whatsapp"
