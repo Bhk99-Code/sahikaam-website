@@ -239,6 +239,11 @@ export async function saveBuyerInfo(userId: string, info: BuyerInfo) {
   }
 }
 
+/** Points photo_url at the file app/api/account/photo/route.ts just wrote (or clears it on remove). */
+export async function savePhotoUrl(userId: string, url: string | null) {
+  await run("UPDATE users SET photo_url = ? WHERE id = ?", [url, userId]);
+}
+
 export async function activeSessionCount(userId: string) {
   return (await all("SELECT token_hash FROM sessions WHERE user_id = ? AND expires_at > ?", [userId, now()])).length;
 }

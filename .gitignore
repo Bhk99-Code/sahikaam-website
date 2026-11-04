@@ -41,3 +41,5 @@ yarn-error.log*
 /.claude/
 /private/bonus/*
 !/private/bonus/.keep
+/private/profile-photos/*
+!/private/profile-photos/.keep
