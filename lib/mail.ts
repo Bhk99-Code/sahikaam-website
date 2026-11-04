@@ -27,12 +27,6 @@ export async function sendMail(to: string, subject: string, html: string, text: 
   const port = Number(process.env.SMTP_PORT || 465);
   const user = (process.env.SMTP_USER || "").trim();
   const pass = process.env.SMTP_PASS || "";
-  // Diagnostic only — never logs the password itself, just enough to catch a stray space/newline
-  // or a stale env value, per Hostinger support's troubleshooting request.
-  console.log(
-    `[mail debug] host=${process.env.SMTP_HOST} port=${port} user="${user}" userLen=${user.length} ` +
-    `passLen=${pass.length} passTrimmedLen=${pass.trim().length} passHasWhitespace=${pass !== pass.trim()}`
-  );
   const transport = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port,
@@ -42,8 +36,6 @@ export async function sendMail(to: string, subject: string, html: string, text: 
     auth: { user, pass },
     tls: { servername: "smtp.hostinger.com", minVersion: "TLSv1.2" },
     family: 4,
-    logger: true,
-    debug: true,
   } as nodemailer.TransportOptions);
   await transport.sendMail({
     from: process.env.EMAIL_FROM || `SahiKaam <${user}>`,
