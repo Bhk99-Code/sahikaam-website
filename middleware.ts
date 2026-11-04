@@ -1,6 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-const PROTECTED = ["/library", "/read", "/learn", "/checkout", "/account", "/admin"];
+// /checkout is NOT here: a first-time visitor with no session cookie at all must still reach it —
+// that page renders its own guest checkout (single email/WhatsApp box, no login) when there's no
+// signed-in user. This gate would otherwise bounce every brand-new customer to /login before the
+// page ever got a chance to show that — the exact "logged-in-only" behavior guest checkout was
+// built to remove. A signed-in checkout still works the same; the page checks getUser() itself.
+const PROTECTED = ["/library", "/read", "/learn", "/account", "/admin"];
 
 /** Quick gate: no session cookie → send to login. Pages still check the session in the database. */
 export function middleware(request: NextRequest) {
