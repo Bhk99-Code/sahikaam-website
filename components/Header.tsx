@@ -58,9 +58,14 @@ export function Header({ signedIn }: { signedIn: boolean }) {
               </a>
             )}
             {signedIn ? (
-              <Link href="/library" aria-label="My library" className="btn-primary h-11 w-11 px-0 text-[14px] sm:w-auto sm:px-5">
-                <Icon name="library" size={18} strokeWidth={2} /> <span className="hidden sm:inline">My library</span>
-              </Link>
+              <>
+                <Link href="/account" aria-label="Profile" className="flex h-11 w-11 items-center justify-center rounded-full text-cream hover:bg-ink/5">
+                  <Icon name="user" size={20} strokeWidth={2} />
+                </Link>
+                <Link href="/library" aria-label="My library" className="btn-primary h-11 w-11 px-0 text-[14px] sm:w-auto sm:px-5">
+                  <Icon name="library" size={18} strokeWidth={2} /> <span className="hidden sm:inline">My library</span>
+                </Link>
+              </>
             ) : (
               <Link href="/login" className="btn-primary h-11 whitespace-nowrap px-5 text-[14px]">Sign in</Link>
             )}

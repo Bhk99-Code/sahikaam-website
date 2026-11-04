@@ -14,8 +14,9 @@ const MAX_SMS_PER_IP_HOUR = 10; // SMS costs money: also limit per network addre
 const MAX_ATTEMPTS = 5;
 
 export type User = { id: string; email: string | null; phone: string | null };
-/** Checkout-collected contact info, saved alongside a payment (lib/admin.ts shows it to the owner). */
-export type BuyerInfo = { name: string; whatsapp: string; address: string; city: string };
+/** Profile info (app/account — optional, filled whenever the buyer likes, never required at
+ *  checkout). lib/admin.ts shows it to the owner. */
+export type BuyerInfo = { name: string; whatsapp: string; address: string; city: string; photoUrl?: string };
 /** How a person signs in: an email address or an Indian mobile number ("+91XXXXXXXXXX"). */
 export type Identity = { kind: "email" | "phone"; value: string };
 /** login = sign in / sign up. link = add or change the email/phone of the signed-in account. */
@@ -226,10 +227,16 @@ export async function getUser(): Promise<User | null> {
     [hash(token), now()]);
 }
 
-/** Saves the name/WhatsApp/address/city a buyer gives at checkout. Empty strings clear a field. */
+/** Saves the buyer's own Profile page edits (name/WhatsApp/address/city/photo). Empty strings
+ *  clear a field; photoUrl is left untouched when omitted entirely (vs. explicitly cleared). */
 export async function saveBuyerInfo(userId: string, info: BuyerInfo) {
-  await run("UPDATE users SET name = ?, whatsapp = ?, address = ?, city = ? WHERE id = ?",
-    [info.name || null, info.whatsapp || null, info.address || null, info.city || null, userId]);
+  if (info.photoUrl !== undefined) {
+    await run("UPDATE users SET name = ?, whatsapp = ?, address = ?, city = ?, photo_url = ? WHERE id = ?",
+      [info.name || null, info.whatsapp || null, info.address || null, info.city || null, info.photoUrl || null, userId]);
+  } else {
+    await run("UPDATE users SET name = ?, whatsapp = ?, address = ?, city = ? WHERE id = ?",
+      [info.name || null, info.whatsapp || null, info.address || null, info.city || null, userId]);
+  }
 }
 
 export async function activeSessionCount(userId: string) {

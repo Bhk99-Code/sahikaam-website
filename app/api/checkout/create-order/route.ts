@@ -6,32 +6,25 @@ import { createRazorpayOrder } from "@/lib/razorpay";
 import { one, run } from "@/lib/db";
 import { grantProduct, sendAccessMessage } from "@/lib/grant";
 import { isRazorpayConfigured } from "@/lib/env";
-import { saveBuyerInfo, findOrCreateUser, parseSingleBoxIdentity } from "@/lib/auth";
+import { findOrCreateUser, parseSingleBoxIdentity } from "@/lib/auth";
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({} as Record<string, unknown>));
-  const { slug, coupon, name, whatsapp, address, city, guestContact } = body;
+  const { slug, coupon, guestContact } = body;
 
   let user = await getUser();
   const isGuest = !user;
   if (!user) {
-    // Guest checkout (not signed in): a single email-or-phone box, no name/address — see
+    // Guest checkout (not signed in): a single email-or-phone box — see
     // app/checkout/[slug]/GuestCheckoutClient.tsx. The buyer gets a one-tap magic link after
     // payment (lib/grant.ts) instead of verifying a code up front.
     const identity = parseSingleBoxIdentity(guestContact);
     if (!identity) return NextResponse.json({ error: "Please enter a valid email or WhatsApp number." }, { status: 400 });
     user = await findOrCreateUser(identity);
-  } else {
-    // Signed-in checkout still collects name/WhatsApp/address/city for the owner's records.
-    const trimmedName = String(name || "").trim();
-    const trimmedWhatsapp = String(whatsapp || "").trim();
-    const trimmedAddress = String(address || "").trim();
-    const trimmedCity = String(city || "").trim();
-    if (trimmedName.length < 2 || trimmedWhatsapp.replace(/\D/g, "").length < 10 || trimmedAddress.length < 3 || trimmedCity.length < 2) {
-      return NextResponse.json({ error: "Please fill your name, WhatsApp number, address and city." }, { status: 400 });
-    }
-    await saveBuyerInfo(user.id, { name: trimmedName, whatsapp: trimmedWhatsapp, address: trimmedAddress, city: trimmedCity });
   }
+  // A signed-in checkout no longer collects name/WhatsApp/address/city here — that info now
+  // lives entirely in the buyer's own Profile (app/account), optional, never in the way of a
+  // purchase (app/checkout/[slug]/CheckoutClient.tsx goes straight to Razorpay).
 
   const product = await getProduct(String(slug || ""));
   if (!product) return NextResponse.json({ error: "Product not found" }, { status: 404 });

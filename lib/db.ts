@@ -57,6 +57,8 @@ const MIGRATIONS = [
   "ALTER TABLE users ADD COLUMN address VARCHAR(255) NULL",
   "ALTER TABLE users ADD COLUMN city VARCHAR(120) NULL",
   "ALTER TABLE users ADD COLUMN active TINYINT(1) NULL DEFAULT 1",
+  // Profile photo (app/account — the Profile page).
+  "ALTER TABLE users ADD COLUMN photo_url VARCHAR(500) NULL",
 ];
 
 // SQLite accepts the same statements once the MySQL-only table option is removed.

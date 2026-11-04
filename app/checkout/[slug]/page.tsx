@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getProduct, getUser, ownsProduct, bundleCovers } from "@/lib/data";
-import { one } from "@/lib/db";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
 import { CheckoutClient } from "./CheckoutClient";
@@ -54,10 +53,6 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
     );
   }
   if (await ownsProduct(user.id, product.slug)) redirect("/library");
-  // Pre-fill with whatever the buyer already gave us on an earlier purchase, so repeat buyers
-  // don't retype it.
-  const saved = await one<{ name: string | null; whatsapp: string | null; address: string | null; city: string | null }>(
-    "SELECT name, whatsapp, address, city FROM users WHERE id = ?", [user.id]);
 
   return (
     <div className="container-x max-w-2xl py-8 md:py-14">
@@ -80,10 +75,6 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
         price={product.price}
         email={user.email ?? ""}
         phone={user.phone ?? ""}
-        savedName={saved?.name ?? ""}
-        savedWhatsapp={saved?.whatsapp ?? user.phone ?? ""}
-        savedAddress={saved?.address ?? ""}
-        savedCity={saved?.city ?? ""}
         ready={isRazorpayConfigured}
         keyId={process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? ""}
         whatsapp={SUPPORT_WHATSAPP}
