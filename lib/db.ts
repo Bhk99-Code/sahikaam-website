@@ -36,6 +36,10 @@ const MYSQL_SCHEMA = [
     user_id VARCHAR(36) NOT NULL, product_slug VARCHAR(120) NOT NULL, order_id VARCHAR(36),
     progress INT NOT NULL DEFAULT 0, created_at BIGINT NOT NULL, PRIMARY KEY (user_id, product_slug)
   ) CHARACTER SET utf8mb4`,
+  // One-tap sign-in sent after a guest checkout pays — no code to type. See lib/magicLink.ts.
+  `CREATE TABLE IF NOT EXISTS magic_links (
+    token_hash VARCHAR(64) PRIMARY KEY, user_id VARCHAR(36) NOT NULL, expires_at BIGINT NOT NULL, used_at BIGINT
+  ) CHARACTER SET utf8mb4`,
 ];
 
 // Columns added after the first release. Each runs once; "duplicate column" errors are ignored.

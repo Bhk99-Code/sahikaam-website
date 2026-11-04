@@ -53,6 +53,18 @@ export function parseIdentity(body: { email?: unknown; phone?: unknown }): Ident
   return email ? { kind: "email", value: email } : null;
 }
 
+/** Guest checkout's single "email or WhatsApp number" box — "@" means email, anything else is tried as a phone. */
+export function parseSingleBoxIdentity(raw: unknown): Identity | null {
+  const s = String(raw ?? "").trim();
+  if (!s) return null;
+  if (s.includes("@")) {
+    const email = normalizeEmail(s);
+    return email ? { kind: "email", value: email } : null;
+  }
+  const phone = normalizePhone(s);
+  return phone ? { kind: "phone", value: phone } : null;
+}
+
 export const maskEmail = (e: string) => e.replace(/^(.{2}).*(@.*)$/, "$1•••$2");
 export const maskPhone = (p: string) => p.replace(/^\+91(\d{2})\d{5}(\d{3})$/, "+91 $1•••••$2");
 export const userLabel = (u: User) => u.email ?? (u.phone ? maskPhone(u.phone) : "Your account");
@@ -80,6 +92,19 @@ async function allow(k: string, limit: number) {
 
 export async function findUserBy(id: Identity) {
   return one<User>(`SELECT id, email, phone FROM users WHERE ${id.kind === "email" ? "email" : "phone"} = ?`, [id.value]);
+}
+
+/**
+ * Guest checkout (lib/magicLink.ts): finds the account for this email/phone, or creates one —
+ * same as a normal first-time OTP login, except no code was typed and no session starts here.
+ * The buyer gets access via a magic link after payment instead.
+ */
+export async function findOrCreateUser(id: Identity): Promise<User> {
+  const existing = await findUserBy(id);
+  if (existing) return existing;
+  const user: User = { id: crypto.randomUUID(), email: id.kind === "email" ? id.value : null, phone: id.kind === "phone" ? id.value : null };
+  await run("INSERT INTO users (id, email, phone, created_at) VALUES (?, ?, ?, ?)", [user.id, user.email, user.phone, now()]);
+  return user;
 }
 
 type SendResult = { ok: true; devCode?: string } | { ok: false; error: string; status?: number };

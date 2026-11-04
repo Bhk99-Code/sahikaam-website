@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Sign in" };
 
 export const dynamic = "force-dynamic";
 
-export default function LoginPage({ searchParams }: { searchParams: { next?: string; signedout?: string } }) {
+export default function LoginPage({ searchParams }: { searchParams: { next?: string; signedout?: string; expired?: string } }) {
   const phoneReady = isSmsConfigured || !isProduction;
   const next = searchParams.next && searchParams.next.startsWith("/") && !searchParams.next.startsWith("//") ? searchParams.next : "/library";
   return (
@@ -18,6 +18,7 @@ export default function LoginPage({ searchParams }: { searchParams: { next?: str
           <h1 className="font-display text-[30px] font-extrabold tracking-tight text-cream">Sign in or sign up</h1>
           <p className="mt-2 text-[15px] text-fog">Use your {phoneReady ? "mobile number or email" : "email"} — we&apos;ll send a 6-digit code. No password needed.</p>
           {searchParams.signedout === "all" && <p role="status" className="mt-4 rounded-2xl bg-mint/10 p-3 text-[14px] text-cream">You were signed out on all devices.</p>}
+          {searchParams.expired === "1" && <p role="alert" className="mt-4 rounded-2xl bg-rosy/10 p-3 text-[14px] text-rosy">That link has expired or was already used. Sign in with a new code instead.</p>}
           <LoginForm next={next} phoneReady={phoneReady} />
         </div>
         <p className="mt-5 flex items-center justify-center gap-2 text-[13px] text-fog">
