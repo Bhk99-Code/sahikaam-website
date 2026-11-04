@@ -1,5 +1,6 @@
 import "server-only";
-import couponFile from "@/content/coupons.json";
+import fs from "fs";
+import path from "path";
 import { one } from "./db";
 
 export type PriceResult =
@@ -17,14 +18,27 @@ type Coupon = {
   featured?: boolean;
 };
 
-const COUPONS = couponFile.coupons as Coupon[];
+// Read fresh from disk, not bundled at build time: COUPONS_FILE (live — a persistent path outside
+// the deploy, same convention as BOOKS_DIR/BONUS_DIR) lets a new/changed coupon — including one
+// synced from the dashboard's Manage Coupons page, see platform/lib/syncCouponsToWebsite.ts —
+// take effect immediately, with no rebuild. Local dev falls back to the committed file.
+const COUPONS_FILE = process.env.COUPONS_FILE || path.join(process.cwd(), "content", "coupons.json");
+
+function readCoupons(): Coupon[] {
+  try {
+    return (JSON.parse(fs.readFileSync(COUPONS_FILE, "utf8")).coupons ?? []) as Coupon[];
+  } catch (e) {
+    console.error("readCoupons", e);
+    return [];
+  }
+}
 
 /** Works out the final price on the SERVER — never trust a price sent from the browser. */
 export async function priceWithCoupon(product: { slug: string; price: number }, rawCode?: string | null): Promise<PriceResult> {
   const code = (rawCode || "").trim().toUpperCase();
   if (!code) return { ok: true, amount: product.price, discount: 0, coupon: null };
 
-  const c = COUPONS.find((x) => x.code.toUpperCase() === code);
+  const c = readCoupons().find((x) => x.code.toUpperCase() === code);
   if (!c || c.is_active === false) return { ok: false, error: "This coupon is not valid" };
   if (c.expires_at && new Date(c.expires_at) < new Date()) return { ok: false, error: "This coupon has expired" };
   if (c.product_slug && c.product_slug !== product.slug) return { ok: false, error: "This coupon does not apply to this product" };
@@ -42,7 +56,7 @@ export async function priceWithCoupon(product: { slug: string; price: number }, 
 
 /** The coupon shown in the offer bar and pre-filled at checkout (marked "featured" in coupons.json). */
 export function featuredCoupon(): { code: string; label: string } | null {
-  const c = COUPONS.find((x) => x.featured && x.is_active !== false && !(x.expires_at && new Date(x.expires_at) < new Date()));
+  const c = readCoupons().find((x) => x.featured && x.is_active !== false && !(x.expires_at && new Date(x.expires_at) < new Date()));
   if (!c) return null;
   const label = c.percent_off ? `${c.percent_off}% OFF` : c.flat_off ? `₹${c.flat_off} OFF` : "";
   return label ? { code: c.code.toUpperCase(), label } : null;
