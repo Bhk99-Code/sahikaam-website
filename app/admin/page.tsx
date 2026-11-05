@@ -30,7 +30,10 @@ export default async function AdminPage({ searchParams }: { searchParams: { q?: 
 
   return (
     <div className="container-x max-w-5xl py-10">
-      <h1 className="font-display text-[30px] font-extrabold text-cream">Admin</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="font-display text-[30px] font-extrabold text-cream">Admin</h1>
+        <a href="/admin/books" className="btn-primary h-11 px-5 text-[14px]">Books — add / edit</a>
+      </div>
       <p className="mt-1 text-[14px] text-fog">Every buyer, what they paid, and account recovery. Search by email, mobile number, order ID or Razorpay payment ID (pay_…) to fix a specific account — check their payment receipt before changing anything.</p>
       <form className="mt-6 flex gap-2">
         <input name="q" defaultValue={q} placeholder="email, 98765 43210, pay_…" className="field h-12 flex-1" />

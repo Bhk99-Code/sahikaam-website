@@ -1,45 +1,67 @@
 import "server-only";
-import catalog from "@/content/products.json";
+import fs from "fs";
+import path from "path";
 import { all, one, run } from "./db";
 import type { Edition, Product } from "./types";
 
 export { getUser } from "./auth";
 
 /**
- * Products live in content/products.json (edit that file to add a book or change a price).
- * Each product's id is its slug.
+ * Products live in content/products.json (app/admin/books writes to this file directly — see
+ * PRODUCTS_FILE below). Each product's id is its slug. Read fresh on every call (cached by the
+ * file's mtime, same idea as lib/pricing.ts's COUPONS_FILE) so a book added from /admin/books
+ * goes live immediately, no rebuild needed — same persistent-storage pattern as BOOKS_DIR etc.
  */
+export const PRODUCTS_FILE = process.env.PRODUCTS_FILE || path.join(process.cwd(), "content", "products.json");
 const THEME_ACCENT = "#FF6A3D";
 
-const PRODUCTS: Product[] = (catalog.products as any[]).map((p) => {
-  const editions: Edition[] = p.editions ?? [];
-  const ready = editions.filter((e) => !e.coming_soon);
-  return {
-    subtitle: null, description: null, mrp: null, badge: null, cover_color: p.accent ?? "#FF6A00", cover_url: null,
-    level: null, is_published: true, sort_order: 100, category: "manufacturing",
-    ...p,
-    // Navy + ivory + gold theme: one gold accent for every book (covers keep their own colours)
-    accent: THEME_ACCENT,
-    id: p.slug,
-    pages: p.pages ?? (ready.length ? Math.max(...ready.map((e) => e.pages ?? 0)) || null : null),
-    highlights: p.highlights ?? [],
-    gallery: p.gallery ?? [],
-    learn: p.learn ?? [],
-    inside: p.inside ?? [],
-    chapters: p.chapters ?? [],
-    lessons: p.lessons ?? [],
-    bundle_items: p.bundle_items ?? [],
-    access_days: p.access_days ?? null,
-    editions,
-    bonus: p.bonus ?? [],
-  };
-});
+function buildProducts(raw: any[]): Product[] {
+  const products: Product[] = raw.map((p) => {
+    const editions: Edition[] = p.editions ?? [];
+    const ready = editions.filter((e) => !e.coming_soon);
+    return {
+      subtitle: null, description: null, mrp: null, badge: null, cover_color: p.accent ?? "#FF6A00", cover_url: null,
+      level: null, is_published: true, sort_order: 100, category: "manufacturing",
+      ...p,
+      // Navy + ivory + gold theme: one gold accent for every book (covers keep their own colours)
+      accent: THEME_ACCENT,
+      id: p.slug,
+      pages: p.pages ?? (ready.length ? Math.max(...ready.map((e) => e.pages ?? 0)) || null : null),
+      highlights: p.highlights ?? [],
+      gallery: p.gallery ?? [],
+      learn: p.learn ?? [],
+      inside: p.inside ?? [],
+      chapters: p.chapters ?? [],
+      lessons: p.lessons ?? [],
+      bundle_items: p.bundle_items ?? [],
+      access_days: p.access_days ?? null,
+      editions,
+      bonus: p.bonus ?? [],
+    };
+  });
+  // Bundles without an explicit MRP show the total of their books as the MRP.
+  for (const p of products) if (p.type === "bundle" && p.mrp == null) p.mrp = p.bundle_items.reduce((n, s) => n + (products.find((x) => x.slug === s)?.price ?? 0), 0) || null;
+  return products;
+}
 
-// Bundles without an explicit MRP show the total of their books as the MRP.
-for (const p of PRODUCTS) if (p.type === "bundle" && p.mrp == null) p.mrp = p.bundle_items.reduce((n, s) => n + (PRODUCTS.find((x) => x.slug === s)?.price ?? 0), 0) || null;
+let cache: { mtimeMs: number; products: Product[] } | null = null;
+
+function loadProducts(): Product[] {
+  try {
+    const stat = fs.statSync(PRODUCTS_FILE);
+    if (cache && cache.mtimeMs === stat.mtimeMs) return cache.products;
+    const catalog = JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf8"));
+    const products = buildProducts(catalog.products ?? []);
+    cache = { mtimeMs: stat.mtimeMs, products };
+    return products;
+  } catch (e) {
+    console.error("loadProducts", e);
+    return cache?.products ?? [];
+  }
+}
 
 /** How many ebooks the All Access pass covers (used in titles and copy, so it never goes stale). */
-export const ALL_ACCESS_COUNT: number = PRODUCTS.find((p) => p.slug === "all-access")?.bundle_items.length ?? 0;
+export const ALL_ACCESS_COUNT: number = loadProducts().find((p) => p.slug === "all-access")?.bundle_items.length ?? 0;
 
 /** The edition to open: the requested language if available, else the first available one. */
 export function pickEdition(product: Product, lang?: string | null): Edition | null {
@@ -48,22 +70,22 @@ export function pickEdition(product: Product, lang?: string | null): Edition | n
 }
 
 export async function getProducts(): Promise<Product[]> {
-  return PRODUCTS.filter((p) => p.is_published && !p.variant_of).sort((a, b) => a.sort_order - b.sort_order);
+  return loadProducts().filter((p) => p.is_published && !p.variant_of).sort((a, b) => a.sort_order - b.sort_order);
 }
 
 export async function getProduct(slug: string): Promise<Product | null> {
-  return PRODUCTS.find((p) => p.slug === slug && p.is_published) ?? null;
+  return loadProducts().find((p) => p.slug === slug && p.is_published) ?? null;
 }
 
 /** Any product by slug, published or not (used for items a buyer already owns). */
 export function findProduct(slug: string): Product | null {
-  return PRODUCTS.find((p) => p.slug === slug) ?? null;
+  return loadProducts().find((p) => p.slug === slug) ?? null;
 }
 
 /** All published plans of a product (the product and its variants), cheapest first. */
 export function getPlans(product: Product): Product[] {
   const main = product.variant_of ?? product.slug;
-  return PRODUCTS.filter((p) => p.is_published && (p.slug === main || p.variant_of === main)).sort((a, b) => a.price - b.price);
+  return loadProducts().filter((p) => p.is_published && (p.slug === main || p.variant_of === main)).sort((a, b) => a.price - b.price);
 }
 
 export type LibraryItem = { product: Product; progress: number; purchasedAt: number; expiresAt: number | null };
@@ -76,7 +98,7 @@ const ACTIVE = "(expires_at IS NULL OR expires_at > ?)";
  * add any missing purchase rows with the pass's end date (and extend shorter ones).
  */
 async function syncBundles(userId: string) {
-  const bundles = PRODUCTS.filter((p) => p.bundle_items.length);
+  const bundles = loadProducts().filter((p) => p.bundle_items.length);
   if (!bundles.length) return;
   const passes = await all<{ product_slug: string; order_id: string | null; expires_at: number | null }>(
     `SELECT product_slug, order_id, expires_at FROM purchases WHERE user_id = ? AND product_slug IN (${bundles.map(() => "?").join(",")}) AND ${ACTIVE}`,
