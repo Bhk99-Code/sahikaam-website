@@ -12,7 +12,9 @@ export type EditorProduct = {
   cover: string; gallery: string[];
   editions: Record<Lang, { pages: string; soon: boolean; file: string; parts: boolean }>;
   bonus: { title: string; text: string; file: string }[];
+  bundleItems: string[]; includeAll: boolean; accessDays: string;
 };
+export type BookOption = { slug: string; title: string; price: number; category: string; cover: string };
 type Img = { url: string; file?: File };
 type Bonus = { title: string; text: string; file: string; upload?: File };
 
@@ -61,7 +63,7 @@ function PairList({ items, onChange, a, b, add }: { items: Pair[]; onChange: (v:
 }
 
 /** One page for adding and editing a product: left = what the page shows, right = status, organisation and live preview. */
-export function ProductEditor({ initial, categories }: { initial: EditorProduct; categories: { key: string; label: string }[] }) {
+export function ProductEditor({ initial, categories, books = [] }: { initial: EditorProduct; categories: { key: string; label: string }[]; books?: BookOption[] }) {
   const router = useRouter();
   const isNew = !initial.slug;
   const bundle = initial.type === "bundle";
@@ -71,6 +73,8 @@ export function ProductEditor({ initial, categories }: { initial: EditorProduct;
   const [gallery, setGallery] = useState<Img[]>(initial.gallery.map((url) => ({ url })));
   const [pdf, setPdf] = useState<Record<Lang, File | null>>({ hi: null, en: null });
   const [bonus, setBonus] = useState<Bonus[]>(initial.bonus);
+  const [pick, setPick] = useState("");
+  const [catFilter, setCatFilter] = useState("");
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const galleryInput = useRef<HTMLInputElement>(null);
@@ -78,6 +82,11 @@ export function ProductEditor({ initial, categories }: { initial: EditorProduct;
   const price = Number(f.price), mrp = Number(f.mrp);
   const off = mrp > price && price >= 0 ? Math.round(((mrp - price) / mrp) * 100) : 0;
   const slugPreview = useMemo(() => initial.slug || f.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60), [initial.slug, f.title]);
+  const chosen = new Set(f.bundleItems);
+  const shown = books.filter((b) => (!catFilter || b.category === catFilter) && (!pick.trim() || b.title.toLowerCase().includes(pick.trim().toLowerCase())));
+  const itemsTotal = (f.includeAll ? books : books.filter((b) => chosen.has(b.slug))).reduce((n, b) => n + b.price, 0);
+  const itemCount = f.includeAll ? books.length : f.bundleItems.filter((s) => books.some((b) => b.slug === s)).length;
+  const toggleItem = (slug: string) => set("bundleItems", chosen.has(slug) ? f.bundleItems.filter((x) => x !== slug) : [...f.bundleItems, slug]);
   const filesReady = (["hi", "en"] as Lang[]).some((l) => pdf[l] || f.editions[l].file || f.editions[l].parts);
 
   const move = (i: number, d: number) => setGallery((g) => { const n = [...g]; const j = i + d; if (j < 0 || j >= n.length) return g; [n[i], n[j]] = [n[j], n[i]]; return n; });
@@ -89,11 +98,12 @@ export function ProductEditor({ initial, categories }: { initial: EditorProduct;
     setMsg(null);
     if (!f.title.trim()) return setMsg({ ok: false, text: "Title is required." });
     if (f.price === "" || !(price >= 0)) return setMsg({ ok: false, text: "Enter the price (0 for free)." });
-    if (!f.category) return setMsg({ ok: false, text: "Pick a category." });
+    if (!bundle && !f.category) return setMsg({ ok: false, text: "Pick a category." });
+    if (bundle && !f.includeAll && !f.bundleItems.length) return setMsg({ ok: false, text: "Choose at least one book, or tick “every book”." });
     const fd = new FormData();
     let gi = 0, bi = 0;
     const payload = {
-      slug: initial.slug, title: f.title, subtitle: f.subtitle, description: f.description, category: f.category, badge: f.badge, level: f.level,
+      slug: initial.slug, type: initial.type, bundleItems: f.bundleItems, includeAll: f.includeAll, accessDays: f.accessDays, title: f.title, subtitle: f.subtitle, description: f.description, category: f.category, badge: f.badge, level: f.level,
       price: f.price, mrp: f.mrp, sortOrder: f.sortOrder, published: f.published,
       highlights: f.highlights, inside: f.inside, learn: f.learn, chapters: f.chapters,
       gallery: gallery.map((g) => { if (g.file) { fd.append(`gallery_${gi}`, g.file); return { kind: "new", i: gi++ }; } return { kind: "url", url: g.url }; }),
@@ -134,9 +144,9 @@ export function ProductEditor({ initial, categories }: { initial: EditorProduct;
     <form onSubmit={save} className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
       <div className="grid content-start gap-5">
         <Card title="Product information">
-          <label className={lbl}>Title *<input value={f.title} onChange={(e) => set("title", e.target.value)} className="field mt-1 h-11 w-full" placeholder="e.g. 50 Most Profitable Manufacturing Businesses" /></label>
+          <label className={lbl}>Title *<input value={f.title} onChange={(e) => set("title", e.target.value)} className="field mt-1 h-11 w-full" placeholder={bundle ? "e.g. Factory Starter Pack" : "e.g. 50 Most Profitable Manufacturing Businesses"} /></label>
           <label className={lbl}>Subtitle<input value={f.subtitle} onChange={(e) => set("subtitle", e.target.value)} className="field mt-1 h-11 w-full" placeholder="One line under the title" /></label>
-          <label className={lbl}>Description<textarea rows={6} value={f.description} onChange={(e) => set("description", e.target.value)} className="field mt-1 w-full py-3" placeholder="Shown under “About this ebook”" /></label>
+          <label className={lbl}>Description<textarea rows={6} value={f.description} onChange={(e) => set("description", e.target.value)} className="field mt-1 w-full py-3" placeholder={bundle ? "Shown under “About this bundle”" : "Shown under “About this ebook”"} /></label>
           <p className="text-[12px] text-fog">Page address: <b className="text-cream-2">sahikaam.com/book/{slugPreview || "…"}</b>{isNew && " (made from the title, can’t be changed later)"}</p>
         </Card>
 
@@ -172,6 +182,54 @@ export function ProductEditor({ initial, categories }: { initial: EditorProduct;
           </div>
           {off > 0 && <p className="text-[13px] font-semibold text-mint">Customers see {off}% off ({inr(price)} instead of {inr(mrp)}).</p>}
         </Card>
+
+        {bundle && (
+          <Card title="Books in this bundle" sub="Buyers get every book here the moment they pay. Books you add later reach people who already bought it.">
+            <label className="flex items-start gap-2 rounded-2xl bg-ink/[0.04] p-3 text-[14px] text-cream">
+              <input type="checkbox" className="mt-1" checked={f.includeAll} onChange={(e) => set("includeAll", e.target.checked)} />
+              <span><b>Every book on the website</b> — including books added in future (like All Access)<span className="block text-[12px] text-fog">{books.length} books right now. You don&apos;t need to pick them one by one.</span></span>
+            </label>
+            {!f.includeAll && (
+              <>
+                <div className="flex flex-wrap gap-2">
+                  <input value={pick} onChange={(e) => setPick(e.target.value)} placeholder="Search books" className="field h-10 min-w-0 flex-1" />
+                  <select value={catFilter} onChange={(e) => setCatFilter(e.target.value)} className="field h-10">
+                    <option value="">All categories</option>{categories.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}
+                  </select>
+                  <button type="button" className="btn-ghost h-10 px-3 text-[13px]" onClick={() => set("bundleItems", [...new Set([...f.bundleItems, ...shown.map((b) => b.slug)])])}>Select shown</button>
+                  <button type="button" className="btn-ghost h-10 px-3 text-[13px]" onClick={() => set("bundleItems", [])}>Clear</button>
+                </div>
+                <div className="max-h-80 overflow-auto rounded-2xl bg-ink/[0.04] p-1">
+                  {shown.map((b) => (
+                    <label key={b.slug} className="flex cursor-pointer items-center gap-3 rounded-xl px-2.5 py-2 text-[14px] hover:bg-ink/[0.05]">
+                      <input type="checkbox" checked={chosen.has(b.slug)} onChange={() => toggleItem(b.slug)} />
+                      {b.cover ? <img src={b.cover} alt="" className="h-10 w-7 rounded object-cover" /> : <span className="h-10 w-7 rounded bg-ink/[0.08]" />}
+                      <span className="min-w-0 flex-1 truncate text-cream">{b.title}</span><span className="shrink-0 text-fog">{inr(b.price)}</span>
+                    </label>
+                  ))}
+                  {shown.length === 0 && <p className="p-3 text-[13px] text-fog">No books match.</p>}
+                </div>
+              </>
+            )}
+            <div className="rounded-2xl bg-mint/10 p-3 text-[14px] text-cream">
+              <b>{itemCount} books</b> · bought separately they cost <b>{inr(itemsTotal)}</b>
+              {price > 0 && itemsTotal > price && <> · your price saves buyers <b>{Math.round(((itemsTotal - price) / itemsTotal) * 100)}%</b></>}
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px]">
+                <span className="text-fog">Set price from total:</span>
+                {[10, 20, 30, 40, 50].map((d) => (
+                  <button key={d} type="button" disabled={!itemsTotal} onClick={() => set("price", String(Math.round(itemsTotal * (1 - d / 100))))} className="btn-ghost h-8 px-3 text-[12px] disabled:opacity-40">{d}% off</button>
+                ))}
+              </div>
+              <p className="mt-1 text-[12px] text-fog">Leave MRP empty to show the total of the books as the struck-through price.</p>
+            </div>
+            <label className={lbl}>How long buyers keep access
+              <select value={["", "365", "183"].includes(f.accessDays) ? f.accessDays : "custom"} onChange={(e) => set("accessDays", e.target.value === "custom" ? "30" : e.target.value)} className="field mt-1 h-11 w-full">
+                <option value="">Lifetime</option><option value="365">1 year</option><option value="183">6 months</option><option value="custom">Custom number of days…</option>
+              </select>
+              {!["", "365", "183"].includes(f.accessDays) && <input type="number" min="1" value={f.accessDays} onChange={(e) => set("accessDays", e.target.value)} className="field mt-2 h-11 w-full" placeholder="Days" />}
+            </label>
+          </Card>
+        )}
 
         <Card title="Highlights" sub="Big numbers at the top of the page, e.g. “50 · Business ideas”.">
           <PairList items={f.highlights} onChange={(v) => set("highlights", v)} a="Big text (50)" b="Small text (Business ideas)" add="Add highlight" />
@@ -217,14 +275,14 @@ export function ProductEditor({ initial, categories }: { initial: EditorProduct;
             <span><b>{f.published ? "Visible on the website" : "Hidden (draft)"}</b><span className="block text-[12px] text-fog">{f.published && !filesReady && !bundle ? "No PDF yet — buyers would get nothing. Add a PDF or mark it “coming soon”." : "Hidden books can’t be seen or bought."}</span></span>
           </label>
           {msg && <p role={msg.ok ? "status" : "alert"} className={`mt-3 rounded-xl p-2.5 text-[13px] ${msg.ok ? "bg-mint/10 text-cream" : "bg-rosy/10 text-rosy"}`}>{msg.text}</p>}
-          <button disabled={busy} className="btn-primary mt-3 h-12 w-full disabled:opacity-60">{busy ? "Saving…" : isNew ? "Create product" : "Save changes"}</button>
+          <button disabled={busy} className="btn-primary mt-3 h-12 w-full disabled:opacity-60">{busy ? "Saving…" : isNew ? (bundle ? "Create bundle" : "Create product") : "Save changes"}</button>
           {!isNew && <Link href={`/book/${initial.slug}`} target="_blank" className="btn-ghost mt-2 h-11 w-full text-[13px]">View live page ↗</Link>}
           <Link href="/admin/books" className="mt-3 block text-center text-[13px] font-semibold text-fog hover:text-cream">← All products</Link>
         </section>
 
         <section className="card grid gap-3 p-5">
           <h2 className="font-display text-[18px] font-bold text-cream">Organisation</h2>
-          <label className={lbl}>Category *<select value={f.category} onChange={(e) => set("category", e.target.value)} className="field mt-1 h-11 w-full"><option value="" disabled>Choose…</option>{categories.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}</select></label>
+          {!bundle && <label className={lbl}>Category *<select value={f.category} onChange={(e) => set("category", e.target.value)} className="field mt-1 h-11 w-full"><option value="" disabled>Choose…</option>{categories.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}</select></label>}
           <label className={lbl}>Badge<input value={f.badge} onChange={(e) => set("badge", e.target.value)} className="field mt-1 h-11 w-full" placeholder="e.g. Bestseller" /></label>
           <label className={lbl}>Level<input value={f.level} onChange={(e) => set("level", e.target.value)} className="field mt-1 h-11 w-full" placeholder="e.g. Beginner to advanced" /></label>
           <label className={lbl}>Position in lists<input type="number" value={f.sortOrder} onChange={(e) => set("sortOrder", e.target.value)} className="field mt-1 h-11 w-full" /><span className={hint}>Smaller number shows first.</span></label>

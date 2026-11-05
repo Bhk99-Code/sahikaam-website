@@ -2,7 +2,7 @@ import "server-only";
 import fs from "fs";
 import path from "path";
 import { booksDir, bonusDir, coversDir, productsReadPath, productsWritePath } from "./storage";
-import { CATEGORY } from "./format";
+import { getCategories } from "./categories";
 
 // Same persistent-storage convention as BOOKS_DIR / BONUS_DIR / COUPONS_FILE / PRODUCTS_FILE: on the
 // live server these env vars point outside the deploy's versioned build folder.
@@ -31,6 +31,9 @@ export type GalleryItem = { kind: "url"; url: string } | { kind: "new"; img: Img
 export type BonusItem = { kind: "keep"; file: string; title: string; text: string } | { kind: "new"; name: string; buf: Buffer; title: string; text: string };
 export type EditionInput = { lang: "hi" | "en"; pages: number | null; comingSoon: boolean; pdf: Buffer | null };
 export type ProductInput = {
+  type?: "ebook" | "bundle";
+  /** Bundles: slugs of the books inside; includeAll = every published book, now and later (All Access style). */
+  bundleItems?: string[]; includeAll?: boolean; accessDays?: number | null;
   title: string; subtitle: string; description: string; category: string; badge: string; level: string;
   price: number; mrp: number | null; sortOrder: number | null; published: boolean;
   highlights: Pair[]; inside: Pair[]; learn: string[]; chapters: string[];
@@ -54,7 +57,9 @@ function saveImage(slug: string, tag: string, img: Img) {
  */
 export function saveProduct(slug: string | null, e: ProductInput): Result & { slug?: string } {
   if (!e.title.trim()) return { ok: false, error: "Title is required." };
-  if (!(e.category in CATEGORY) || e.category === "bundle") return { ok: false, error: "Pick a category." };
+  const wantsBundle = (slug ? readCatalog().products.find((x) => x.slug === slug)?.type : e.type) === "bundle";
+  if (!wantsBundle && !getCategories().some((c) => c.key === e.category)) return { ok: false, error: "Pick a category." };
+  if (wantsBundle && !e.includeAll && !(e.bundleItems ?? []).length) return { ok: false, error: "Choose at least one book for the bundle, or tick “every book”." };
   if (!Number.isFinite(e.price) || e.price < 0) return { ok: false, error: "Price must be a number." };
   if (e.mrp != null && (!Number.isFinite(e.mrp) || e.mrp < 0)) return { ok: false, error: "MRP must be a number." };
   for (const ed of e.editions) if (ed.pdf && ed.pdf.subarray(0, 4).toString() !== "%PDF") return { ok: false, error: "Book files must be PDFs." };
@@ -66,14 +71,14 @@ export function saveProduct(slug: string | null, e: ProductInput): Result & { sl
     let base = slugify(e.title) || "book", n = 2;
     slug = base;
     while (catalog.products.some((x) => x.slug === slug)) slug = `${base}-${n++}`;
-    p = { slug, type: "ebook", accent: "#FF6A00", sort_order: Math.max(0, ...catalog.products.map((x) => Number(x.sort_order) || 0)) + 10 };
+    p = { slug, type: e.type === "bundle" ? "bundle" : "ebook", accent: "#FF6A00", sort_order: Math.max(0, ...catalog.products.map((x) => Number(x.sort_order) || 0)) + 10 };
     catalog.products.push(p);
   }
   const id = p.slug as string;
 
   const setOrDrop = (key: string, v: unknown, empty: boolean) => { if (empty) delete p![key]; else p![key] = v; };
   p.title = e.title.trim();
-  p.category = e.category;
+  p.category = p.type === "bundle" ? "bundle" : e.category;
   p.price = e.price;
   setOrDrop("subtitle", e.subtitle.trim(), !e.subtitle.trim());
   setOrDrop("description", e.description.trim(), !e.description.trim());
@@ -91,8 +96,15 @@ export function saveProduct(slug: string | null, e: ProductInput): Result & { sl
   const gallery = e.gallery.map((g) => (g.kind === "url" ? g.url : saveImage(id, "g", g.img)));
   setOrDrop("gallery", gallery, !gallery.length);
 
+  if (p.type === "bundle") {
+    const all = new Set(readCatalog().products.filter((x) => x.type === "ebook").map((x) => x.slug));
+    p.bundle_items = [...new Set(e.bundleItems ?? [])].filter((x) => all.has(x));
+    p.include_all = Boolean(e.includeAll);
+    if (e.accessDays && e.accessDays > 0) p.access_days = Math.round(e.accessDays); else delete p.access_days;
+  }
+
   const editions: any[] = p.editions ?? [];
-  for (const ed of e.editions) {
+  for (const ed of p.type === "bundle" ? [] : e.editions) {
     const existing = editions.find((x) => x.lang === ed.lang);
     if (existing?.parts) continue; // chapter-wise files are managed outside this form
     const label = ed.lang === "hi" ? "Hindi" : "English";

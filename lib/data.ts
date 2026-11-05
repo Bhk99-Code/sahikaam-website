@@ -39,6 +39,15 @@ function buildProducts(raw: any[]): Product[] {
       bonus: p.bonus ?? [],
     };
   });
+  // "Everything" bundles (the All Access pass and its plans, or any bundle with include_all): every published
+  // ebook counts, so a book added later is covered automatically (syncBundles gives it to existing holders).
+  const everyBook = products.filter((p) => p.type === "ebook" && !p.variant_of && p.is_published !== false).map((p) => p.slug);
+  for (const p of products) {
+    if (p.type !== "bundle") continue;
+    p.include_all = (raw.find((r) => r.slug === p.slug)?.include_all ?? (p.slug === "all-access" || p.variant_of === "all-access")) === true;
+    // keep any hand-picked list (All Access names its upcoming books too) and add every published ebook on top
+    if (p.include_all) p.bundle_items = [...new Set([...p.bundle_items, ...everyBook])];
+  }
   // Bundles without an explicit MRP show the total of their books as the MRP.
   for (const p of products) if (p.type === "bundle" && p.mrp == null) p.mrp = p.bundle_items.reduce((n, s) => n + (products.find((x) => x.slug === s)?.price ?? 0), 0) || null;
   return products;
@@ -129,7 +138,15 @@ export async function getLibrary(userId: string): Promise<LibraryItem[]> {
 
 export async function ownsProduct(userId: string, slug: string) {
   await syncBundles(userId);
-  return Boolean(await one(`SELECT 1 AS ok FROM purchases WHERE user_id = ? AND product_slug = ? AND ${ACTIVE}`, [userId, slug, Date.now()]));
+  const has = async (s: string) => Boolean(await one(`SELECT 1 AS ok FROM purchases WHERE user_id = ? AND product_slug = ? AND ${ACTIVE}`, [userId, s, Date.now()]));
+  if (await has(slug)) return true;
+  // A bundle also counts as owned when the buyer holds every book in it (e.g. through All Access).
+  const items = findProduct(slug)?.bundle_items ?? [];
+  if (findProduct(slug)?.type === "bundle" && items.length) {
+    for (const s of items) if (!(await has(s))) return false;
+    return true;
+  }
+  return false;
 }
 
 export async function getProgress(userId: string, slug: string) {

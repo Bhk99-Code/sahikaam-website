@@ -4,9 +4,10 @@ import { ProductCard } from "@/components/ProductCard";
 import { SectionTitle } from "@/components/SectionTitle";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
-import { accessLabel, CATEGORY, rupees } from "@/lib/format";
+import { accessLabel, rupees } from "@/lib/format";
 import type { Product } from "@/lib/types";
 import { HeroSearch, type SearchItem } from "@/components/HeroSearch";
+import { categoryMap, visibleCategories } from "@/lib/categories";
 
 export const dynamic = "force-dynamic";
 
@@ -60,9 +61,8 @@ export default async function Home() {
   const searchItems = buildSearch(products, series ?? null);
   const passPrice = allAccess ? rupees(getPlans(allAccess)[0].price) : "";
   const hero = ["manufacturing-50", "contractor-bano", "fly-ash-bricks"].map((s) => findProduct(s)?.gallery[0]).filter(Boolean) as string[];
-  const cats = Object.entries(CATEGORY)
-    .filter(([k]) => k !== "bundle")
-    .map(([k, c]) => ({ key: k, ...c, count: titles.filter((t) => t.category === k && t.is_published).length }))
+  const cats = visibleCategories()
+    .map((c) => ({ ...c, count: titles.filter((t) => t.category === c.key && t.is_published).length }))
     .filter((c) => c.count > 0);
   const stats: [string, string][] = [[String(titles.length), "Ebooks"], ["500+", "Business ideas"], [`${(Math.floor(totalPages / 100) * 100).toLocaleString("en-IN")}+`, "Pages"], ["12", "Excel tools"], ["2", "Languages"]];
 
@@ -390,9 +390,9 @@ function PlanSection({ allAccess, cheapest, covers }: { allAccess: Product; chea
 function buildSearch(products: Product[], series: Product | null): SearchItem[] {
   const item = (p: Product, href: string, price: string, note: string): SearchItem => ({
     href, title: p.title, note, price, cover: p.cover_url,
-    text: `${p.title} ${p.subtitle ?? ""} ${p.description ?? ""} ${CATEGORY[p.category]?.label ?? ""}`.toLowerCase(),
+    text: `${p.title} ${p.subtitle ?? ""} ${p.description ?? ""} ${categoryMap()[p.category]?.label ?? ""}`.toLowerCase(),
   });
-  const list = products.map((p) => item(p, `/book/${p.slug}`, rupees(p.price), p.subtitle ?? CATEGORY[p.category]?.label ?? ""));
+  const list = products.map((p) => item(p, `/book/${p.slug}`, rupees(p.price), p.subtitle ?? categoryMap()[p.category]?.label ?? ""));
   if (series) {
     for (const s of series.bundle_items) {
       const b = findProduct(s);

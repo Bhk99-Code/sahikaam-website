@@ -6,10 +6,11 @@ import { BookCover } from "@/components/BookCover";
 import { BookGallery } from "@/components/BookGallery";
 import { InsideInfographic } from "@/components/InsideInfographic";
 import { Icon } from "@/components/Icon";
-import { accessLabel, CATEGORY, percentOff, rupees, TYPE_LABEL } from "@/lib/format";
+import { accessLabel, percentOff, rupees, TYPE_LABEL } from "@/lib/format";
 import type { Product } from "@/lib/types";
 import { JsonLd } from "@/components/JsonLd";
 import { SITE_URL } from "@/lib/env";
+import { categoryMap, visibleCategories } from "@/lib/categories";
 
 export const dynamic = "force-dynamic";
 
@@ -65,7 +66,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
   const openHref = isBundle ? "/library" : `/read/${product.slug}`;
   const covers = isBundle ? bundleCovers(product) : [];
   const off = percentOff(product.price, product.mrp);
-  const cat = CATEGORY[product.category];
+  const cat = categoryMap()[product.category] ?? categoryMap().bundle;
   const allAccess = findProduct("all-access");
   const inBundle = !isBundle && allAccess?.is_published && allAccess.bundle_items.includes(product.slug) ? allAccess : null;
   const included = isBundle ? product.bundle_items.map((s) => findProduct(s)).filter((p): p is Product => Boolean(p)) : [];

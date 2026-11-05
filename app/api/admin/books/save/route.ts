@@ -50,6 +50,9 @@ export async function POST(req: Request) {
       editions.push({ lang, pages: num(d.editions?.[lang]?.pages), comingSoon: Boolean(d.editions?.[lang]?.soon), pdf: f instanceof File && f.size > 0 ? Buffer.from(await f.arrayBuffer()) : null });
     }
     const r = saveProduct(str(d.slug) || null, {
+      type: d.type === "bundle" ? "bundle" : "ebook",
+      bundleItems: Array.isArray(d.bundleItems) ? d.bundleItems.map(String) : [], includeAll: Boolean(d.includeAll),
+      accessDays: num(d.accessDays),
       title: str(d.title), subtitle: str(d.subtitle), description: str(d.description), category: str(d.category),
       badge: str(d.badge), level: str(d.level), price: Number(d.price), mrp: num(d.mrp), sortOrder: num(d.sortOrder),
       published: Boolean(d.published), highlights: pairs(d.highlights), inside: pairs(d.inside),

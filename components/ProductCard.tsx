@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { Product } from "@/lib/types";
-import { CATEGORY, percentOff, rupees } from "@/lib/format";
+import { percentOff, rupees } from "@/lib/format";
 import { BookCover } from "./BookCover";
 import { Icon } from "./Icon";
+import { categoryMap, visibleCategories } from "@/lib/categories";
 
 export function ProductCard({ product, covers = [], rank }: { product: Product; covers?: string[]; rank?: number }) {
   const off = percentOff(product.price, product.mrp);
@@ -19,7 +20,7 @@ export function ProductCard({ product, covers = [], rank }: { product: Product; 
         <div className="relative w-full"><BookCover product={product} covers={covers} /></div>
       </div>
       <div className="flex flex-1 flex-col gap-1.5 px-2 pb-2">
-        <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#E8451A]">{CATEGORY[product.category]?.label ?? "Ebook"}</span>
+        <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#E8451A]">{categoryMap()[product.category]?.label ?? "Ebook"}</span>
         <span className="line-clamp-2 font-display text-[18px] font-bold leading-[1.2] text-cream">{product.title}</span>
         {langs.length > 0 && <span className="text-[12px] text-fog">{langs.join(" · ")}</span>}
         <span className="mt-auto flex items-center gap-2 pt-3">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { Icon } from "./Icon";
-import { CATEGORY } from "@/lib/format";
+import { categoryMap, visibleCategories } from "@/lib/categories";
 
 const FEATURES: [string, string][] = [
   ["bolt", "Instant access after payment"],
@@ -13,7 +13,7 @@ const FEATURES: [string, string][] = [
 ];
 
 export function Header({ signedIn, isAdmin = false }: { signedIn: boolean; isAdmin?: boolean }) {
-  const cats = Object.entries(CATEGORY).filter(([k]) => k !== "bundle");
+  const cats = visibleCategories().map((c) => [c.key, c] as const);
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-ink/[0.06] bg-night/80 backdrop-blur-xl">

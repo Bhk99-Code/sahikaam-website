@@ -2,12 +2,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import fs from "fs";
 import { productsReadPath } from "@/lib/storage";
-import { CATEGORY, inr } from "@/lib/format";
+import { inr } from "@/lib/format";
+import { categoryMap } from "@/lib/categories";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin · Products", robots: { index: false } };
 
-type Row = { slug: string; title: string; price: number; mrp?: number; type: string; category?: string; cover_url?: string; is_published?: boolean; variant_of?: string; editions?: { label: string; file_path?: string; parts?: unknown[]; coming_soon?: boolean }[] };
+type Row = { bundle_items?: string[]; include_all?: boolean; slug: string; title: string; price: number; mrp?: number; type: string; category?: string; cover_url?: string; is_published?: boolean; variant_of?: string; editions?: { label: string; file_path?: string; parts?: unknown[]; coming_soon?: boolean }[] };
 
 export default async function AdminProducts({ searchParams }: { searchParams: { ok?: string; err?: string; q?: string; show?: string } }) {
   const all: Row[] = JSON.parse(fs.readFileSync(productsReadPath(), "utf8")).products.filter((p: Row) => (p.type === "ebook" || p.type === "bundle") && !p.variant_of);
@@ -26,7 +27,10 @@ export default async function AdminProducts({ searchParams }: { searchParams: { 
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="font-display text-[30px] font-extrabold text-cream">Products</h1>
-        <Link href="/admin/books/new" className="btn-primary h-11 px-5 text-[14px]">+ Add product</Link>
+        <div className="flex gap-2">
+          <Link href="/admin/books/new-bundle" className="btn-ghost h-11 px-5 text-[14px]">+ Add bundle</Link>
+          <Link href="/admin/books/new" className="btn-primary h-11 px-5 text-[14px]">+ Add product</Link>
+        </div>
       </div>
       {searchParams.ok && <p role="status" className="mt-4 rounded-2xl bg-mint/10 p-3 text-[14px] text-cream">{searchParams.ok}</p>}
       {searchParams.err && <p role="alert" className="mt-4 rounded-2xl bg-rosy/10 p-3 text-[14px] text-rosy">{searchParams.err}</p>}
@@ -47,7 +51,7 @@ export default async function AdminProducts({ searchParams }: { searchParams: { 
               {b.cover_url ? <img src={b.cover_url} alt="" className="h-16 w-12 shrink-0 rounded-md object-cover ring-1 ring-ink/10" /> : <div className="h-16 w-12 shrink-0 rounded-md bg-ink/[0.06]" />}
               <div className="min-w-0 flex-1 basis-56">
                 <Link href={`/admin/books/${b.slug}`} className="block truncate font-semibold text-cream hover:underline">{b.title}</Link>
-                <p className="text-[12px] text-fog">{b.type === "bundle" ? "Bundle" : CATEGORY[b.category as keyof typeof CATEGORY]?.label ?? b.category} · {inr(b.price)}{b.mrp ? ` (MRP ${inr(b.mrp)})` : ""} · {langs.join(" + ") || "no files"}</p>
+                <p className="text-[12px] text-fog">{b.type === "bundle" ? `Bundle · ${b.include_all || b.slug === "all-access" ? "every book" : `${(b.bundle_items ?? []).length} books`}` : categoryMap()[b.category ?? ""]?.label ?? b.category} · {inr(b.price)}{b.mrp ? ` (MRP ${inr(b.mrp)})` : ""} · {langs.join(" + ") || "no files"}</p>
                 {noFile && !hidden && <p className="text-[12px] font-semibold text-rosy">Visible but has no PDF</p>}
               </div>
               <span className={`rounded-full px-2.5 py-1 text-[12px] font-semibold ${hidden ? "bg-ink/[0.07] text-fog" : "bg-mint/10 text-mint"}`}>{hidden ? "Hidden" : "Visible"}</span>

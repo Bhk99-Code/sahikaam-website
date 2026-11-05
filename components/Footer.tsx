@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { SUPPORT_EMAIL } from "@/lib/env";
-import { CATEGORY } from "@/lib/format";
 import { Logo } from "./Logo";
 import { Icon } from "./Icon";
 import { SocialLinks } from "./SocialLinks";
+import { categoryMap, visibleCategories } from "@/lib/categories";
 
 const FEATURES: [string, string, string][] = [
   ["bolt", "Instant access", "Your ebook is in your library the moment you pay."],
@@ -13,7 +13,7 @@ const FEATURES: [string, string, string][] = [
 ];
 
 export function Footer() {
-  const cats = Object.entries(CATEGORY).filter(([k]) => k !== "bundle").slice(0, 8);
+  const cats = visibleCategories().map((c) => [c.key, c] as const).slice(0, 8);
   return (
     <footer className="on-navy mt-24 bg-night pb-28 md:pb-0">
       <div className="container-x">

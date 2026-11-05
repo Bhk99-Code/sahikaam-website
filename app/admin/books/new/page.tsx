@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CATEGORY } from "@/lib/format";
+import { editorOptions } from "../editorData";
 import { ProductEditor, type EditorProduct } from "../ProductEditor";
 
 export const dynamic = "force-dynamic";
@@ -9,10 +9,11 @@ const empty: EditorProduct = {
   slug: "", type: "ebook", title: "", subtitle: "", description: "", category: "", badge: "", level: "", price: "", mrp: "", sortOrder: "", published: true,
   highlights: [], inside: [], learn: [], chapters: [], cover: "", gallery: [],
   editions: { hi: { pages: "", soon: false, file: "", parts: false }, en: { pages: "", soon: false, file: "", parts: false } }, bonus: [],
+  bundleItems: [], includeAll: false, accessDays: "",
 };
 
 export default function NewProductPage() {
-  const categories = Object.entries(CATEGORY).filter(([k]) => k !== "bundle").map(([key, c]) => ({ key, label: c.label }));
+  const { categories } = editorOptions();
   return (
     <div>
       <h1 className="font-display text-[28px] font-extrabold text-cream">Add product</h1>

@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { getLibrary, getUser, getProducts } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
 import { Icon } from "@/components/Icon";
-import { CATEGORY } from "@/lib/format";
 import { userLabel } from "@/lib/auth";
+import { categoryMap, visibleCategories } from "@/lib/categories";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "My library", robots: { index: false } };
@@ -69,7 +69,7 @@ export default async function Library({ searchParams }: { searchParams: { new?: 
             <div key={product.id} className="card flex gap-4 p-4 sm:gap-5 sm:p-5">
               <div className="w-[64px] shrink-0 sm:w-[84px]"><BookCover product={product} /></div>
               <div className="flex min-w-0 flex-1 flex-col gap-2">
-                <span className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: product.accent }}>{CATEGORY[product.category]?.label}</span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: product.accent }}>{categoryMap()[product.category]?.label}</span>
                 <span className="font-display text-[18px] font-bold leading-snug text-cream">{product.title}</span>
                 <span className="text-[13px] text-fog">
                   {progress ? `Page ${progress}${total ? ` of ${total}` : ""}` : "Not started yet"}

@@ -39,3 +39,5 @@ export const productsReadPath = () => fileRead(process.env.PRODUCTS_FILE, "produ
 export const productsWritePath = () => fileWrite(process.env.PRODUCTS_FILE, "products.json", here("content", "products.json"));
 export const couponsReadPath = () => fileRead(process.env.COUPONS_FILE, "coupons.json", here("content", "coupons.json"));
 export const couponsWritePath = () => fileWrite(process.env.COUPONS_FILE, "coupons.json", here("content", "coupons.json"));
+export const categoriesReadPath = () => fileRead(process.env.CATEGORIES_FILE, "categories.json", here("content", "categories.json"));
+export const categoriesWritePath = () => fileWrite(process.env.CATEGORIES_FILE, "categories.json", here("content", "categories.json"));

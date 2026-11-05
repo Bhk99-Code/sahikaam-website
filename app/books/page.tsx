@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getProducts, bundleCovers, ALL_ACCESS_COUNT } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
 import { Icon } from "@/components/Icon";
-import { CATEGORY } from "@/lib/format";
+import { categoryMap, visibleCategories } from "@/lib/categories";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default async function Books({ searchParams }: { searchParams: { cat?: st
   const all = await getProducts();
   const cat = searchParams.cat ?? "";
   const q = (searchParams.q ?? "").trim().toLowerCase();
-  const cats = Object.entries(CATEGORY).filter(([key]) => all.some((p) => p.category === key));
+  const cats = visibleCategories().filter((c) => all.some((p) => p.category === c.key)).map((c) => [c.key, c] as const);
   let products = cat ? all.filter((p) => p.category === cat) : all;
   if (q) products = products.filter((p) => `${p.title} ${p.subtitle ?? ""} ${p.description ?? ""}`.toLowerCase().includes(q));
 

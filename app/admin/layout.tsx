@@ -11,6 +11,7 @@ const NAV: [string, string, string][] = [
   ["/admin/users", "Users", "user"],
   ["/admin/orders", "Orders", "card"],
   ["/admin/books", "Products", "book"],
+  ["/admin/categories", "Categories", "layers"],
   ["/admin/coupons", "Coupons", "tag"],
 ];
 

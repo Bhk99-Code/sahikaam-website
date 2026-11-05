@@ -1,5 +1,5 @@
 export type ProductType = "ebook" | "course" | "bundle";
-export type Category = "manufacturing" | "legal" | "construction" | "food-agro" | "funding" | "startup" | "government" | "energy" | "online" | "real-estate" | "trade" | "skills" | "bundle";
+export type Category = string;
 
 export type Lesson = { title: string; video_url: string; minutes?: number };
 export type Part = { title: string; file: string };
@@ -41,6 +41,8 @@ export type Product = {
   chapters: string[];
   lessons: Lesson[];
   bundle_items: string[];
+  /** All Access style: the bundle covers every published ebook, including ones added later. */
+  include_all?: boolean;
   access_days: number | null; // null = lifetime access
   variant_of?: string; // another plan of that product (e.g. 6-month pass); kept out of book lists
   editions: Edition[];
