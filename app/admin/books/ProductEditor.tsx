@@ -1,0 +1,248 @@
+"use client";
+import { useMemo, useRef, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+type Pair = { title: string; text: string };
+type Lang = "hi" | "en";
+export type EditorProduct = {
+  slug: string; type: string; title: string; subtitle: string; description: string; category: string; badge: string; level: string;
+  price: string; mrp: string; sortOrder: string; published: boolean;
+  highlights: Pair[]; inside: Pair[]; learn: string[]; chapters: string[];
+  cover: string; gallery: string[];
+  editions: Record<Lang, { pages: string; soon: boolean; file: string; parts: boolean }>;
+  bonus: { title: string; text: string; file: string }[];
+};
+type Img = { url: string; file?: File };
+type Bonus = { title: string; text: string; file: string; upload?: File };
+
+const lbl = "block text-[13px] font-semibold text-cream";
+const hint = "mt-1 text-[12px] text-fog";
+const inr = (n: number) => "₹" + n.toLocaleString("en-IN");
+
+function Card({ title, sub, children }: { title: string; sub?: string; children: React.ReactNode }) {
+  return (
+    <section className="card p-5">
+      <h2 className="font-display text-[18px] font-bold text-cream">{title}</h2>
+      {sub && <p className="mt-0.5 text-[13px] text-fog">{sub}</p>}
+      <div className="mt-4 grid gap-3">{children}</div>
+    </section>
+  );
+}
+
+function TextList({ items, onChange, placeholder, add }: { items: string[]; onChange: (v: string[]) => void; placeholder: string; add: string }) {
+  return (
+    <div className="grid gap-2">
+      {items.map((t, i) => (
+        <div key={i} className="flex gap-2">
+          <input value={t} onChange={(e) => onChange(items.map((x, j) => (j === i ? e.target.value : x)))} placeholder={placeholder} className="field h-11 min-w-0 flex-1" />
+          <button type="button" onClick={() => onChange(items.filter((_, j) => j !== i))} aria-label="Remove" className="btn-ghost h-11 w-11 shrink-0 px-0">✕</button>
+        </div>
+      ))}
+      <button type="button" onClick={() => onChange([...items, ""])} className="btn-ghost h-10 justify-self-start px-4 text-[13px]">+ {add}</button>
+    </div>
+  );
+}
+
+function PairList({ items, onChange, a, b, add }: { items: Pair[]; onChange: (v: Pair[]) => void; a: string; b: string; add: string }) {
+  const set = (i: number, k: keyof Pair, v: string) => onChange(items.map((x, j) => (j === i ? { ...x, [k]: v } : x)));
+  return (
+    <div className="grid gap-2">
+      {items.map((p, i) => (
+        <div key={i} className="grid gap-2 rounded-2xl bg-ink/[0.04] p-2.5 sm:grid-cols-[1fr_2fr_auto]">
+          <input value={p.title} onChange={(e) => set(i, "title", e.target.value)} placeholder={a} className="field h-11" />
+          <input value={p.text} onChange={(e) => set(i, "text", e.target.value)} placeholder={b} className="field h-11" />
+          <button type="button" onClick={() => onChange(items.filter((_, j) => j !== i))} aria-label="Remove" className="btn-ghost h-11 w-11 px-0">✕</button>
+        </div>
+      ))}
+      <button type="button" onClick={() => onChange([...items, { title: "", text: "" }])} className="btn-ghost h-10 justify-self-start px-4 text-[13px]">+ {add}</button>
+    </div>
+  );
+}
+
+/** One page for adding and editing a product: left = what the page shows, right = status, organisation and live preview. */
+export function ProductEditor({ initial, categories }: { initial: EditorProduct; categories: { key: string; label: string }[] }) {
+  const router = useRouter();
+  const isNew = !initial.slug;
+  const bundle = initial.type === "bundle";
+  const [f, setF] = useState(initial);
+  const set = <K extends keyof EditorProduct>(k: K, v: EditorProduct[K]) => setF((s) => ({ ...s, [k]: v }));
+  const [cover, setCover] = useState<Img | null>(initial.cover ? { url: initial.cover } : null);
+  const [gallery, setGallery] = useState<Img[]>(initial.gallery.map((url) => ({ url })));
+  const [pdf, setPdf] = useState<Record<Lang, File | null>>({ hi: null, en: null });
+  const [bonus, setBonus] = useState<Bonus[]>(initial.bonus);
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  const galleryInput = useRef<HTMLInputElement>(null);
+
+  const price = Number(f.price), mrp = Number(f.mrp);
+  const off = mrp > price && price >= 0 ? Math.round(((mrp - price) / mrp) * 100) : 0;
+  const slugPreview = useMemo(() => initial.slug || f.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60), [initial.slug, f.title]);
+  const filesReady = (["hi", "en"] as Lang[]).some((l) => pdf[l] || f.editions[l].file || f.editions[l].parts);
+
+  const move = (i: number, d: number) => setGallery((g) => { const n = [...g]; const j = i + d; if (j < 0 || j >= n.length) return g; [n[i], n[j]] = [n[j], n[i]]; return n; });
+  const toImg = (files: FileList | null) => Array.from(files ?? []).map((file) => ({ url: URL.createObjectURL(file), file }));
+  const setEdition = (l: Lang, patch: Partial<EditorProduct["editions"][Lang]>) => set("editions", { ...f.editions, [l]: { ...f.editions[l], ...patch } });
+
+  async function save(e: React.FormEvent) {
+    e.preventDefault();
+    setMsg(null);
+    if (!f.title.trim()) return setMsg({ ok: false, text: "Title is required." });
+    if (f.price === "" || !(price >= 0)) return setMsg({ ok: false, text: "Enter the price (0 for free)." });
+    if (!f.category) return setMsg({ ok: false, text: "Pick a category." });
+    const fd = new FormData();
+    let gi = 0, bi = 0;
+    const payload = {
+      slug: initial.slug, title: f.title, subtitle: f.subtitle, description: f.description, category: f.category, badge: f.badge, level: f.level,
+      price: f.price, mrp: f.mrp, sortOrder: f.sortOrder, published: f.published,
+      highlights: f.highlights, inside: f.inside, learn: f.learn, chapters: f.chapters,
+      gallery: gallery.map((g) => { if (g.file) { fd.append(`gallery_${gi}`, g.file); return { kind: "new", i: gi++ }; } return { kind: "url", url: g.url }; }),
+      editions: { hi: { pages: f.editions.hi.pages, soon: f.editions.hi.soon }, en: { pages: f.editions.en.pages, soon: f.editions.en.soon } },
+      bonus: bonus.map((b) => { if (b.upload) { fd.append(`bonus_${bi}`, b.upload); return { kind: "new", i: bi++, title: b.title, text: b.text }; } return { kind: "keep", file: b.file, title: b.title, text: b.text }; }),
+    };
+    fd.append("payload", JSON.stringify(payload));
+    if (cover?.file) fd.append("cover", cover.file);
+    (["hi", "en"] as Lang[]).forEach((l) => pdf[l] && fd.append(`pdf_${l}`, pdf[l]!));
+    setBusy(true);
+    const res = await fetch("/api/admin/books/save", { method: "POST", body: fd }).catch(() => null);
+    const data = await res?.json().catch(() => null);
+    setBusy(false);
+    if (!res || !data?.ok) return setMsg({ ok: false, text: data?.error || "Could not save. Please try again." });
+    if (isNew) return router.replace(`/admin/books/${data.slug}?saved=1`);
+    setMsg({ ok: true, text: data.message });
+    setPdf({ hi: null, en: null });
+    router.refresh();
+  }
+
+  const pdfCard = (l: Lang) => {
+    const ed = f.editions[l];
+    const status = ed.parts ? "Chapter-wise files" : pdf[l] ? "New file selected" : ed.file ? "File uploaded" : ed.soon ? "Coming soon" : "Not added";
+    return (
+      <div className="grid gap-2 rounded-2xl bg-ink/[0.04] p-3 sm:grid-cols-3">
+        <p className="font-bold text-cream sm:col-span-3">{l === "hi" ? "Hindi" : "English"} <span className={`ml-2 rounded-full px-2 py-0.5 text-[11px] font-semibold ${ed.file || pdf[l] || ed.parts ? "bg-mint/10 text-mint" : "bg-ink/[0.07] text-fog"}`}>{status}</span></p>
+        <label className={lbl}>Pages<input type="number" min="1" value={ed.pages} disabled={ed.parts} onChange={(e) => setEdition(l, { pages: e.target.value })} className="field mt-1 h-11 w-full" /></label>
+        <label className={`${lbl} sm:col-span-2`}>{ed.file ? "Replace PDF" : "Upload PDF"}
+          <input type="file" accept="application/pdf" disabled={ed.parts} onChange={(e) => setPdf((s) => ({ ...s, [l]: e.target.files?.[0] ?? null }))} className="field mt-1 block w-full py-2" />
+          {(pdf[l]?.name || ed.file) && <span className={hint}>{pdf[l]?.name ?? ed.file}</span>}
+        </label>
+        <label className="flex items-center gap-2 text-[13px] text-cream sm:col-span-3"><input type="checkbox" checked={ed.soon} disabled={ed.parts} onChange={(e) => setEdition(l, { soon: e.target.checked })} /> Show as “coming soon” (no PDF yet)</label>
+      </div>
+    );
+  };
+
+  return (
+    <form onSubmit={save} className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="grid content-start gap-5">
+        <Card title="Product information">
+          <label className={lbl}>Title *<input value={f.title} onChange={(e) => set("title", e.target.value)} className="field mt-1 h-11 w-full" placeholder="e.g. 50 Most Profitable Manufacturing Businesses" /></label>
+          <label className={lbl}>Subtitle<input value={f.subtitle} onChange={(e) => set("subtitle", e.target.value)} className="field mt-1 h-11 w-full" placeholder="One line under the title" /></label>
+          <label className={lbl}>Description<textarea rows={6} value={f.description} onChange={(e) => set("description", e.target.value)} className="field mt-1 w-full py-3" placeholder="Shown under “About this ebook”" /></label>
+          <p className="text-[12px] text-fog">Page address: <b className="text-cream-2">sahikaam.com/book/{slugPreview || "…"}</b>{isNew && " (made from the title, can’t be changed later)"}</p>
+        </Card>
+
+        <Card title="Media" sub="The cover shows in lists. Gallery images show on the book page — the first one is the main picture.">
+          <div className="flex flex-wrap items-center gap-4">
+            {cover ? <img src={cover.url} alt="" className="h-32 w-24 rounded-lg object-cover ring-1 ring-ink/10" /> : <div className="flex h-32 w-24 items-center justify-center rounded-lg bg-ink/[0.05] text-[12px] text-fog">No cover</div>}
+            <label className={lbl}>{cover ? "Change cover" : "Upload cover"}<input type="file" accept="image/jpeg,image/png,image/webp" onChange={(e) => { const x = toImg(e.target.files)[0]; if (x) setCover(x); }} className="field mt-1 block py-2" /><span className={hint}>JPG, PNG or WEBP, up to 5MB</span></label>
+          </div>
+          <div>
+            <p className={lbl}>Gallery ({gallery.length})</p>
+            <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {gallery.map((g, i) => (
+                <div key={g.url} className="rounded-xl bg-ink/[0.04] p-2 text-[12px]">
+                  <img src={g.url} alt="" className="h-28 w-full rounded-lg object-contain" />
+                  <p className="mt-1 font-semibold text-cream-2">{i === 0 ? "Main image" : `Image ${i + 1}`}</p>
+                  <div className="mt-1 flex gap-1">
+                    <button type="button" onClick={() => move(i, -1)} disabled={i === 0} className="btn-ghost h-8 flex-1 px-0 text-[12px] disabled:opacity-40" aria-label="Move earlier">←</button>
+                    <button type="button" onClick={() => move(i, 1)} disabled={i === gallery.length - 1} className="btn-ghost h-8 flex-1 px-0 text-[12px] disabled:opacity-40" aria-label="Move later">→</button>
+                    <button type="button" onClick={() => setGallery((x) => x.filter((_, j) => j !== i))} className="btn-ghost h-8 flex-1 px-0 text-[12px] text-rosy" aria-label="Remove">✕</button>
+                  </div>
+                </div>
+              ))}
+              <button type="button" onClick={() => galleryInput.current?.click()} className="flex h-full min-h-[8rem] items-center justify-center rounded-xl border-2 border-dashed border-ink/15 text-[13px] font-semibold text-fog hover:text-cream">+ Add images</button>
+            </div>
+            <input ref={galleryInput} type="file" multiple accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => { const imgs = toImg(e.target.files); setGallery((g) => [...g, ...imgs]); e.target.value = ""; }} />
+          </div>
+        </Card>
+
+        <Card title="Pricing">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className={lbl}>Price ₹ *<input type="number" min="0" value={f.price} onChange={(e) => set("price", e.target.value)} className="field mt-1 h-11 w-full" placeholder="What the customer pays" /></label>
+            <label className={lbl}>MRP ₹ (struck-through)<input type="number" min="0" value={f.mrp} onChange={(e) => set("mrp", e.target.value)} className="field mt-1 h-11 w-full" placeholder="Optional" /></label>
+          </div>
+          {off > 0 && <p className="text-[13px] font-semibold text-mint">Customers see {off}% off ({inr(price)} instead of {inr(mrp)}).</p>}
+        </Card>
+
+        <Card title="Highlights" sub="Big numbers at the top of the page, e.g. “50 · Business ideas”.">
+          <PairList items={f.highlights} onChange={(v) => set("highlights", v)} a="Big text (50)" b="Small text (Business ideas)" add="Add highlight" />
+        </Card>
+        <Card title="What buyers will learn">
+          <TextList items={f.learn} onChange={(v) => set("learn", v)} placeholder="e.g. Pick a business that fits your budget" add="Add point" />
+        </Card>
+        <Card title="What's inside" sub="Main parts of the book, each with a short explanation.">
+          <PairList items={f.inside} onChange={(v) => set("inside", v)} a="Heading" b="Short explanation" add="Add section" />
+        </Card>
+        {!bundle && (
+          <Card title="Chapters">
+            <TextList items={f.chapters} onChange={(v) => set("chapters", v)} placeholder="Chapter name" add="Add chapter" />
+          </Card>
+        )}
+        {!bundle && (
+          <Card title="Files & languages" sub="Buyers read the PDF inside SahiKaam’s reader. They can’t download it.">
+            <div key="hi">{pdfCard("hi")}</div><div key="en">{pdfCard("en")}</div>
+          </Card>
+        )}
+        <Card title="Bonus downloads" sub="Extra files only buyers can download (Excel sheets, checklists…).">
+          <div className="grid gap-2">
+            {bonus.map((b, i) => (
+              <div key={i} className="grid gap-2 rounded-2xl bg-ink/[0.04] p-2.5 sm:grid-cols-[1fr_1fr_auto]">
+                <input value={b.title} onChange={(e) => setBonus((x) => x.map((y, j) => (j === i ? { ...y, title: e.target.value } : y)))} placeholder="Title (e.g. Profit calculator)" className="field h-11" />
+                <input value={b.text} onChange={(e) => setBonus((x) => x.map((y, j) => (j === i ? { ...y, text: e.target.value } : y)))} placeholder="Short note (optional)" className="field h-11" />
+                <button type="button" onClick={() => setBonus((x) => x.filter((_, j) => j !== i))} aria-label="Remove" className="btn-ghost h-11 w-11 px-0">✕</button>
+                <p className="text-[12px] text-fog sm:col-span-3">
+                  {b.upload ? `New file: ${b.upload.name}` : b.file ? `File: ${b.file}` : "No file yet"}{" · "}
+                  <label className="cursor-pointer font-semibold text-saffron-400">{b.file || b.upload ? "Replace" : "Choose file"}<input type="file" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) setBonus((x) => x.map((y, j) => (j === i ? { ...y, upload: file } : y))); }} /></label>
+                </p>
+              </div>
+            ))}
+            <button type="button" onClick={() => setBonus((x) => [...x, { title: "", text: "", file: "" }])} className="btn-ghost h-10 justify-self-start px-4 text-[13px]">+ Add bonus file</button>
+          </div>
+        </Card>
+      </div>
+
+      <aside className="grid content-start gap-5 lg:sticky lg:top-6 lg:self-start">
+        <section className="card p-5">
+          <h2 className="font-display text-[18px] font-bold text-cream">Status</h2>
+          <label className="mt-3 flex items-start gap-2 text-[14px] text-cream"><input type="checkbox" className="mt-1" checked={f.published} onChange={(e) => set("published", e.target.checked)} />
+            <span><b>{f.published ? "Visible on the website" : "Hidden (draft)"}</b><span className="block text-[12px] text-fog">{f.published && !filesReady && !bundle ? "No PDF yet — buyers would get nothing. Add a PDF or mark it “coming soon”." : "Hidden books can’t be seen or bought."}</span></span>
+          </label>
+          {msg && <p role={msg.ok ? "status" : "alert"} className={`mt-3 rounded-xl p-2.5 text-[13px] ${msg.ok ? "bg-mint/10 text-cream" : "bg-rosy/10 text-rosy"}`}>{msg.text}</p>}
+          <button disabled={busy} className="btn-primary mt-3 h-12 w-full disabled:opacity-60">{busy ? "Saving…" : isNew ? "Create product" : "Save changes"}</button>
+          {!isNew && <Link href={`/book/${initial.slug}`} target="_blank" className="btn-ghost mt-2 h-11 w-full text-[13px]">View live page ↗</Link>}
+          <Link href="/admin/books" className="mt-3 block text-center text-[13px] font-semibold text-fog hover:text-cream">← All products</Link>
+        </section>
+
+        <section className="card grid gap-3 p-5">
+          <h2 className="font-display text-[18px] font-bold text-cream">Organisation</h2>
+          <label className={lbl}>Category *<select value={f.category} onChange={(e) => set("category", e.target.value)} className="field mt-1 h-11 w-full"><option value="" disabled>Choose…</option>{categories.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}</select></label>
+          <label className={lbl}>Badge<input value={f.badge} onChange={(e) => set("badge", e.target.value)} className="field mt-1 h-11 w-full" placeholder="e.g. Bestseller" /></label>
+          <label className={lbl}>Level<input value={f.level} onChange={(e) => set("level", e.target.value)} className="field mt-1 h-11 w-full" placeholder="e.g. Beginner to advanced" /></label>
+          <label className={lbl}>Position in lists<input type="number" value={f.sortOrder} onChange={(e) => set("sortOrder", e.target.value)} className="field mt-1 h-11 w-full" /><span className={hint}>Smaller number shows first.</span></label>
+        </section>
+
+        <section className="card p-5">
+          <h2 className="font-display text-[18px] font-bold text-cream">Preview</h2>
+          <div className="mt-3 flex gap-3">
+            {cover ? <img src={cover.url} alt="" className="h-24 w-[4.5rem] shrink-0 rounded-lg object-cover ring-1 ring-ink/10" /> : <div className="h-24 w-[4.5rem] shrink-0 rounded-lg bg-ink/[0.06]" />}
+            <div className="min-w-0">
+              {f.badge && <span className="chip">{f.badge}</span>}
+              <p className="mt-1 font-bold leading-tight text-cream">{f.title || "Product title"}</p>
+              {f.subtitle && <p className="mt-0.5 line-clamp-2 text-[12px] text-fog">{f.subtitle}</p>}
+              <p className="mt-1.5 text-[15px] font-extrabold text-cream">{f.price === "" ? "₹—" : price === 0 ? "Free" : inr(price)} {off > 0 && <span className="ml-1 text-[12px] font-normal text-fog line-through">{inr(mrp)}</span>}</p>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </form>
+  );
+}

@@ -32,7 +32,7 @@ export default async function AdminOverview() {
       </div>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        <Link href="/admin/books" className="btn-primary h-12 text-[15px]">+ Add a book</Link>
+        <Link href="/admin/books/new" className="btn-primary h-12 text-[15px]">+ Add a product</Link>
         <Link href="/admin/coupons" className="btn-ghost h-12 text-[15px]">+ Create a coupon</Link>
       </div>
 
