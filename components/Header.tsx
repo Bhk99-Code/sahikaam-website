@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Logo } from "./Logo";
 import { Icon } from "./Icon";
 import { CATEGORY } from "@/lib/format";
-import { whatsappUrl, WhatsAppIcon } from "./SocialLinks";
 
 const FEATURES: [string, string][] = [
   ["bolt", "Instant access after payment"],
@@ -22,7 +21,7 @@ export function Header({ signedIn, isAdmin = false }: { signedIn: boolean; isAdm
           <Logo />
           <nav aria-label="Main" className="ml-6 hidden items-center gap-0.5 md:flex">
             <NavLink href="/books">Ebooks</NavLink>
-            <NavLink href="/books?cat=bundle">Bundles</NavLink>
+            <NavLink href="/book/all-access">Bundles</NavLink>
             <div className="group relative">
               <button type="button" className="flex items-center gap-1 rounded-full px-3.5 py-2 text-[14px] font-medium text-cream-2 transition hover:bg-ink/5 hover:text-cream group-focus-within:text-cream">
                 Topics <Icon name="down" size={15} className="transition group-hover:rotate-180" />
@@ -38,7 +37,6 @@ export function Header({ signedIn, isAdmin = false }: { signedIn: boolean; isAdm
                 </div>
               </div>
             </div>
-            <NavLink href="/book/all-access" highlight>All Access</NavLink>
             <NavLink href="/help">Help</NavLink>
           </nav>
           <form action="/books" className="ml-auto hidden lg:block">
@@ -52,11 +50,6 @@ export function Header({ signedIn, isAdmin = false }: { signedIn: boolean; isAdm
             <Link href="/books" aria-label="Search ebooks" className="flex h-11 w-11 items-center justify-center rounded-full text-cream hover:bg-ink/5 lg:hidden">
               <Icon name="search" />
             </Link>
-            {whatsappUrl && (
-              <a href={whatsappUrl} target="_blank" rel="noopener" aria-label="Chat on WhatsApp" className="flex h-11 w-11 items-center justify-center rounded-full text-[#1FA855] hover:bg-[#25D366]/10">
-                <WhatsAppIcon size={22} />
-              </a>
-            )}
             {signedIn ? (
               <>
                 {isAdmin && <Link href="/admin" className="hidden h-11 items-center rounded-full bg-ink/[0.07] px-4 text-[14px] font-bold text-cream hover:bg-ink/10 sm:flex">Admin</Link>}

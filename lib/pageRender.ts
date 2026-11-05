@@ -1,6 +1,7 @@
 import "server-only";
 import fs from "fs";
 import path from "path";
+import { pathToFileURL } from "url";
 
 /**
  * Secure reading: the buyer never receives the PDF. Each page is rendered here to a JPEG (cached on disk),
@@ -11,7 +12,9 @@ import { pagesDir } from "@/lib/storage";
 const PAGE_WIDTH = 1500;
 const MAX_PARALLEL = 2;
 const DOC_TTL_MS = 10 * 60_000;
-const nm = (p: string) => path.join(process.cwd(), "node_modules", p);
+// pdf.js support files are kept in assets/pdfjs: on Hostinger only traced files of node_modules reach the server,
+// and the worker/fonts/cmaps (loaded dynamically) are not among them.
+const pdfAssets = (p: string) => path.join(process.cwd(), "assets", "pdfjs", p);
 
 type Canvas = typeof import("@napi-rs/canvas");
 let mods: Promise<{ pdfjs: any; canvas: Canvas } | null> | null = null;
@@ -30,6 +33,8 @@ function load() {
       (globalThis as any).DOMMatrix ??= canvas.DOMMatrix;
       (globalThis as any).Path2D ??= canvas.Path2D;
       const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+      // hand pdf.js its worker module directly so it never tries to import ./pdf.worker.mjs from node_modules
+      (globalThis as any).pdfjsWorker = await import(/* webpackIgnore: true */ pathToFileURL(pdfAssets("pdf.worker.mjs")).href);
       const font = path.join(process.cwd(), "assets", "fonts", "LiberationSans-Bold.ttf");
       if (fs.existsSync(font)) canvas.GlobalFonts.registerFromPath(font, "WM");
       return { pdfjs, canvas };
@@ -59,7 +64,7 @@ async function openDoc(file: string) {
     if (docs.size >= 2) { const oldest = [...docs.entries()].sort((a, b) => a[1].used - b[1].used)[0]; oldest[1].doc.destroy?.(); docs.delete(oldest[0]); }
     const doc = await m.pdfjs.getDocument({
       data: new Uint8Array(fs.readFileSync(file)), canvasFactory: new NapiCanvasFactory(m.canvas),
-      standardFontDataUrl: nm("pdfjs-dist/standard_fonts") + "/", cMapUrl: nm("pdfjs-dist/cmaps") + "/", cMapPacked: true,
+      standardFontDataUrl: pdfAssets("standard_fonts") + "/", cMapUrl: pdfAssets("cmaps") + "/", cMapPacked: true,
       useSystemFonts: false, isEvalSupported: false, verbosity: 0,
     }).promise;
     e = { doc, used: now };
