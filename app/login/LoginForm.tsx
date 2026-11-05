@@ -18,7 +18,7 @@ export function LoginForm({ next, initialMode, initialContact }: { next: string;
   const [error, setError] = useState("");
   const [note, setNote] = useState("");
 
-  const done = () => { router.replace(next); router.refresh(); };
+  const done = (admin = false) => { router.replace(next || (admin ? "/admin" : "/library")); router.refresh(); };
   const idBody = () => ({ identifier: identifier.trim() });
 
   async function post(url: string, body: object) {
@@ -38,7 +38,7 @@ export function LoginForm({ next, initialMode, initialContact }: { next: string;
     const body = mode === "reset" ? { ...idBody(), code: code.trim(), password } : { ...idBody(), password };
     const { res, data } = await post(url, body);
     if (!res.ok) return setError(data.error || "Something went wrong. Please try again.");
-    done();
+    done(Boolean(data.admin));
   }
 
   async function sendCode() {

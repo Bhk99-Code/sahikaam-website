@@ -29,3 +29,6 @@ export const CATEGORY = {
   skills: { label: "Speaking & career", color: "#E8451A", blurb: "Storytelling, interviews and stage confidence" },
   bundle: { label: "Bundles", color: "#15171C", blurb: "Everything together, best price" },
 } as const;
+
+/** Plain rupee amount for the admin panel (₹0 stays ₹0 — rupees() above says "Free"). */
+export const inr = (n: number) => "₹" + Number(n).toLocaleString("en-IN");

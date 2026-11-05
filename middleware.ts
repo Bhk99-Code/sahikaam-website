@@ -16,6 +16,11 @@ export function middleware(request: NextRequest) {
     url.search = "?next=" + encodeURIComponent(path + request.nextUrl.search);
     return NextResponse.redirect(url);
   }
+  if (path === "/admin" || path.startsWith("/admin/")) {
+    const headers = new Headers(request.headers);
+    headers.set("x-admin-area", "1");
+    return NextResponse.next({ request: { headers } });
+  }
   return NextResponse.next();
 }
 

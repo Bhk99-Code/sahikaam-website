@@ -115,3 +115,42 @@ export async function signOutUser(userId: string): Promise<Result> {
   const r = await run("DELETE FROM sessions WHERE user_id = ?", [userId]);
   return { ok: true, msg: `Signed out ${r.changes} device(s)` };
 }
+
+export type AdminStats = {
+  users: number; newUsers7d: number; paidOrders: number; revenue: number; revenue30d: number; paidOrders30d: number;
+  top: { product_slug: string; n: number; s: number }[];
+};
+
+/** Numbers for the admin Overview page. */
+export async function getStats(): Promise<AdminStats> {
+  const day = 86400_000;
+  const n = async (sql: string, args: unknown[] = []) => Number((await one<{ n: number }>(sql, args))?.n ?? 0);
+  const paid = await one<{ c: number; s: number }>("SELECT COUNT(*) AS c, COALESCE(SUM(amount), 0) AS s FROM orders WHERE status = 'paid'");
+  const paid30 = await one<{ c: number; s: number }>("SELECT COUNT(*) AS c, COALESCE(SUM(amount), 0) AS s FROM orders WHERE status = 'paid' AND paid_at > ?", [Date.now() - 30 * day]);
+  const top = await all<{ product_slug: string; n: number; s: number }>(
+    "SELECT product_slug, COUNT(*) AS n, COALESCE(SUM(amount), 0) AS s FROM orders WHERE status = 'paid' GROUP BY product_slug ORDER BY s DESC LIMIT 5");
+  return {
+    users: await n("SELECT COUNT(*) AS n FROM users"),
+    newUsers7d: await n("SELECT COUNT(*) AS n FROM users WHERE created_at > ?", [Date.now() - 7 * day]),
+    paidOrders: Number(paid?.c ?? 0), revenue: Number(paid?.s ?? 0),
+    paidOrders30d: Number(paid30?.c ?? 0), revenue30d: Number(paid30?.s ?? 0),
+    top: top.map((t) => ({ product_slug: t.product_slug, n: Number(t.n), s: Number(t.s) })),
+  };
+}
+
+export type AdminOrder = {
+  id: string; product_slug: string; amount: number; coupon_code: string | null; status: string;
+  razorpay_payment_id: string | null; created_at: number; paid_at: number | null;
+  email: string | null; phone: string | null; name: string | null;
+};
+
+/** Orders newest first; status = "paid" | "created" (unpaid / abandoned) | undefined for all. */
+export async function listOrders(status?: string, limit = 200): Promise<AdminOrder[]> {
+  const where = status === "paid" || status === "created" ? "WHERE o.status = ?" : "";
+  return all<AdminOrder>(
+    `SELECT o.id, o.product_slug, o.amount, o.coupon_code, o.status, o.razorpay_payment_id, o.created_at, o.paid_at,
+       u.email, u.phone, u.name
+     FROM orders o JOIN users u ON u.id = o.user_id ${where} ORDER BY o.created_at DESC LIMIT ?`,
+    where ? [status, limit] : [limit]
+  ) as unknown as Promise<AdminOrder[]>;
+}

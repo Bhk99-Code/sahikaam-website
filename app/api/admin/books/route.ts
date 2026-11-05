@@ -11,7 +11,7 @@ const num = (v: FormDataEntryValue | null) => (String(v ?? "").trim() === "" ? n
 /** Owner-only: add a book, hide/show it, or change its price. Redirects back to /admin/books with a message. */
 export async function POST(req: Request) {
   const back = (key: "ok" | "err", msg: string) =>
-    NextResponse.redirect(new URL(`/admin/books?${key}=${encodeURIComponent(msg)}`, req.url), 303);
+    new NextResponse(null, { status: 303, headers: { Location: `/admin/books?${key}=${encodeURIComponent(msg)}` } });
   if (!(await getAdmin())) return NextResponse.json({ error: "not allowed" }, { status: 403 });
 
   const form = await req.formData().catch(() => null);

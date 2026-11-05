@@ -4,7 +4,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
 import { OfferBar } from "@/components/OfferBar";
+import { headers } from "next/headers";
 import { getUser, ALL_ACCESS_COUNT } from "@/lib/data";
+import { ADMIN_EMAILS } from "@/lib/env";
 import { SITE_URL, SUPPORT_EMAIL } from "@/lib/env";
 import { BUSINESS } from "@/lib/business";
 import { JsonLd } from "@/components/JsonLd";
@@ -48,6 +50,19 @@ const ORG = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const user = await getUser();
+  if (headers().get("x-admin-area") === "1") {
+    return (
+      <html lang="en">
+        <head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+          <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..800&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+        </head>
+        <body className="font-sans antialiased">{children}</body>
+      </html>
+    );
+  }
+  const isAdmin = Boolean(user?.email && ADMIN_EMAILS.includes(user.email));
   return (
     <html lang="en">
       <head>
@@ -58,7 +73,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="font-sans antialiased">
         <OfferBar />
-        <Header signedIn={Boolean(user)} />
+        <Header signedIn={Boolean(user)} isAdmin={isAdmin} />
         <main className="min-h-[60vh]">{children}</main>
         <Footer />
         <BottomNav />

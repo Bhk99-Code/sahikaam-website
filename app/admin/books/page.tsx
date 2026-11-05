@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAdmin } from "@/lib/admin";
 import { PRODUCTS_FILE } from "@/lib/data";
-import { CATEGORY, rupees } from "@/lib/format";
+import { CATEGORY, inr as rupees } from "@/lib/format";
 import fs from "fs";
 
 export const dynamic = "force-dynamic";
@@ -19,9 +18,8 @@ export default async function AdminBooksPage({ searchParams }: { searchParams: {
   const cats = Object.entries(CATEGORY).filter(([k]) => k !== "bundle");
 
   return (
-    <div className="container-x max-w-4xl py-10">
-      <Link href="/admin" className="text-[14px] font-semibold text-fog hover:text-cream">← Admin</Link>
-      <h1 className="mt-3 font-display text-[30px] font-extrabold text-cream">Books</h1>
+    <div>
+      <h1 className="font-display text-[30px] font-extrabold text-cream">Books</h1>
       <p className="mt-1 text-[14px] text-fog">Add a new book here — it goes live on the site straight away, no deploy needed. Use the same title again to add the other language&apos;s PDF to an existing book.</p>
       {searchParams.ok && <p role="status" className="mt-4 rounded-2xl bg-mint/10 p-3 text-[14px] text-cream">{searchParams.ok}</p>}
       {searchParams.err && <p role="alert" className="mt-4 rounded-2xl bg-rosy/10 p-3 text-[14px] text-rosy">{searchParams.err}</p>}

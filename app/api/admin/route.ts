@@ -16,8 +16,6 @@ export async function POST(req: Request) {
     : action === "deactivate" ? await setActive(userId, false)
     : { ok: false, msg: "Unknown action" };
   console.log(`[admin] ${admin.email} ${action} ${userId} ${value} → ${r.msg}`);
-  const back = new URL("/admin", req.url);
-  back.searchParams.set("q", String(f.get("q") ?? ""));
-  back.searchParams.set(r.ok ? "ok" : "err", r.msg);
-  return NextResponse.redirect(back, 303);
+  const back = new URLSearchParams({ q: String(f.get("q") ?? ""), [r.ok ? "ok" : "err"]: r.msg });
+  return new NextResponse(null, { status: 303, headers: { Location: `/admin/users?${back}` } });
 }

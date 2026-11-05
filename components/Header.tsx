@@ -13,7 +13,7 @@ const FEATURES: [string, string][] = [
   ["refund", "Refund if charged twice"],
 ];
 
-export function Header({ signedIn }: { signedIn: boolean }) {
+export function Header({ signedIn, isAdmin = false }: { signedIn: boolean; isAdmin?: boolean }) {
   const cats = Object.entries(CATEGORY).filter(([k]) => k !== "bundle");
   return (
     <>
@@ -59,6 +59,7 @@ export function Header({ signedIn }: { signedIn: boolean }) {
             )}
             {signedIn ? (
               <>
+                {isAdmin && <Link href="/admin" className="hidden h-11 items-center rounded-full bg-ink/[0.07] px-4 text-[14px] font-bold text-cream hover:bg-ink/10 sm:flex">Admin</Link>}
                 <Link href="/account" aria-label="Profile" className="flex h-11 w-11 items-center justify-center rounded-full text-cream hover:bg-ink/5">
                   <Icon name="user" size={20} strokeWidth={2} />
                 </Link>

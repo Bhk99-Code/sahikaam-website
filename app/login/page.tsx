@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default function LoginPage({ searchParams }: { searchParams: { next?: string; signedout?: string; expired?: string; mode?: string; contact?: string } }) {
   const mode = searchParams.mode === "signup" || searchParams.mode === "reset" ? searchParams.mode : "signin";
-  const next = searchParams.next && searchParams.next.startsWith("/") && !searchParams.next.startsWith("//") ? searchParams.next : "/library";
+  const next = searchParams.next && searchParams.next.startsWith("/") && !searchParams.next.startsWith("//") ? searchParams.next : "";
   return (
     <div className="relative">
       <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-0 h-[360px] w-[600px] -translate-x-1/2 rounded-full bg-saffron-500/15 blur-[110px]" />
