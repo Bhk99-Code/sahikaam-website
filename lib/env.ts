@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 export const SUPPORT_EMAIL = process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "team@sahikaam.com";
 export const SUPPORT_WHATSAPP = process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP || "";
@@ -25,5 +28,14 @@ export const isSmsConfigured = Boolean(
 );
 /** How a mobile code reaches the buyer, for messages on screen. */
 export const phoneChannel = process.env.SMS_PROVIDER === "whatsapp" ? "WhatsApp" : "SMS";
-/** Emails allowed to open /admin (comma separated). Empty = admin page is off. */
-export const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+/** Emails allowed to open /admin: the ADMIN_EMAILS env var (comma separated) plus content/admins.json. Empty = admin is off. */
+function adminsFromFile(): string[] {
+  try {
+    const list = JSON.parse(fs.readFileSync(path.join(process.cwd(), "content", "admins.json"), "utf8")).emails;
+    return Array.isArray(list) ? list.map((x) => String(x).trim().toLowerCase()).filter(Boolean) : [];
+  } catch { return []; }
+}
+export const ADMIN_EMAILS = [...new Set([
+  ...(process.env.ADMIN_EMAILS || "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean),
+  ...adminsFromFile(),
+])];

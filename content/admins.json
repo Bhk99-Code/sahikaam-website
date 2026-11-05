@@ -1,0 +1,4 @@
+{
+  "_help": "Emails allowed into /admin (in addition to the ADMIN_EMAILS environment variable). An admin email can't be registered with 'Create account' — the owner sets the password through 'Forgot password', which proves they own the inbox.",
+  "emails": ["harisinghjooom@gmail.com"]
+}

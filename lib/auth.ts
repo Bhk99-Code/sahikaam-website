@@ -4,7 +4,7 @@ import { cookies, headers } from "next/headers";
 import { all, one, run } from "./db";
 import { sendMail } from "./mail";
 import { sendSmsCode } from "./sms";
-import { isEmailConfigured, isProduction, isSmsConfigured, phoneChannel } from "./env";
+import { ADMIN_EMAILS, isEmailConfigured, isProduction, isSmsConfigured, phoneChannel } from "./env";
 import { hashPassword, passwordProblem, verifyPasswordHash } from "./password";
 
 export const SESSION_COOKIE = "sk_session";
@@ -210,6 +210,9 @@ export async function registerWithPassword(id: Identity, password: string): Prom
   const problem = passwordProblem(password);
   if (problem) return { ok: false, status: 400, error: problem };
   if (!(await allow(`reg-ip:${clientIp()}`, MAX_LOGINS_PER_IP_HOUR))) return { ok: false, status: 429, error: "Too many attempts. Please try again later." };
+  if (id.kind === "email" && ADMIN_EMAILS.includes(id.value)) {
+    return { ok: false, status: 403, error: "This email can only be set up with Forgot password (we send a code to prove it is yours)." };
+  }
   const existing = await findUserBy(id);
   if (existing) {
     return { ok: false, status: 409, error: (await hasPasswordRow(existing.id))
