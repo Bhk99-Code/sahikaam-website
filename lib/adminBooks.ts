@@ -92,3 +92,80 @@ export function updatePrice(slug: string, price: number, mrp: number | null): Re
   writeCatalog(catalog);
   return { ok: true, message: `"${p.title}" price set to ₹${price}.` };
 }
+
+export type Pair = { title: string; text: string };
+export type EditionEdit = { lang: "hi" | "en"; pages: number | null; comingSoon: boolean; pdf: Buffer | null };
+export type BookEdit = {
+  title: string; subtitle: string; description: string; category: string; badge: string; level: string;
+  price: number; mrp: number | null; sortOrder: number | null; published: boolean;
+  highlights: Pair[]; inside: Pair[]; learn: string[]; chapters: string[];
+  galleryKeep: string[]; galleryNew: { buf: Buffer; ext: string }[];
+  cover: { buf: Buffer; ext: string } | null;
+  editions: EditionEdit[];
+};
+
+export function getBookRaw(slug: string): Record<string, any> | null {
+  return readCatalog().products.find((p) => p.slug === slug) ?? null;
+}
+
+function saveImage(slug: string, tag: string, img: { buf: Buffer; ext: string }) {
+  fs.mkdirSync(COVERS_DIR, { recursive: true });
+  const name = `${slug}-${tag}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}${img.ext}`;
+  fs.writeFileSync(path.join(COVERS_DIR, name), img.buf);
+  return `/api/covers/${name}`;
+}
+
+/** Edits everything the public book page shows. Empty optional text removes the field; old uploaded files are kept on disk. */
+export function updateBook(slug: string, e: BookEdit): Result {
+  if (!e.title.trim()) return { ok: false, error: "Title is required." };
+  if (!(e.category in CATEGORY)) return { ok: false, error: "Pick a category." };
+  if (!Number.isFinite(e.price) || e.price < 0) return { ok: false, error: "Price must be a number." };
+  for (const ed of e.editions) if (ed.pdf && ed.pdf.subarray(0, 4).toString() !== "%PDF") return { ok: false, error: "The book file must be a PDF." };
+
+  const catalog = readCatalog();
+  const p = catalog.products.find((x) => x.slug === slug);
+  if (!p) return { ok: false, error: "Book not found." };
+
+  const setOrDrop = (key: string, v: unknown, empty: boolean) => { if (empty) delete p[key]; else p[key] = v; };
+  p.title = e.title.trim();
+  setOrDrop("subtitle", e.subtitle.trim(), !e.subtitle.trim());
+  setOrDrop("description", e.description.trim(), !e.description.trim());
+  setOrDrop("badge", e.badge.trim(), !e.badge.trim());
+  setOrDrop("level", e.level.trim(), !e.level.trim());
+  p.category = e.category;
+  p.price = e.price;
+  setOrDrop("mrp", e.mrp, e.mrp == null);
+  if (e.sortOrder != null && Number.isFinite(e.sortOrder)) p.sort_order = e.sortOrder;
+  p.is_published = e.published;
+  setOrDrop("highlights", e.highlights, !e.highlights.length);
+  setOrDrop("inside", e.inside, !e.inside.length);
+  setOrDrop("learn", e.learn, !e.learn.length);
+  setOrDrop("chapters", e.chapters, !e.chapters.length);
+
+  if (e.cover) p.cover_url = saveImage(slug, "cover", e.cover);
+  const gallery = [...e.galleryKeep, ...e.galleryNew.map((g) => saveImage(slug, "g", g))];
+  setOrDrop("gallery", gallery, !gallery.length);
+
+  const editions: any[] = p.editions ?? [];
+  for (const ed of e.editions) {
+    const existing = editions.find((x) => x.lang === ed.lang);
+    if (existing?.parts) continue; // chapter-wise files are managed outside this form
+    const label = ed.lang === "hi" ? "Hindi" : "English";
+    if (ed.pdf) {
+      const file = existing?.file_path ?? `${slug}${ed.lang === "en" ? "-en" : ""}.pdf`;
+      fs.mkdirSync(BOOKS_DIR, { recursive: true });
+      fs.writeFileSync(path.join(BOOKS_DIR, file), ed.pdf);
+      const next = { lang: ed.lang, label, pages: ed.pages ?? existing?.pages, file_path: file };
+      if (existing) Object.assign(existing, next, { coming_soon: undefined }); else editions.push(next);
+      if (existing) delete existing.coming_soon;
+    } else if (existing) {
+      if (ed.pages != null) existing.pages = ed.pages; else delete existing.pages;
+      if (ed.comingSoon) existing.coming_soon = true; else delete existing.coming_soon;
+    } else if (ed.comingSoon) {
+      editions.push({ lang: ed.lang, label, ...(ed.pages != null ? { pages: ed.pages } : {}), coming_soon: true });
+    }
+  }
+  p.editions = editions;
+  writeCatalog(catalog);
+  return { ok: true, message: `Saved "${p.title}" — the live book page is updated.` };
+}

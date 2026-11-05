@@ -61,6 +61,8 @@ const MIGRATIONS = [
   "ALTER TABLE users ADD COLUMN photo_url VARCHAR(500) NULL",
   // Password sign-in (replaces the 6-digit-code login; codes now only recover a forgotten password).
   "ALTER TABLE users ADD COLUMN password_hash VARCHAR(255) NULL",
+  // Owner's private note on an order (admin order detail page).
+  "ALTER TABLE orders ADD COLUMN notes TEXT NULL",
 ];
 
 // SQLite accepts the same statements once the MySQL-only table option is removed.

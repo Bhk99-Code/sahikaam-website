@@ -139,18 +139,67 @@ export async function getStats(): Promise<AdminStats> {
 }
 
 export type AdminOrder = {
-  id: string; product_slug: string; amount: number; coupon_code: string | null; status: string;
-  razorpay_payment_id: string | null; created_at: number; paid_at: number | null;
-  email: string | null; phone: string | null; name: string | null;
+  id: string; user_id: string; product_slug: string; amount: number; coupon_code: string | null; status: string;
+  razorpay_order_id: string | null; razorpay_payment_id: string | null; created_at: number; paid_at: number | null;
+  notes: string | null; email: string | null; phone: string | null; name: string | null;
 };
+export type OrderFilter = { status?: string; q?: string; from?: string; to?: string; product?: string };
 
-/** Orders newest first; status = "paid" | "created" (unpaid / abandoned) | undefined for all. */
-export async function listOrders(status?: string, limit = 200): Promise<AdminOrder[]> {
-  const where = status === "paid" || status === "created" ? "WHERE o.status = ?" : "";
+const ORDER_COLS = `o.id, o.user_id, o.product_slug, o.amount, o.coupon_code, o.status, o.razorpay_order_id, o.razorpay_payment_id,
+  o.created_at, o.paid_at, o.notes, u.email, u.phone, u.name`;
+
+function orderWhere(f: OrderFilter) {
+  const w: string[] = []; const a: unknown[] = [];
+  if (f.status === "paid" || f.status === "created") { w.push("o.status = ?"); a.push(f.status); }
+  if (f.product) { w.push("o.product_slug = ?"); a.push(f.product); }
+  const q = (f.q ?? "").trim();
+  if (q) {
+    const like = `%${q}%`;
+    w.push("(u.email LIKE ? OR u.phone LIKE ? OR u.name LIKE ? OR o.id LIKE ? OR o.razorpay_payment_id LIKE ? OR o.razorpay_order_id LIKE ? OR o.coupon_code LIKE ?)");
+    a.push(like, like, like, like, like, like, like);
+  }
+  const t = (d?: string, end = false) => (d && /^\d{4}-\d{2}-\d{2}$/.test(d) ? new Date(`${d}T${end ? "23:59:59.999" : "00:00:00"}+05:30`).getTime() : null);
+  const from = t(f.from), to = t(f.to, true);
+  if (from) { w.push("o.created_at >= ?"); a.push(from); }
+  if (to) { w.push("o.created_at <= ?"); a.push(to); }
+  return { where: w.length ? "WHERE " + w.join(" AND ") : "", args: a };
+}
+
+/** Orders newest first, with optional status / search / date range / product filters. */
+export async function listOrders(f: OrderFilter | string = {}, limit = 200): Promise<AdminOrder[]> {
+  const filter = typeof f === "string" ? { status: f } : f;
+  const { where, args } = orderWhere(filter);
   return all<AdminOrder>(
-    `SELECT o.id, o.product_slug, o.amount, o.coupon_code, o.status, o.razorpay_payment_id, o.created_at, o.paid_at,
-       u.email, u.phone, u.name
-     FROM orders o JOIN users u ON u.id = o.user_id ${where} ORDER BY o.created_at DESC LIMIT ?`,
-    where ? [status, limit] : [limit]
+    `SELECT ${ORDER_COLS} FROM orders o JOIN users u ON u.id = o.user_id ${where} ORDER BY o.created_at DESC LIMIT ?`, [...args, limit]
   ) as unknown as Promise<AdminOrder[]>;
+}
+
+/** Counts for the status tabs plus the total paid revenue of the current search. */
+export async function orderTotals(f: OrderFilter) {
+  const { where, args } = orderWhere({ ...f, status: undefined });
+  const rows = await all<{ status: string; n: number; s: number }>(
+    `SELECT o.status, COUNT(*) AS n, COALESCE(SUM(o.amount), 0) AS s FROM orders o JOIN users u ON u.id = o.user_id ${where} GROUP BY o.status`, args);
+  const by = (st: string) => rows.find((r) => r.status === st);
+  return { all: rows.reduce((n, r) => n + Number(r.n), 0), paid: Number(by("paid")?.n ?? 0), created: Number(by("created")?.n ?? 0), revenue: Number(by("paid")?.s ?? 0) };
+}
+
+export async function getOrder(id: string) {
+  const o = await one<AdminOrder>(`SELECT ${ORDER_COLS} FROM orders o JOIN users u ON u.id = o.user_id WHERE o.id = ?`, [id]);
+  if (!o) return null;
+  const access = await one<{ created_at: number; expires_at: number | null }>("SELECT created_at, expires_at FROM purchases WHERE user_id = ? AND product_slug = ?", [o.user_id, o.product_slug]);
+  return { order: o, access };
+}
+
+export async function saveOrderNote(id: string, note: string): Promise<Result> {
+  await run("UPDATE orders SET notes = ? WHERE id = ?", [note.trim().slice(0, 2000) || null, id]);
+  return { ok: true, msg: "Note saved." };
+}
+
+const csv = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+/** CSV of the orders matching a filter (opens in Excel/Sheets). */
+export async function ordersCsv(f: OrderFilter): Promise<string> {
+  const rows = await listOrders(f, 5000);
+  const head = ["Date", "Order ID", "Status", "Book", "Amount", "Coupon", "Name", "Email", "Phone", "Payment ID", "Note"];
+  const iso = (t: number | null) => (t ? new Date(Number(t)).toISOString() : "");
+  return [head.map(csv).join(","), ...rows.map((o) => [iso(o.paid_at ?? o.created_at), o.id, o.status, o.product_slug, o.amount, o.coupon_code, o.name, o.email, o.phone, o.razorpay_payment_id, o.notes].map(csv).join(","))].join("\n");
 }

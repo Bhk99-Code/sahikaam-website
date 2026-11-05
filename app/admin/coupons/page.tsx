@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { all } from "@/lib/db";
 import { readCouponFile } from "@/lib/adminCoupons";
-import { getProducts } from "@/lib/data";
+import { findProduct, getProducts } from "@/lib/data";
 import { inr as rupees } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -12,8 +13,14 @@ const day = (s?: string | null) => (s ? new Date(s).toLocaleDateString("en-IN", 
 export default async function AdminCoupons({ searchParams }: { searchParams: { ok?: string; err?: string } }) {
   const coupons = readCouponFile().coupons;
   const books = await getProducts();
-  const used = await all<{ coupon_code: string; n: number }>("SELECT coupon_code, COUNT(*) AS n FROM orders WHERE status = 'paid' AND coupon_code IS NOT NULL GROUP BY coupon_code");
-  const usedBy = Object.fromEntries(used.map((u) => [String(u.coupon_code).toUpperCase(), Number(u.n)]));
+  const uses = await all<{ id: string; coupon_code: string; product_slug: string; amount: number; paid_at: number | null; email: string | null; phone: string | null; name: string | null }>(
+    `SELECT o.id, o.coupon_code, o.product_slug, o.amount, o.paid_at, u.email, u.phone, u.name FROM orders o JOIN users u ON u.id = o.user_id
+     WHERE o.status = 'paid' AND o.coupon_code IS NOT NULL ORDER BY o.paid_at DESC`);
+  const byCode: Record<string, typeof uses> = {};
+  for (const u of uses) (byCode[String(u.coupon_code).toUpperCase()] ??= []).push(u);
+  const discountOf = (u: (typeof uses)[number]) => Math.max(0, (findProduct(u.product_slug)?.price ?? u.amount) - Number(u.amount));
+  const totalDiscount = uses.reduce((n, u) => n + discountOf(u), 0);
+  const totalRevenue = uses.reduce((n, u) => n + Number(u.amount), 0);
   const post = (action: string, code: string, label: string, danger = false) => (
     <form action="/api/admin/coupons" method="post">
       <input type="hidden" name="action" value={action} /><input type="hidden" name="code" value={code} />
@@ -24,6 +31,11 @@ export default async function AdminCoupons({ searchParams }: { searchParams: { o
     <div>
       <h1 className="font-display text-[30px] font-extrabold text-cream">Coupons</h1>
       <p className="mt-1 text-[14px] text-fog">A new coupon works on the website straight away. Coupons tagged “dashboard” come from the Platform dashboard.</p>
+      <div className="mt-5 grid gap-3 sm:grid-cols-3">
+        {([["Coupons", String(coupons.length)], ["Orders using a coupon", String(uses.length)], ["Revenue / discount given", `${rupees(totalRevenue)} / ${rupees(totalDiscount)}`]] as const).map(([l, v]) => (
+          <div key={l} className="card p-4"><p className="text-[12px] font-semibold uppercase tracking-wide text-fog">{l}</p><p className="mt-1 font-display text-[22px] font-extrabold text-cream">{v}</p></div>
+        ))}
+      </div>
       {searchParams.ok && <p role="status" className="mt-4 rounded-2xl bg-mint/10 p-3 text-[14px] text-cream">{searchParams.ok}</p>}
       {searchParams.err && <p role="alert" className="mt-4 rounded-2xl bg-rosy/10 p-3 text-[14px] text-rosy">{searchParams.err}</p>}
 
@@ -52,11 +64,21 @@ export default async function AdminCoupons({ searchParams }: { searchParams: { o
             <div key={c.code} className="card flex flex-wrap items-center gap-3 p-3 text-[14px]">
               <div className="min-w-0 flex-1">
                 <p className="font-bold text-cream">{c.code} <span className="font-normal text-fog">· {off}{c.product_slug ? ` · only ${c.product_slug}` : ""}</span></p>
-                <p className="text-[12px] text-fog">Used {usedBy[c.code.toUpperCase()] ?? 0}{c.max_uses ? ` of ${c.max_uses}` : ""} · {expired ? "expired " : "until "}{day(c.expires_at)}{c.featured ? " · in offer bar" : ""}{c.from_dashboard ? " · dashboard" : ""}</p>
+                <p className="text-[12px] text-fog">Used {(byCode[c.code.toUpperCase()] ?? []).length}{c.max_uses ? ` of ${c.max_uses}` : ""} · {expired ? "expired " : "until "}{day(c.expires_at)}{c.featured ? " · in offer bar" : ""}{c.from_dashboard ? " · dashboard" : ""}</p>
               </div>
               <span className={`rounded-full px-2.5 py-1 text-[12px] font-semibold ${on ? "bg-mint/10 text-mint" : "bg-rosy/10 text-rosy"}`}>{on ? "Active" : expired ? "Expired" : "Off"}</span>
               {post("toggle", c.code, c.is_active === false ? "Turn on" : "Turn off")}
               {post("delete", c.code, "Delete", true)}
+              {(byCode[c.code.toUpperCase()] ?? []).length > 0 && (
+                <details className="basis-full text-[13px]">
+                  <summary className="cursor-pointer font-semibold text-saffron-400">Who used it ({byCode[c.code.toUpperCase()].length})</summary>
+                  <ul className="mt-2 divide-y divide-ink/[0.07]">
+                    {byCode[c.code.toUpperCase()].map((u) => (
+                      <li key={u.id} className="flex flex-wrap justify-between gap-2 py-1.5"><Link href={`/admin/orders/${u.id}`} className="hover:underline">{u.name || u.email || u.phone} · {findProduct(u.product_slug)?.title ?? u.product_slug}</Link><span className="text-fog">paid {rupees(u.amount)} · saved {rupees(discountOf(u))}</span></li>
+                    ))}
+                  </ul>
+                </details>
+              )}
             </div>
           );
         })}

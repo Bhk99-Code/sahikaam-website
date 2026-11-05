@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAdmin } from "@/lib/admin";
@@ -14,7 +15,7 @@ type Row = { slug: string; title: string; price: number; mrp?: number; type: str
 export default async function AdminBooksPage({ searchParams }: { searchParams: { ok?: string; err?: string } }) {
   if (!(await getAdmin())) notFound();
   const rows: Row[] = JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf8")).products;
-  const books = rows.filter((p) => p.type === "ebook" && !p.variant_of);
+  const books = rows.filter((p) => (p.type === "ebook" || p.type === "bundle") && !p.variant_of);
   const cats = Object.entries(CATEGORY).filter(([k]) => k !== "bundle");
 
   return (
@@ -65,6 +66,8 @@ export default async function AdminBooksPage({ searchParams }: { searchParams: {
                 <input name="mrp" type="number" min="0" defaultValue={b.mrp ?? ""} placeholder="MRP" className="field h-10 w-24 py-0" aria-label="MRP" />
                 <button className="btn-ghost h-10 px-3 text-[13px]">Save price</button>
               </form>
+              <Link href={`/admin/books/${b.slug}`} className="btn-primary h-10 px-3 text-[13px]">Edit page</Link>
+              <Link href={`/book/${b.slug}`} target="_blank" className="btn-ghost h-10 px-3 text-[13px]">View ↗</Link>
               <form action="/api/admin/books" method="post" encType="multipart/form-data">
                 <input type="hidden" name="action" value={hidden ? "publish" : "hide"} /><input type="hidden" name="slug" value={b.slug} />
                 <button className={`${hidden ? "btn-primary" : "btn-ghost"} h-10 px-3 text-[13px]`}>{hidden ? "Show on site" : "Hide"}</button>
