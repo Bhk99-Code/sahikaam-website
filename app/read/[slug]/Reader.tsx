@@ -192,6 +192,14 @@ export function Reader({ slug, title, lang, languages, parts, part, startPage }:
     };
   }, []);
 
+  // The reader is a full-screen layer: freeze the page behind it so the wheel/touch never scrolls what is underneath
+  useEffect(() => {
+    const html = document.documentElement, body = document.body;
+    const prev = [html.style.overflow, body.style.overflow, html.style.overscrollBehavior];
+    html.style.overflow = "hidden"; body.style.overflow = "hidden"; html.style.overscrollBehavior = "none";
+    return () => { html.style.overflow = prev[0]; body.style.overflow = prev[1]; html.style.overscrollBehavior = prev[2]; };
+  }, []);
+
   const go = (n: number) => setPage(Math.min(Math.max(1, n), pages || 1));
 
   return (
@@ -219,7 +227,7 @@ export function Reader({ slug, title, lang, languages, parts, part, startPage }:
         <button aria-label="Zoom in" onClick={() => setZoom((z) => Math.min(2.4, +(z + 0.2).toFixed(1)))} className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-white/10"><Icon name="zoomin" /></button>
       </header>
 
-      <div ref={boxRef} className="relative flex-1 overflow-auto">
+      <div ref={boxRef} className="relative flex-1 overflow-auto overscroll-contain">
         <div className="mx-auto flex min-h-full w-max min-w-full justify-center p-3">
           {status === "loading" && <p className="self-center text-white/70">Opening your book…</p>}
           {status === "error" && (

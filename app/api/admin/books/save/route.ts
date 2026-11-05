@@ -47,7 +47,7 @@ export async function POST(req: Request) {
     for (const lang of ["hi", "en"] as const) {
       const f = form.get(`pdf_${lang}`);
       if (f instanceof File && f.size > MAX_PDF) throw new Bad("A PDF is too large (max 100MB).");
-      editions.push({ lang, pages: num(d.editions?.[lang]?.pages), comingSoon: Boolean(d.editions?.[lang]?.soon), pdf: f instanceof File && f.size > 0 ? Buffer.from(await f.arrayBuffer()) : null });
+      editions.push({ lang, pages: num(d.editions?.[lang]?.pages), comingSoon: Boolean(d.editions?.[lang]?.soon), pdf: f instanceof File && f.size > 0 ? Buffer.from(await f.arrayBuffer()) : null, uploadId: str(d.editions?.[lang]?.uploadId) || null });
     }
     const r = saveProduct(str(d.slug) || null, {
       type: d.type === "bundle" ? "bundle" : "ebook",

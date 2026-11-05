@@ -46,3 +46,4 @@ yarn-error.log*
 /private/covers/*
 !/private/covers/.keep
 /private/pages/
+/private/uploads/

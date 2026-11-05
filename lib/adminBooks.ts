@@ -1,7 +1,7 @@
 import "server-only";
 import fs from "fs";
 import path from "path";
-import { booksDir, bonusDir, coversDir, productsReadPath, productsWritePath } from "./storage";
+import { booksDir, bonusDir, coversDir, productsReadPath, productsWritePath, uploadsDir } from "./storage";
 import { getCategories } from "./categories";
 
 // Same persistent-storage convention as BOOKS_DIR / BONUS_DIR / COUPONS_FILE / PRODUCTS_FILE: on the
@@ -29,7 +29,7 @@ export type Pair = { title: string; text: string };
 export type Img = { buf: Buffer; ext: string };
 export type GalleryItem = { kind: "url"; url: string } | { kind: "new"; img: Img };
 export type BonusItem = { kind: "keep"; file: string; title: string; text: string } | { kind: "new"; name: string; buf: Buffer; title: string; text: string };
-export type EditionInput = { lang: "hi" | "en"; pages: number | null; comingSoon: boolean; pdf: Buffer | null };
+export type EditionInput = { lang: "hi" | "en"; pages: number | null; comingSoon: boolean; pdf: Buffer | null; uploadId?: string | null };
 export type ProductInput = {
   type?: "ebook" | "bundle";
   /** Bundles: slugs of the books inside; includeAll = every published book, now and later (All Access style). */
@@ -62,7 +62,16 @@ export function saveProduct(slug: string | null, e: ProductInput): Result & { sl
   if (wantsBundle && !e.includeAll && !(e.bundleItems ?? []).length) return { ok: false, error: "Choose at least one book for the bundle, or tick “every book”." };
   if (!Number.isFinite(e.price) || e.price < 0) return { ok: false, error: "Price must be a number." };
   if (e.mrp != null && (!Number.isFinite(e.mrp) || e.mrp < 0)) return { ok: false, error: "MRP must be a number." };
-  for (const ed of e.editions) if (ed.pdf && ed.pdf.subarray(0, 4).toString() !== "%PDF") return { ok: false, error: "Book files must be PDFs." };
+  const staged = (id?: string | null) => (id && /^[a-zA-Z0-9-]{8,64}$/.test(id) ? path.join(uploadsDir(), `${id}.bin`) : null);
+  for (const ed of e.editions) {
+    if (ed.pdf && ed.pdf.subarray(0, 4).toString() !== "%PDF") return { ok: false, error: "Book files must be PDFs." };
+    const sp = staged(ed.uploadId);
+    if (ed.uploadId && !(sp && fs.existsSync(sp))) return { ok: false, error: "The PDF upload did not finish. Please upload it again." };
+    if (sp) {
+      const head = Buffer.alloc(4); const fd = fs.openSync(sp, "r"); fs.readSync(fd, head, 0, 4, 0); fs.closeSync(fd);
+      if (head.toString() !== "%PDF") return { ok: false, error: "That file is not a PDF." };
+    }
+  }
 
   const catalog = readCatalog();
   let p = slug ? catalog.products.find((x) => x.slug === slug) : null;
@@ -106,12 +115,15 @@ export function saveProduct(slug: string | null, e: ProductInput): Result & { sl
   const editions: any[] = p.editions ?? [];
   for (const ed of p.type === "bundle" ? [] : e.editions) {
     const existing = editions.find((x) => x.lang === ed.lang);
-    if (existing?.parts) continue; // chapter-wise files are managed outside this form
     const label = ed.lang === "hi" ? "Hindi" : "English";
-    if (ed.pdf) {
+    const sp = staged(ed.uploadId);
+    if (existing?.parts && !ed.pdf && !sp) continue; // chapter-wise files stay unless a single PDF is uploaded to replace them
+    if (ed.pdf || sp) {
       const file = existing?.file_path ?? `${id}${ed.lang === "en" ? "-en" : ""}.pdf`;
-      fs.mkdirSync(booksDir(), { recursive: true });
-      fs.writeFileSync(path.join(booksDir(), file), ed.pdf);
+      fs.mkdirSync(path.dirname(path.join(booksDir(), file)), { recursive: true });
+      if (sp) { try { fs.renameSync(sp, path.join(booksDir(), file)); } catch { fs.copyFileSync(sp, path.join(booksDir(), file)); fs.rmSync(sp, { force: true }); } }
+      else fs.writeFileSync(path.join(booksDir(), file), ed.pdf!);
+      if (existing) delete existing.parts;
       if (existing) { Object.assign(existing, { label, file_path: file }); delete existing.coming_soon; if (ed.pages != null) existing.pages = ed.pages; }
       else editions.push({ lang: ed.lang, label, ...(ed.pages != null ? { pages: ed.pages } : {}), file_path: file });
     } else if (existing) {

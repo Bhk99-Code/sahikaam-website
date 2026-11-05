@@ -16,7 +16,8 @@ export function middleware(request: NextRequest) {
     url.search = "?next=" + encodeURIComponent(path + request.nextUrl.search);
     return NextResponse.redirect(url);
   }
-  if (path === "/admin" || path.startsWith("/admin/")) {
+  if (path === "/admin" || path.startsWith("/admin/") || path === "/read" || path.startsWith("/read/")) {
+    // admin panel and the book reader draw their own full-screen layout (no shop header/footer behind them)
     const headers = new Headers(request.headers);
     headers.set("x-admin-area", "1");
     return NextResponse.next({ request: { headers } });

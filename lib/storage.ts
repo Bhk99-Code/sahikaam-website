@@ -32,6 +32,7 @@ function fileWrite(env: string | undefined, name: string, bundled: string) {
 export const booksDir = () => dirFor(process.env.BOOKS_DIR, "books", here("private", "books"));
 export const bonusDir = () => dirFor(process.env.BONUS_DIR, "bonus", here("private", "bonus"));
 export const coversDir = () => dirFor(process.env.COVERS_DIR, "covers", here("private", "covers"));
+export const uploadsDir = () => dirFor(process.env.UPLOADS_DIR, "uploads", here("private", "uploads"));
 export const pagesDir = () => dirFor(process.env.PAGES_DIR, "pages", here("private", "pages"));
 export const photosDir = () => dirFor(process.env.PROFILE_PHOTOS_DIR, "profile-photos", here("private", "profile-photos"));
 

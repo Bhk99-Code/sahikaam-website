@@ -22,6 +22,30 @@ const lbl = "block text-[13px] font-semibold text-cream";
 const hint = "mt-1 text-[12px] text-fog";
 const inr = (n: number) => "₹" + n.toLocaleString("en-IN");
 
+/** Sends a file in 2 MB pieces (so proxy size/time limits and slow connections can't break big PDFs); returns the upload id. */
+async function uploadInChunks(file: File, onProgress: (done: number) => void): Promise<string> {
+  const id = crypto.randomUUID();
+  const CHUNK = 2 * 1024 * 1024;
+  let offset = 0;
+  let fails = 0;
+  while (offset < file.size) {
+    const end = Math.min(offset + CHUNK, file.size);
+    try {
+      const res = await fetch(`/api/admin/upload?id=${id}&offset=${offset}&total=${file.size}`, { method: "POST", headers: { "Content-Type": "application/octet-stream" }, body: file.slice(offset, end) });
+      const data = await res.json().catch(() => ({}));
+      if (res.status === 409 && typeof data.received === "number") { offset = data.received; continue; } // resume from what the server has
+      if (!res.ok || !data.ok) throw new Error(data.error || `server answered ${res.status}`);
+      offset = end;
+      fails = 0;
+      onProgress(offset / file.size);
+    } catch (e) {
+      if (++fails > 4) throw new Error(`Upload stopped (${e instanceof Error ? e.message : "network error"}). Check your connection and press Save again.`);
+      await new Promise((r) => setTimeout(r, 800 * fails));
+    }
+  }
+  return id;
+}
+
 function Card({ title, sub, children }: { title: string; sub?: string; children: React.ReactNode }) {
   return (
     <section className="card p-5">
@@ -76,6 +100,7 @@ export function ProductEditor({ initial, categories, books = [] }: { initial: Ed
   const [pick, setPick] = useState("");
   const [catFilter, setCatFilter] = useState("");
   const [busy, setBusy] = useState(false);
+  const [progress, setProgress] = useState("");
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const galleryInput = useRef<HTMLInputElement>(null);
 
@@ -102,22 +127,35 @@ export function ProductEditor({ initial, categories, books = [] }: { initial: Ed
     if (bundle && !f.includeAll && !f.bundleItems.length) return setMsg({ ok: false, text: "Choose at least one book, or tick “every book”." });
     const fd = new FormData();
     let gi = 0, bi = 0;
+    const uploadIds: Partial<Record<Lang, string>> = {};
+    setBusy(true);
+    try {
+      for (const l of ["hi", "en"] as Lang[]) {
+        const file = pdf[l];
+        if (!file) continue;
+        const name = l === "hi" ? "Hindi" : "English";
+        setProgress(`Uploading ${name} PDF… 0%`);
+        uploadIds[l] = await uploadInChunks(file, (x) => setProgress(`Uploading ${name} PDF… ${Math.round(x * 100)}%`));
+      }
+    } catch (err) {
+      setBusy(false); setProgress("");
+      return setMsg({ ok: false, text: err instanceof Error ? err.message : "Upload failed. Please try again." });
+    }
+    setProgress("Saving…");
     const payload = {
       slug: initial.slug, type: initial.type, bundleItems: f.bundleItems, includeAll: f.includeAll, accessDays: f.accessDays, title: f.title, subtitle: f.subtitle, description: f.description, category: f.category, badge: f.badge, level: f.level,
       price: f.price, mrp: f.mrp, sortOrder: f.sortOrder, published: f.published,
       highlights: f.highlights, inside: f.inside, learn: f.learn, chapters: f.chapters,
       gallery: gallery.map((g) => { if (g.file) { fd.append(`gallery_${gi}`, g.file); return { kind: "new", i: gi++ }; } return { kind: "url", url: g.url }; }),
-      editions: { hi: { pages: f.editions.hi.pages, soon: f.editions.hi.soon }, en: { pages: f.editions.en.pages, soon: f.editions.en.soon } },
+      editions: { hi: { pages: f.editions.hi.pages, soon: f.editions.hi.soon, uploadId: uploadIds.hi }, en: { pages: f.editions.en.pages, soon: f.editions.en.soon, uploadId: uploadIds.en } },
       bonus: bonus.map((b) => { if (b.upload) { fd.append(`bonus_${bi}`, b.upload); return { kind: "new", i: bi++, title: b.title, text: b.text }; } return { kind: "keep", file: b.file, title: b.title, text: b.text }; }),
     };
     fd.append("payload", JSON.stringify(payload));
     if (cover?.file) fd.append("cover", cover.file);
-    (["hi", "en"] as Lang[]).forEach((l) => pdf[l] && fd.append(`pdf_${l}`, pdf[l]!));
-    setBusy(true);
     const res = await fetch("/api/admin/books/save", { method: "POST", body: fd }).catch(() => null);
     const data = await res?.json().catch(() => null);
-    setBusy(false);
-    if (!res || !data?.ok) return setMsg({ ok: false, text: data?.error || "Could not save. Please try again." });
+    setBusy(false); setProgress("");
+    if (!res || !data?.ok) return setMsg({ ok: false, text: data?.error || (res ? `Could not save (server answered ${res.status}). Please try again.` : "Could not reach the server. Check your connection and try again.") });
     if (isNew) return router.replace(`/admin/books/${data.slug}?saved=1`);
     setMsg({ ok: true, text: data.message });
     setPdf({ hi: null, en: null });
@@ -130,12 +168,13 @@ export function ProductEditor({ initial, categories, books = [] }: { initial: Ed
     return (
       <div className="grid gap-2 rounded-2xl bg-ink/[0.04] p-3 sm:grid-cols-3">
         <p className="font-bold text-cream sm:col-span-3">{l === "hi" ? "Hindi" : "English"} <span className={`ml-2 rounded-full px-2 py-0.5 text-[11px] font-semibold ${ed.file || pdf[l] || ed.parts ? "bg-mint/10 text-mint" : "bg-ink/[0.07] text-fog"}`}>{status}</span></p>
-        <label className={lbl}>Pages<input type="number" min="1" value={ed.pages} disabled={ed.parts} onChange={(e) => setEdition(l, { pages: e.target.value })} className="field mt-1 h-11 w-full" /></label>
+        <label className={lbl}>Pages<input type="number" min="1" value={ed.pages} onChange={(e) => setEdition(l, { pages: e.target.value })} className="field mt-1 h-11 w-full" /></label>
         <label className={`${lbl} sm:col-span-2`}>{ed.file ? "Replace PDF" : "Upload PDF"}
-          <input type="file" accept="application/pdf" disabled={ed.parts} onChange={(e) => setPdf((s) => ({ ...s, [l]: e.target.files?.[0] ?? null }))} className="field mt-1 block w-full py-2" />
+          <input type="file" accept="application/pdf" onChange={(e) => setPdf((s) => ({ ...s, [l]: e.target.files?.[0] ?? null }))} className="field mt-1 block w-full py-2" />
           {(pdf[l]?.name || ed.file) && <span className={hint}>{pdf[l]?.name ?? ed.file}</span>}
+          {ed.parts && <span className={hint}>This language is stored as chapter files. Uploading a PDF here replaces them with one PDF.</span>}
         </label>
-        <label className="flex items-center gap-2 text-[13px] text-cream sm:col-span-3"><input type="checkbox" checked={ed.soon} disabled={ed.parts} onChange={(e) => setEdition(l, { soon: e.target.checked })} /> Show as “coming soon” (no PDF yet)</label>
+        <label className="flex items-center gap-2 text-[13px] text-cream sm:col-span-3"><input type="checkbox" checked={ed.soon} onChange={(e) => setEdition(l, { soon: e.target.checked })} /> Show as “coming soon” (no PDF yet)</label>
       </div>
     );
   };
@@ -275,7 +314,7 @@ export function ProductEditor({ initial, categories, books = [] }: { initial: Ed
             <span><b>{f.published ? "Visible on the website" : "Hidden (draft)"}</b><span className="block text-[12px] text-fog">{f.published && !filesReady && !bundle ? "No PDF yet — buyers would get nothing. Add a PDF or mark it “coming soon”." : "Hidden books can’t be seen or bought."}</span></span>
           </label>
           {msg && <p role={msg.ok ? "status" : "alert"} className={`mt-3 rounded-xl p-2.5 text-[13px] ${msg.ok ? "bg-mint/10 text-cream" : "bg-rosy/10 text-rosy"}`}>{msg.text}</p>}
-          <button disabled={busy} className="btn-primary mt-3 h-12 w-full disabled:opacity-60">{busy ? "Saving…" : isNew ? (bundle ? "Create bundle" : "Create product") : "Save changes"}</button>
+          <button disabled={busy} className="btn-primary mt-3 h-12 w-full disabled:opacity-60">{busy ? (progress || "Saving…") : isNew ? (bundle ? "Create bundle" : "Create product") : "Save changes"}</button>
           {!isNew && <Link href={`/book/${initial.slug}`} target="_blank" className="btn-ghost mt-2 h-11 w-full text-[13px]">View live page ↗</Link>}
           <Link href="/admin/books" className="mt-3 block text-center text-[13px] font-semibold text-fog hover:text-cream">← All products</Link>
         </section>
