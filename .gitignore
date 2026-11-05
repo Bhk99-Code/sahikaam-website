@@ -45,3 +45,4 @@ yarn-error.log*
 !/private/profile-photos/.keep
 /private/covers/*
 !/private/covers/.keep
+/private/pages/

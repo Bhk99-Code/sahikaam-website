@@ -22,13 +22,29 @@ export function Reader({ slug, title, lang, languages, parts, part, startPage }:
   const [jump, setJump] = useState("");
   // page is blanked while the reader is not in focus or a screenshot shortcut is pressed
   const [shield, setShield] = useState(false);
+  // "image" = secure mode (server sends one watermarked page image at a time); "pdf" = fallback if the server cannot render
+  const [mode, setMode] = useState<"image" | "pdf" | null>(null);
+  const [notice, setNotice] = useState("");
+  const bitmaps = useRef(new Map<number, Promise<ImageBitmap>>());
 
-  // load the document once
+  // open the book once: ask the server how (page images, or the old PDF mode if it cannot render)
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(`/api/read/${slug}?lang=${lang}&part=${part}`, { cache: "no-store" });
+        const q = `lang=${lang}&part=${part}`;
+        const meta = await fetch(`/api/read/${slug}/meta?${q}`, { cache: "no-store" });
+        if (!meta.ok) throw new Error("no access");
+        const info = await meta.json();
+        if (info.mode === "image") {
+          if (cancelled) return;
+          setMode("image");
+          setPages(info.pages);
+          setPage((p) => Math.min(p, info.pages));
+          setStatus("ready");
+          return;
+        }
+        const res = await fetch(`/api/read/${slug}?${q}`, { cache: "no-store" });
         if (!res.ok) throw new Error("no access");
         const data = new Uint8Array(await res.arrayBuffer());
         const pdfjs = await import("pdfjs-dist");
@@ -36,6 +52,7 @@ export function Reader({ slug, title, lang, languages, parts, part, startPage }:
         const doc = await pdfjs.getDocument({ data }).promise;
         if (cancelled) return;
         docRef.current = doc;
+        setMode("pdf");
         setPages(doc.numPages);
         setPage((p) => Math.min(p, doc.numPages));
         setStatus("ready");
@@ -46,10 +63,44 @@ export function Reader({ slug, title, lang, languages, parts, part, startPage }:
     return () => { cancelled = true; };
   }, [slug, lang, part]);
 
+  const getBitmap = useCallback((n: number) => {
+    let p = bitmaps.current.get(n);
+    if (!p) {
+      p = fetch(`/api/read/${slug}/image?lang=${lang}&part=${part}&n=${n}`, { cache: "no-store" })
+        .then(async (r) => {
+          if (r.status === 429) throw new Error("slow");
+          if (!r.ok) throw new Error("fail");
+          return createImageBitmap(await r.blob());
+        });
+      p.catch(() => bitmaps.current.delete(n));
+      bitmaps.current.set(n, p);
+      for (const k of [...bitmaps.current.keys()]) if (Math.abs(k - n) > 2) { bitmaps.current.get(k)?.then((b) => b.close()).catch(() => {}); bitmaps.current.delete(k); }
+    }
+    return p;
+  }, [slug, lang, part]);
+
   const render = useCallback(async () => {
     const doc = docRef.current;
     const canvas = canvasRef.current;
     const box = boxRef.current;
+    if (mode === "image" && canvas && box) {
+      try {
+        const bmp = await getBitmap(page);
+        const dpr = window.devicePixelRatio || 1;
+        const cssW = Math.min(box.clientWidth - 24, 900) * zoom;
+        const w = Math.min(bmp.width, Math.round(cssW * dpr));
+        canvas.width = w;
+        canvas.height = Math.round((bmp.height / bmp.width) * w);
+        canvas.style.width = `${cssW}px`;
+        canvas.style.height = `${(bmp.height / bmp.width) * cssW}px`;
+        canvas.getContext("2d")!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+        setNotice("");
+        if (page < pages) getBitmap(page + 1).catch(() => {});
+      } catch (e) {
+        setNotice(e instanceof Error && e.message === "slow" ? "You are turning pages very fast. Please wait a minute." : "Could not load this page. Check your connection and try again.");
+      }
+      return;
+    }
     if (!doc || !canvas || !box) return;
     const pdfPage = await doc.getPage(page);
     const base = pdfPage.getViewport({ scale: 1 });
@@ -63,7 +114,7 @@ export function Reader({ slug, title, lang, languages, parts, part, startPage }:
     renderTask.current?.cancel?.();
     renderTask.current = pdfPage.render({ canvasContext: canvas.getContext("2d")!, viewport });
     try { await renderTask.current.promise; } catch { /* cancelled */ }
-  }, [page, zoom]);
+  }, [page, zoom, mode, pages, getBitmap]);
 
   useEffect(() => { if (status === "ready") render(); }, [status, render]);
   useEffect(() => {
@@ -180,6 +231,7 @@ export function Reader({ slug, title, lang, languages, parts, part, startPage }:
           <div className={`relative ${status === "ready" ? "" : "hidden"}`}>
             <canvas ref={canvasRef} draggable={false} onContextMenu={(e) => e.preventDefault()}
               className={`block bg-white shadow-2xl transition-[filter] duration-75 ${shield ? "blur-2xl brightness-0" : ""}`} />
+            {notice && <div role="alert" className="absolute inset-x-0 top-0 z-10 bg-black/80 px-4 py-3 text-center text-[14px] text-white">{notice}</div>}
             {shield && (
               <div className="absolute inset-0 flex items-center justify-center bg-[#0E0E10] px-6 text-center text-[15px] text-white/70">
                 Tap or click here to continue reading.

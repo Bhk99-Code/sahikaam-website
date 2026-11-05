@@ -263,10 +263,21 @@ export async function linkIdentity(user: User, id: Identity, code: string): Prom
   return { ok: true };
 }
 
+const MAX_SESSIONS = 3; // a shared account stops working after a few devices
+
+/** Keeps only the newest MAX_SESSIONS sign-ins of a user — older devices are signed out. */
+export async function pruneSessions(userId: string) {
+  await run(
+    `DELETE FROM sessions WHERE user_id = ? AND token_hash NOT IN (
+       SELECT token_hash FROM (SELECT token_hash FROM sessions WHERE user_id = ? ORDER BY created_at DESC LIMIT ${MAX_SESSIONS}) AS keep)`,
+    [userId, userId]);
+}
+
 async function startSession(userId: string) {
   const token = crypto.randomBytes(32).toString("base64url");
   const expires = now() + SESSION_DAYS * 86400_000;
   await run("INSERT INTO sessions (token_hash, user_id, expires_at, created_at) VALUES (?, ?, ?, ?)", [hash(token), userId, expires, now()]);
+  await pruneSessions(userId);
   cookies().set(SESSION_COOKIE, token, {
     httpOnly: true, secure: isProduction, sameSite: "lax", path: "/", expires: new Date(expires),
   });

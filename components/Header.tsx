@@ -27,7 +27,7 @@ export function Header({ signedIn, isAdmin = false }: { signedIn: boolean; isAdm
               <button type="button" className="flex items-center gap-1 rounded-full px-3.5 py-2 text-[14px] font-medium text-cream-2 transition hover:bg-ink/5 hover:text-cream group-focus-within:text-cream">
                 Topics <Icon name="down" size={15} className="transition group-hover:rotate-180" />
               </button>
-              <div className="invisible absolute left-0 top-full z-50 w-[420px] translate-y-1 pt-2 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+              <div className="invisible absolute left-1/2 top-full z-50 w-[420px] max-w-[calc(100vw-1.5rem)] -translate-x-1/2 translate-y-1 pt-2 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                 <div className="grid grid-cols-2 gap-1 rounded-2xl bg-night-2 p-2 shadow-lift">
                   {cats.map(([k, c]) => (
                     <Link key={k} href={`/books?cat=${k}`} className="rounded-xl px-3 py-2.5 hover:bg-night-4/70">

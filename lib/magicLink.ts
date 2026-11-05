@@ -2,6 +2,7 @@ import "server-only";
 import crypto from "crypto";
 import { one, run } from "./db";
 import { isProduction } from "./env";
+import { pruneSessions } from "./auth";
 
 /**
  * One-tap sign-in link sent after a guest checkout pays (lib/grant.ts): the buyer never typed a
@@ -42,5 +43,6 @@ export async function consumeMagicLink(token: string): Promise<{ sessionToken: s
   const expires = Date.now() + 60 * 86400_000; // same 60-day session length as lib/auth.ts
   await run("INSERT INTO sessions (token_hash, user_id, expires_at, created_at) VALUES (?, ?, ?, ?)",
     [hash(sessionToken), row.user_id, expires, Date.now()]);
+  await pruneSessions(row.user_id);
   return { sessionToken, expires: new Date(expires), userId: row.user_id };
 }

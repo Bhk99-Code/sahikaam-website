@@ -10,7 +10,7 @@ export default function LoginPage({ searchParams }: { searchParams: { next?: str
   const mode = searchParams.mode === "signup" || searchParams.mode === "reset" ? searchParams.mode : "signin";
   const next = searchParams.next && searchParams.next.startsWith("/") && !searchParams.next.startsWith("//") ? searchParams.next : "";
   return (
-    <div className="relative">
+    <div className="relative overflow-x-clip">
       <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-0 h-[360px] w-[600px] -translate-x-1/2 rounded-full bg-saffron-500/15 blur-[110px]" />
       <div className="container-x relative flex max-w-md flex-col py-12 sm:py-20">
         <div className="card p-6 sm:p-8">

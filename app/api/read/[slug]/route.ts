@@ -2,13 +2,16 @@ import fs from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
 import { getUser, ownsProduct, findProduct, pickEdition } from "@/lib/data";
+import { rendererAvailable } from "@/lib/pageRender";
 
 const BOOKS_DIR = process.env.BOOKS_DIR || path.join(process.cwd(), "private", "books");
 
-/** Streams the ebook PDF — only to a signed-in buyer. The file is never public. */
+/** Streams the ebook PDF — signed-in buyer only, and ONLY when this server cannot render page images
+ *  (then the reader falls back to it). Normally the reader uses /image, so the PDF never leaves the server. */
 export async function GET(req: Request, { params }: { params: { slug: string } }) {
   const user = await getUser();
   if (!user) return NextResponse.json({ error: "login required" }, { status: 401 });
+  if (await rendererAvailable()) return NextResponse.json({ error: "use the page reader" }, { status: 403 });
   const product = findProduct(params.slug);
   const params2 = new URL(req.url).searchParams;
   const part = Number(params2.get("part") ?? 0);

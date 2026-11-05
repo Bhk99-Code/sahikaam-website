@@ -6,7 +6,7 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
-  experimental: { serverComponentsExternalPackages: ["mysql2", "nodemailer"] },
+  experimental: { serverComponentsExternalPackages: ["mysql2", "nodemailer", "pdfjs-dist", "@napi-rs/canvas"] },
   webpack: (config) => {
     // pdf.js optionally requires 'canvas' in Node; not needed in the browser
     config.resolve.alias.canvas = false;
