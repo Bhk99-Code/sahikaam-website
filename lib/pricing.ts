@@ -22,11 +22,11 @@ type Coupon = {
 // the deploy, same convention as BOOKS_DIR/BONUS_DIR) lets a new/changed coupon — including one
 // synced from the dashboard's Manage Coupons page, see platform/lib/syncCouponsToWebsite.ts —
 // take effect immediately, with no rebuild. Local dev falls back to the committed file.
-export const COUPONS_FILE = process.env.COUPONS_FILE || path.join(process.cwd(), "content", "coupons.json");
+import { couponsReadPath } from "./storage";
 
 function readCoupons(): Coupon[] {
   try {
-    return (JSON.parse(fs.readFileSync(COUPONS_FILE, "utf8")).coupons ?? []) as Coupon[];
+    return (JSON.parse(fs.readFileSync(couponsReadPath(), "utf8")).coupons ?? []) as Coupon[];
   } catch (e) {
     console.error("readCoupons", e);
     return [];

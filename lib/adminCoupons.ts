@@ -1,6 +1,7 @@
 import "server-only";
 import fs from "fs";
-import { COUPONS_FILE } from "./pricing";
+import path from "path";
+import { couponsReadPath, couponsWritePath } from "./storage";
 
 export type CouponRow = {
   code: string; percent_off?: number; flat_off?: number; product_slug?: string | null; max_uses?: number | null;
@@ -10,12 +11,14 @@ type File = { _help?: string; coupons: CouponRow[] };
 type Result = { ok: true; message: string } | { ok: false; error: string };
 
 export function readCouponFile(): File {
-  try { return JSON.parse(fs.readFileSync(COUPONS_FILE, "utf8")); } catch { return { coupons: [] }; }
+  try { return JSON.parse(fs.readFileSync(couponsReadPath(), "utf8")); } catch { return { coupons: [] }; }
 }
 function write(f: File) {
-  const tmp = COUPONS_FILE + ".tmp";
+  const target = couponsWritePath();
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  const tmp = target + ".tmp";
   fs.writeFileSync(tmp, JSON.stringify(f, null, 2) + "\n");
-  fs.renameSync(tmp, COUPONS_FILE);
+  fs.renameSync(tmp, target);
 }
 
 export function addCoupon(i: { code: string; kind: "percent" | "flat"; value: number; productSlug: string; maxUses: number | null; expires: string; featured: boolean }): Result {

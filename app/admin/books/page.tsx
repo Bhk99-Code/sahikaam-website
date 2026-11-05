@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import fs from "fs";
-import { PRODUCTS_FILE } from "@/lib/data";
+import { productsReadPath } from "@/lib/storage";
 import { CATEGORY, inr } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Admin · Products", robots: { index:
 type Row = { slug: string; title: string; price: number; mrp?: number; type: string; category?: string; cover_url?: string; is_published?: boolean; variant_of?: string; editions?: { label: string; file_path?: string; parts?: unknown[]; coming_soon?: boolean }[] };
 
 export default async function AdminProducts({ searchParams }: { searchParams: { ok?: string; err?: string; q?: string; show?: string } }) {
-  const all: Row[] = JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf8")).products.filter((p: Row) => (p.type === "ebook" || p.type === "bundle") && !p.variant_of);
+  const all: Row[] = JSON.parse(fs.readFileSync(productsReadPath(), "utf8")).products.filter((p: Row) => (p.type === "ebook" || p.type === "bundle") && !p.variant_of);
   const q = (searchParams.q ?? "").trim().toLowerCase();
   const show = searchParams.show === "live" || searchParams.show === "hidden" ? searchParams.show : "";
   const live = all.filter((b) => b.is_published !== false).length;

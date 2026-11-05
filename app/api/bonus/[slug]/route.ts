@@ -3,7 +3,7 @@ import path from "path";
 import { NextResponse } from "next/server";
 import { getUser, ownsProduct, findProduct } from "@/lib/data";
 
-const BONUS_DIR = process.env.BONUS_DIR || path.join(process.cwd(), "private", "bonus");
+import { bonusDir } from "@/lib/storage";
 const TYPES: Record<string, string> = {
   ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   ".pdf": "application/pdf",
@@ -19,8 +19,9 @@ export async function GET(req: Request, { params }: { params: { slug: string } }
   if (!product || !bonus) return NextResponse.json({ error: "file not found" }, { status: 404 });
   if (!(await ownsProduct(user.id, product.slug))) return NextResponse.json({ error: "not purchased" }, { status: 403 });
 
-  const file = path.resolve(BONUS_DIR, bonus.file);
-  if (!file.startsWith(path.resolve(BONUS_DIR) + path.sep)) return NextResponse.json({ error: "bad path" }, { status: 400 });
+  const base = bonusDir();
+  const file = path.resolve(base, bonus.file);
+  if (!file.startsWith(path.resolve(base) + path.sep)) return NextResponse.json({ error: "bad path" }, { status: 400 });
   if (!fs.existsSync(file)) return NextResponse.json({ error: "file not available" }, { status: 404 });
   const data = await fs.promises.readFile(file);
   return new NextResponse(data, {

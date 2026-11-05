@@ -11,7 +11,10 @@ const MAX_PER_DAY = 2500;
 export async function GET(req: Request, { params }: { params: { slug: string } }) {
   const r = await resolveBook(req, params.slug);
   if (!r.ok) return r.res;
-  if (!fs.existsSync(r.file)) return NextResponse.json({ error: "file not available" }, { status: 404 });
+  if (!fs.existsSync(r.file)) {
+    console.error("read: book file is missing on the server:", r.file);
+    return NextResponse.json({ error: "file not available" }, { status: 404 });
+  }
   if (!(await rendererAvailable())) return NextResponse.json({ error: "renderer unavailable" }, { status: 501 });
   if (!(await hit(`img-min:${r.user.id}`, MAX_PER_MINUTE, 60_000)) || !(await hit(`img-day:${r.user.id}`, MAX_PER_DAY, 86_400_000))) {
     return NextResponse.json({ error: "Too many pages too quickly. Please wait a minute." }, { status: 429 });

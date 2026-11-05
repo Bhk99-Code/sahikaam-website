@@ -1,26 +1,25 @@
 import "server-only";
 import fs from "fs";
 import path from "path";
-import { PRODUCTS_FILE } from "./data";
+import { booksDir, bonusDir, coversDir, productsReadPath, productsWritePath } from "./storage";
 import { CATEGORY } from "./format";
 
 // Same persistent-storage convention as BOOKS_DIR / BONUS_DIR / COUPONS_FILE / PRODUCTS_FILE: on the
 // live server these env vars point outside the deploy's versioned build folder.
-export const BOOKS_DIR = process.env.BOOKS_DIR || path.join(process.cwd(), "private", "books");
-export const BONUS_DIR = process.env.BONUS_DIR || path.join(process.cwd(), "private", "bonus");
-export const COVERS_DIR = process.env.COVERS_DIR || path.join(process.cwd(), "private", "covers");
 
 type Catalog = { _help?: string; products: Record<string, any>[] };
 type Result = { ok: true; message: string } | { ok: false; error: string };
 
 function readCatalog(): Catalog {
-  return JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf8"));
+  return JSON.parse(fs.readFileSync(productsReadPath(), "utf8"));
 }
 
 function writeCatalog(c: Catalog) {
-  const tmp = PRODUCTS_FILE + ".tmp";
+  const target = productsWritePath();
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  const tmp = target + ".tmp";
   fs.writeFileSync(tmp, JSON.stringify(c, null, 2) + "\n");
-  fs.renameSync(tmp, PRODUCTS_FILE);
+  fs.renameSync(tmp, target);
 }
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60);
@@ -43,9 +42,9 @@ export function getBookRaw(slug: string): Record<string, any> | null {
 }
 
 function saveImage(slug: string, tag: string, img: Img) {
-  fs.mkdirSync(COVERS_DIR, { recursive: true });
+  fs.mkdirSync(coversDir(), { recursive: true });
   const name = `${slug}-${tag}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}${img.ext}`;
-  fs.writeFileSync(path.join(COVERS_DIR, name), img.buf);
+  fs.writeFileSync(path.join(coversDir(), name), img.buf);
   return `/api/covers/${name}`;
 }
 
@@ -99,8 +98,8 @@ export function saveProduct(slug: string | null, e: ProductInput): Result & { sl
     const label = ed.lang === "hi" ? "Hindi" : "English";
     if (ed.pdf) {
       const file = existing?.file_path ?? `${id}${ed.lang === "en" ? "-en" : ""}.pdf`;
-      fs.mkdirSync(BOOKS_DIR, { recursive: true });
-      fs.writeFileSync(path.join(BOOKS_DIR, file), ed.pdf);
+      fs.mkdirSync(booksDir(), { recursive: true });
+      fs.writeFileSync(path.join(booksDir(), file), ed.pdf);
       if (existing) { Object.assign(existing, { label, file_path: file }); delete existing.coming_soon; if (ed.pages != null) existing.pages = ed.pages; }
       else editions.push({ lang: ed.lang, label, ...(ed.pages != null ? { pages: ed.pages } : {}), file_path: file });
     } else if (existing) {
@@ -115,8 +114,8 @@ export function saveProduct(slug: string | null, e: ProductInput): Result & { sl
   const bonus = e.bonus.map((b) => {
     if (b.kind === "keep") return { title: b.title, ...(b.text ? { text: b.text } : {}), file: b.file };
     const rel = `${id}/${safeName(b.name)}`;
-    fs.mkdirSync(path.dirname(path.join(BONUS_DIR, rel)), { recursive: true });
-    fs.writeFileSync(path.join(BONUS_DIR, rel), b.buf);
+    fs.mkdirSync(path.dirname(path.join(bonusDir(), rel)), { recursive: true });
+    fs.writeFileSync(path.join(bonusDir(), rel), b.buf);
     return { title: b.title, ...(b.text ? { text: b.text } : {}), file: rel };
   });
   setOrDrop("bonus", bonus, !bonus.length);

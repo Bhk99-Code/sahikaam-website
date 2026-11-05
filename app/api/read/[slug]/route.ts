@@ -2,16 +2,15 @@ import fs from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
 import { getUser, ownsProduct, findProduct, pickEdition } from "@/lib/data";
-import { rendererAvailable } from "@/lib/pageRender";
+import { renderFailed, rendererAvailable } from "@/lib/pageRender";
 
-const BOOKS_DIR = process.env.BOOKS_DIR || path.join(process.cwd(), "private", "books");
+import { booksDir } from "@/lib/storage";
 
 /** Streams the ebook PDF — signed-in buyer only, and ONLY when this server cannot render page images
  *  (then the reader falls back to it). Normally the reader uses /image, so the PDF never leaves the server. */
 export async function GET(req: Request, { params }: { params: { slug: string } }) {
   const user = await getUser();
   if (!user) return NextResponse.json({ error: "login required" }, { status: 401 });
-  if (await rendererAvailable()) return NextResponse.json({ error: "use the page reader" }, { status: 403 });
   const product = findProduct(params.slug);
   const params2 = new URL(req.url).searchParams;
   const part = Number(params2.get("part") ?? 0);
@@ -20,9 +19,14 @@ export async function GET(req: Request, { params }: { params: { slug: string } }
   if (!product || !fileName) return NextResponse.json({ error: "file not found" }, { status: 404 });
   if (!(await ownsProduct(user.id, product.slug))) return NextResponse.json({ error: "not purchased" }, { status: 403 });
 
-  const file = path.resolve(BOOKS_DIR, fileName);
-  if (!file.startsWith(path.resolve(BOOKS_DIR) + path.sep)) return NextResponse.json({ error: "bad path" }, { status: 400 });
-  if (!fs.existsSync(file)) return NextResponse.json({ error: "file not available" }, { status: 404 });
+  const base = booksDir();
+  const file = path.resolve(base, fileName);
+  if (!file.startsWith(path.resolve(base) + path.sep)) return NextResponse.json({ error: "bad path" }, { status: 400 });
+  if (await rendererAvailable() && !renderFailed.has(file)) return NextResponse.json({ error: "use the page reader" }, { status: 403 });
+  if (!fs.existsSync(file)) {
+    console.error("read: book file is missing on the server:", file);
+    return NextResponse.json({ error: "file not available" }, { status: 404 });
+  }
   const data = await fs.promises.readFile(file);
   return new NextResponse(data, {
     headers: {

@@ -12,7 +12,7 @@ export { getUser } from "./auth";
  * file's mtime, same idea as lib/pricing.ts's COUPONS_FILE) so a book added from /admin/books
  * goes live immediately, no rebuild needed — same persistent-storage pattern as BOOKS_DIR etc.
  */
-export const PRODUCTS_FILE = process.env.PRODUCTS_FILE || path.join(process.cwd(), "content", "products.json");
+import { productsReadPath } from "./storage";
 const THEME_ACCENT = "#FF6A3D";
 
 function buildProducts(raw: any[]): Product[] {
@@ -44,15 +44,16 @@ function buildProducts(raw: any[]): Product[] {
   return products;
 }
 
-let cache: { mtimeMs: number; products: Product[] } | null = null;
+let cache: { file: string; mtimeMs: number; products: Product[] } | null = null;
 
 function loadProducts(): Product[] {
   try {
-    const stat = fs.statSync(PRODUCTS_FILE);
-    if (cache && cache.mtimeMs === stat.mtimeMs) return cache.products;
-    const catalog = JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf8"));
+    const file = productsReadPath();
+    const stat = fs.statSync(file);
+    if (cache && cache.file === file && cache.mtimeMs === stat.mtimeMs) return cache.products;
+    const catalog = JSON.parse(fs.readFileSync(file, "utf8"));
     const products = buildProducts(catalog.products ?? []);
-    cache = { mtimeMs: stat.mtimeMs, products };
+    cache = { file, mtimeMs: stat.mtimeMs, products };
     return products;
   } catch (e) {
     console.error("loadProducts", e);

@@ -7,7 +7,7 @@ import path from "path";
  * stamped with the buyer's own email/number, and sent one page at a time (app/api/read/[slug]/image).
  * PAGES_DIR should be a persistent path on the live server; if it is not, pages simply re-render after a deploy.
  */
-export const PAGES_DIR = process.env.PAGES_DIR || path.join(process.cwd(), "private", "pages");
+import { pagesDir } from "@/lib/storage";
 const PAGE_WIDTH = 1500;
 const MAX_PARALLEL = 2;
 const DOC_TTL_MS = 10 * 60_000;
@@ -41,6 +41,9 @@ function load() {
   return mods;
 }
 
+/** Files this server could not render (a bad PDF): the reader may fall back to PDF mode for just these. */
+export const renderFailed = new Set<string>();
+
 /** False when the native renderer could not load on this server (the reader then falls back to the old PDF mode). */
 export async function rendererAvailable() { return Boolean(await load()); }
 
@@ -63,7 +66,7 @@ async function openDoc(file: string) {
     docs.set(key, e);
   }
   e.used = now;
-  return { doc: e.doc, dir: path.join(PAGES_DIR, path.basename(file).replace(/[^a-zA-Z0-9._-]/g, "_") + `-${st.size}-${Math.round(st.mtimeMs)}`) };
+  return { doc: e.doc, dir: path.join(pagesDir(), path.basename(file).replace(/[^a-zA-Z0-9._-]/g, "_") + `-${st.size}-${Math.round(st.mtimeMs)}`) };
 }
 
 export async function pageCount(file: string): Promise<number> {
