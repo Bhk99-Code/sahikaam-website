@@ -72,7 +72,7 @@ export default async function Home() {
       <section className="relative">
         <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-[radial-gradient(60%_60%_at_78%_20%,rgba(255,106,61,0.16),transparent_70%),radial-gradient(40%_50%_at_10%_0%,rgba(255,255,255,0.9),transparent_70%)]" />
         <div className="container-x relative grid items-center gap-10 pb-10 pt-8 lg:grid-cols-[1.08fr_1fr] lg:gap-6 lg:pb-16 lg:pt-14">
-          <div className="flex flex-col items-start gap-6">
+          <div className="flex min-w-0 flex-col items-start gap-6">
             <Link href="/books" className="inline-flex items-center gap-2 rounded-full bg-night-2 py-1.5 pl-1.5 pr-4 text-[13px] font-medium text-cream shadow-card transition hover:shadow-lift">
               <span className="tag-new">New</span> Livestock, recycling and home-building guides <Icon name="chevron" size={15} className="text-fog" />
             </Link>

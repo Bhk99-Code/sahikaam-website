@@ -26,7 +26,7 @@ export function HeroSearch({ items }: { items: SearchItem[] }) {
         <Icon name="search" size={20} className="shrink-0 text-fog" />
         <label htmlFor="hero-q" className="sr-only">Search ebooks</label>
         <input id="hero-q" value={q} onChange={(e) => setQ(e.target.value)} autoComplete="off"
-          placeholder="Which business? Try solar, paneer, tender…" className="h-full min-w-0 flex-1 bg-transparent text-[16px] text-cream outline-none placeholder:text-fog-2" />
+          placeholder="Which business? Try solar, paneer, tender…" className="h-full w-0 min-w-0 flex-1 bg-transparent text-[16px] text-cream outline-none placeholder:text-fog-2" />
         <button type="submit" className="btn-primary h-10 px-5 text-[14px]">Search</button>
       </form>
 
