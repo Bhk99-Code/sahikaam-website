@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getStats, listOrders } from "@/lib/admin";
 import { findProduct } from "@/lib/data";
 import { inr as rupees } from "@/lib/format";
+import { rendererAvailable } from "@/lib/pageRender";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin · Overview", robots: { index: false } };
@@ -10,7 +11,7 @@ export const metadata: Metadata = { title: "Admin · Overview", robots: { index:
 const date = (t: number | null) => (t ? new Date(Number(t)).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }) : "—");
 
 export default async function AdminOverview() {
-  const [s, recent] = await Promise.all([getStats(), listOrders("paid", 8)]);
+  const [s, recent, secure] = await Promise.all([getStats(), listOrders("paid", 8), rendererAvailable()]);
   const cards: [string, string, string][] = [
     ["Revenue (30 days)", rupees(s.revenue30d), `${s.paidOrders30d} orders`],
     ["Revenue (all time)", rupees(s.revenue), `${s.paidOrders} orders`],
@@ -30,6 +31,10 @@ export default async function AdminOverview() {
           </div>
         ))}
       </div>
+
+      <p className={`mt-4 rounded-2xl p-3 text-[14px] ${secure ? "bg-mint/10 text-cream" : "bg-rosy/10 text-rosy"}`}>
+        <b>Secure reader: {secure ? "ON" : "OFF"}</b> — {secure ? "buyers get watermarked page images; the PDF never leaves the server." : "this server could not start the page renderer, so books open in the old PDF mode. Tell your developer."}
+      </p>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         <Link href="/admin/books/new" className="btn-primary h-12 text-[15px]">+ Add a product</Link>
