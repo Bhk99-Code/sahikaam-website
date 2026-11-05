@@ -22,8 +22,9 @@ const FAQS = [
   { q: "How do I switch between Hindi and English?", a: "Use the language buttons in My library or at the top of the reader." },
   { q: "Can I download the PDF?", a: "No. To protect the books from piracy they open only in the SahiKaam reader — but single books never expire (All Access lasts for the plan you bought)." },
   { q: "What is the refund policy?", a: `Because ebooks are delivered instantly, we don't refund after access. If you were charged twice or the book won't open, write to us within ${BUSINESS.refundDays} days — see the full refund policy.` },
-  { q: "My sign-in code did not arrive", a: "For email: check your spam or promotions folder. For SMS: check the number and wait a minute (DND does not block login codes). Then tap “Resend code”, or switch to the other tab and sign in with your email or mobile instead." },
-  { q: "Can I sign in with my mobile number?", a: "Yes. Choose “Mobile” on the sign-in page and enter the 6-digit SMS code. Add both your mobile and email in Account, so either one opens the same library." },
+  { q: "I forgot my password", a: "On the sign-in page tap “Forgot password?”, enter your email or mobile number, then the 6-digit code we send, and choose a new password. If you bought as a guest and never set a password, use the same steps to create one." },
+  { q: "My reset code did not arrive", a: "For email: check your spam or promotions folder. For mobile: check the number and wait a minute. Then tap “Resend code”, or try your other contact (email or mobile)." },
+  { q: "Can I sign in with my mobile number?", a: "Yes. Use your mobile number and password on the sign-in page. Add both your mobile and email in Profile, so either one opens the same library." },
 ];
 
 export default function Help() {

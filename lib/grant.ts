@@ -29,7 +29,7 @@ export async function markPaidAndGrant(razorpayOrderId: string, razorpayPaymentI
   await grantProduct(order.user_id, order.product_slug, order.id);
   // Only on the first paid transition — a guest checkout (app/checkout/[slug]/GuestCheckoutClient.tsx)
   // never verified a code, so this is how they get into their account: a one-tap link for an
-  // email buyer, or the normal 6-digit sign-in code (already-approved channel) for a phone buyer.
+  // email buyer, or the 6-digit code (used on Forgot password) for a phone buyer.
   if (!wasAlreadyPaid) sendAccessMessage(order.user_id).catch((e) => console.error("sendAccessMessage", e));
   return { ok: true as const, orderId: order.id };
 }
@@ -43,12 +43,12 @@ export async function sendAccessMessage(userId: string) {
     await sendMail(
       user.email,
       "Your SahiKaam book is ready",
-      `<div style="font-family:sans-serif;font-size:16px"><h2>Payment received 🎉</h2><p>Your book is ready. Tap below to open your library — no password needed:</p><p><a href="${link}" style="display:inline-block;background:#FF6A00;color:#fff;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:bold">Open my library</a></p><p>This link works for 7 days and signs you in automatically.</p></div>`,
+      `<div style="font-family:sans-serif;font-size:16px"><h2>Payment received 🎉</h2><p>Your book is ready. Tap below to open your library and set a password for next time:</p><p><a href="${link}" style="display:inline-block;background:#FF6A00;color:#fff;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:bold">Open my library</a></p><p>This link works for 7 days and signs you in automatically. After that, use Forgot password on the sign-in page.</p></div>`,
       `Payment received! Open your library: ${link}\nThis link works for 7 days.`
     );
   } else if (user.phone && isSmsConfigured) {
-    // Reuses the buyer's normal sign-in code flow (lib/auth.ts) so /login's existing "6-digit
-    // code" box verifies it the same way as any other mobile sign-in — no new channel needed.
+    // Reuses the Forgot-password code flow (lib/auth.ts resetPasswordWithCode): the buyer enters
+    // this code on /login → Forgot password and picks a password — no new channel needed.
     await sendCode({ kind: "phone", value: user.phone });
   } else if (!isProduction) {
     // Local preview with no SMTP/SMS configured: print the link instead of losing it silently,

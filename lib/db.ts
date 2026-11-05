@@ -59,6 +59,8 @@ const MIGRATIONS = [
   "ALTER TABLE users ADD COLUMN active TINYINT(1) NULL DEFAULT 1",
   // Profile photo (app/account — the Profile page).
   "ALTER TABLE users ADD COLUMN photo_url VARCHAR(500) NULL",
+  // Password sign-in (replaces the 6-digit-code login; codes now only recover a forgotten password).
+  "ALTER TABLE users ADD COLUMN password_hash VARCHAR(255) NULL",
 ];
 
 // SQLite accepts the same statements once the MySQL-only table option is removed.

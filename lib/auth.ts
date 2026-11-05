@@ -5,6 +5,7 @@ import { all, one, run } from "./db";
 import { sendMail } from "./mail";
 import { sendSmsCode } from "./sms";
 import { isEmailConfigured, isProduction, isSmsConfigured, phoneChannel } from "./env";
+import { hashPassword, passwordProblem, verifyPasswordHash } from "./password";
 
 export const SESSION_COOKIE = "sk_session";
 const SESSION_DAYS = 60;
@@ -180,16 +181,70 @@ export async function checkCode(id: Identity, code: string, purpose: CodePurpose
   return true;
 }
 
-/** Login: checks the code, creates the user if new, and starts a session. */
-export async function verifyLogin(id: Identity, code: string): Promise<boolean> {
-  if (!(await checkCode(id, code))) return false;
-  let user = await findUserBy(id);
-  if (!user) {
-    user = { id: crypto.randomUUID(), email: id.kind === "email" ? id.value : null, phone: id.kind === "phone" ? id.value : null };
-    await run("INSERT INTO users (id, email, phone, created_at) VALUES (?, ?, ?, ?)", [user.id, user.email, user.phone, now()]);
+type AuthResult = { ok: true } | { ok: false; error: string; status?: number };
+const MAX_LOGINS_PER_HOUR = 10; // per email / phone
+const MAX_LOGINS_PER_IP_HOUR = 40;
+
+const hasPasswordRow = (userId: string) =>
+  one<{ password_hash: string | null }>("SELECT password_hash FROM users WHERE id = ?", [userId]).then((r) => Boolean(r?.password_hash));
+export const userHasPassword = hasPasswordRow;
+
+/** Sign in with email-or-mobile + password. */
+export async function loginWithPassword(id: Identity, password: string): Promise<AuthResult> {
+  if (!(await allow(`pw:${id.value}`, MAX_LOGINS_PER_HOUR)) || !(await allow(`pw-ip:${clientIp()}`, MAX_LOGINS_PER_IP_HOUR))) {
+    return { ok: false, status: 429, error: "Too many attempts. Please try again in an hour, or use Forgot password." };
   }
+  const user = await findUserBy(id);
+  const row = user ? await one<{ password_hash: string | null; active: number | null }>("SELECT password_hash, active FROM users WHERE id = ?", [user.id]) : null;
+  const good = verifyPasswordHash(password, row?.password_hash ?? null);
+  if (user && row && !row.password_hash) {
+    return { ok: false, status: 400, error: "No password is set on this account yet (for example, you bought as a guest). Tap Forgot password to create one." };
+  }
+  if (!user || !good || (row && row.active === 0)) return { ok: false, status: 400, error: "Wrong email/mobile or password." };
   await startSession(user.id);
-  return true;
+  return { ok: true };
+}
+
+/** Create an account with a password and sign in. Claiming an existing account needs the reset flow (code proof). */
+export async function registerWithPassword(id: Identity, password: string): Promise<AuthResult> {
+  const problem = passwordProblem(password);
+  if (problem) return { ok: false, status: 400, error: problem };
+  if (!(await allow(`reg-ip:${clientIp()}`, MAX_LOGINS_PER_IP_HOUR))) return { ok: false, status: 429, error: "Too many attempts. Please try again later." };
+  const existing = await findUserBy(id);
+  if (existing) {
+    return { ok: false, status: 409, error: (await hasPasswordRow(existing.id))
+      ? "An account with this already exists. Please sign in."
+      : "An account with this already exists (for example from a guest purchase). Tap Forgot password to set a password and get in." };
+  }
+  const user: User = { id: crypto.randomUUID(), email: id.kind === "email" ? id.value : null, phone: id.kind === "phone" ? id.value : null };
+  await run("INSERT INTO users (id, email, phone, created_at, password_hash) VALUES (?, ?, ?, ?, ?)", [user.id, user.email, user.phone, now(), hashPassword(password)]);
+  await startSession(user.id);
+  return { ok: true };
+}
+
+/** Forgot password: the emailed/SMS code proves the owner, then sets a new password, ends all other sessions and signs in. */
+export async function resetPasswordWithCode(id: Identity, code: string, password: string): Promise<AuthResult> {
+  const problem = passwordProblem(password);
+  if (problem) return { ok: false, status: 400, error: problem };
+  const user = await findUserBy(id);
+  if (!user) return { ok: false, status: 404, error: "No account found. Please create an account instead." };
+  if (!(await checkCode(id, code))) return { ok: false, status: 400, error: "That code is wrong or has expired." };
+  await run("UPDATE users SET password_hash = ? WHERE id = ?", [hashPassword(password), user.id]);
+  await run("DELETE FROM sessions WHERE user_id = ?", [user.id]);
+  await startSession(user.id);
+  return { ok: true };
+}
+
+/** Profile page: set or change the password of the signed-in account (current password needed once one exists). */
+export async function changePassword(userId: string, newPassword: string, currentPassword?: string): Promise<AuthResult> {
+  const problem = passwordProblem(newPassword);
+  if (problem) return { ok: false, status: 400, error: problem };
+  const row = await one<{ password_hash: string | null }>("SELECT password_hash FROM users WHERE id = ?", [userId]);
+  if (row?.password_hash && !verifyPasswordHash(String(currentPassword ?? ""), row.password_hash)) {
+    return { ok: false, status: 400, error: "Current password is wrong." };
+  }
+  await run("UPDATE users SET password_hash = ? WHERE id = ?", [hashPassword(newPassword), userId]);
+  return { ok: true };
 }
 
 /** Adds or changes the email/phone of a signed-in account after the code sent to it is confirmed. */

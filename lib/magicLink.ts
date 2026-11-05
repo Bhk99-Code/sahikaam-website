@@ -32,7 +32,7 @@ export async function createMagicLink(userId: string): Promise<string> {
 /** Verifies and uses up a magic-link token, then creates a normal session row. Returns the raw
  *  session token + its expiry for the caller to set as the sk_session cookie, or null if the
  *  magic-link token is invalid/expired/already used. */
-export async function consumeMagicLink(token: string): Promise<{ sessionToken: string; expires: Date } | null> {
+export async function consumeMagicLink(token: string): Promise<{ sessionToken: string; expires: Date; userId: string } | null> {
   const row = await one<{ user_id: string; expires_at: number; used_at: number | null }>(
     "SELECT user_id, expires_at, used_at FROM magic_links WHERE token_hash = ?", [hash(token)]);
   if (!row || row.used_at != null || Number(row.expires_at) < Date.now()) return null;
@@ -42,5 +42,5 @@ export async function consumeMagicLink(token: string): Promise<{ sessionToken: s
   const expires = Date.now() + 60 * 86400_000; // same 60-day session length as lib/auth.ts
   await run("INSERT INTO sessions (token_hash, user_id, expires_at, created_at) VALUES (?, ?, ?, ?)",
     [hash(sessionToken), row.user_id, expires, Date.now()]);
-  return { sessionToken, expires: new Date(expires) };
+  return { sessionToken, expires: new Date(expires), userId: row.user_id };
 }

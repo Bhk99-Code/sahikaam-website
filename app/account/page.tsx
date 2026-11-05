@@ -1,20 +1,22 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
-import { activeSessionCount, getUser } from "@/lib/auth";
+import { activeSessionCount, getUser, userHasPassword } from "@/lib/auth";
 import { isProduction, isSmsConfigured } from "@/lib/env";
 import { one } from "@/lib/db";
 import { Icon } from "@/components/Icon";
 import { ContactRow } from "./ContactRow";
 import { ProfileForm } from "./ProfileForm";
+import { PasswordForm } from "./PasswordForm";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Profile", robots: { index: false } };
 
-export default async function AccountPage() {
+export default async function AccountPage({ searchParams }: { searchParams: { welcome?: string } }) {
   const user = await getUser();
   if (!user) redirect("/login?next=/account");
   const devices = await activeSessionCount(user.id);
+  const hasPassword = await userHasPassword(user.id);
   const phoneReady = isSmsConfigured || !isProduction;
   // Entirely optional — nothing here was ever required to buy a book (app/checkout/[slug]).
   const profile = await one<{ name: string | null; whatsapp: string | null; address: string | null; city: string | null; photo_url: string | null }>(
@@ -26,6 +28,9 @@ export default async function AccountPage() {
       <h1 className="mt-4 font-display text-[32px] font-extrabold tracking-tight text-cream">Profile</h1>
       <p className="mt-1 text-[15px] text-fog">Fill this in whenever you like — it&apos;s never needed to buy a book.</p>
 
+      {searchParams.welcome === "1" && !hasPassword && (
+        <p role="status" className="mt-5 rounded-2xl bg-mint/10 p-3 text-[14px] text-cream">Payment received — your book is in My library. Set a password below so you can sign in next time.</p>
+      )}
       <section className="card mt-8 p-5">
         <ProfileForm
           name={profile?.name ?? ""}
@@ -34,6 +39,12 @@ export default async function AccountPage() {
           city={profile?.city ?? ""}
           photoUrl={profile?.photo_url ?? ""}
         />
+      </section>
+
+      <section className="card mt-6 p-5">
+        <h2 className="font-display text-[20px] font-bold text-cream">Password</h2>
+        <p className="mt-1 text-[14px] text-fog">{hasPassword ? "Change the password you sign in with." : "No password yet — set one to sign in with your email or mobile number."}</p>
+        <PasswordForm hasPassword={hasPassword} />
       </section>
 
       <h2 className="mt-8 font-display text-[20px] font-bold text-cream">Sign-in details</h2>

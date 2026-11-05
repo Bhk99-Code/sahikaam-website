@@ -18,12 +18,12 @@ export default function ThanksPage({ searchParams }: { searchParams: { contact?:
       </div>
       <h1 className="mt-5 font-display text-[28px] font-extrabold text-cream">Payment received 🎉</h1>
       {isEmail ? (
-        <p className="mt-3 text-fog">We&apos;ve emailed a one-tap link to <b className="text-cream">{contact}</b> — open it to go straight to your library, no password needed.</p>
+        <p className="mt-3 text-fog">We&apos;ve emailed a one-tap link to <b className="text-cream">{contact}</b> — open it to go straight to your library, then set a password for next time.</p>
       ) : (
-        <p className="mt-3 text-fog">We&apos;ve sent a 6-digit sign-in code to <b className="text-cream">{contact}</b> via {phoneChannel}. Enter it on the sign-in page to open your library.</p>
+        <p className="mt-3 text-fog">We&apos;ve sent a 6-digit code to <b className="text-cream">{contact}</b> via {phoneChannel}. Enter it on the next screen and choose a password to open your library.</p>
       )}
       {!isEmail && (
-        <Link href="/login" className="btn-primary mt-6 inline-flex h-12 px-6">Enter code</Link>
+        <Link href={`/login?mode=reset&contact=${encodeURIComponent(contact)}`} className="btn-primary mt-6 inline-flex h-12 px-6">Enter code &amp; set password</Link>
       )}
       <p className="mt-6 text-[13px] text-fog">Didn&apos;t get it? Check spam, or <Link href="/help#recover" className="font-semibold text-saffron-400">contact Help</Link>.</p>
     </div>
