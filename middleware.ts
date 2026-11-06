@@ -22,9 +22,15 @@ export function middleware(request: NextRequest) {
     headers.set("x-admin-area", "1");
     return NextResponse.next({ request: { headers } });
   }
+  if (path === "/wallpaper" || path.startsWith("/wallpaper/")) {
+    // ad landing page: no offer bar / bottom tabs / floating chat — one clear Buy button
+    const headers = new Headers(request.headers);
+    headers.set("x-landing", "1");
+    return NextResponse.next({ request: { headers } });
+  }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/library/:path*", "/read/:path*", "/learn/:path*", "/checkout/:path*", "/account/:path*", "/admin/:path*"],
+  matcher: ["/library/:path*", "/read/:path*", "/learn/:path*", "/checkout/:path*", "/account/:path*", "/admin/:path*", "/wallpaper", "/wallpaper/:path*"],
 };

@@ -7,6 +7,7 @@ import { one, run } from "@/lib/db";
 import { grantProduct, sendAccessMessage } from "@/lib/grant";
 import { isRazorpayConfigured } from "@/lib/env";
 import { findOrCreateUser, parseSingleBoxIdentity } from "@/lib/auth";
+import { downloadToken } from "@/lib/downloadToken";
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({} as Record<string, unknown>));
@@ -28,6 +29,7 @@ export async function POST(req: Request) {
 
   const product = await getProduct(String(slug || ""));
   if (!product) return NextResponse.json({ error: "Product not found" }, { status: 404 });
+  if (product.type === "download" && product.bonus.length === 0) return NextResponse.json({ error: "This download is not ready yet. Please check back in a little while." }, { status: 409 });
   if (await ownsProduct(user.id, product.slug)) return NextResponse.json({ error: "This is already in your library" }, { status: 409 });
 
   const price = await priceWithCoupon(product, coupon);
@@ -43,8 +45,8 @@ export async function POST(req: Request) {
     await grantProduct(user.id, product.slug, id);
     // A guest never verified a code, so (like the paid path in lib/grant.ts) send the one-tap
     // link/code now — this is the only way they get in, since nothing is free enough to skip it.
-    if (isGuest) sendAccessMessage(user.id).catch((e) => console.error("sendAccessMessage", e));
-    return NextResponse.json({ free: true, guest: isGuest });
+    if (isGuest) sendAccessMessage(user.id, id).catch((e) => console.error("sendAccessMessage", e));
+    return NextResponse.json({ free: true, guest: isGuest, orderId: id, token: downloadToken(id) });
   }
 
   if (!isRazorpayConfigured) return NextResponse.json({ error: "Online payment will start soon. For now, please contact us on WhatsApp or email." }, { status: 503 });

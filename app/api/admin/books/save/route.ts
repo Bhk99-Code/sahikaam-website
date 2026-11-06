@@ -36,6 +36,7 @@ export async function POST(req: Request) {
     for (const b of Array.isArray(d.bonus) ? d.bonus : []) {
       if (!str(b.title).trim()) continue;
       if (b.kind === "keep") bonus.push({ kind: "keep", file: str(b.file), title: str(b.title).trim(), text: str(b.text).trim() });
+      else if (b.kind === "staged" && typeof b.uploadId === "string") bonus.push({ kind: "staged", uploadId: b.uploadId, name: str(b.name) || "file", title: str(b.title).trim(), text: str(b.text).trim() });
       else if (b.kind === "new") {
         const f = form.get(`bonus_${b.i}`);
         if (!(f instanceof File) || f.size === 0) throw new Bad(`Choose a file for the bonus "${str(b.title)}".`);
@@ -50,7 +51,7 @@ export async function POST(req: Request) {
       editions.push({ lang, pages: num(d.editions?.[lang]?.pages), comingSoon: Boolean(d.editions?.[lang]?.soon), pdf: f instanceof File && f.size > 0 ? Buffer.from(await f.arrayBuffer()) : null, uploadId: str(d.editions?.[lang]?.uploadId) || null });
     }
     const r = saveProduct(str(d.slug) || null, {
-      type: d.type === "bundle" ? "bundle" : "ebook",
+      type: d.type === "bundle" ? "bundle" : d.type === "download" ? "download" : "ebook", noCoupon: Boolean(d.noCoupon),
       bundleItems: Array.isArray(d.bundleItems) ? d.bundleItems.map(String) : [], includeAll: Boolean(d.includeAll),
       accessDays: num(d.accessDays),
       title: str(d.title), subtitle: str(d.subtitle), description: str(d.description), category: str(d.category),
@@ -61,6 +62,7 @@ export async function POST(req: Request) {
     return NextResponse.json(r, { status: r.ok ? 200 : 400 });
   } catch (e) {
     if (e instanceof Bad) return NextResponse.json({ ok: false, error: e.message }, { status: 400 });
+    if (e instanceof Error && /did not finish/.test(e.message)) return NextResponse.json({ ok: false, error: e.message }, { status: 400 });
     console.error("save product", e);
     return NextResponse.json({ ok: false, error: "Could not save. Please try again." }, { status: 500 });
   }

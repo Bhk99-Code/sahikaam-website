@@ -9,6 +9,7 @@ export const metadata: Metadata = { title: "Reader", robots: { index: false } };
 export default async function ReadPage({ params, searchParams }: { params: { slug: string }; searchParams: { part?: string; lang?: string } }) {
   const product = findProduct(params.slug);
   if (!product) notFound();
+  if (product.type === "download") redirect("/library");
   const user = await getUser();
   if (!user) redirect(`/login?next=/read/${product.slug}`);
   if (!(await ownsProduct(user.id, product.slug))) redirect(`/book/${product.slug}`);

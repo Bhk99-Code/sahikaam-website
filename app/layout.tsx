@@ -63,6 +63,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     );
   }
   const isAdmin = Boolean(user?.email && ADMIN_EMAILS.includes(user.email));
+  const landing = headers().get("x-landing") === "1";
   return (
     <html lang="en">
       <head>
@@ -72,12 +73,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <JsonLd data={ORG} />
       </head>
       <body className="font-sans antialiased">
-        <OfferBar />
-        <Header signedIn={Boolean(user)} isAdmin={isAdmin} />
+        {!landing && <OfferBar />}
+        <Header signedIn={Boolean(user)} isAdmin={isAdmin} compact={landing} />
         <main className="min-h-[60vh]">{children}</main>
         <Footer />
-        <BottomNav />
-        <WhatsAppFloat />
+        {!landing && <BottomNav />}
+        {!landing && <WhatsAppFloat />}
       </body>
     </html>
   );

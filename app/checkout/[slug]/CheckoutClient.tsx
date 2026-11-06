@@ -9,14 +9,14 @@ declare global {
   interface Window { Razorpay?: any }
 }
 
-type Props = { slug: string; title: string; price: number; email: string; phone: string; ready: boolean; keyId: string; whatsapp: string; offerCode: string };
+type Props = { slug: string; title: string; price: number; email: string; phone: string; ready: boolean; keyId: string; whatsapp: string; offerCode: string; allowCoupon?: boolean; isDownload?: boolean };
 
 /**
  * Checkout for someone already signed in: nothing to fill in — straight to Razorpay. Name,
  * WhatsApp, address etc. used to be required here; they now live entirely in the buyer's own
  * Profile (app/account), optional and never in the way of a purchase.
  */
-export function CheckoutClient({ slug, title, price, email, phone, ready, keyId, whatsapp, offerCode }: Props) {
+export function CheckoutClient({ slug, title, price, email, phone, ready, keyId, whatsapp, offerCode, allowCoupon = true, isDownload = false }: Props) {
   const router = useRouter();
   const [code, setCode] = useState(offerCode);
   const [applied, setApplied] = useState<{ code: string; discount: number; amount: number } | null>(null);
@@ -37,7 +37,7 @@ export function CheckoutClient({ slug, title, price, email, phone, ready, keyId,
 
   // The site-wide offer code is applied for the buyer automatically; they can still change it.
   useEffect(() => {
-    if (offerCode && price > 0) applyCoupon(offerCode);
+    if (allowCoupon && offerCode && price > 0) applyCoupon(offerCode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -51,7 +51,7 @@ export function CheckoutClient({ slug, title, price, email, phone, ready, keyId,
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not start the payment. Please try again.");
-      if (data.free) { router.replace(`/library?new=${slug}`); router.refresh(); return; }
+      if (data.free) { router.replace(isDownload ? `/checkout/${slug}/thanks?o=${data.orderId}&t=${data.token}` : `/library?new=${slug}`); router.refresh(); return; }
       if (!window.Razorpay) throw new Error("The payment window did not load. Please refresh the page.");
 
       const rzp = new window.Razorpay({
@@ -65,7 +65,8 @@ export function CheckoutClient({ slug, title, price, email, phone, ready, keyId,
         theme: { color: "#FF6A00" },
         handler: async (resp: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
           const v = await fetch("/api/checkout/verify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(resp) });
-          if (v.ok) { router.replace(`/library?new=${slug}`); router.refresh(); }
+          const done = await v.json().catch(() => ({}));
+          if (v.ok) { router.replace(isDownload ? `/checkout/${slug}/thanks?o=${done.orderId}&t=${done.token}` : `/library?new=${slug}`); router.refresh(); }
           else setError("We received your payment but could not confirm it yet. Don't worry — the book will appear in your library within a few minutes. If not, contact Help.");
           setBusy(false);
         },
@@ -83,7 +84,7 @@ export function CheckoutClient({ slug, title, price, email, phone, ready, keyId,
     <>
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
 
-      {price > 0 && (
+      {price > 0 && allowCoupon && (
         <div className="card mt-4 p-4">
           <label htmlFor="coupon" className="flex items-center gap-2 text-[14px] font-semibold text-cream"><Icon name="tag" size={18} /> Have a coupon?</label>
           <div className="mt-3 flex gap-2">

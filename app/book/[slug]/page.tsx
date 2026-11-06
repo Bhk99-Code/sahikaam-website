@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getProduct, getUser, ownsProduct, bundleCovers, findProduct, getPlans } from "@/lib/data";
 import { BookCover } from "@/components/BookCover";
@@ -58,6 +58,7 @@ function productLd(p: Product) {
 export default async function BookPage({ params }: { params: { slug: string } }) {
   const product = await getProduct(params.slug);
   if (!product) notFound();
+  if (product.type === "download") redirect(`/wallpaper/${product.slug}`);
   const user = await getUser();
   const plans = getPlans(product);
   // Owning any plan of a pass (6 months or 1 year) counts as owning it.

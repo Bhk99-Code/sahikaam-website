@@ -9,7 +9,7 @@ const empty: EditorProduct = {
   slug: "", type: "bundle", title: "", subtitle: "", description: "", category: "bundle", badge: "", level: "", price: "", mrp: "", sortOrder: "", published: true,
   highlights: [], inside: [], learn: [], chapters: [], cover: "", gallery: [],
   editions: { hi: { pages: "", soon: false, file: "", parts: false }, en: { pages: "", soon: false, file: "", parts: false } }, bonus: [],
-  bundleItems: [], includeAll: false, accessDays: "",
+  bundleItems: [], includeAll: false, accessDays: "", noCoupon: false,
 };
 
 export default function NewBundlePage() {

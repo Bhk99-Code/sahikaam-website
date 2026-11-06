@@ -13,7 +13,7 @@ export function accessLabel(days: number | null | undefined) {
   if (m > 0 && Math.abs(days - m * 30.4) <= 3) return m === 1 ? "1 month access" : `${m} months access`;
   return `${days} days access`;
 }
-export const TYPE_LABEL = { ebook: "Ebook", course: "Video course", bundle: "Bundle" } as const;
+export const TYPE_LABEL = { ebook: "Ebook", course: "Video course", bundle: "Bundle", download: "Download" } as const;
 export const CATEGORY = {
   manufacturing: { label: "Manufacturing", color: "#E8451A", blurb: "Factories and production units, ₹10 L to ₹5 Cr+" },
   legal: { label: "Low-investment business", color: "#E8451A", blurb: "Legal businesses you can start small" },

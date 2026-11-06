@@ -12,7 +12,7 @@ export type EditorProduct = {
   cover: string; gallery: string[];
   editions: Record<Lang, { pages: string; soon: boolean; file: string; parts: boolean }>;
   bonus: { title: string; text: string; file: string }[];
-  bundleItems: string[]; includeAll: boolean; accessDays: string;
+  bundleItems: string[]; includeAll: boolean; accessDays: string; noCoupon: boolean;
 };
 export type BookOption = { slug: string; title: string; price: number; category: string; cover: string };
 type Img = { url: string; file?: File };
@@ -90,6 +90,7 @@ function PairList({ items, onChange, a, b, add }: { items: Pair[]; onChange: (v:
 export function ProductEditor({ initial, categories, books = [] }: { initial: EditorProduct; categories: { key: string; label: string }[]; books?: BookOption[] }) {
   const router = useRouter();
   const isNew = !initial.slug;
+  const download = initial.type === "download";
   const bundle = initial.type === "bundle";
   const [f, setF] = useState(initial);
   const set = <K extends keyof EditorProduct>(k: K, v: EditorProduct[K]) => setF((s) => ({ ...s, [k]: v }));
@@ -123,7 +124,7 @@ export function ProductEditor({ initial, categories, books = [] }: { initial: Ed
     setMsg(null);
     if (!f.title.trim()) return setMsg({ ok: false, text: "Title is required." });
     if (f.price === "" || !(price >= 0)) return setMsg({ ok: false, text: "Enter the price (0 for free)." });
-    if (!bundle && !f.category) return setMsg({ ok: false, text: "Pick a category." });
+    if (!bundle && !download && !f.category) return setMsg({ ok: false, text: "Pick a category." });
     if (bundle && !f.includeAll && !f.bundleItems.length) return setMsg({ ok: false, text: "Choose at least one book, or tick “every book”." });
     const fd = new FormData();
     let gi = 0, bi = 0;
@@ -141,14 +142,26 @@ export function ProductEditor({ initial, categories, books = [] }: { initial: Ed
       setBusy(false); setProgress("");
       return setMsg({ ok: false, text: err instanceof Error ? err.message : "Upload failed. Please try again." });
     }
+    const bonusIds: Record<number, string> = {};
+    try {
+      for (let i = 0; i < bonus.length; i++) {
+        const file = bonus[i].upload;
+        if (!file) continue;
+        setProgress(`Uploading ${file.name}… 0%`);
+        bonusIds[i] = await uploadInChunks(file, (x) => setProgress(`Uploading ${file.name}… ${Math.round(x * 100)}%`));
+      }
+    } catch (err) {
+      setBusy(false); setProgress("");
+      return setMsg({ ok: false, text: err instanceof Error ? err.message : "Upload failed. Please try again." });
+    }
     setProgress("Saving…");
     const payload = {
-      slug: initial.slug, type: initial.type, bundleItems: f.bundleItems, includeAll: f.includeAll, accessDays: f.accessDays, title: f.title, subtitle: f.subtitle, description: f.description, category: f.category, badge: f.badge, level: f.level,
+      slug: initial.slug, type: initial.type, noCoupon: f.noCoupon, bundleItems: f.bundleItems, includeAll: f.includeAll, accessDays: f.accessDays, title: f.title, subtitle: f.subtitle, description: f.description, category: f.category, badge: f.badge, level: f.level,
       price: f.price, mrp: f.mrp, sortOrder: f.sortOrder, published: f.published,
       highlights: f.highlights, inside: f.inside, learn: f.learn, chapters: f.chapters,
       gallery: gallery.map((g) => { if (g.file) { fd.append(`gallery_${gi}`, g.file); return { kind: "new", i: gi++ }; } return { kind: "url", url: g.url }; }),
       editions: { hi: { pages: f.editions.hi.pages, soon: f.editions.hi.soon, uploadId: uploadIds.hi }, en: { pages: f.editions.en.pages, soon: f.editions.en.soon, uploadId: uploadIds.en } },
-      bonus: bonus.map((b) => { if (b.upload) { fd.append(`bonus_${bi}`, b.upload); return { kind: "new", i: bi++, title: b.title, text: b.text }; } return { kind: "keep", file: b.file, title: b.title, text: b.text }; }),
+      bonus: bonus.map((b, idx) => { if (b.upload) { return { kind: "staged", uploadId: bonusIds[idx], name: b.upload.name, title: b.title, text: b.text }; } return { kind: "keep", file: b.file, title: b.title, text: b.text }; }),
     };
     fd.append("payload", JSON.stringify(payload));
     if (cover?.file) fd.append("cover", cover.file);
@@ -186,7 +199,7 @@ export function ProductEditor({ initial, categories, books = [] }: { initial: Ed
           <label className={lbl}>Title *<input value={f.title} onChange={(e) => set("title", e.target.value)} className="field mt-1 h-11 w-full" placeholder={bundle ? "e.g. Factory Starter Pack" : "e.g. 50 Most Profitable Manufacturing Businesses"} /></label>
           <label className={lbl}>Subtitle<input value={f.subtitle} onChange={(e) => set("subtitle", e.target.value)} className="field mt-1 h-11 w-full" placeholder="One line under the title" /></label>
           <label className={lbl}>Description<textarea rows={6} value={f.description} onChange={(e) => set("description", e.target.value)} className="field mt-1 w-full py-3" placeholder={bundle ? "Shown under “About this bundle”" : "Shown under “About this ebook”"} /></label>
-          <p className="text-[12px] text-fog">Page address: <b className="text-cream-2">sahikaam.com/book/{slugPreview || "…"}</b>{isNew && " (made from the title, can’t be changed later)"}</p>
+          <p className="text-[12px] text-fog">Page address: <b className="text-cream-2">sahikaam.com/{download ? "wallpaper" : "book"}/{slugPreview || "…"}</b>{isNew && " (made from the title, can’t be changed later)"}</p>
         </Card>
 
         <Card title="Media" sub="The cover shows in lists. Gallery images show on the book page — the first one is the main picture.">
@@ -215,6 +228,10 @@ export function ProductEditor({ initial, categories, books = [] }: { initial: Ed
         </Card>
 
         <Card title="Pricing">
+          {download && (
+            <label className="flex items-start gap-2 rounded-2xl bg-ink/[0.04] p-3 text-[14px] text-cream"><input type="checkbox" className="mt-1" checked={f.noCoupon} onChange={(e) => set("noCoupon", e.target.checked)} />
+              <span><b>No coupons on this item</b><span className="block text-[12px] text-fog">The price stays fixed — the site-wide offer code is ignored and the coupon box is hidden at checkout.</span></span></label>
+          )}
           <div className="grid gap-3 sm:grid-cols-2">
             <label className={lbl}>Price ₹ *<input type="number" min="0" value={f.price} onChange={(e) => set("price", e.target.value)} className="field mt-1 h-11 w-full" placeholder="What the customer pays" /></label>
             <label className={lbl}>MRP ₹ (struck-through)<input type="number" min="0" value={f.mrp} onChange={(e) => set("mrp", e.target.value)} className="field mt-1 h-11 w-full" placeholder="Optional" /></label>
@@ -273,23 +290,23 @@ export function ProductEditor({ initial, categories, books = [] }: { initial: Ed
         <Card title="Highlights" sub="Big numbers at the top of the page, e.g. “50 · Business ideas”.">
           <PairList items={f.highlights} onChange={(v) => set("highlights", v)} a="Big text (50)" b="Small text (Business ideas)" add="Add highlight" />
         </Card>
-        <Card title="What buyers will learn">
+        {!download && <Card title="What buyers will learn">
           <TextList items={f.learn} onChange={(v) => set("learn", v)} placeholder="e.g. Pick a business that fits your budget" add="Add point" />
-        </Card>
-        <Card title="What's inside" sub="Main parts of the book, each with a short explanation.">
+        </Card>}
+        {!download && <Card title="What's inside" sub="Main parts of the book, each with a short explanation.">
           <PairList items={f.inside} onChange={(v) => set("inside", v)} a="Heading" b="Short explanation" add="Add section" />
-        </Card>
-        {!bundle && (
+        </Card>}
+        {!bundle && !download && (
           <Card title="Chapters">
             <TextList items={f.chapters} onChange={(v) => set("chapters", v)} placeholder="Chapter name" add="Add chapter" />
           </Card>
         )}
-        {!bundle && (
+        {!bundle && !download && (
           <Card title="Files & languages" sub="Buyers read the PDF inside SahiKaam’s reader. They can’t download it.">
             <div key="hi">{pdfCard("hi")}</div><div key="en">{pdfCard("en")}</div>
           </Card>
         )}
-        <Card title="Bonus downloads" sub="Extra files only buyers can download (Excel sheets, checklists…).">
+        <Card title={download ? "Files buyers download" : "Bonus downloads"} sub={download ? "The file(s) a buyer gets the moment they pay — image, ZIP, anything. Large files upload in pieces." : "Extra files only buyers can download (Excel sheets, checklists…)."}>
           <div className="grid gap-2">
             {bonus.map((b, i) => (
               <div key={i} className="grid gap-2 rounded-2xl bg-ink/[0.04] p-2.5 sm:grid-cols-[1fr_1fr_auto]">
@@ -311,17 +328,17 @@ export function ProductEditor({ initial, categories, books = [] }: { initial: Ed
         <section className="card p-5">
           <h2 className="font-display text-[18px] font-bold text-cream">Status</h2>
           <label className="mt-3 flex items-start gap-2 text-[14px] text-cream"><input type="checkbox" className="mt-1" checked={f.published} onChange={(e) => set("published", e.target.checked)} />
-            <span><b>{f.published ? "Visible on the website" : "Hidden (draft)"}</b><span className="block text-[12px] text-fog">{f.published && !filesReady && !bundle ? "No PDF yet — buyers would get nothing. Add a PDF or mark it “coming soon”." : "Hidden books can’t be seen or bought."}</span></span>
+            <span><b>{f.published ? "Visible on the website" : "Hidden (draft)"}</b><span className="block text-[12px] text-fog">{f.published && !filesReady && !bundle && !download ? "No PDF yet — buyers would get nothing. Add a PDF or mark it “coming soon”." : "Hidden books can’t be seen or bought."}</span></span>
           </label>
           {msg && <p role={msg.ok ? "status" : "alert"} className={`mt-3 rounded-xl p-2.5 text-[13px] ${msg.ok ? "bg-mint/10 text-cream" : "bg-rosy/10 text-rosy"}`}>{msg.text}</p>}
-          <button disabled={busy} className="btn-primary mt-3 h-12 w-full disabled:opacity-60">{busy ? (progress || "Saving…") : isNew ? (bundle ? "Create bundle" : "Create product") : "Save changes"}</button>
-          {!isNew && <Link href={`/book/${initial.slug}`} target="_blank" className="btn-ghost mt-2 h-11 w-full text-[13px]">View live page ↗</Link>}
+          <button disabled={busy} className="btn-primary mt-3 h-12 w-full disabled:opacity-60">{busy ? (progress || "Saving…") : isNew ? (bundle ? "Create bundle" : download ? "Create download" : "Create product") : "Save changes"}</button>
+          {!isNew && <Link href={`/${download ? "wallpaper" : "book"}/${initial.slug}`} target="_blank" className="btn-ghost mt-2 h-11 w-full text-[13px]">View live page ↗</Link>}
           <Link href="/admin/books" className="mt-3 block text-center text-[13px] font-semibold text-fog hover:text-cream">← All products</Link>
         </section>
 
         <section className="card grid gap-3 p-5">
           <h2 className="font-display text-[18px] font-bold text-cream">Organisation</h2>
-          {!bundle && <label className={lbl}>Category *<select value={f.category} onChange={(e) => set("category", e.target.value)} className="field mt-1 h-11 w-full"><option value="" disabled>Choose…</option>{categories.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}</select></label>}
+          {!bundle && !download && <label className={lbl}>Category *<select value={f.category} onChange={(e) => set("category", e.target.value)} className="field mt-1 h-11 w-full"><option value="" disabled>Choose…</option>{categories.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}</select></label>}
           <label className={lbl}>Badge<input value={f.badge} onChange={(e) => set("badge", e.target.value)} className="field mt-1 h-11 w-full" placeholder="e.g. Bestseller" /></label>
           <label className={lbl}>Level<input value={f.level} onChange={(e) => set("level", e.target.value)} className="field mt-1 h-11 w-full" placeholder="e.g. Beginner to advanced" /></label>
           <label className={lbl}>Position in lists<input type="number" value={f.sortOrder} onChange={(e) => set("sortOrder", e.target.value)} className="field mt-1 h-11 w-full" /><span className={hint}>Smaller number shows first.</span></label>

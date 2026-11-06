@@ -24,7 +24,7 @@ export default async function EditProductPage({ params, searchParams }: { params
     learn: (p.learn ?? []).map(String), chapters: (p.chapters ?? []).map(String), cover: s(p.cover_url), gallery: (p.gallery ?? []).map(String),
     editions: { hi: ed("hi"), en: ed("en") },
     bonus: (p.bonus ?? []).map((b: any) => ({ title: s(b.title), text: s(b.text), file: s(b.file) })),
-    bundleItems: (p.bundle_items ?? []).map(String), includeAll: p.include_all === true || p.slug === "all-access" || p.variant_of === "all-access", accessDays: s(p.access_days),
+    bundleItems: (p.bundle_items ?? []).map(String), includeAll: p.include_all === true || p.slug === "all-access" || p.variant_of === "all-access", accessDays: s(p.access_days), noCoupon: p.no_coupon === true,
   };
   const { books, categories } = editorOptions(s(p.category));
   const flash = searchParams.saved ? "Product created." : searchParams.ok;

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { verifyPaymentSignature } from "@/lib/razorpay";
 import { markPaidAndGrant } from "@/lib/grant";
 import { run } from "@/lib/db";
+import { downloadToken } from "@/lib/downloadToken";
 
 /**
  * Same as /api/checkout/verify, for a guest checkout (app/checkout/[slug]/GuestCheckoutClient.tsx)
@@ -21,5 +22,5 @@ export async function POST(req: Request) {
   }
 
   const r = await markPaidAndGrant(orderId, paymentId);
-  return r.ok ? NextResponse.json({ ok: true }) : NextResponse.json({ error: r.reason }, { status: 404 });
+  return r.ok ? NextResponse.json({ ok: true, orderId: r.orderId, token: downloadToken(r.orderId) }) : NextResponse.json({ error: r.reason }, { status: 404 });
 }

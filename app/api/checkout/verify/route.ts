@@ -3,6 +3,7 @@ import { verifyPaymentSignature } from "@/lib/razorpay";
 import { markPaidAndGrant } from "@/lib/grant";
 import { getUser } from "@/lib/data";
 import { one, run } from "@/lib/db";
+import { downloadToken } from "@/lib/downloadToken";
 
 export async function POST(req: Request) {
   const user = await getUser();
@@ -24,5 +25,5 @@ export async function POST(req: Request) {
   }
 
   const r = await markPaidAndGrant(orderId, paymentId);
-  return r.ok ? NextResponse.json({ ok: true }) : NextResponse.json({ error: r.reason }, { status: 404 });
+  return r.ok ? NextResponse.json({ ok: true, orderId: r.orderId, token: downloadToken(r.orderId) }) : NextResponse.json({ error: r.reason }, { status: 404 });
 }

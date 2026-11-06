@@ -34,9 +34,10 @@ function readCoupons(): Coupon[] {
 }
 
 /** Works out the final price on the SERVER — never trust a price sent from the browser. */
-export async function priceWithCoupon(product: { slug: string; price: number }, rawCode?: string | null): Promise<PriceResult> {
+export async function priceWithCoupon(product: { slug: string; price: number; no_coupon?: boolean }, rawCode?: string | null): Promise<PriceResult> {
   const code = (rawCode || "").trim().toUpperCase();
   if (!code) return { ok: true, amount: product.price, discount: 0, coupon: null };
+  if (product.no_coupon) return { ok: false, error: "Coupons do not apply to this item — the price is already the lowest." };
 
   const c = readCoupons().find((x) => x.code.toUpperCase() === code);
   if (!c || c.is_active === false) return { ok: false, error: "This coupon is not valid" };

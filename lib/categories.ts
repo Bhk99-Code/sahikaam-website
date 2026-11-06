@@ -33,7 +33,7 @@ export function getCategories(): Cat[] {
 
 /** key → category, including the built-in "bundle" entry, so a lookup never comes back empty for a known key. */
 export function categoryMap(): Record<string, { label: string; blurb: string; color: string; hidden?: boolean }> {
-  const map: Record<string, { label: string; blurb: string; color: string; hidden?: boolean }> = { bundle: { ...CATEGORY.bundle } };
+  const map: Record<string, { label: string; blurb: string; color: string; hidden?: boolean }> = { bundle: { ...CATEGORY.bundle }, download: { label: "Download", blurb: "Instant digital downloads", color: "#E8451A" } };
   for (const c of getCategories()) map[c.key] = c;
   return map;
 }

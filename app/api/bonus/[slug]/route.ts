@@ -8,6 +8,10 @@ const TYPES: Record<string, string> = {
   ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   ".pdf": "application/pdf",
   ".zip": "application/zip",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".png": "image/png",
+  ".webp": "image/webp",
 };
 
 /** Downloads a book's bonus file (?i=0) — only for a signed-in buyer. The file is never public. */

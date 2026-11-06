@@ -1,4 +1,4 @@
-export type ProductType = "ebook" | "course" | "bundle";
+export type ProductType = "ebook" | "course" | "bundle" | "download";
 export type Category = string;
 
 export type Lesson = { title: string; video_url: string; minutes?: number };
@@ -43,6 +43,8 @@ export type Product = {
   bundle_items: string[];
   /** All Access style: the bundle covers every published ebook, including ones added later. */
   include_all?: boolean;
+  /** Coupons (including the site-wide offer) do not apply to this product — e.g. the ₹99 wallpaper. */
+  no_coupon?: boolean;
   access_days: number | null; // null = lifetime access
   variant_of?: string; // another plan of that product (e.g. 6-month pass); kept out of book lists
   editions: Edition[];

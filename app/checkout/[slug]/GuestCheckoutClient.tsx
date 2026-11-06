@@ -9,14 +9,14 @@ declare global {
   interface Window { Razorpay?: any }
 }
 
-type Props = { slug: string; title: string; price: number; ready: boolean; keyId: string; whatsapp: string; offerCode: string };
+type Props = { slug: string; title: string; price: number; ready: boolean; keyId: string; whatsapp: string; offerCode: string; allowCoupon?: boolean; isDownload?: boolean };
 
 /**
  * Buy-now checkout for someone not signed in: one box (email or WhatsApp number), straight to
  * payment — no code to verify first. A one-tap sign-in link follows by email/WhatsApp once the
  * payment is confirmed (lib/grant.ts), so the buyer only has to come back and tap it once.
  */
-export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp, offerCode }: Props) {
+export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp, offerCode, allowCoupon = true, isDownload = false }: Props) {
   const router = useRouter();
   const [contact, setContact] = useState("");
   const [code, setCode] = useState(offerCode);
@@ -38,7 +38,7 @@ export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp
   }
 
   useEffect(() => {
-    if (offerCode && price > 0) applyCoupon(offerCode);
+    if (allowCoupon && offerCode && price > 0) applyCoupon(offerCode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -53,7 +53,7 @@ export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not start the payment. Please try again.");
-      if (data.free) { router.replace(`/checkout/${slug}/thanks?contact=${encodeURIComponent(contact.trim())}`); return; }
+      if (data.free) { router.replace(`/checkout/${slug}/thanks?contact=${encodeURIComponent(contact.trim())}&o=${data.orderId ?? ""}&t=${data.token ?? ""}`); return; }
       if (!window.Razorpay) throw new Error("The payment window did not load. Please refresh the page.");
 
       const rzp = new window.Razorpay({
@@ -67,9 +67,10 @@ export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp
         theme: { color: "#FF6A00" },
         handler: async (resp: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
           const v = await fetch("/api/checkout/verify-guest", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(resp) });
+          const done = await v.json().catch(() => ({}));
           setBusy(false);
           if (v.ok) setError("");
-          router.replace(`/checkout/${slug}/thanks?contact=${encodeURIComponent(contact.trim())}`);
+          router.replace(`/checkout/${slug}/thanks?contact=${encodeURIComponent(contact.trim())}&o=${done.orderId ?? ""}&t=${done.token ?? ""}`);
         },
         modal: { ondismiss: () => setBusy(false) },
       });
@@ -89,10 +90,10 @@ export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp
         <label htmlFor="guest-contact" className="flex items-center gap-2 text-[14px] font-semibold text-cream"><Icon name="user" size={18} /> Email or WhatsApp number</label>
         <input id="guest-contact" value={contact} onChange={(e) => setContact(e.target.value)} placeholder="you@example.com or 98765 43210"
           className="field mt-3 h-12 w-full" />
-        <p className="mt-2 text-[12px] text-fog">We&apos;ll send your library access link here right after payment.</p>
+        <p className="mt-2 text-[12px] text-fog">{isDownload ? "Your download opens right after payment. We'll also send the link here." : "We'll send your library access link here right after payment."}</p>
       </div>
 
-      {price > 0 && (
+      {price > 0 && allowCoupon && (
         <div className="card mt-4 p-4">
           <label htmlFor="coupon" className="flex items-center gap-2 text-[14px] font-semibold text-cream"><Icon name="tag" size={18} /> Have a coupon?</label>
           <div className="mt-3 flex gap-2">

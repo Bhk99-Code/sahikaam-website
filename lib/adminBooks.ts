@@ -28,10 +28,12 @@ const safeName = (n: string) => n.replace(/[^a-zA-Z0-9._-]+/g, "_").replace(/^\.
 export type Pair = { title: string; text: string };
 export type Img = { buf: Buffer; ext: string };
 export type GalleryItem = { kind: "url"; url: string } | { kind: "new"; img: Img };
-export type BonusItem = { kind: "keep"; file: string; title: string; text: string } | { kind: "new"; name: string; buf: Buffer; title: string; text: string };
+export type BonusItem = { kind: "keep"; file: string; title: string; text: string } | { kind: "new"; name: string; buf: Buffer; title: string; text: string } | { kind: "staged"; uploadId: string; name: string; title: string; text: string };
 export type EditionInput = { lang: "hi" | "en"; pages: number | null; comingSoon: boolean; pdf: Buffer | null; uploadId?: string | null };
 export type ProductInput = {
-  type?: "ebook" | "bundle";
+  type?: "ebook" | "bundle" | "download";
+  /** Download products: coupons never apply (e.g. the ₹99 wallpaper). */
+  noCoupon?: boolean;
   /** Bundles: slugs of the books inside; includeAll = every published book, now and later (All Access style). */
   bundleItems?: string[]; includeAll?: boolean; accessDays?: number | null;
   title: string; subtitle: string; description: string; category: string; badge: string; level: string;
@@ -57,8 +59,9 @@ function saveImage(slug: string, tag: string, img: Img) {
  */
 export function saveProduct(slug: string | null, e: ProductInput): Result & { slug?: string } {
   if (!e.title.trim()) return { ok: false, error: "Title is required." };
-  const wantsBundle = (slug ? readCatalog().products.find((x) => x.slug === slug)?.type : e.type) === "bundle";
-  if (!wantsBundle && !getCategories().some((c) => c.key === e.category)) return { ok: false, error: "Pick a category." };
+  const kind = slug ? readCatalog().products.find((x) => x.slug === slug)?.type : e.type;
+  const wantsBundle = kind === "bundle";
+  if (kind !== "download" && !wantsBundle && !getCategories().some((c) => c.key === e.category)) return { ok: false, error: "Pick a category." };
   if (wantsBundle && !e.includeAll && !(e.bundleItems ?? []).length) return { ok: false, error: "Choose at least one book for the bundle, or tick “every book”." };
   if (!Number.isFinite(e.price) || e.price < 0) return { ok: false, error: "Price must be a number." };
   if (e.mrp != null && (!Number.isFinite(e.mrp) || e.mrp < 0)) return { ok: false, error: "MRP must be a number." };
@@ -80,14 +83,15 @@ export function saveProduct(slug: string | null, e: ProductInput): Result & { sl
     let base = slugify(e.title) || "book", n = 2;
     slug = base;
     while (catalog.products.some((x) => x.slug === slug)) slug = `${base}-${n++}`;
-    p = { slug, type: e.type === "bundle" ? "bundle" : "ebook", accent: "#FF6A00", sort_order: Math.max(0, ...catalog.products.map((x) => Number(x.sort_order) || 0)) + 10 };
+    p = { slug, type: e.type === "bundle" ? "bundle" : e.type === "download" ? "download" : "ebook", accent: "#FF6A00", sort_order: Math.max(0, ...catalog.products.map((x) => Number(x.sort_order) || 0)) + 10 };
     catalog.products.push(p);
   }
   const id = p.slug as string;
 
   const setOrDrop = (key: string, v: unknown, empty: boolean) => { if (empty) delete p![key]; else p![key] = v; };
   p.title = e.title.trim();
-  p.category = p.type === "bundle" ? "bundle" : e.category;
+  p.category = p.type === "bundle" ? "bundle" : p.type === "download" ? "download" : e.category;
+  if (p.type === "download") p.no_coupon = Boolean(e.noCoupon);
   p.price = e.price;
   setOrDrop("subtitle", e.subtitle.trim(), !e.subtitle.trim());
   setOrDrop("description", e.description.trim(), !e.description.trim());
@@ -113,7 +117,7 @@ export function saveProduct(slug: string | null, e: ProductInput): Result & { sl
   }
 
   const editions: any[] = p.editions ?? [];
-  for (const ed of p.type === "bundle" ? [] : e.editions) {
+  for (const ed of p.type === "bundle" || p.type === "download" ? [] : e.editions) {
     const existing = editions.find((x) => x.lang === ed.lang);
     const label = ed.lang === "hi" ? "Hindi" : "English";
     const sp = staged(ed.uploadId);
@@ -139,7 +143,11 @@ export function saveProduct(slug: string | null, e: ProductInput): Result & { sl
     if (b.kind === "keep") return { title: b.title, ...(b.text ? { text: b.text } : {}), file: b.file };
     const rel = `${id}/${safeName(b.name)}`;
     fs.mkdirSync(path.dirname(path.join(bonusDir(), rel)), { recursive: true });
-    fs.writeFileSync(path.join(bonusDir(), rel), b.buf);
+    if (b.kind === "staged") {
+      const sp = path.join(uploadsDir(), `${b.uploadId.replace(/[^a-zA-Z0-9-]/g, "")}.bin`);
+      if (!fs.existsSync(sp)) throw new Error(`The upload of "${b.title}" did not finish. Please upload it again.`);
+      try { fs.renameSync(sp, path.join(bonusDir(), rel)); } catch { fs.copyFileSync(sp, path.join(bonusDir(), rel)); fs.rmSync(sp, { force: true }); }
+    } else fs.writeFileSync(path.join(bonusDir(), rel), b.buf);
     return { title: b.title, ...(b.text ? { text: b.text } : {}), file: rel };
   });
   setOrDrop("bonus", bonus, !bonus.length);

@@ -80,7 +80,12 @@ export function pickEdition(product: Product, lang?: string | null): Edition | n
 }
 
 export async function getProducts(): Promise<Product[]> {
-  return loadProducts().filter((p) => p.is_published && !p.variant_of).sort((a, b) => a.sort_order - b.sort_order);
+  return loadProducts().filter((p) => p.is_published && !p.variant_of && p.type !== "download").sort((a, b) => a.sort_order - b.sort_order);
+}
+
+/** Published download products (e.g. wallpapers), cheapest first — they have their own landing pages, not the book lists. */
+export function getDownloads(): Product[] {
+  return loadProducts().filter((p) => p.type === "download" && p.is_published).sort((a, b) => a.sort_order - b.sort_order);
 }
 
 export async function getProduct(slug: string): Promise<Product | null> {

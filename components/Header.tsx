@@ -12,7 +12,7 @@ const FEATURES: [string, string][] = [
   ["refund", "Refund if charged twice"],
 ];
 
-export function Header({ signedIn, isAdmin = false }: { signedIn: boolean; isAdmin?: boolean }) {
+export function Header({ signedIn, isAdmin = false, compact = false }: { signedIn: boolean; isAdmin?: boolean; compact?: boolean }) {
   const cats = visibleCategories().map((c) => [c.key, c] as const);
   return (
     <>
@@ -66,14 +66,14 @@ export function Header({ signedIn, isAdmin = false }: { signedIn: boolean; isAdm
           </div>
         </div>
       </header>
-      {/* Feature strip: scrolls away with the page; sideways swipe on phones */}
-      <div className="border-b border-ink/[0.05] bg-night-2/60">
+      {/* Feature strip: scrolls away with the page; sideways swipe on phones (left out on ad landing pages) */}
+      {!compact && <div className="border-b border-ink/[0.05] bg-night-2/60">
         <ul className="container-x no-scrollbar flex h-10 items-center gap-6 overflow-x-auto whitespace-nowrap text-[12.5px] font-medium text-cream-2 md:justify-between">
           {FEATURES.map(([icon, t]) => (
             <li key={t} className="flex shrink-0 items-center gap-2"><Icon name={icon} size={15} strokeWidth={2} className="text-[#E8451A]" />{t}</li>
           ))}
         </ul>
-      </div>
+      </div>}
     </>
   );
 }

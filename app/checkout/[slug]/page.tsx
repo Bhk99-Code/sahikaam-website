@@ -17,6 +17,10 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
   const product = await getProduct(params.slug);
   if (!product) notFound();
   const user = await getUser();
+  const isDownload = product.type === "download";
+  const allowCoupon = !product.no_coupon;
+  const backHref = isDownload ? `/wallpaper/${product.slug}` : `/book/${product.slug}`;
+  const subline = isDownload ? "Instant download right after payment · no login needed" : `Hindi + English · ${accessLabel(product.access_days)}`;
   // Not signed in: a "Buy now" click goes straight here — a guest pays with just an email or
   // WhatsApp number and gets a one-tap sign-in link afterward (lib/grant.ts), instead of being
   // sent away to /login first. Someone who already has an account still signs in at /login
@@ -24,7 +28,7 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
   if (!user) {
     return (
       <div className="container-x max-w-2xl py-8 md:py-14">
-        <Link href={`/book/${product.slug}`} className="inline-flex items-center gap-1 text-[14px] font-semibold text-fog hover:text-cream">
+        <Link href={backHref} className="inline-flex items-center gap-1 text-[14px] font-semibold text-fog hover:text-cream">
           <Icon name="back" size={18} /> Back
         </Link>
         <h1 className="mt-4 font-display text-[32px] font-extrabold tracking-tight text-cream">Checkout</h1>
@@ -33,7 +37,7 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
           <div className="flex flex-1 flex-col gap-1">
             <span className="text-[12px] font-bold uppercase tracking-wider" style={{ color: product.accent }}>{TYPE_LABEL[product.type]}</span>
             <span className="font-bold leading-snug text-cream">{product.title}</span>
-            <span className="text-[13px] text-fog">Hindi + English · {accessLabel(product.access_days)}</span>
+            <span className="text-[13px] text-fog">{subline}</span>
           </div>
           <span className="font-display text-[20px] font-extrabold text-cream">{rupees(product.price)}</span>
         </div>
@@ -44,7 +48,9 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
           ready={isRazorpayConfigured}
           keyId={process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? ""}
           whatsapp={SUPPORT_WHATSAPP}
-          offerCode={featuredCoupon()?.code ?? ""}
+          offerCode={allowCoupon ? featuredCoupon()?.code ?? "" : ""}
+          allowCoupon={allowCoupon}
+          isDownload={isDownload}
         />
         <p className="mt-6 text-center text-[13px] text-fog">
           Already have an account? <Link href={`/login?next=/checkout/${product.slug}`} className="font-semibold text-saffron-400">Sign in</Link>
@@ -56,7 +62,7 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
 
   return (
     <div className="container-x max-w-2xl py-8 md:py-14">
-      <Link href={`/book/${product.slug}`} className="inline-flex items-center gap-1 text-[14px] font-semibold text-fog hover:text-cream">
+      <Link href={backHref} className="inline-flex items-center gap-1 text-[14px] font-semibold text-fog hover:text-cream">
         <Icon name="back" size={18} /> Back
       </Link>
       <h1 className="mt-4 font-display text-[32px] font-extrabold tracking-tight text-cream">Checkout</h1>
@@ -65,7 +71,7 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
         <div className="flex flex-1 flex-col gap-1">
           <span className="text-[12px] font-bold uppercase tracking-wider" style={{ color: product.accent }}>{TYPE_LABEL[product.type]}</span>
           <span className="font-bold leading-snug text-cream">{product.title}</span>
-          <span className="text-[13px] text-fog">Hindi + English · {accessLabel(product.access_days)}</span>
+          <span className="text-[13px] text-fog">{subline}</span>
         </div>
         <span className="font-display text-[20px] font-extrabold text-cream">{rupees(product.price)}</span>
       </div>
@@ -78,7 +84,9 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
         ready={isRazorpayConfigured}
         keyId={process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? ""}
         whatsapp={SUPPORT_WHATSAPP}
-        offerCode={featuredCoupon()?.code ?? ""}
+        offerCode={allowCoupon ? featuredCoupon()?.code ?? "" : ""}
+        allowCoupon={allowCoupon}
+        isDownload={isDownload}
       />
     </div>
   );

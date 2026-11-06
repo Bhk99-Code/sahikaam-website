@@ -5,6 +5,7 @@ import { createMagicLink } from "./magicLink";
 import { sendMail } from "./mail";
 import { sendCode } from "./auth";
 import { isEmailConfigured, isSmsConfigured, isProduction, SITE_URL } from "./env";
+import { downloadToken } from "./downloadToken";
 
 /**
  * Marks an order paid and gives the buyer access to the product
@@ -30,16 +31,29 @@ export async function markPaidAndGrant(razorpayOrderId: string, razorpayPaymentI
   // Only on the first paid transition — a guest checkout (app/checkout/[slug]/GuestCheckoutClient.tsx)
   // never verified a code, so this is how they get into their account: a one-tap link for an
   // email buyer, or the 6-digit code (used on Forgot password) for a phone buyer.
-  if (!wasAlreadyPaid) sendAccessMessage(order.user_id).catch((e) => console.error("sendAccessMessage", e));
+  if (!wasAlreadyPaid) sendAccessMessage(order.user_id, order.id).catch((e) => console.error("sendAccessMessage", e));
   return { ok: true as const, orderId: order.id };
 }
 
-export async function sendAccessMessage(userId: string) {
+export async function sendAccessMessage(userId: string, orderId?: string) {
   const user = await one<{ email: string | null; phone: string | null }>("SELECT email, phone FROM users WHERE id = ?", [userId]);
   if (!user) return;
   if (user.email && isEmailConfigured) {
     const token = await createMagicLink(userId);
     const link = `${SITE_URL}/magic/${token}`;
+    // A download product (e.g. the wallpaper): put the direct download links in the email as well.
+    const order = orderId ? await one<{ product_slug: string }>("SELECT product_slug FROM orders WHERE id = ?", [orderId]) : null;
+    const dl = order ? findProduct(order.product_slug) : null;
+    if (orderId && dl?.type === "download" && dl.bonus.length) {
+      const links = dl.bonus.map((b, i) => ({ title: b.title, url: `${SITE_URL}/api/download/${orderId}?t=${downloadToken(orderId)}&i=${i}` }));
+      await sendMail(
+        user.email,
+        `Your download is ready — ${dl.title}`,
+        `<div style="font-family:sans-serif;font-size:16px"><h2>Payment received 🎉</h2><p>Your <b>${dl.title}</b> is ready. Download it any time with the link below (no login needed):</p>${links.map((l) => `<p><a href="${l.url}" style="display:inline-block;background:#FF6A00;color:#fff;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:bold">Download ${l.title}</a></p>`).join("")}</div>`,
+        `Payment received! Download ${dl.title}:\n${links.map((l) => `${l.title}: ${l.url}`).join("\n")}`
+      );
+      return;
+    }
     await sendMail(
       user.email,
       "Your SahiKaam book is ready",
