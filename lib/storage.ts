@@ -8,10 +8,13 @@ import path from "path";
  * may live there (the old BOOKS_DIR/BONUS_DIR pointed at public_html/private-storage and were wiped).
  * On the live server the app runs from <domain>/hbuilds/current/nodejs, so the safe place is the sibling
  * folder <domain>/private-storage. An env var still wins when its path really exists.
- * Locally (no "hbuilds" in the path) everything stays in the project folders.
+ * On the VPS (Docker) set STORAGE_ROOT to a mounted volume instead.
+ * Locally (no "hbuilds" in the path, no STORAGE_ROOT) everything stays in the project folders.
  */
 const m = process.cwd().replace(/\\/g, "/").match(/^(.*?)\/hbuilds\//);
-export const PERSISTENT_ROOT: string | null = m ? `${m[1]}/private-storage` : null;
+// VPS (Coolify/Docker): STORAGE_ROOT points at a mounted persistent volume, e.g. /data/private-storage.
+const vps = process.env.STORAGE_ROOT && fs.existsSync(process.env.STORAGE_ROOT) ? process.env.STORAGE_ROOT : null;
+export const PERSISTENT_ROOT: string | null = vps ?? (m ? `${m[1]}/private-storage` : null);
 const here = (...p: string[]) => path.join(process.cwd(), ...p);
 
 function dirFor(env: string | undefined, name: string, local: string) {
