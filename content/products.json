@@ -1740,7 +1740,8 @@
           "title": "Selling plots and registry",
           "text": "From booking to registry, and common mistakes."
         }
-      ]
+      ],
+      "is_published": false
     },
     {
       "slug": "sell-on-gem",
@@ -4943,7 +4944,7 @@
       "type": "ebook",
       "category": "construction",
       "accent": "#97702F",
-      "is_published": false,
+      "is_published": true,
       "title": "Brickwork, Plaster & Waterproofing",
       "subtitle": "Build Your Home Right · Book 2 of 7",
       "description": "From choosing bricks to terrace waterproofing — every step in 3D pictures",
@@ -5108,7 +5109,7 @@
       "type": "ebook",
       "category": "construction",
       "accent": "#97702F",
-      "is_published": false,
+      "is_published": true,
       "title": "Agreement & Payment",
       "subtitle": "Build Your Home Right · Book 7 of 7",
       "description": "From choosing a contractor to handover — written agreement, correct measurement, payment on time",
@@ -5274,6 +5275,21 @@
         "building-waste-recycling"
       ],
       "access_days": null
+    },
+    {
+      "slug": "hd-wallpaper",
+      "type": "download",
+      "category": "download",
+      "accent": "#FF6A00",
+      "title": "Premium HD Wallpaper",
+      "subtitle": "Make your phone look stunning. Pay once, download instantly.",
+      "description": "A high-quality wallpaper for your phone. Pay ₹99 and the download opens right away — no account needed. We also email you the link so you can download it again whenever you like.",
+      "price": 99,
+      "no_coupon": true,
+      "is_published": true,
+      "sort_order": 1,
+      "editions": [],
+      "bonus": []
     }
   ]
 }
