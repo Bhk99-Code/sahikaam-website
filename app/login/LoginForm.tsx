@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/Icon";
-import { CONTACT_LABEL, CONTACT_PLACEHOLDER, PHONE_LOGIN } from "@/lib/features";
+import { CONTACT_LABEL, CONTACT_PLACEHOLDER } from "@/lib/features";
 
 type Mode = "signin" | "signup" | "reset";
 
@@ -14,7 +14,6 @@ export function LoginForm({ next, initialMode, initialContact }: { next: string;
   const [show, setShow] = useState(false);
   const [code, setCode] = useState("");
   const [codeSent, setCodeSent] = useState(false);
-  const [channel, setChannel] = useState("SMS");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [note, setNote] = useState("");
@@ -44,12 +43,10 @@ export function LoginForm({ next, initialMode, initialContact }: { next: string;
 
   async function sendCode() {
     const v = identifier.trim();
-    const body = v.includes("@") ? { email: v } : { phone: v };
-    const { res, data } = await post("/api/auth/send-code", body);
+    const { res, data } = await post("/api/auth/send-code", { email: v });
     if (!res.ok) return setError(data.error || "We could not send the code. Please try again.");
-    if (data.channel) setChannel(data.channel);
-    setCode(data.devCode ?? ""); // local preview only
-    setNote(v.includes("@") ? `Code sent to ${v}. Check your spam folder too.` : `Code sent on ${data.channel ?? channel}.`);
+    setCode(data.devCode ?? "");
+    setNote(`Code sent to ${v}. Check your spam folder too.`);
     setCodeSent(true);
   }
 
@@ -70,8 +67,8 @@ export function LoginForm({ next, initialMode, initialContact }: { next: string;
       <form onSubmit={submit}>
         <label htmlFor="lf-id" className="text-[14px] font-semibold text-cream">{CONTACT_LABEL}</label>
         <div className="field mt-2 flex items-center gap-2 focus-within:border-saffron-500">
-          <Icon name={!PHONE_LOGIN || identifier.includes("@") || !identifier ? "mail" : "phone"} size={18} className="text-fog" />
-          <input id="lf-id" required type={PHONE_LOGIN ? "text" : "email"} autoComplete="username" value={identifier} onChange={(e) => setIdentifier(e.target.value)} disabled={mode === "reset" && codeSent}
+          <Icon name="mail" size={18} className="text-fog" />
+          <input id="lf-id" required type="email" autoComplete="email" value={identifier} onChange={(e) => setIdentifier(e.target.value)} disabled={mode === "reset" && codeSent}
             placeholder={CONTACT_PLACEHOLDER} className="min-w-0 flex-1 bg-transparent outline-none" />
         </div>
 

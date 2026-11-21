@@ -3,25 +3,18 @@ import crypto from "crypto";
 import { cookies, headers } from "next/headers";
 import { all, one, run } from "./db";
 import { sendMail } from "./mail";
-import { sendSmsCode } from "./sms";
-import { ADMIN_EMAILS, isEmailConfigured, isProduction, isSmsConfigured, phoneChannel } from "./env";
-import { PHONE_LOGIN } from "./features";
+import { ADMIN_EMAILS, isEmailConfigured, isProduction } from "./env";
 import { hashPassword, passwordProblem, verifyPasswordHash } from "./password";
 
 export const SESSION_COOKIE = "sk_session";
 const SESSION_DAYS = 60;
 const CODE_MINUTES = 10;
-const MAX_CODES_PER_HOUR = 5; // per email / phone
-const MAX_SMS_PER_IP_HOUR = 10; // SMS costs money: also limit per network address
+const MAX_CODES_PER_HOUR = 5;
 const MAX_ATTEMPTS = 5;
 
 export type User = { id: string; email: string | null; phone: string | null };
-/** Profile info (app/account — optional, filled whenever the buyer likes, never required at
- *  checkout). lib/admin.ts shows it to the owner. */
 export type BuyerInfo = { name: string; whatsapp: string; address: string; city: string; photoUrl?: string };
-/** How a person signs in: an email address or an Indian mobile number ("+91XXXXXXXXXX"). */
-export type Identity = { kind: "email" | "phone"; value: string };
-/** login = sign in / sign up. link = add or change the email/phone of the signed-in account. */
+export type Identity = { kind: "email"; value: string };
 export type CodePurpose = "login" | "link";
 
 function secret() {
@@ -39,7 +32,7 @@ export function normalizeEmail(raw: unknown) {
   return /^[^\s@]{1,64}@[^\s@]{1,180}\.[a-z]{2,}$/.test(email) ? email : null;
 }
 
-/** Accepts 98765 43210, 098765..., +91 98765..., 9198765... → "+919876543210". Indian mobiles only. */
+/** Normalizes an Indian mobile number for admin lookup (not used for login). */
 export function normalizePhone(raw: unknown) {
   let d = String(raw ?? "").replace(/\D/g, "");
   if (d.length === 12 && d.startsWith("91")) d = d.slice(2);
@@ -47,32 +40,18 @@ export function normalizePhone(raw: unknown) {
   return /^[6-9]\d{9}$/.test(d) ? "+91" + d : null;
 }
 
-export function parseIdentity(body: { email?: unknown; phone?: unknown }): Identity | null {
-  if (body.phone != null && body.phone !== "") {
-    if (!PHONE_LOGIN) return null; // mobile sign-in is switched off (lib/features.ts)
-    const phone = normalizePhone(body.phone);
-    return phone ? { kind: "phone", value: phone } : null;
-  }
+export function parseIdentity(body: { email?: unknown }): Identity | null {
   const email = normalizeEmail(body.email);
   return email ? { kind: "email", value: email } : null;
 }
 
-/** Guest checkout's single "email or WhatsApp number" box — "@" means email, anything else is tried as a phone. */
 export function parseSingleBoxIdentity(raw: unknown): Identity | null {
-  const s = String(raw ?? "").trim();
-  if (!s) return null;
-  if (s.includes("@")) {
-    const email = normalizeEmail(s);
-    return email ? { kind: "email", value: email } : null;
-  }
-  if (!PHONE_LOGIN) return null; // mobile sign-in is switched off (lib/features.ts)
-  const phone = normalizePhone(s);
-  return phone ? { kind: "phone", value: phone } : null;
+  const email = normalizeEmail(String(raw ?? "").trim());
+  return email ? { kind: "email", value: email } : null;
 }
 
 export const maskEmail = (e: string) => e.replace(/^(.{2}).*(@.*)$/, "$1•••$2");
-export const maskPhone = (p: string) => p.replace(/^\+91(\d{2})\d{5}(\d{3})$/, "+91 $1•••••$2");
-export const userLabel = (u: User) => u.email ?? (u.phone ? maskPhone(u.phone) : "Your account");
+export const userLabel = (u: User) => u.email ?? "Your account";
 
 const codeKey = (id: Identity, purpose: CodePurpose, userId?: string) =>
   purpose === "link" ? `link:${userId}:${id.value}` : id.value;
@@ -96,7 +75,7 @@ async function allow(k: string, limit: number) {
 }
 
 export async function findUserBy(id: Identity) {
-  return one<User>(`SELECT id, email, phone FROM users WHERE ${id.kind === "email" ? "email" : "phone"} = ?`, [id.value]);
+  return one<User>("SELECT id, email, phone FROM users WHERE email = ?", [id.value]);
 }
 
 /**
@@ -107,8 +86,8 @@ export async function findUserBy(id: Identity) {
 export async function findOrCreateUser(id: Identity): Promise<User> {
   const existing = await findUserBy(id);
   if (existing) return existing;
-  const user: User = { id: crypto.randomUUID(), email: id.kind === "email" ? id.value : null, phone: id.kind === "phone" ? id.value : null };
-  await run("INSERT INTO users (id, email, phone, created_at) VALUES (?, ?, ?, ?)", [user.id, user.email, user.phone, now()]);
+  const user: User = { id: crypto.randomUUID(), email: id.value, phone: null };
+  await run("INSERT INTO users (id, email, phone, created_at) VALUES (?, ?, ?, ?)", [user.id, user.email, null, now()]);
   return user;
 }
 
@@ -119,9 +98,7 @@ export async function sendCode(id: Identity, purpose: CodePurpose = "login", use
   if (purpose === "link") {
     const owner = await findUserBy(id);
     if (owner && owner.id !== userId) {
-      return { ok: false, status: 409, error: id.kind === "phone"
-        ? "This number is already linked to another SahiKaam account. Sign in with it, or contact Help."
-        : "This email is already linked to another SahiKaam account. Sign in with it, or contact Help." };
+      return { ok: false, status: 409, error: "This email is already linked to another SahiKaam account. Sign in with it, or contact Help." };
     }
   }
   const key = codeKey(id, purpose, userId);
@@ -131,15 +108,9 @@ export async function sendCode(id: Identity, purpose: CodePurpose = "login", use
   if (inWindow && Number(existing.sent_count) >= MAX_CODES_PER_HOUR) {
     return { ok: false, status: 429, error: "Too many codes requested. Please try again in an hour." };
   }
-  const devMode = !isProduction && (id.kind === "email" ? !isEmailConfigured : !isSmsConfigured);
-  if (id.kind === "phone" && !isSmsConfigured && !devMode) {
-    return { ok: false, status: 503, error: "Mobile sign-in is not available right now. Please use your email." };
-  }
-  if (id.kind === "email" && !isEmailConfigured && !devMode) {
-    return { ok: false, status: 503, error: "Email sign-in is not available right now. Please try again soon." };
-  }
-  if (id.kind === "phone" && !devMode && !(await allow(`sms-ip:${clientIp()}`, MAX_SMS_PER_IP_HOUR))) {
-    return { ok: false, status: 429, error: "Too many codes requested. Please try again in an hour." };
+  const devMode = !isProduction && !isEmailConfigured;
+  if (!isEmailConfigured && !devMode) {
+    return { ok: false, status: 503, error: "Email is not available right now. Please try again soon." };
   }
 
   const code = String(crypto.randomInt(100000, 1000000));
@@ -155,15 +126,14 @@ export async function sendCode(id: Identity, purpose: CodePurpose = "login", use
     return { ok: true, devCode: code };
   }
   try {
-    if (id.kind === "phone") await sendSmsCode(id.value, code);
-    else await sendMail(
+    await sendMail(
       id.value,
       `SahiKaam code: ${code}`,
       `<div style="font-family:sans-serif;font-size:16px"><h2>Your SahiKaam code</h2><p><b style="font-size:24px;letter-spacing:4px">${code}</b></p><p>This code works for ${CODE_MINUTES} minutes. If you did not ask for it, ignore this email.</p></div>`,
       `Your SahiKaam code: ${code}\nThis code works for ${CODE_MINUTES} minutes.`);
   } catch (e) {
-    console.error("sendCode", id.kind, e);
-    return { ok: false, status: 502, error: id.kind === "phone" ? `${phoneChannel} message could not be sent. Please try again or use your email.` : "Email could not be sent. Please try again soon." };
+    console.error("sendCode", e);
+    return { ok: false, status: 502, error: "Email could not be sent. Please try again soon." };
   }
   return { ok: true };
 }
@@ -222,8 +192,8 @@ export async function registerWithPassword(id: Identity, password: string): Prom
       ? "An account with this already exists. Please sign in."
       : "An account with this already exists (for example from a guest purchase). Tap Forgot password to set a password and get in." };
   }
-  const user: User = { id: crypto.randomUUID(), email: id.kind === "email" ? id.value : null, phone: id.kind === "phone" ? id.value : null };
-  await run("INSERT INTO users (id, email, phone, created_at, password_hash) VALUES (?, ?, ?, ?, ?)", [user.id, user.email, user.phone, now(), hashPassword(password)]);
+  const user: User = { id: crypto.randomUUID(), email: id.value, phone: null };
+  await run("INSERT INTO users (id, email, phone, created_at, password_hash) VALUES (?, ?, ?, ?, ?)", [user.id, user.email, null, now(), hashPassword(password)]);
   await startSession(user.id);
   return { ok: true };
 }
@@ -258,10 +228,10 @@ export async function linkIdentity(user: User, id: Identity, code: string): Prom
   if (!(await checkCode(id, code, "link", user.id))) return { ok: false, error: "That code is wrong or has expired." };
   const owner = await findUserBy(id);
   if (owner && owner.id !== user.id) return { ok: false, error: "This is already linked to another account. Contact Help." };
-  const old = id.kind === "email" ? user.email : user.phone;
-  await run(`UPDATE users SET ${id.kind === "email" ? "email" : "phone"} = ? WHERE id = ?`, [id.value, user.id]);
+  const old = user.email;
+  await run("UPDATE users SET email = ? WHERE id = ?", [id.value, user.id]);
   // Tell the old email address, so a stolen session cannot quietly take over the account.
-  if (id.kind === "email" && old && old !== id.value && isEmailConfigured) {
+  if (old && old !== id.value && isEmailConfigured) {
     sendMail(old, "Your SahiKaam email was changed",
       `<p>The email on your SahiKaam account was changed to <b>${maskEmail(id.value)}</b>. If this was not you, reply to this email right away.</p>`,
       `The email on your SahiKaam account was changed to ${maskEmail(id.value)}. If this was not you, reply to this email right away.`).catch(() => {});

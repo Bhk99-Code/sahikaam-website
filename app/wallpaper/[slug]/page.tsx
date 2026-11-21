@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PHONE_LOGIN } from "@/lib/features";
+
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProduct } from "@/lib/data";
@@ -91,7 +91,7 @@ export default async function WallpaperPage({ params }: { params: { slug: string
         <div className="mt-3 grid gap-2 text-[14px]">
           {([
             ["How do I get the file?", "Right after you pay, a Download button opens on screen. The same link is emailed to you, so you can download again later."],
-            ["Do I need to sign up?", PHONE_LOGIN ? "No. Just your email or WhatsApp number at checkout." : "No. Just your email address at checkout."],
+            ["Do I need to sign up?", "No. Just your email address at checkout."],
             ["What if the download does not start?", "Tap the button again, or write to us from the Help page — we will send it to you."],
           ] as const).map(([q, a]) => (
             <details key={q} className="card p-4"><summary className="cursor-pointer font-semibold text-cream">{q}</summary><p className="mt-2 text-fog">{a}</p></details>

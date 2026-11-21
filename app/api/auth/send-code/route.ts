@@ -1,6 +1,5 @@
 import { CONTACT_ERROR } from "@/lib/features";
 import { NextResponse } from "next/server";
-import { phoneChannel } from "@/lib/env";
 import { parseIdentity, sendCode } from "@/lib/auth";
 
 export async function POST(req: Request) {
@@ -9,5 +8,5 @@ export async function POST(req: Request) {
   if (!id) return NextResponse.json({ error: CONTACT_ERROR }, { status: 400 });
   const r = await sendCode(id);
   if (!r.ok) return NextResponse.json({ error: r.error }, { status: r.status ?? 400 });
-  return NextResponse.json({ ok: true, devCode: r.devCode, channel: phoneChannel });
+  return NextResponse.json({ ok: true, devCode: r.devCode });
 }

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
-import { CONTACT_ERROR, CONTACT_LABEL, CONTACT_PLACEHOLDER, PHONE_LOGIN } from "@/lib/features";
+import { CONTACT_ERROR, CONTACT_LABEL, CONTACT_PLACEHOLDER } from "@/lib/features";
 import { Icon } from "@/components/Icon";
 import { rupees } from "@/lib/format";
 
@@ -26,7 +26,7 @@ export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const amount = applied ? applied.amount : price;
-  const contactLooksValid = contact.includes("@") ? /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(contact.trim()) : PHONE_LOGIN && contact.replace(/\D/g, "").length >= 10;
+  const contactLooksValid = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(contact.trim());
 
   async function applyCoupon(c = code) {
     setCouponMsg("");
@@ -89,7 +89,7 @@ export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp
 
       <div className="card mt-4 p-4">
         <label htmlFor="guest-contact" className="flex items-center gap-2 text-[14px] font-semibold text-cream"><Icon name="user" size={18} /> {CONTACT_LABEL}</label>
-        <input id="guest-contact" type={PHONE_LOGIN ? "text" : "email"} autoComplete="email" value={contact} onChange={(e) => setContact(e.target.value)} placeholder={CONTACT_PLACEHOLDER}
+        <input id="guest-contact" type="email" autoComplete="email" value={contact} onChange={(e) => setContact(e.target.value)} placeholder={CONTACT_PLACEHOLDER}
           className="field mt-3 h-12 w-full" />
         <p className="mt-2 text-[12px] text-fog">{isDownload ? "Your download opens right after payment. We'll also send the link here." : "We'll send your library access link here right after payment."}</p>
       </div>

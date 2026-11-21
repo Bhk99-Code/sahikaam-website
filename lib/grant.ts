@@ -4,7 +4,7 @@ import { findProduct } from "./data";
 import { createMagicLink } from "./magicLink";
 import { sendMail } from "./mail";
 import { sendCode } from "./auth";
-import { isEmailConfigured, isSmsConfigured, isProduction, SITE_URL } from "./env";
+import { isEmailConfigured, isProduction, SITE_URL } from "./env";
 import { downloadToken } from "./downloadToken";
 
 /**
@@ -60,15 +60,8 @@ export async function sendAccessMessage(userId: string, orderId?: string) {
       `<div style="font-family:sans-serif;font-size:16px"><h2>Payment received 🎉</h2><p>Your book is ready. Tap below to open your library and set a password for next time:</p><p><a href="${link}" style="display:inline-block;background:#FF6A00;color:#fff;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:bold">Open my library</a></p><p>This link works for 7 days and signs you in automatically. After that, use Forgot password on the sign-in page.</p></div>`,
       `Payment received! Open your library: ${link}\nThis link works for 7 days.`
     );
-  } else if (user.phone && isSmsConfigured) {
-    // Reuses the Forgot-password code flow (lib/auth.ts resetPasswordWithCode): the buyer enters
-    // this code on /login → Forgot password and picks a password — no new channel needed.
-    await sendCode({ kind: "phone", value: user.phone });
   } else if (!isProduction) {
-    // Local preview with no SMTP/SMS configured: print the link instead of losing it silently,
-    // same convention as lib/auth.ts's sendCode devMode branch.
     if (user.email) console.log(`[local preview] magic link for ${user.email}: ${SITE_URL}/magic/${await createMagicLink(userId)}`);
-    else if (user.phone) console.log(`[local preview] would send a sign-in code to ${user.phone}, but SMS isn't configured locally`);
   }
 }
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { activeSessionCount, getUser, userHasPassword } from "@/lib/auth";
-import { isProduction, isSmsConfigured } from "@/lib/env";
+
 import { one } from "@/lib/db";
 import { Icon } from "@/components/Icon";
 import { ContactRow } from "./ContactRow";
@@ -17,7 +17,6 @@ export default async function AccountPage({ searchParams }: { searchParams: { we
   if (!user) redirect("/login?next=/account");
   const devices = await activeSessionCount(user.id);
   const hasPassword = await userHasPassword(user.id);
-  const phoneReady = isSmsConfigured || !isProduction;
   // Entirely optional — nothing here was ever required to buy a book (app/checkout/[slug]).
   const profile = await one<{ name: string | null; whatsapp: string | null; address: string | null; city: string | null; photo_url: string | null }>(
     "SELECT name, whatsapp, address, city, photo_url FROM users WHERE id = ?", [user.id]);
@@ -51,7 +50,7 @@ export default async function AccountPage({ searchParams }: { searchParams: { we
       <p className="mt-1 text-[14px] text-fog">Keep both a mobile number and an email here — if you lose one, you can still sign in with the other.</p>
       <section className="card mt-4 divide-y divide-ink/[0.07]">
         <ContactRow kind="email" value={user.email} />
-        {(phoneReady || user.phone) && <ContactRow kind="phone" value={user.phone} canChange={phoneReady} />}
+        {user.phone && <ContactRow kind="phone" value={user.phone} canChange={false} />}
       </section>
 
       <section className="card mt-6 p-5">

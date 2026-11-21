@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Icon } from "@/components/Icon";
-import { phoneChannel } from "@/lib/env";
+
 import { one } from "@/lib/db";
 import { findProduct } from "@/lib/data";
 import { validDownloadToken } from "@/lib/downloadToken";
@@ -13,7 +13,6 @@ export const metadata: Metadata = { title: "Payment received", robots: { index: 
  *  at once — no sign-in needed — using the order id + token the payment step handed over. */
 export default async function ThanksPage({ params, searchParams }: { params: { slug: string }; searchParams: { contact?: string; o?: string; t?: string } }) {
   const contact = searchParams.contact || "";
-  const isEmail = contact.includes("@");
   const product = findProduct(params.slug);
 
   let files: { title: string; href: string }[] = [];
@@ -46,14 +45,7 @@ export default async function ThanksPage({ params, searchParams }: { params: { s
         <Icon name="check" size={28} className="text-mint" />
       </div>
       <h1 className="mt-5 font-display text-[28px] font-extrabold text-cream">Payment received 🎉</h1>
-      {isEmail ? (
-        <p className="mt-3 text-fog">We&apos;ve emailed a one-tap link to <b className="text-cream">{contact}</b> — open it to go straight to your library, then set a password for next time.</p>
-      ) : (
-        <p className="mt-3 text-fog">We&apos;ve sent a 6-digit code to <b className="text-cream">{contact}</b> via {phoneChannel}. Enter it on the next screen and choose a password to open your library.</p>
-      )}
-      {!isEmail && (
-        <Link href={`/login?mode=reset&contact=${encodeURIComponent(contact)}`} className="btn-primary mt-6 inline-flex h-12 px-6">Enter code &amp; set password</Link>
-      )}
+      <p className="mt-3 text-fog">We&apos;ve emailed a one-tap link to <b className="text-cream">{contact}</b> — open it to go straight to your library, then set a password for next time.</p>
       <p className="mt-6 text-[13px] text-fog">Didn&apos;t get it? Check spam, or <Link href="/help#recover" className="font-semibold text-saffron-400">contact Help</Link>.</p>
     </div>
   );
