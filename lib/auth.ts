@@ -5,6 +5,7 @@ import { all, one, run } from "./db";
 import { sendMail } from "./mail";
 import { sendSmsCode } from "./sms";
 import { ADMIN_EMAILS, isEmailConfigured, isProduction, isSmsConfigured, phoneChannel } from "./env";
+import { PHONE_LOGIN } from "./features";
 import { hashPassword, passwordProblem, verifyPasswordHash } from "./password";
 
 export const SESSION_COOKIE = "sk_session";
@@ -48,6 +49,7 @@ export function normalizePhone(raw: unknown) {
 
 export function parseIdentity(body: { email?: unknown; phone?: unknown }): Identity | null {
   if (body.phone != null && body.phone !== "") {
+    if (!PHONE_LOGIN) return null; // mobile sign-in is switched off (lib/features.ts)
     const phone = normalizePhone(body.phone);
     return phone ? { kind: "phone", value: phone } : null;
   }
@@ -63,6 +65,7 @@ export function parseSingleBoxIdentity(raw: unknown): Identity | null {
     const email = normalizeEmail(s);
     return email ? { kind: "email", value: email } : null;
   }
+  if (!PHONE_LOGIN) return null; // mobile sign-in is switched off (lib/features.ts)
   const phone = normalizePhone(s);
   return phone ? { kind: "phone", value: phone } : null;
 }

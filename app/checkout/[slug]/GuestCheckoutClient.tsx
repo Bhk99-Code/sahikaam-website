@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
+import { CONTACT_ERROR, CONTACT_LABEL, CONTACT_PLACEHOLDER, PHONE_LOGIN } from "@/lib/features";
 import { Icon } from "@/components/Icon";
 import { rupees } from "@/lib/format";
 
@@ -25,7 +26,7 @@ export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const amount = applied ? applied.amount : price;
-  const contactLooksValid = contact.includes("@") ? /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(contact.trim()) : contact.replace(/\D/g, "").length >= 10;
+  const contactLooksValid = contact.includes("@") ? /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(contact.trim()) : PHONE_LOGIN && contact.replace(/\D/g, "").length >= 10;
 
   async function applyCoupon(c = code) {
     setCouponMsg("");
@@ -43,7 +44,7 @@ export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp
   }, []);
 
   async function pay() {
-    if (!contactLooksValid) { setError("Please enter a valid email or WhatsApp number."); return; }
+    if (!contactLooksValid) { setError(CONTACT_ERROR); return; }
     setBusy(true);
     setError("");
     try {
@@ -87,8 +88,8 @@ export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
 
       <div className="card mt-4 p-4">
-        <label htmlFor="guest-contact" className="flex items-center gap-2 text-[14px] font-semibold text-cream"><Icon name="user" size={18} /> Email or WhatsApp number</label>
-        <input id="guest-contact" value={contact} onChange={(e) => setContact(e.target.value)} placeholder="you@example.com or 98765 43210"
+        <label htmlFor="guest-contact" className="flex items-center gap-2 text-[14px] font-semibold text-cream"><Icon name="user" size={18} /> {CONTACT_LABEL}</label>
+        <input id="guest-contact" type={PHONE_LOGIN ? "text" : "email"} autoComplete="email" value={contact} onChange={(e) => setContact(e.target.value)} placeholder={CONTACT_PLACEHOLDER}
           className="field mt-3 h-12 w-full" />
         <p className="mt-2 text-[12px] text-fog">{isDownload ? "Your download opens right after payment. We'll also send the link here." : "We'll send your library access link here right after payment."}</p>
       </div>

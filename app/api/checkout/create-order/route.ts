@@ -1,3 +1,4 @@
+import { CONTACT_ERROR } from "@/lib/features";
 import crypto from "crypto";
 import { NextResponse } from "next/server";
 import { getProduct, getUser, ownsProduct } from "@/lib/data";
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
     // app/checkout/[slug]/GuestCheckoutClient.tsx. The buyer gets a one-tap magic link after
     // payment (lib/grant.ts) instead of verifying a code up front.
     const identity = parseSingleBoxIdentity(guestContact);
-    if (!identity) return NextResponse.json({ error: "Please enter a valid email or WhatsApp number." }, { status: 400 });
+    if (!identity) return NextResponse.json({ error: CONTACT_ERROR }, { status: 400 });
     user = await findOrCreateUser(identity);
   }
   // A signed-in checkout no longer collects name/WhatsApp/address/city here — that info now

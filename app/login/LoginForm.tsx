@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/Icon";
+import { CONTACT_LABEL, CONTACT_PLACEHOLDER, PHONE_LOGIN } from "@/lib/features";
 
 type Mode = "signin" | "signup" | "reset";
 
@@ -67,11 +68,11 @@ export function LoginForm({ next, initialMode, initialContact }: { next: string;
       )}
       {mode === "reset" && <h2 className="mb-4 font-display text-[20px] font-bold text-cream">{title}</h2>}
       <form onSubmit={submit}>
-        <label htmlFor="lf-id" className="text-[14px] font-semibold text-cream">Email or mobile number</label>
+        <label htmlFor="lf-id" className="text-[14px] font-semibold text-cream">{CONTACT_LABEL}</label>
         <div className="field mt-2 flex items-center gap-2 focus-within:border-saffron-500">
-          <Icon name={identifier.includes("@") || !identifier ? "mail" : "phone"} size={18} className="text-fog" />
-          <input id="lf-id" required autoComplete="username" value={identifier} onChange={(e) => setIdentifier(e.target.value)} disabled={mode === "reset" && codeSent}
-            placeholder="you@example.com or 98765 43210" className="min-w-0 flex-1 bg-transparent outline-none" />
+          <Icon name={!PHONE_LOGIN || identifier.includes("@") || !identifier ? "mail" : "phone"} size={18} className="text-fog" />
+          <input id="lf-id" required type={PHONE_LOGIN ? "text" : "email"} autoComplete="username" value={identifier} onChange={(e) => setIdentifier(e.target.value)} disabled={mode === "reset" && codeSent}
+            placeholder={CONTACT_PLACEHOLDER} className="min-w-0 flex-1 bg-transparent outline-none" />
         </div>
 
         {mode === "reset" && codeSent && (
