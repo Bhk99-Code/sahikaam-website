@@ -4,6 +4,7 @@ import Script from "next/script";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/Icon";
 import { rupees } from "@/lib/format";
+import { addPaymentInfo, purchase } from "@/lib/pixel";
 
 declare global {
   interface Window { Razorpay?: any }
@@ -66,13 +67,14 @@ export function CheckoutClient({ slug, title, price, email, phone, ready, keyId,
         handler: async (resp: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
           const v = await fetch("/api/checkout/verify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(resp) });
           const done = await v.json().catch(() => ({}));
-          if (v.ok) { router.replace(isDownload ? `/checkout/${slug}/thanks?o=${done.orderId}&t=${done.token}` : `/library?new=${slug}`); router.refresh(); }
+          if (v.ok) { purchase(slug, title, amount, done.orderId ?? resp.razorpay_order_id); router.replace(isDownload ? `/checkout/${slug}/thanks?o=${done.orderId}&t=${done.token}` : `/library?new=${slug}`); router.refresh(); }
           else setError("We received your payment but could not confirm it yet. Don't worry — the book will appear in your library within a few minutes. If not, contact Help.");
           setBusy(false);
         },
         modal: { ondismiss: () => setBusy(false) },
       });
       rzp.on("payment.failed", (r: any) => { setError(r?.error?.description || "The payment failed. Please try again."); setBusy(false); });
+      addPaymentInfo(slug, title, amount);
       rzp.open();
     } catch (e: any) {
       setError(e.message);

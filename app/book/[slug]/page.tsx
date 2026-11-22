@@ -11,6 +11,7 @@ import type { Product } from "@/lib/types";
 import { JsonLd } from "@/components/JsonLd";
 import { SITE_URL } from "@/lib/env";
 import { categoryMap, visibleCategories } from "@/lib/categories";
+import { PixelViewContent, AddToCartLink } from "@/components/PixelEvents";
 
 export const dynamic = "force-dynamic";
 
@@ -75,6 +76,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
   return (
     <div className="pb-32 md:pb-10">
       <JsonLd data={productLd(product)} />
+      <PixelViewContent slug={product.slug} name={product.title} price={product.price} />
       {/* Top: cover + buy box */}
       <section className="relative overflow-hidden border-b border-ink/[0.07]">
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 left-1/2 h-[480px] w-[760px] -translate-x-1/2 rounded-full opacity-25 blur-[120px]" style={{ background: product.accent }} />
@@ -112,7 +114,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
                 <div className="card mt-2 flex flex-col gap-4 p-5 sm:flex-row sm:items-center">
                   <Price product={product} off={off} />
                   <div className="hidden flex-1 sm:block" />
-                  <BuyButton owned={owned} slug={product.slug} openHref={openHref} />
+                  <BuyButton owned={owned} slug={product.slug} title={product.title} price={product.price} openHref={openHref} />
                 </div>
               )}
               <p className="flex items-center gap-2 text-[13px] text-fog">
@@ -291,7 +293,7 @@ export default async function BookPage({ params }: { params: { slug: string } })
         ) : (
           <>
             <div className="min-w-0 flex-1"><Price product={product} off={off} compact /></div>
-            <BuyButton owned={owned} slug={product.slug} openHref={openHref} />
+            <BuyButton owned={owned} slug={product.slug} title={product.title} price={product.price} openHref={openHref} />
           </>
         )}
       </div>
@@ -330,7 +332,7 @@ function PlanPicker({ plans, current }: { plans: Product[]; current: string }) {
                 {p.mrp && p.mrp > p.price && <span className="text-[14px] text-fog-2 line-through">{rupees(p.mrp)}</span>}
               </div>
               {perMonth(p) > 0 && <span className="text-[13px] text-fog">≈ {rupees(perMonth(p))} / month · inclusive of all taxes</span>}
-              <Link href={`/checkout/${p.slug}`} className={`${isBest ? "btn-primary shadow-glow" : "btn-ghost"} mt-auto h-12 w-full text-[15px]`}>Buy {accessLabel(p.access_days).replace(" access", "")}</Link>
+              <AddToCartLink slug={p.slug} name={p.title} price={p.price} href={`/checkout/${p.slug}`} className={`${isBest ? "btn-primary shadow-glow" : "btn-ghost"} mt-auto h-12 w-full text-[15px]`}>Buy {accessLabel(p.access_days).replace(" access", "")}</AddToCartLink>
             </div>
           </div>
         );
@@ -339,7 +341,7 @@ function PlanPicker({ plans, current }: { plans: Product[]; current: string }) {
   );
 }
 
-function BuyButton({ owned, slug, openHref }: { owned: boolean; slug: string; openHref: string }) {
+function BuyButton({ owned, slug, title, price, openHref }: { owned: boolean; slug: string; title: string; price: number; openHref: string }) {
   if (owned) return <Link href={openHref} className="btn h-12 shrink-0 whitespace-nowrap bg-cream px-5 text-[15px] text-night hover:bg-fog sm:h-14 sm:px-7 sm:text-[16px]">Start reading</Link>;
-  return <Link href={`/checkout/${slug}`} className="btn-primary h-12 shrink-0 whitespace-nowrap px-6 text-[15px] shadow-glow sm:h-14 sm:px-9 sm:text-[16px]">Buy now</Link>;
+  return <AddToCartLink slug={slug} name={title} price={price} href={`/checkout/${slug}`} className="btn-primary h-12 shrink-0 whitespace-nowrap px-6 text-[15px] shadow-glow sm:h-14 sm:px-9 sm:text-[16px]">Buy now</AddToCartLink>;
 }

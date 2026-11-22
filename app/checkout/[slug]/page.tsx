@@ -9,6 +9,7 @@ import { GuestCheckoutClient } from "./GuestCheckoutClient";
 import { accessLabel, rupees, TYPE_LABEL } from "@/lib/format";
 import { isRazorpayConfigured, SUPPORT_WHATSAPP } from "@/lib/env";
 import { featuredCoupon } from "@/lib/pricing";
+import { PixelInitiateCheckout } from "@/components/PixelEvents";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Checkout", robots: { index: false } };
@@ -32,6 +33,7 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
           <Icon name="back" size={18} /> Back
         </Link>
         <h1 className="mt-4 font-display text-[32px] font-extrabold tracking-tight text-cream">Checkout</h1>
+        <PixelInitiateCheckout slug={product.slug} name={product.title} price={product.price} />
         <div className="card mt-6 flex items-center gap-4 p-4">
           <BookCover product={product} size="sm" covers={product.type === "bundle" ? bundleCovers(product) : []} />
           <div className="flex flex-1 flex-col gap-1">
@@ -66,6 +68,7 @@ export default async function CheckoutPage({ params }: { params: { slug: string 
         <Icon name="back" size={18} /> Back
       </Link>
       <h1 className="mt-4 font-display text-[32px] font-extrabold tracking-tight text-cream">Checkout</h1>
+      <PixelInitiateCheckout slug={product.slug} name={product.title} price={product.price} />
       <div className="card mt-6 flex items-center gap-4 p-4">
         <BookCover product={product} size="sm" covers={product.type === "bundle" ? bundleCovers(product) : []} />
         <div className="flex flex-1 flex-col gap-1">

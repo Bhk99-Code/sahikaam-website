@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CONTACT_ERROR, CONTACT_LABEL, CONTACT_PLACEHOLDER } from "@/lib/features";
 import { Icon } from "@/components/Icon";
 import { rupees } from "@/lib/format";
+import { addPaymentInfo, purchase } from "@/lib/pixel";
 
 declare global {
   interface Window { Razorpay?: any }
@@ -70,12 +71,13 @@ export function GuestCheckoutClient({ slug, title, price, ready, keyId, whatsapp
           const v = await fetch("/api/checkout/verify-guest", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(resp) });
           const done = await v.json().catch(() => ({}));
           setBusy(false);
-          if (v.ok) setError("");
+          if (v.ok) { setError(""); purchase(slug, title, amount, done.orderId ?? resp.razorpay_order_id); }
           router.replace(`/checkout/${slug}/thanks?contact=${encodeURIComponent(contact.trim())}&o=${done.orderId ?? ""}&t=${done.token ?? ""}`);
         },
         modal: { ondismiss: () => setBusy(false) },
       });
       rzp.on("payment.failed", (r: any) => { setError(r?.error?.description || "The payment failed. Please try again."); setBusy(false); });
+      addPaymentInfo(slug, title, amount);
       rzp.open();
     } catch (e: any) {
       setError(e.message);

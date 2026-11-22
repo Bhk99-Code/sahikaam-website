@@ -6,6 +6,7 @@ import { getProduct } from "@/lib/data";
 import { Icon } from "@/components/Icon";
 import { percentOff, rupees } from "@/lib/format";
 import { SITE_URL } from "@/lib/env";
+import { PixelViewContent } from "@/components/PixelEvents";
 
 export const dynamic = "force-dynamic";
 
@@ -39,6 +40,7 @@ export default async function WallpaperPage({ params }: { params: { slug: string
 
   return (
     <div className="relative overflow-x-clip pb-28 md:pb-16">
+      <PixelViewContent slug={p.slug} name={p.title} price={p.price} />
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(60%_60%_at_75%_15%,rgba(255,106,61,0.18),transparent_70%)]" />
       <section className="container-x relative grid items-center gap-8 pt-6 md:grid-cols-2 md:gap-12 md:pt-14">
         <div className="order-2 flex min-w-0 flex-col items-start gap-5 md:order-1">
