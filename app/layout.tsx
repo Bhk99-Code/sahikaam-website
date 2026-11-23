@@ -89,6 +89,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <noscript><img height="1" width="1" style={{display:"none"}} src={`https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1`} alt="" /></noscript>
           </>
         )}
+        <Script id="ms-clarity" strategy="afterInteractive">{`
+          (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", "zi0ncmvveb");
+        `}</Script>
         {!landing && <OfferBar />}
         <Header signedIn={Boolean(user)} isAdmin={isAdmin} compact={landing} />
         <main className="min-h-[60vh]">{children}</main>
